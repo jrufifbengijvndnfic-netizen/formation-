@@ -31,7 +31,7 @@ fiabilité technique — jamais sur le fond.
 | 3. Pages, navigation, composants | ✅ terminée — 78 pages |
 | 4. Quiz, progression, glossaire, recherche, lettres, checklists, frise | ✅ terminée |
 | 5. Direction artistique, accessibilité, performance | ✅ terminée — axe : 0 violation |
-| Vérifications étendues (WebKit, clavier, mobiles, Lighthouse partout) | ✅ faites — dernier passage Lighthouse à relancer (§5) |
+| Vérifications étendues (WebKit, clavier, mobiles, Lighthouse partout) | ✅ faites — voir §5 |
 | Cahier des charges SEO | ✅ appliqué — écarts assumés au §3 |
 
 Critères d'acceptation (section 11 du brief) : tous vérifiés automatiquement, voir §5.
@@ -155,11 +155,9 @@ Résultats au 24 septembre 2026 :
   défilement horizontal de 4 simulateurs sur mobile, corrigé.
 - **Firefox et WebKit via Playwright** : non lancés, le téléchargement de ces navigateurs est
   bloqué dans l'environnement de travail. À faire sur une autre machine (§7).
-- **Lighthouse mobile, 76 pages** (avant les changements SEO, serveur sans compression) :
-  accessibilité, bonnes pratiques et référencement 100 partout ; performance 93 à 99. Les pages
-  sous 95 l'étaient faute de compression gzip sur le serveur de test ; avec compression : 98 à 100.
-  Après les changements SEO, seules 7 pages ont été remesurées (99 à 100 partout) : **le passage
-  complet reste à relancer** (`npm run lighthouse`, puis `-- --desktop`).
+- **Lighthouse, 77 pages** (serveur de test compressé comme un vrai hébergeur) :
+  - mobile : performance 99 à 100 (moyenne 100) ; accessibilité, bonnes pratiques et référencement 100 ;
+  - ordinateur : 100 dans les quatre catégories, sur toutes les pages.
 
 ---
 
