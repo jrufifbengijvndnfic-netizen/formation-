@@ -2,25 +2,26 @@
 import FilAriane from '../../components/FilAriane.astro';
 import Base from '../../layouts/Base.astro';
 import { lien } from '../../lib/navigation';
+import { referencementSimulateur } from '../../lib/referencement-simulateurs';
 import { SIMULATEURS } from '../../lib/simulateurs';
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs' }];
 ---
 
 <Base
   filAriane={filAriane}
-  titre="Simulateurs"
-  description={`${SIMULATEURS.length} simulateurs issus de l'annexe E : rentabilité, crédit, capacité d'emprunt, révision de loyer, fiscalité, plus-value, IFI, TRI, donation…`}
+  titre={`Simulateurs immobiliers gratuits : ${SIMULATEURS.length} calculateurs pour investisseurs et bailleurs`}
+  description={`Rentabilité locative, prêt, capacité d'emprunt, frais de notaire, révision de loyer, LMNP, plus-value, IFI : ${SIMULATEURS.length} simulateurs gratuits, sans inscription.`}
   niveau="annexes"
   actif="simulateurs"
 >
   <div class="bandeau">
     <div class="conteneur">
       <FilAriane etapes={filAriane} />
-      <p class="bandeau__sur">Annexe E en pratique</p>
-      <h1>Simulateurs</h1>
+      <p class="bandeau__sur">Gratuits, sans inscription</p>
+      <h1>Simulateurs immobiliers gratuits</h1>
       <p>
         Chaque simulateur reprend une formule de l'annexe E, détaille les étapes du calcul et s'ouvre sur un exemple de
-        la formation. Rien n'est envoyé : les calculs se font dans votre navigateur.
+        la formation. Gratuits et sans inscription ; rien n'est envoyé : les calculs se font dans votre navigateur.
       </p>
     </div>
   </div>
@@ -33,7 +34,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs
           </span>
           <div>
             <h2 class="registre__titre">
-              <a href={lien(`simulateurs/${s.id}/`)}>{s.titre}</a>
+              <a href={lien(`simulateurs/${s.id}/`)}>{referencementSimulateur(s).h1}</a>
             </h2>
             <p class="registre__resume">{s.resume}</p>
             <p class="registre__meta">

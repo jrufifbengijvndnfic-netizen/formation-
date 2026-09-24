@@ -5,6 +5,8 @@ import Simulateur from '../../components/Simulateur.astro';
 import Base from '../../layouts/Base.astro';
 import { irlPublies, moduleParNumero } from '../../lib/donnees';
 import { cheminModule, lien } from '../../lib/navigation';
+import { referencementSimulateur, simulateurJsonLd } from '../../lib/referencement-simulateurs';
+import { SITE_PAR_DEFAUT } from '../../lib/seo';
 import { SIMULATEURS, type Simulateur as TSimulateur } from '../../lib/simulateurs';
 
 export function getStaticPaths() {
@@ -19,6 +21,8 @@ const suggestions: Record<string, typeof irlPublies> =
 const i = SIMULATEURS.indexOf(sim);
 const precedent = SIMULATEURS[i - 1];
 const suivant = SIMULATEURS[i + 1];
+const seo = referencementSimulateur(sim);
+const donnees = simulateurJsonLd(sim, Astro.url.pathname, Astro.site ?? SITE_PAR_DEFAUT);
 const filAriane = [
   { libelle: 'Accueil', href: lien() },
   { libelle: 'Simulateurs', href: lien('simulateurs/') },
@@ -28,8 +32,9 @@ const filAriane = [
 
 <Base
   filAriane={filAriane}
-  titre={`Simulateur : ${sim.titre}`}
-  description={sim.resume}
+  titre={seo.titre}
+  description={seo.description}
+  donneesStructurees={donnees}
   niveau="annexes"
   actif="simulateurs"
 >
@@ -37,8 +42,8 @@ const filAriane = [
     <div class="bandeau">
       <div class="conteneur">
         <FilAriane etapes={filAriane} />
-        <p class="bandeau__sur">Simulateur · formule {sim.formule.toUpperCase()} de l'annexe E</p>
-        <h1>{sim.titre}</h1>
+        <p class="bandeau__sur">Simulateur gratuit · formule {sim.formule.toUpperCase()} de l'annexe E</p>
+        <h1>{seo.h1}</h1>
         <p>{sim.resume}</p>
         <p class="bandeau__meta" data-pagefind-ignore>
           <span>
