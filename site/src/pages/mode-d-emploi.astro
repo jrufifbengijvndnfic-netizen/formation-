@@ -7,7 +7,13 @@ import { lien } from '../lib/navigation';
 
 const sections = partieModeEmploi.elements;
 ---
-<Base titre="Mode d'emploi de la formation" description="À quoi sert la formation, son organisation en trois niveaux, les conventions, l'avertissement et les 20 nouveautés 2025-2026 à connaître." niveau="0" actif="mode-d-emploi">
+
+<Base
+  titre="Mode d'emploi de la formation"
+  description="À quoi sert la formation, son organisation en trois niveaux, les conventions, l'avertissement et les 20 nouveautés 2025-2026 à connaître."
+  niveau="0"
+  actif="mode-d-emploi"
+>
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
@@ -21,21 +27,23 @@ const sections = partieModeEmploi.elements;
         <div class="sommaire__corps">
           <h2>Sections</h2>
           <ol>
-            {sections.map((s) => <li><a href={`#${s.id}`}>{s.titre}</a></li>)}
+            {sections.map((s) => (
+              <li>
+                <a href={`#${s.id}`}>{s.titre}</a>
+              </li>
+            ))}
           </ol>
         </div>
       </nav>
       <div class="prose">
-        {
-          sections.map((s) => (
-            <section class="rubrique" id={s.id} aria-labelledby={`${s.id}-titre`}>
-              <h2 id={`${s.id}-titre`}>
-                <span class="parcelle">{s.numero}</span> {s.titreCourt}
-              </h2>
-              <ContenuElement element={s} />
-            </section>
-          ))
-        }
+        {sections.map((s) => (
+          <section class="rubrique" id={s.id} aria-labelledby={`${s.id}-titre`}>
+            <h2 id={`${s.id}-titre`}>
+              <span class="parcelle">{s.numero}</span> {s.titreCourt}
+            </h2>
+            <ContenuElement element={s} />
+          </section>
+        ))}
       </div>
     </div>
   </div>

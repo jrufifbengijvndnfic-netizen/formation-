@@ -9,23 +9,26 @@ interface Props {
 const { checklist } = Astro.props;
 const ctx = nouveauContexte({ modulesExistants });
 ---
+
 <div class="checklist-bloc" data-checklist={checklist.id} data-total={checklist.items.length}>
   <p class="checklist-etat" data-checklist-etat aria-live="polite" data-pagefind-ignore></p>
   <ol class="checklist">
-    {
-      checklist.items.map((item, i) => (
-        <li>
-          <label>
-            <input type="checkbox" data-index={i} />
-            <span set:html={rendreEnLigne(item, ctx)} />
-          </label>
-        </li>
-      ))
-    }
+    {checklist.items.map((item, i) => (
+      <li>
+        <label>
+          <input type="checkbox" data-index={i} />
+          <span set:html={rendreEnLigne(item, ctx)} />
+        </label>
+      </li>
+    ))}
   </ol>
   <div class="groupe-boutons no-print" data-pagefind-ignore>
-    <button type="button" class="bouton bouton--discret" data-checklist-raz>Tout décocher</button>
-    <button type="button" class="bouton bouton--discret" data-imprimer>Imprimer</button>
+    <button type="button" class="bouton bouton--discret" data-checklist-raz>
+      Tout décocher
+    </button>
+    <button type="button" class="bouton bouton--discret" data-imprimer>
+      Imprimer
+    </button>
   </div>
 </div>
 

@@ -8,61 +8,92 @@ import { lien, lienElement } from '../lib/navigation';
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const presentes = new Set(termesParLettre.map(([l]) => l));
 ---
-<Base titre="Glossaire de A à Z" description={`Les ${termes.length} termes de l'immobilier locatif (annexe C) : définitions, filtre instantané et renvois vers les modules.`} niveau="annexes" actif="glossaire">
+
+<Base
+  titre="Glossaire de A à Z"
+  description={`Les ${termes.length} termes de l'immobilier locatif (annexe C) : définitions, filtre instantané et renvois vers les modules.`}
+  niveau="annexes"
+  actif="glossaire"
+>
   <div class="bandeau">
     <div class="conteneur">
-      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Annexes', href: lien('annexes/') }, { libelle: 'Glossaire' }]} />
+      <FilAriane
+        etapes={[
+          { libelle: 'Accueil', href: lien() },
+          { libelle: 'Annexes', href: lien('annexes/') },
+          { libelle: 'Glossaire' },
+        ]}
+      />
       <p class="bandeau__sur">Annexe C</p>
       <h1>Glossaire de A à Z</h1>
-      <p>{termes.length} termes. Dans les modules, la première occurrence de chaque terme affiche sa définition au survol, au clavier ou au toucher.</p>
+      <p>
+        {termes.length} termes. Dans les modules, la première occurrence de chaque terme affiche sa définition au
+        survol, au clavier ou au toucher.
+      </p>
     </div>
   </div>
   <div class="conteneur prose" data-pagefind-body>
     <nav aria-label="Index alphabétique" data-pagefind-ignore>
       <ul class="index-lettres">
-        {ALPHABET.map((l) => <li>{presentes.has(l) ? <a href={`#lettre-${l.toLowerCase()}`}>{l}</a> : <span aria-hidden="true">{l}</span>}</li>)}
+        {ALPHABET.map((l) => (
+          <li>
+            {presentes.has(l) ? <a href={`#lettre-${l.toLowerCase()}`}>{l}</a> : <span aria-hidden="true">{l}</span>}
+          </li>
+        ))}
       </ul>
     </nav>
     <div class="filtre" data-pagefind-ignore>
       <div class="champ" style="flex:1;min-width:14rem">
         <label for="filtre-glossaire">Filtrer les termes</label>
-        <input type="text" id="filtre-glossaire" autocomplete="off" spellcheck="false" aria-describedby="filtre-etat" disabled />
+        <input
+          type="text"
+          id="filtre-glossaire"
+          autocomplete="off"
+          spellcheck="false"
+          aria-describedby="filtre-etat"
+          disabled
+        />
       </div>
-      <p id="filtre-etat" class="checklist-etat" aria-live="polite">{termes.length} termes</p>
+      <p id="filtre-etat" class="checklist-etat" aria-live="polite">
+        {termes.length} termes
+      </p>
     </div>
-    {
-      termesParLettre.map(([lettre, liste]) => (
-        <section class="glossaire-lettre" id={`lettre-${lettre.toLowerCase()}`} aria-labelledby={`lettre-${lettre.toLowerCase()}-titre`} data-lettre-glossaire>
-          <h2 id={`lettre-${lettre.toLowerCase()}-titre`}>{lettre}</h2>
-          <dl class="definitions">
-            {liste.map((t) => {
-              const mods = modulesParTerme.get(t.id) ?? [];
-              return (
-                <div id={t.id} data-terme-glossaire>
-                  <dt>{t.terme}</dt>
-                  <dd>
-                    {espacesInsecables(t.definition)}
-                    {mods.length > 0 && (
-                      <p class="employe" data-pagefind-ignore>
-                        Employé dans :{' '}
-                        {mods.map((m, i) => (
-                          <>
-                            {i > 0 && ', '}
-                            <a href={lienElement(m)} title={m.titreCourt}>
-                              module {m.numero}
-                            </a>
-                          </>
-                        ))}
-                      </p>
-                    )}
-                  </dd>
-                </div>
-              );
-            })}
-          </dl>
-        </section>
-      ))
-    }
+    {termesParLettre.map(([lettre, liste]) => (
+      <section
+        class="glossaire-lettre"
+        id={`lettre-${lettre.toLowerCase()}`}
+        aria-labelledby={`lettre-${lettre.toLowerCase()}-titre`}
+        data-lettre-glossaire
+      >
+        <h2 id={`lettre-${lettre.toLowerCase()}-titre`}>{lettre}</h2>
+        <dl class="definitions">
+          {liste.map((t) => {
+            const mods = modulesParTerme.get(t.id) ?? [];
+            return (
+              <div id={t.id} data-terme-glossaire>
+                <dt>{t.terme}</dt>
+                <dd>
+                  {espacesInsecables(t.definition)}
+                  {mods.length > 0 && (
+                    <p class="employe" data-pagefind-ignore>
+                      Employé dans :{' '}
+                      {mods.map((m, i) => (
+                        <>
+                          {i > 0 && ', '}
+                          <a href={lienElement(m)} title={m.titreCourt}>
+                            module {m.numero}
+                          </a>
+                        </>
+                      ))}
+                    </p>
+                  )}
+                </dd>
+              </div>
+            );
+          })}
+        </dl>
+      </section>
+    ))}
   </div>
 </Base>
 
@@ -87,8 +118,11 @@ const presentes = new Set(termesParLettre.map(([l]) => l));
         e.el.hidden = !visible;
         if (visible) n++;
       }
-      sections.forEach((s) => (s.hidden = ![...s.querySelectorAll<HTMLElement>('[data-terme-glossaire]')].some((x) => !x.hidden)));
-      if (etat) etat.textContent = q ? `${n} terme${n > 1 ? 's' : ''} sur ${entrees.length}` : `${entrees.length} termes`;
+      sections.forEach(
+        (s) => (s.hidden = ![...s.querySelectorAll<HTMLElement>('[data-terme-glossaire]')].some((x) => !x.hidden)),
+      );
+      if (etat)
+        etat.textContent = q ? `${n} terme${n > 1 ? 's' : ''} sur ${entrees.length}` : `${entrees.length} termes`;
     };
     champ.addEventListener('input', filtrer);
     const q = new URLSearchParams(window.location.search).get('filtre');

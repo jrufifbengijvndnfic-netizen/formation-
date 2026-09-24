@@ -258,7 +258,10 @@ describe('résultats détaillés des simulateurs', () => {
     ok(c.coutAssurance, 5_500);
     const tableau = tableauAmortissement(110_000, 0.0335, 20, 0.0025);
     expect(tableau).toHaveLength(20);
-    ok(tableau.reduce((s, a) => s + a.capitalRembourse, 0), 110_000);
+    ok(
+      tableau.reduce((s, a) => s + a.capitalRembourse, 0),
+      110_000,
+    );
     ok(tableau.at(-1)!.capitalRestantDu, 0);
   });
 
@@ -411,9 +414,21 @@ describe('résultats détaillés des simulateurs', () => {
     const plafonne = jeanbrunDetaille({ prix: 200_000, travaux: 0, neuf: true, regime: 'tres_social', plafond: 8_000 });
     ok(plafonne.deduction, 8_000);
     expect(plafonne.plafonnee).toBe(true);
-    const ancien = jeanbrunDetaille({ prix: 150_000, travaux: 45_000, neuf: false, regime: 'intermediaire', plafond: 8_000 });
+    const ancien = jeanbrunDetaille({
+      prix: 150_000,
+      travaux: 45_000,
+      neuf: false,
+      regime: 'intermediaire',
+      plafond: 8_000,
+    });
     expect(ancien.seuilTravauxAtteint).toBe(true);
-    const insuffisant = jeanbrunDetaille({ prix: 150_000, travaux: 40_000, neuf: false, regime: 'intermediaire', plafond: 8_000 });
+    const insuffisant = jeanbrunDetaille({
+      prix: 150_000,
+      travaux: 40_000,
+      neuf: false,
+      regime: 'intermediaire',
+      plafond: 8_000,
+    });
     expect(insuffisant.seuilTravauxAtteint).toBe(false);
   });
 
@@ -461,7 +476,9 @@ describe('résultats détaillés des simulateurs', () => {
     ok(r.impotBareme, 2_640);
     ok(r.decote, 1_000);
     ok(r.ifi, 1_640);
-    expect(ifiDetaille({ actifs: 1_000_000, residencePrincipale: 500_000, dettes: 100_000 }).patrimoineNet).toBe(1_250_000);
+    expect(ifiDetaille({ actifs: 1_000_000, residencePrincipale: 500_000, dettes: 100_000 }).patrimoineNet).toBe(
+      1_250_000,
+    );
     expect(ifiDetaille({ actifs: 1_000_000, residencePrincipale: 500_000, dettes: 100_000 }).ifi).toBe(0);
     ok(ifi(1_500_000), 2_500 + 1_400);
   });

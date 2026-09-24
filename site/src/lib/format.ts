@@ -21,7 +21,7 @@ export function nombre(x: number, decimales = 0, decimalesMax = decimales): stri
 
 /** Montant en euros, deux décimales par défaut. */
 export function euros(x: number, decimales = 2): string {
-  return `${nombre(x, decimales)} €`;
+  return `${nombre(x, decimales)}\u00a0€`;
 }
 
 /** Montant en euros arrondi à l'euro. */
@@ -29,14 +29,14 @@ export const eurosArrondis = (x: number): string => euros(x, 0);
 
 /** Taux (0,0529 → « 5,29 % »). */
 export function pourcent(x: number, decimales = 2): string {
-  return `${nombre(x * 100, decimales)} %`;
+  return `${nombre(x * 100, decimales)}\u00a0%`;
 }
 
 /** Lecture d'une saisie française : « 1 234,56 », « 3,35 », « 110000 ». Renvoie NaN si invalide. */
 export function lireNombre(saisie: string): number {
   const nettoye = saisie
     .trim()
-    .replace(/[\s  ]/g, '')
+    .replace(/[\s\u00a0\u202f]/g, '')
     .replace(/[−–]/g, '-')
     .replace(',', '.')
     .replace(/[€%]$/, '');

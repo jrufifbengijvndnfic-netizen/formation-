@@ -33,7 +33,7 @@ function ecrire(racine: HTMLElement, sim: Simulateur, v: Valeurs): void {
     const x = v[c.id];
     if (!el || x === undefined) continue;
     if (c.type === 'case') (el as HTMLInputElement).checked = x === true;
-    else if (c.type === 'nombre') el.value = nombre(Number(x), 0, 4).replace(/ /g, ' ');
+    else if (c.type === 'nombre') el.value = nombre(Number(x), 0, 4).replace(/\u202f/g, ' ');
     else el.value = String(x);
   }
 }
@@ -120,7 +120,10 @@ document.querySelectorAll<HTMLElement>('[data-simulateur]').forEach((racine) => 
   racine.querySelector('[data-sim-partager]')?.addEventListener('click', async () => {
     calculer(true);
     const ok = await copier(window.location.href);
-    if (statut) statut.textContent = ok ? 'Lien copié : il contient vos paramètres.' : `Copiez l’adresse de la page : ${window.location.href}`;
+    if (statut)
+      statut.textContent = ok
+        ? 'Lien copié : il contient vos paramètres.'
+        : `Copiez l’adresse de la page : ${window.location.href}`;
   });
 
   const params = new URLSearchParams(window.location.search);

@@ -2,8 +2,13 @@
 import { avertissementHtml } from '../lib/donnees';
 import { lien } from '../lib/navigation';
 ---
+
 <aside class="avertissement" aria-labelledby="avertissement-titre" data-pagefind-ignore>
-  <p><strong id="avertissement-titre">Avertissement (section 0.4)</strong></p>
+  <p>
+    <strong id="avertissement-titre">Avertissement (section 0.4)</strong>
+  </p>
   <Fragment set:html={avertissementHtml} />
-  <p><a href={lien('annexe/h/')}>Sources officielles (annexe H)</a></p>
+  <p>
+    <a href={lien('annexe/h/')}>Sources officielles (annexe H)</a>
+  </p>
 </aside>

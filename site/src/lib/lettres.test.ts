@@ -27,7 +27,7 @@ describe('modèles de lettres', () => {
     expect(choix?.options).toEqual(['en votre faveur', 'à votre charge']);
     const segments = analyserLettre(f2.id, f2.texte);
     const texte = remplirLettre(segments, Object.fromEntries(champsDe(segments).map((c) => [c.id, 'X'])));
-    expect(texte).toContain('[Ce montant vous sera remboursé le X / Ce montant sera à régler avec l\'échéance du X.]');
+    expect(texte).toContain("[Ce montant vous sera remboursé le X / Ce montant sera à régler avec l'échéance du X.]");
   });
   it('met en forme les dates saisies', () => {
     const segments = analyserLettre(f1.id, f1.texte);

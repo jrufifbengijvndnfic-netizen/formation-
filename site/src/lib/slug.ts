@@ -9,7 +9,7 @@ export const LONGUEUR_MAX_SLUG = 80;
 export function slugify(texte: string): string {
   return texte
     .normalize('NFKD')
-    .replace(/[^\x00-\x7f]/g, '')
+    .replace(/[\u0080-\uffff]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')

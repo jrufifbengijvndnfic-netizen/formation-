@@ -277,11 +277,7 @@ function rehypeTableaux(ctx: ContexteRendu) {
       const classes = ['tableau'];
       if (lignes > 12) classes.push('tableau--long');
       if (entetes.length > 4) classes.push('tableau--large');
-      parent.children[index] = h(
-        'div',
-        { className: classes, role: 'region', tabIndex: 0, ariaLabel: libelle },
-        [el],
-      );
+      parent.children[index] = h('div', { className: classes, role: 'region', tabIndex: 0, ariaLabel: libelle }, [el]);
       return SKIP;
     });
   };

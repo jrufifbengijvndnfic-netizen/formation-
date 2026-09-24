@@ -4,70 +4,118 @@ import Base from '../layouts/Base.astro';
 import { modulesDuNiveau, niveaux, numerosDuNiveau, tousLesModules } from '../lib/donnees';
 import { lien, lienElement } from '../lib/navigation';
 ---
-<Base titre="Ma progression" description="Suivi de vos modules lus et quiz réussis, export et import de votre progression, remise à zéro." niveau="0" actif="progression">
+
+<Base
+  titre="Ma progression"
+  description="Suivi de vos modules lus et quiz réussis, export et import de votre progression, remise à zéro."
+  niveau="0"
+  actif="progression"
+>
   <div class="bandeau">
     <div class="conteneur">
       <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progression' }]} />
       <h1>Ma progression</h1>
-      <p>Votre progression est enregistrée uniquement dans ce navigateur. Exportez-la pour la sauvegarder ou la reprendre sur un autre appareil.</p>
+      <p>
+        Votre progression est enregistrée uniquement dans ce navigateur. Exportez-la pour la sauvegarder ou la reprendre
+        sur un autre appareil.
+      </p>
     </div>
   </div>
   <div class="conteneur">
     <p class="message-stockage" data-stockage-indisponible hidden>
-      Le stockage de votre navigateur est indisponible (navigation privée ou cookies bloqués) : la progression ne sera pas conservée après la visite. Pensez à l'exporter.
+      Le stockage de votre navigateur est indisponible (navigation privée ou cookies bloqués) : la progression ne sera
+      pas conservée après la visite. Pensez à l'exporter.
     </p>
-    <section class="encart" data-avancement={tousLesModules.map((m) => m.numero).join(',')} aria-labelledby="global-titre">
-      <h2 id="global-titre" style="margin-top:0">Ensemble de la formation</h2>
+    <section
+      class="encart"
+      data-avancement={tousLesModules.map((m) => m.numero).join(',')}
+      aria-labelledby="global-titre"
+    >
+      <h2 id="global-titre" style="margin-top:0">
+        Ensemble de la formation
+      </h2>
       <p data-avancement-texte>0 %</p>
-      <div class="jauge" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progression globale">
+      <div
+        class="jauge"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        aria-label="Progression globale"
+      >
         <span class="jauge__remplissage"></span>
       </div>
     </section>
 
-    {
-      niveaux.map((n) => (
-        <section data-niveau={String(n.niveau)} data-avancement={numerosDuNiveau(n.niveau).join(',')} aria-labelledby={`niveau-${n.niveau}-titre`}>
-          <h2 id={`niveau-${n.niveau}-titre`}>
-            <a href={lien(`niveau-${n.niveau}/`)}>Niveau {n.niveau} — {n.titreCourt}</a>
-          </h2>
-          <p data-avancement-texte>0 %</p>
-          <div class={`jauge jauge--n${n.niveau}`} role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label={`Progression du niveau ${n.niveau}`}>
-            <span class="jauge__remplissage" />
-          </div>
-          <p hidden data-si-termine style="margin-top:.8rem">
-            <span class="badge-niveau">Niveau {n.niveau} terminé</span>
-          </p>
-          <ol class="registre" style="margin-top:1rem">
-            {modulesDuNiveau(n.niveau).map((m) => (
-              <li class="registre__ligne">
-                <span class="registre__numero">
-                  <span class="parcelle">{m.numero}</span>
+    {niveaux.map((n) => (
+      <section
+        data-niveau={String(n.niveau)}
+        data-avancement={numerosDuNiveau(n.niveau).join(',')}
+        aria-labelledby={`niveau-${n.niveau}-titre`}
+      >
+        <h2 id={`niveau-${n.niveau}-titre`}>
+          <a href={lien(`niveau-${n.niveau}/`)}>
+            Niveau {n.niveau} — {n.titreCourt}
+          </a>
+        </h2>
+        <p data-avancement-texte>0 %</p>
+        <div
+          class={`jauge jauge--n${n.niveau}`}
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          aria-label={`Progression du niveau ${n.niveau}`}
+        >
+          <span class="jauge__remplissage" />
+        </div>
+        <p hidden data-si-termine style="margin-top:.8rem">
+          <span class="badge-niveau">Niveau {n.niveau} terminé</span>
+        </p>
+        <ol class="registre" style="margin-top:1rem">
+          {modulesDuNiveau(n.niveau).map((m) => (
+            <li class="registre__ligne">
+              <span class="registre__numero">
+                <span class="parcelle">{m.numero}</span>
+              </span>
+              <div>
+                <p class="registre__titre">
+                  <a href={lienElement(m)}>{m.titreCourt}</a>
+                </p>
+                <p class="registre__meta" data-meilleur-score={m.numero} />
+              </div>
+              <span class="registre__etat">
+                <span class="statut" data-statut-module={m.numero} data-statut="non-commence">
+                  Non commencé
                 </span>
-                <div>
-                  <p class="registre__titre">
-                    <a href={lienElement(m)}>{m.titreCourt}</a>
-                  </p>
-                  <p class="registre__meta" data-meilleur-score={m.numero} />
-                </div>
-                <span class="registre__etat">
-                  <span class="statut" data-statut-module={m.numero} data-statut="non-commence">
-                    Non commencé
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ol>
-        </section>
-      ))
-    }
+              </span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
 
     <section class="encart" aria-labelledby="sauvegarde-titre">
-      <h2 id="sauvegarde-titre" style="margin-top:0">Sauvegarder, reprendre, recommencer</h2>
+      <h2 id="sauvegarde-titre" style="margin-top:0">
+        Sauvegarder, reprendre, recommencer
+      </h2>
       <div class="groupe-boutons">
-        <button type="button" class="bouton bouton--plein" data-exporter>Exporter ma progression (JSON)</button>
-        <label class="bouton" for="importer-fichier">Importer un fichier</label>
-        <input type="file" id="importer-fichier" accept="application/json,.json" class="visuellement-cache" data-importer />
-        <button type="button" class="bouton bouton--discret" data-reinitialiser>Réinitialiser ma progression</button>
+        <button type="button" class="bouton bouton--plein" data-exporter>
+          Exporter ma progression (JSON)
+        </button>
+        <label class="bouton" for="importer-fichier">
+          Importer un fichier
+        </label>
+        <input
+          type="file"
+          id="importer-fichier"
+          accept="application/json,.json"
+          class="visuellement-cache"
+          data-importer
+        />
+        <button type="button" class="bouton bouton--discret" data-reinitialiser>
+          Réinitialiser ma progression
+        </button>
       </div>
       <p role="status" class="checklist-etat" data-progression-statut></p>
     </section>
@@ -133,7 +181,12 @@ import { lien, lienElement } from '../lib/navigation';
   });
 
   document.querySelector('[data-reinitialiser]')?.addEventListener('click', () => {
-    if (!window.confirm('Effacer toute votre progression (modules lus, scores, checklists) ? Cette action est définitive.')) return;
+    if (
+      !window.confirm(
+        'Effacer toute votre progression (modules lus, scores, checklists) ? Cette action est définitive.',
+      )
+    )
+      return;
     reinitialiser();
     dire('Progression réinitialisée.');
   });

@@ -9,14 +9,23 @@ import type { Element } from '../lib/types';
 const annexeI = annexes.find((a) => a.numero === 'I') as Element;
 const titreSource = (e: Element) => (e.type === 'module' ? `${libelleCourt(e)} — ${e.titreCourt}` : e.titre);
 ---
-<Base titre="À surveiller" description={`Textes non encore adoptés et échéances proches (annexe I) et les ${aSurveiller.length} encadrés « À surveiller » de la formation.`} niveau="annexes" actif="a-surveiller">
+
+<Base
+  titre="À surveiller"
+  description={`Textes non encore adoptés et échéances proches (annexe I) et les ${aSurveiller.length} encadrés « À surveiller » de la formation.`}
+  niveau="annexes"
+  actif="a-surveiller"
+>
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
         <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'À surveiller' }]} />
         <p class="bandeau__sur">Contenu à jour au {formation.aJourAuTexte}</p>
         <h1>À surveiller</h1>
-        <p>Textes en cours d'adoption et échéances proches. Un texte n'est applicable qu'après sa publication au Journal officiel : vérifiez toujours la source officielle.</p>
+        <p>
+          Textes en cours d'adoption et échéances proches. Un texte n'est applicable qu'après sa publication au Journal
+          officiel : vérifiez toujours la source officielle.
+        </p>
       </div>
     </div>
     <div class="conteneur">
@@ -25,21 +34,19 @@ const titreSource = (e: Element) => (e.type === 'module' ? `${libelleCourt(e)} �
         <ContenuElement element={annexeI} />
         <h2 id="encadres">Les {aSurveiller.length} encadrés « À surveiller » de la formation</h2>
         <ol class="liste-surveiller">
-          {
-            aSurveiller.map((x, i) => (
-              <li>
-                <div class="encadre encadre--a-surveiller" role="note" aria-labelledby={`surveiller-${i + 1}`}>
-                  <p class="encadre__etiquette" id={`surveiller-${i + 1}`}>
-                    À surveiller
-                  </p>
-                  <Fragment set:html={x.html} />
-                </div>
-                <p class="source">
-                  Source : <a href={x.lien}>{titreSource(x.element)}</a>
+          {aSurveiller.map((x, i) => (
+            <li>
+              <div class="encadre encadre--a-surveiller" role="note" aria-labelledby={`surveiller-${i + 1}`}>
+                <p class="encadre__etiquette" id={`surveiller-${i + 1}`}>
+                  À surveiller
                 </p>
-              </li>
-            ))
-          }
+                <Fragment set:html={x.html} />
+              </div>
+              <p class="source">
+                Source : <a href={x.lien}>{titreSource(x.element)}</a>
+              </p>
+            </li>
+          ))}
         </ol>
       </div>
     </div>

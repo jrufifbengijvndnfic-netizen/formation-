@@ -180,9 +180,9 @@ function initialiserImpression(): void {
     ouverts.forEach((d) => (d.open = false));
     ouverts.clear();
   });
-  document.querySelectorAll<HTMLButtonElement>('[data-imprimer]').forEach((b) =>
-    b.addEventListener('click', () => window.print()),
-  );
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-imprimer]')
+    .forEach((b) => b.addEventListener('click', () => window.print()));
 }
 
 initialiserTheme();

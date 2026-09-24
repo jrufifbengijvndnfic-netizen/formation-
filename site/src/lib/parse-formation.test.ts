@@ -227,7 +227,7 @@ describe('erreurs de syntaxe', () => {
 
 describe('slugify', () => {
   it('reproduit la convention des fichiers livrés', () => {
-    expect(slugify("0.3 Conventions de rédaction (utiles pour la page web)")).toBe(
+    expect(slugify('0.3 Conventions de rédaction (utiles pour la page web)')).toBe(
       '0-3-conventions-de-redaction-utiles-pour-la-page-web',
     );
     expect(slugify("Accompagnateur Rénov'")).toBe('accompagnateur-renov');

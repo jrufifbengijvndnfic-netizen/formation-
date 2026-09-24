@@ -23,56 +23,84 @@ const lettre = annexe.numero ?? '';
 const i = annexes.indexOf(annexe);
 const precedente = annexes[i - 1];
 const suivante = annexes[i + 1];
-const lienAnnexe = (a: Element) => (a.numero === 'C' ? lien('glossaire/') : lien(`annexe/${(a.numero ?? '').toLowerCase()}/`));
+const lienAnnexe = (a: Element) =>
+  a.numero === 'C' ? lien('glossaire/') : lien(`annexe/${(a.numero ?? '').toLowerCase()}/`);
 const avecSommaire = annexe.rubriques.length > 1;
 ---
-<Base titre={annexe.titre} description={resumer(`${annexe.titreCourt}. ${texteBrut(annexe.intro || annexe.markdown)}`)} niveau="annexes" actif="annexes">
+
+<Base
+  titre={annexe.titre}
+  description={resumer(`${annexe.titreCourt}. ${texteBrut(annexe.intro || annexe.markdown)}`)}
+  niveau="annexes"
+  actif="annexes"
+>
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Annexes', href: lien('annexes/') }, { libelle: `Annexe ${lettre}` }]} />
+        <FilAriane
+          etapes={[
+            { libelle: 'Accueil', href: lien() },
+            { libelle: 'Annexes', href: lien('annexes/') },
+            { libelle: `Annexe ${lettre}` },
+          ]}
+        />
         <p class="bandeau__sur">Boîte à outils permanente</p>
-        <h1><span class="parcelle"><span class="visuellement-cache">Annexe </span>{lettre}</span> {annexe.titreCourt}</h1>
+        <h1>
+          <span class="parcelle">
+            <span class="visuellement-cache">Annexe </span>
+            {lettre}
+          </span>{' '}
+          {annexe.titreCourt}
+        </h1>
       </div>
     </div>
     <div class={`conteneur page-element${avecSommaire ? ' page-element--sommaire' : ''}`}>
-      {
-        avecSommaire && (
-          <nav class="sommaire" aria-label={`Sommaire de l'annexe ${lettre}`} data-pagefind-ignore>
-            <div class="sommaire__corps">
-              <h2>Dans cette annexe</h2>
-              <ol>
-                {annexe.rubriques.map((r) => (
-                  <li>
-                    <a href={`#${r.id}`}>{r.titre}</a>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </nav>
-        )
-      }
+      {avecSommaire && (
+        <nav class="sommaire" aria-label={`Sommaire de l'annexe ${lettre}`} data-pagefind-ignore>
+          <div class="sommaire__corps">
+            <h2>Dans cette annexe</h2>
+            <ol>
+              {annexe.rubriques.map((r) => (
+                <li>
+                  <a href={`#${r.id}`}>{r.titre}</a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </nav>
+      )}
       <div class={lettre === 'F' ? '' : 'prose'}>
-        {
-          lettre === 'E' && (
-            <div class="encart" data-pagefind-ignore>
-              <p>
-                <strong>Simulateurs correspondants.</strong> Chaque formule alimente un simulateur :
-              </p>
-              <ol>
-                {SIMULATEURS.map((s) => (
-                  <li>
-                    <a href={`#${s.formule}`}>{s.formule.toUpperCase()}</a> → <a href={lien(`simulateurs/${s.id}/`)}>{s.titre}</a>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )
-        }
+        {lettre === 'E' && (
+          <div class="encart" data-pagefind-ignore>
+            <p>
+              <strong>Simulateurs correspondants.</strong> Chaque formule alimente un simulateur :
+            </p>
+            <ol>
+              {SIMULATEURS.map((s) => (
+                <li>
+                  <a href={`#${s.formule}`}>{s.formule.toUpperCase()}</a> →{' '}
+                  <a href={lien(`simulateurs/${s.id}/`)}>{s.titre}</a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         {lettre === 'B' ? <Frise element={annexe} /> : <ContenuElement element={annexe} />}
         <nav class="precedent-suivant" aria-label="Autres annexes" data-pagefind-ignore>
-          {precedente ? <a href={lienAnnexe(precedente)} rel="prev"><small>Annexe précédente</small>{precedente.titre}</a> : <span />}
-          {suivante && <a class="suivant" href={lienAnnexe(suivante)} rel="next"><small>Annexe suivante</small>{suivante.titre}</a>}
+          {precedente ? (
+            <a href={lienAnnexe(precedente)} rel="prev">
+              <small>Annexe précédente</small>
+              {precedente.titre}
+            </a>
+          ) : (
+            <span />
+          )}
+          {suivante && (
+            <a class="suivant" href={lienAnnexe(suivante)} rel="next">
+              <small>Annexe suivante</small>
+              {suivante.titre}
+            </a>
+          )}
         </nav>
         <Avertissement />
       </div>

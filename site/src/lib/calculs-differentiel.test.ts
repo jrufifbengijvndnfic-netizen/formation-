@@ -41,7 +41,7 @@ function aleatoire(graine: number) {
   return {
     entre: (min: number, max: number) => Math.round((min + suivant() * (max - min)) * 100) / 100,
     entier: (min: number, max: number) => Math.floor(min + suivant() * (max - min + 1)),
-    parmi: <T,>(liste: readonly T[]): T => liste[Math.floor(suivant() * liste.length)] as T,
+    parmi: <T>(liste: readonly T[]): T => liste[Math.floor(suivant() * liste.length)] as T,
   };
 }
 
@@ -119,9 +119,8 @@ describe.skipIf(!pythonDisponible)('calculs.ts contre reference-calculs.py (entr
     const frais = r.entre(0, 40_000);
     const amortPv = r.entre(0, 100_000);
     const fc = r.entre(0, 20_000);
-    ajouter(
-      { fonction: 'plus_value', args: [prix, frais, travaux, vente, d, amortPv, fc] },
-      () => calc.plusValue(prix, frais, travaux, vente, d, amortPv, fc),
+    ajouter({ fonction: 'plus_value', args: [prix, frais, travaux, vente, d, amortPv, fc] }, () =>
+      calc.plusValue(prix, frais, travaux, vente, d, amortPv, fc),
     );
     const patrimoine = r.entre(500_000, 12_000_000);
     ajouter({ fonction: 'ifi', args: [patrimoine] }, () => calc.ifi(patrimoine));
@@ -138,9 +137,8 @@ describe.skipIf(!pythonDisponible)('calculs.ts contre reference-calculs.py (entr
     const taux = r.entre(0.01, 0.06);
     const horizon = r.entier(1, 25);
     const croissance = r.entre(-0.03, 0.04);
-    ajouter(
-      { fonction: 'scenario_colocation', kwargs: { levier, taux, horizon, croissance_prix: croissance } },
-      () => calc.scenarioColocation({ levier, taux, horizon, croissancePrix: croissance }),
+    ajouter({ fonction: 'scenario_colocation', kwargs: { levier, taux, horizon, croissance_prix: croissance } }, () =>
+      calc.scenarioColocation({ levier, taux, horizon, croissancePrix: croissance }),
     );
   }
 

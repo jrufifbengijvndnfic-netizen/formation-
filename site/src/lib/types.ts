@@ -1,13 +1,6 @@
 /** Types partagés : structure de la formation telle que lue dans le Markdown source. */
 
-export const TYPES_ENCADRE = [
-  'NOUVEAU',
-  'ATTENTION',
-  'EXEMPLE',
-  'ASTUCE',
-  'DEFINITION',
-  'A_SURVEILLER',
-] as const;
+export const TYPES_ENCADRE = ['NOUVEAU', 'ATTENTION', 'EXEMPLE', 'ASTUCE', 'DEFINITION', 'A_SURVEILLER'] as const;
 export type TypeEncadre = (typeof TYPES_ENCADRE)[number];
 
 export const LIBELLES_ENCADRE: Record<TypeEncadre, string> = {

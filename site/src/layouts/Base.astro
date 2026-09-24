@@ -24,6 +24,7 @@ const { titre, description, niveau, actif, donneesStructurees, type = 'article' 
 const titreComplet = titre === titreSite ? titreSite : `${titre} · ${titreSite}`;
 const canonique = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 ---
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -42,20 +43,24 @@ const canonique = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
     {canonique && <meta property="og:url" content={canonique} />}
     <meta name="twitter:card" content="summary" />
     {Astro.site && <link rel="sitemap" href={new URL(lien('sitemap-index.xml'), Astro.site).href} />}
-    {donneesStructurees && <script type="application/ld+json" set:html={JSON.stringify(donneesStructurees)} />}
+    {donneesStructurees && <script type="application/ld+json" set:html={JSON.stringify(donneesStructurees)}></script>}
     <script is:inline>
-      (function () {
-        var d = document.documentElement;
-        d.classList.add('js');
+      (() => {
+        const racine = document.documentElement;
+        racine.classList.add('js');
         try {
-          var t = localStorage.getItem('formation-immobilier-locatif-2026:theme');
-          if (t === 'clair' || t === 'sombre') d.dataset.theme = t;
-        } catch (e) {}
+          const theme = localStorage.getItem('formation-immobilier-locatif-2026:theme');
+          if (theme === 'clair' || theme === 'sombre') racine.dataset.theme = theme;
+        } catch {
+          /* stockage indisponible : thème du système */
+        }
       })();
     </script>
   </head>
   <body data-niveau={niveau}>
-    <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+    <a class="lien-evitement" href="#contenu">
+      Aller au contenu
+    </a>
     <EnTete actif={actif} />
     <main id="contenu" tabindex="-1">
       <slot />

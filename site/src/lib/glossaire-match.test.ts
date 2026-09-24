@@ -23,11 +23,9 @@ describe('repérage des termes du glossaire', () => {
     expect(ids('le DPE collectif de l’immeuble')).toEqual(['dpe-collectif']);
   });
   it('reconnaît les variantes entre parenthèses et les sigles associés', () => {
-    expect(variantesDuTerme({ terme: 'Assurance loyers impayés (GLI)', definition: '', lettre: 'A', id: 'x' })).toEqual([
-      'Assurance loyers impayés (GLI)',
-      'Assurance loyers impayés',
-      'GLI',
-    ]);
+    expect(variantesDuTerme({ terme: 'Assurance loyers impayés (GLI)', definition: '', lettre: 'A', id: 'x' })).toEqual(
+      ['Assurance loyers impayés (GLI)', 'Assurance loyers impayés', 'GLI'],
+    );
     expect(variantesDuTerme({ terme: 'ELAN (loi)', definition: '', lettre: 'E', id: 'x' })).toContain('loi ELAN');
     expect(ids('une GLI et le dispositif Jeanbrun')).toEqual(['assurance-loyers-impayes-gli', 'jeanbrun-dispositif']);
     expect(ids("l'ILC ou l'ILAT")).toEqual(['ilc-et-ilat', 'ilc-et-ilat']);

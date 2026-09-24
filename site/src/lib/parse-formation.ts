@@ -252,12 +252,7 @@ function itemsNumerotes(lignes: Ligne[]): string[] {
     .filter((x): x is string => Boolean(x));
 }
 
-function lireElement(
-  titre: string,
-  ligneTitre: Ligne,
-  corps: Ligne[],
-  niveau: Niveau | undefined,
-): Element {
+function lireElement(titre: string, ligneTitre: Ligne, corps: Ligne[], niveau: Niveau | undefined): Element {
   const { type, numero, court } = typeElement(titre, ligneTitre.n);
   const id = slugify(titre);
   const { avant, blocs } = decouperParTitre(corps, 4);
@@ -439,8 +434,7 @@ export function parseFormation(md: string): Formation {
 
 export const tousLesElements = (f: Formation): Element[] => f.parties.flatMap((p) => p.elements);
 
-export const modules = (f: Formation): Element[] =>
-  tousLesElements(f).filter((e) => e.type === 'module');
+export const modules = (f: Formation): Element[] => tousLesElements(f).filter((e) => e.type === 'module');
 
 export function quizDuModule(e: Element): QuizQuestion[] {
   return e.rubriques.find((r) => r.quiz)?.quiz ?? [];

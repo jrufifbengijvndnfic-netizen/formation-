@@ -475,9 +475,10 @@ export function simulerProjet(p: ParamsProjet): ResultatProjet {
 }
 
 /** Équivalent exact de scenario_colocation(levier, taux, horizon, croissance_prix) : [TRI, flux]. */
-export function scenarioColocation(
-  { levier = true, taux = 0.0345, horizon = 15, croissancePrix = 0.01 } = {},
-): [number, number[]] {
+export function scenarioColocation({ levier = true, taux = 0.0345, horizon = 15, croissancePrix = 0.01 } = {}): [
+  number,
+  number[],
+] {
   const r = simulerProjet({
     ...PROJET_MODULE_3_2,
     emprunt: levier ? PROJET_MODULE_3_2.emprunt : 0,
@@ -835,15 +836,7 @@ export function plusValueDetaillee(p: {
   const fraisRetenus = Math.max(p.fraisReels, forfaitFrais);
   const travauxRetenus = annees >= 5 ? Math.max(p.travauxReels, forfaitTravaux) : p.travauxReels;
   const prixAcquisitionMajore = p.prixAchat + fraisRetenus + travauxRetenus - p.amortissements;
-  const r = plusValue(
-    p.prixAchat,
-    p.fraisReels,
-    p.travauxReels,
-    p.prixVente,
-    annees,
-    p.amortissements,
-    p.fraisCession,
-  );
+  const r = plusValue(p.prixAchat, p.fraisReels, p.travauxReels, p.prixVente, annees, p.amortissements, p.fraisCession);
   const abIr = abattementPvIr(annees);
   const abPs = Math.min(abattementPvPs(annees), 1);
   return {

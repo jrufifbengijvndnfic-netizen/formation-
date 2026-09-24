@@ -27,29 +27,28 @@ const periodeDe = (debut: string, fin: string) =>
   fin < reference ? 'passe' : debut <= dans6Mois ? 'imminent' : 'futur';
 const LIBELLES = { passe: 'Passé', imminent: 'Dans moins de six mois', futur: 'À venir' } as const;
 ---
+
 <div class="frise-bloc" data-frise data-reference={reference}>
   <p class="legende-frise" data-frise-legende>
     Situation calculée au {formaterDateFr(reference)}, date de mise à jour du contenu.
   </p>
   <ol class="frise">
-    {
-      evenements.map((e) => {
-        const p = periodeDe(e.periode.debut, e.periode.fin);
-        return (
-          <li class="frise__evenement" data-debut={e.periode.debut} data-fin={e.periode.fin} data-periode={p}>
-            <p class="frise__date">
-              <time datetime={e.periode.precision === 'jour' ? e.periode.debut : e.periode.debut.slice(0, 7)}>
-                {e.date}
-              </time>
-              <span class="frise__etiquette" data-etiquette>
-                {LIBELLES[p]}
-              </span>
-            </p>
-            <p set:html={rendreEnLigne(e.evenement, ctx)} />
-          </li>
-        );
-      })
-    }
+    {evenements.map((e) => {
+      const p = periodeDe(e.periode.debut, e.periode.fin);
+      return (
+        <li class="frise__evenement" data-debut={e.periode.debut} data-fin={e.periode.fin} data-periode={p}>
+          <p class="frise__date">
+            <time datetime={e.periode.precision === 'jour' ? e.periode.debut : e.periode.debut.slice(0, 7)}>
+              {e.date}
+            </time>
+            <span class="frise__etiquette" data-etiquette>
+              {LIBELLES[p]}
+            </span>
+          </p>
+          <p set:html={rendreEnLigne(e.evenement, ctx)} />
+        </li>
+      );
+    })}
   </ol>
 </div>
 

@@ -22,9 +22,11 @@ describe('rendu du Markdown', () => {
   it('numérote les encadrés comme le parseur, dans tous les éléments', () => {
     for (const e of tousLesElements(f)) {
       const { html } = rendreElement(e);
-      const types = [...html.matchAll(/id="encadre-(\d+)" role="note" aria-labelledby="encadre-\d+-etiquette" data-type="([A-Z_]+)"/g)].map(
-        (m) => [Number(m[1]), m[2]],
-      );
+      const types = [
+        ...html.matchAll(
+          /id="encadre-(\d+)" role="note" aria-labelledby="encadre-\d+-etiquette" data-type="([A-Z_]+)"/g,
+        ),
+      ].map((m) => [Number(m[1]), m[2]]);
       expect(types, e.id).toEqual(e.encadres.map((x) => [x.rang, x.type]));
     }
   });
@@ -38,7 +40,9 @@ describe('rendu du Markdown', () => {
 
   it('rend les tableaux dans un conteneur défilant accessible avec des en-têtes scope="col"', () => {
     const { html } = rendreElement(modules(f).find((x) => x.numero === '1.1') as Element);
-    expect(html).toMatch(/<div class="tableau[^"]*" role="region" tabindex="0" aria-label="Tableau : Acteur, Rôle"><table>/);
+    expect(html).toMatch(
+      /<div class="tableau[^"]*" role="region" tabindex="0" aria-label="Tableau : Acteur, Rôle"><table>/,
+    );
     expect(html).toContain('<th scope="col">Acteur</th>');
   });
 
@@ -54,10 +58,16 @@ describe('rendu du Markdown', () => {
     const m = modules(f).find((x) => x.numero === '2.8') as Element;
     const { html } = rendreElement(m);
     expect(html).toContain('<a href="/module/3-4/">3.4</a>');
-    const soi = rendreMarkdown('Voir le module 2.8 et le module 2.6.', nouveauContexte({ modulesExistants: existants, moduleCourant: '2.8' }));
+    const soi = rendreMarkdown(
+      'Voir le module 2.8 et le module 2.6.',
+      nouveauContexte({ modulesExistants: existants, moduleCourant: '2.8' }),
+    );
     // (aucune espace insécable dans cette phrase)
     expect(soi).toBe('<p>Voir le module 2.8 et le module <a href="/module/2-6/">2.6</a>.</p>');
-    const liste = rendreMarkdown('Voir modules 2.6, 2.7, 3.4 et 3.5.', nouveauContexte({ modulesExistants: existants }));
+    const liste = rendreMarkdown(
+      'Voir modules 2.6, 2.7, 3.4 et 3.5.',
+      nouveauContexte({ modulesExistants: existants }),
+    );
     expect(liste.match(/<a href="\/module\//g)).toHaveLength(4);
     expect(rendreMarkdown("l'annexe H et l'annexe C", nouveauContexte())).toBe(
       '<p>l\'annexe <a href="/annexe/h/">H</a> et l\'annexe <a href="/glossaire/">C</a></p>',
@@ -69,7 +79,9 @@ describe('rendu du Markdown', () => {
   it('lie la colonne « Module » du tableau des nouveautés', () => {
     const s05 = tousLesElements(f).find((e) => e.numero === '0.5') as Element;
     const { html } = rendreElement(s05, { colonneModule: true });
-    expect(html).toContain('<td class="num"><a href="/module/2-6/">Module 2.6</a>, <a href="/module/2-7/">Module 2.7</a></td>');
+    expect(html).toContain(
+      '<td class="num"><a href="/module/2-6/">Module 2.6</a>, <a href="/module/2-7/">Module 2.7</a></td>',
+    );
   });
 
   it('transforme les cas d’examen en titres et les corrigés en blocs repliables', () => {
@@ -96,7 +108,9 @@ describe('rendu du Markdown', () => {
     expect(new Set(ids).size).toBe(ids.length);
     expect(html).toContain('id="def-cash-flow"');
     expect(html).not.toMatch(/<(h2|th|strong)[^>]*>[^<]*<span class="terme">/);
-    expect(html).toContain('<a href="/glossaire/#cash-flow" class="terme__declencheur" aria-describedby="def-cash-flow" data-terme="cash-flow">');
+    expect(html).toContain(
+      '<a href="/glossaire/#cash-flow" class="terme__declencheur" aria-describedby="def-cash-flow" data-terme="cash-flow">',
+    );
   });
 
   it('applique les espaces insécables à l’affichage sans toucher aux formules', () => {

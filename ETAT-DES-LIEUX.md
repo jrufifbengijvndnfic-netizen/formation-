@@ -8,12 +8,12 @@ Dernière mise à jour : 24 septembre 2026.
 ## 1. Ce qu'on construit
 
 Transformer la formation livrée dans `files/` en site statique, selon
-`files/BRIEF-claude-code-site-formation.md` (à lire intégralement, c'est le cahier des charges).
+`files/BRIEF-claude-code-site-formation.md` (le cahier des charges).
 
 - 38 modules sur 3 niveaux, 3 examens, 7 checklists, 9 annexes
 - 122 questions de quiz, 180 termes de glossaire, 10 modèles de lettres
 - 14 simulateurs de calcul
-- Site statique Astro + TypeScript, hébergeable n'importe où
+- Site statique Astro 7 + TypeScript, hébergeable n'importe où
 
 **Règle absolue du brief** : ne jamais modifier un chiffre, une date, un taux, un montant ou une
 référence de texte juridique. Le travail porte sur la structure, l'interactivité, le design et la
@@ -25,60 +25,59 @@ fiabilité technique — jamais sur le fond.
 
 | Étape du brief | État |
 |---|---|
-| 1. Projet Astro + parseur du Markdown | ✅ terminée, 33 tests verts |
-| 2. `calculs.ts` (14 simulateurs) | 🚧 code écrit, **tests non écrits** |
-| 3. Pages, navigation, composants | ⬜ pas commencée |
-| 4. Quiz, progression, glossaire, recherche, lettres, checklists | ⬜ pas commencée |
-| 5. Direction artistique, accessibilité, performance | ⬜ pas commencée |
+| 1. Projet Astro + parseur du Markdown | ✅ terminée — les 3 JSON se régénèrent à l'identique |
+| 2. `calculs.ts` (14 simulateurs) | ✅ terminée — section 8 du brief, toutes les assertions du Python, test différentiel |
+| 3. Pages, navigation, composants | ✅ terminée — 78 pages |
+| 4. Quiz, progression, glossaire, recherche, lettres, checklists, frise | ✅ terminée |
+| 5. Direction artistique, accessibilité, performance | ✅ terminée — axe : 0 violation, Lighthouse 98–100 |
 
-### Étape 1 — terminée
+Critères d'acceptation (section 11 du brief) : tous vérifiés automatiquement, voir §5.
 
-`src/lib/parse-formation.ts` lit le Markdown et en extrait toute la structure (encadrés `> [!TYPE]`,
-blocs ` ```quiz `, blocs ` ```lettre `, formules, tableaux, listes, glossaire).
+**Reste à faire (hors code)** : déposer le PDF (voir §7) et choisir l'hébergement.
 
-Validation forte : `scripts/build-json.ts` **régénère `structure.json`, `quiz.json` et
-`glossaire.json` à l'identique** des fichiers livrés dans le pack. C'est la meilleure preuve que le
-parseur lit le contenu fidèlement. Ces comparaisons tournent aussi dans `npm test`
-(`src/lib/json-parity.test.ts`).
+### Reconstruction du 24 septembre 2026
 
-Comptages vérifiés automatiquement : 56 éléments, 38 modules (12/14/12), 122 questions, 180 termes,
-10 lettres, 14 blocs de formules, 46 encadrés (7 NOUVEAU, 9 ATTENTION, 15 EXEMPLE, 3 ASTUCE,
-2 DEFINITION, 10 A_SURVEILLER), 7 checklists.
-
-### Étape 2 — à finir en priorité
-
-`src/lib/calculs.ts` transcrit `files/formation-immobilier-locatif-2026/reference-calculs.py` et
-l'annexe E. **Ce module est committé sans aucun test : il n'est pas vérifié.**
-
-La prochaine tâche est d'écrire `src/lib/calculs.test.ts` avec les 20 jeux de tests de la
-**section 8 du brief** (tolérance 0,01 € sauf 1 € pour la capacité d'emprunt et 0,05 pour les TRI).
-
-Points de vigilance repérés à la transcription :
-
-- `plusValue` : le forfait travaux de 15 % ne s'applique **que si** la détention ≥ 5 ans ;
-  l'abattement PS est non linéaire (paliers à 22 ans puis 23–30 ans).
-- `surtaxe` : barème à 6 bornes avec lissage.
-- `ifi` : décote `17 500 − 1,25 % × patrimoine` entre 1,3 et 1,4 M€.
-- `scenarioColocation` : amortissements réputés différés et déficits reportés d'année en année —
-  c'est la source d'écart la plus probable sur le TRI.
-- Le fichier Python de référence passe : `python3 files/formation-immobilier-locatif-2026/reference-calculs.py`.
+La session précédente (étapes 1 et 2) n'avait jamais été poussée sur GitHub : le dépôt
+`formation-` était vide. Tout a été reconstruit à partir des fichiers du pack, puis poussé sur la
+branche `claude/admiring-einstein-bp3wj6`.
 
 ---
 
 ## 3. Décisions prises (et pourquoi)
 
-**Source unique de vérité.** Le Markdown n'est pas recopié dans `site/`. Le build lit directement
-`files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.md` via `src/lib/source.ts`.
-Modifier ce seul fichier et relancer `npm run build` met le site à jour — c'est le critère
-d'acceptation 9 du brief.
+**Source unique de vérité.** Le build lit directement
+`files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.md` (cherché en
+remontant depuis le dossier courant, voir `site/src/lib/source.ts`). Modifier ce seul fichier et
+relancer `npm run build` met le site à jour ; en développement, la page se recharge d'elle-même.
+La date « Contenu à jour au … » est lue dans la ligne d'édition du Markdown.
 
-**Identifiants tronqués à 80 caractères.** `src/lib/slug.ts` reproduit la convention des fichiers
-livrés, y compris leur troncature à 80 caractères. Un seul titre est concerné (module 3.11). Sans
-ça, `structure.json` ne se régénère pas à l'identique.
+**Comptages vérifiés au build.** `site/src/lib/attendus.ts` fixe les nombres attendus ; le build
+s'arrête s'ils ne correspondent plus (critère d'acceptation 1). Correction par rapport à l'ancien
+état des lieux : le document compte **18** blocs de formules sans langage (14 dans l'annexe E,
+4 dans les modules 1.12, 2.1, 3.2 et 3.5), et non 14.
 
-**`node_modules` hors iCloud.** Le dossier porte l'attribut `com.apple.fileprovider.ignore#P`, donc
-iCloud ne le synchronise pas. Sans ça, ce sont 327 Mo et des dizaines de milliers de fichiers qui
-partent en synchro.
+**Identifiants tronqués à 80 caractères.** `site/src/lib/slug.ts` reproduit la convention des
+fichiers livrés (un seul titre concerné : module 3.11).
+
+**Adresses courtes.** `/module/1-1/`, `/examen/niveau-1/`, `/annexe/a/`… ; l'annexe C est la page
+`/glossaire/` (`/annexe/c/` y redirige). La progression est indexée par numéro de module (« 1.1 »),
+stable même si un titre change.
+
+**Calculs.** `calculs.ts` reprend `reference-calculs.py` à l'identique (mêmes formules, même ordre
+d'opérations). Le test `calculs-differentiel.test.ts` envoie ~2 500 entrées aléatoires aux deux
+implémentations et compare les résultats. Le cas du module 3.2 est généralisé (`simulerProjet`) :
+il reproduit tout le tableau annuel et le tableau de sensibilité du module.
+
+**Typographie.** À l'affichage seulement, des espaces insécables françaises sont ajoutées (milliers,
+unités, « : ; ? ! », guillemets). C'est la seule adaptation, signalée sur la page À propos.
+
+**Infobulles du glossaire.** Première occurrence de chaque terme par module (hors titres, tableaux,
+formules, gras, liens, rubrique « Textes de référence »). Les sigles (TRI, VAN, ORT…) sont
+reconnus avec leur casse exacte pour ne pas confondre « TRI » et « tri ». Termes exclus : Bail,
+Congé, Zonage A, B, C.
+
+**Scripts en fichiers séparés** (`assetsInlineLimit: 0`) : l'intégration en ligne des petits
+scripts par Astro 7 casse l'import dynamique de Pagefind (placeholder `__VITE_PRELOAD__` non remplacé).
 
 ---
 
@@ -86,111 +85,81 @@ partent en synchro.
 
 Le projet est sous `…/Schöpli:cloud/…`. Ce deux-points casse le `PATH` que npm construit pour
 `node_modules/.bin` : **tout script npm qui appelle un binaire par son nom échoue** avec
-`command not found`.
-
-```
-sh: astro: command not found
-```
-
-D'où les scripts de `package.json`, qui appellent les binaires directement via `node` :
+`command not found`. Les scripts de `site/package.json` appellent donc les binaires via `node` :
 
 ```json
-"dev":   "node ./node_modules/astro/astro.js dev",
+"dev":   "node ./node_modules/astro/bin/astro.mjs dev",
 "test":  "node ./node_modules/vitest/vitest.mjs run",
-"build": "npm run check && node ./node_modules/astro/astro.js build && node ./node_modules/pagefind/lib/runner/bin.cjs --site dist"
+"build": "npm run check && node ./node_modules/astro/bin/astro.mjs build && node ./node_modules/pagefind/lib/runner/bin.cjs --site dist && node ./node_modules/tsx/dist/cli.mjs scripts/check-links.ts"
 ```
 
-**Ne pas « corriger » ces scripts vers la forme habituelle** (`"dev": "astro dev"`) : ça les casse.
-La seule vraie solution serait de renommer le dossier `Schöpli:cloud`.
+Attention : avec **Astro 7**, le binaire est `astro/bin/astro.mjs` (et non plus `astro/astro.js`
+comme sous Astro 5). **Ne pas « corriger » ces scripts vers la forme habituelle** (`"dev": "astro dev"`).
 
 ---
 
-## 5. Commandes
+## 5. Commandes et vérifications
 
 ```bash
-cd "/Users/hugopinaud/Library/Mobile Documents/com~apple~CloudDocs/Schöpli:cloud/Formation-immobilier/site"
-
-npm install          # dépendances (déjà fait)
-npm test             # 33 tests : parseur + parité JSON
-npm run build-json   # vérifie que les 3 JSON se régénèrent à l'identique
-npm run build-json -- --write   # les réécrit dans le pack
-npm run dev          # serveur de développement (pas encore de pages)
-npm run build        # build + index de recherche Pagefind
+cd site
+npm install
+npm test                 # 135 tests : parseur, parité JSON, calculs (+ différentiel Python), rendu…
+npm run build            # types + build + index Pagefind + contrôle des ~4 100 liens internes
+npm run test:site        # après le build : axe sur toutes les pages, 360 px, 196 vérifications
+npm run build-json       # les 3 JSON correspondent-ils au Markdown ?
+npm run lint && npm run format:check
 ```
+
+`npm run test:site` a besoin de Chromium : `npx playwright install chromium`, ou
+`CHROMIUM_PATH=/chemin/vers/chrome`.
+
+Résultats au 24 septembre 2026 : 135 tests unitaires verts ; axe (WCAG 2.2 A et AA) sans
+violation sur les 76 pages en thème clair et 8 en thème sombre ; aucune page ne défile
+horizontalement à 360 px ; Lighthouse (mobile) : performance 98–99, accessibilité, bonnes
+pratiques et référencement 100 (accueil, module 2.1, simulateur TRI).
 
 ---
 
 ## 6. Arborescence
 
 ```
-Formation-immobilier/
+Formation-immobilier/          (dépôt GitHub « formation- »)
 ├── ETAT-DES-LIEUX.md          ← ce fichier
+├── README.md
 ├── files/
-│   ├── BRIEF-claude-code-site-formation.md      ← le cahier des charges
+│   ├── BRIEF-claude-code-site-formation.md
 │   └── formation-immobilier-locatif-2026/
-│       ├── formation-immobilier-locatif-2026.md ← SOURCE UNIQUE DE VÉRITÉ
-│       ├── structure.json, quiz.json, glossaire.json  ← régénérables
-│       └── reference-calculs.py                 ← référence des simulateurs
-└── site/
-    ├── package.json            ← scripts en « node ./node_modules/… » (voir §4)
-    ├── scripts/build-json.ts
-    └── src/lib/
-        ├── source.ts           ← chemin du Markdown, date de mise à jour
-        ├── types.ts, slug.ts
-        ├── parse-formation.ts  + parse-formation.test.ts   (30 tests)
-        ├── json-parity.test.ts (3 tests)
-        └── calculs.ts          ← ⚠️ pas encore testé
+│       ├── formation-immobilier-locatif-2026.md   ← SOURCE UNIQUE DE VÉRITÉ
+│       ├── structure.json, quiz.json, glossaire.json  ← régénérables (npm run build-json -- --write)
+│       └── reference-calculs.py                   ← référence des simulateurs
+└── site/                      ← voir site/README.md (architecture détaillée)
+    ├── src/lib/               logique pure et testée
+    ├── src/components/, src/pages/, src/scripts/, src/styles/
+    └── scripts/               build-json, check-links, test-site, pont-reference.py
 ```
-
-Note : le contenu de la formation est présent **en triple** — à plat dans `files/`, dans
-`files/formation-immobilier-locatif-2026/`, et dans `pack-formation-immobilier-locatif-2026.zip`.
-Les copies `.md` sont identiques (`diff` vide). À nettoyer un jour.
 
 ---
 
-## 7. État git
+## 7. À faire ensuite
 
-Dépôt initialisé, **aucun remote configuré**.
+1. **PDF** : il n'a pas été fourni à cette session. Le déposer sous
+   `files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.pdf` : le build le
+   copie dans `dist/` et affiche les liens de téléchargement (masqués tant qu'il est absent).
+2. **Hébergement** : définir `SITE_URL` (et `BASE_PATH` pour un sous-dossier) au build, puis déposer
+   `site/dist/`. Voir `site/README.md`.
+3. **Intégration continue** (facultatif) : un workflow GitHub Actions pourrait lancer
+   `npm test`, `npm run lint` et `npm run build` à chaque envoi.
+4. **Git local sur le Mac** : le travail est sur GitHub (branche `claude/admiring-einstein-bp3wj6`).
+   Plutôt que de garder `.git` dans iCloud, cloner le dépôt dans un dossier local hors iCloud.
 
-- Branche : `main`
-- Commit : `5acb53f` — 27 fichiers, ~2,6 Mo (`node_modules` exclu)
+### Remarques sur le contenu (non corrigées, à trancher par l'auteur)
 
-Rien n'est encore poussé sur GitHub. La machine n'a ni Homebrew, ni `gh`, ni clé SSH, ni
-identifiants git enregistrés. L'accès réseau à github.com fonctionne.
+Le texte n'a pas été modifié ; ces points relevés pendant l'intégration méritent une vérification :
 
-### Pour brancher GitHub
-
-Option clé SSH (la plus simple ici) :
-
-```bash
-ssh-keygen -t ed25519 -C "hugo.pinaud@icloud.com"   # valider les questions, passphrase au choix
-cat ~/.ssh/id_ed25519.pub                            # copier le résultat
-```
-
-Coller cette clé publique dans GitHub → *Settings* → *SSH and GPG keys* → *New SSH key*.
-Créer ensuite un dépôt **vide** sur github.com (sans README ni .gitignore), puis :
-
-```bash
-cd "/Users/hugopinaud/Library/Mobile Documents/com~apple~CloudDocs/Schöpli:cloud/Formation-immobilier"
-git remote add origin git@github.com:<ton-compte>/<ton-depot>.git
-git push -u origin main
-```
-
-Option `gh` si tu préfères : installer Homebrew, puis `brew install gh`, puis `gh auth login`,
-puis `gh repo create --source=. --private --push`.
-
-⚠️ Le dossier `.git` est dans iCloud Drive. Si iCloud évince des fichiers en cours d'écriture, le
-dépôt peut se corrompre. Plus sûr : travailler dans un clone local et garder iCloud comme miroir.
-
----
-
-## 8. Prochaines actions, dans l'ordre
-
-1. **Écrire `src/lib/calculs.test.ts`** — les 20 jeux de tests de la section 8 du brief. Rien
-   d'autre ne démarre tant que ce n'est pas vert.
-2. Étape 3 : pages et composants (`index`, `module/[id]`, `annexe/[id]`, `simulateurs/[id]`…).
-3. Étape 4 : quiz, progression `localStorage`, glossaire en infobulles, recherche Pagefind,
-   lettres remplissables, checklists, frise du calendrier.
-4. Étape 5 : direction artistique « plan cadastral et tampons administratifs », accessibilité
-   WCAG 2.2 AA, Lighthouse ≥ 95.
-5. `site/README.md` + procédure de mise à jour du contenu (section 12 du brief).
+- **Annexe G, G5, point 6** : « indicateurs de l'annexe 3.12 » — il s'agit sans doute du
+  **module** 3.12 (le tableau d'indicateurs y figure).
+- **Module 3.8, encadré « À surveiller »** : « Un texte dit « RIPOST » … a été adopté**e** » —
+  accord à vérifier (« adopté »).
+- **Module 3.2, tableau de sensibilité** : « Loyer de 420 € par chambre » → cash-flow année 1
+  affiché −686 € ; le modèle de référence donne −685,23 € (écart d'arrondi sur l'assurance loyers
+  impayés : 453,60 € arrondis à 454 €). Le TRI (9,3 %) est identique.

@@ -19,10 +19,14 @@ const entrees = [
 ];
 const modules = tousLesModules.map((m) => m.numero).join(',');
 ---
+
 <div class="mention-maj">
   <div class="conteneur">
     <span>{miseAJour}</span>
-    <span>Formation pédagogique : elle ne remplace pas un conseil personnalisé. <a href={lien('a-propos/#avertissement')}>Avertissement</a></span>
+    <span>
+      Formation pédagogique : elle ne remplace pas un conseil personnalisé.{' '}
+      <a href={lien('a-propos/#avertissement')}>Avertissement</a>
+    </span>
   </div>
 </div>
 <header class="entete" data-pagefind-ignore>
@@ -30,40 +34,61 @@ const modules = tousLesModules.map((m) => m.numero).join(',');
     <div class="entete__barre">
       <a class="logo" href={lien()}>
         <Logo />
-        <span class="logo__texte">L'immobilier locatif en France<small>Formation, édition {formation.edition}</small></span>
+        <span class="logo__texte">
+          L'immobilier locatif en France<small>Formation, édition {formation.edition}</small>
+        </span>
       </a>
-      <button type="button" class="bouton bouton--discret menu-bouton" aria-expanded="false" aria-controls="nav-principale">
+      <button
+        type="button"
+        class="bouton bouton--discret menu-bouton"
+        aria-expanded="false"
+        aria-controls="nav-principale"
+      >
         Menu
       </button>
       <nav class="nav-principale" id="nav-principale" aria-label="Navigation principale">
         <ul>
-          {
-            entrees.map((e) => (
-              <li class={e.cle === 'recherche' ? 'nav-recherche' : undefined}>
-                <a href={e.href} aria-current={actif === e.cle ? 'page' : undefined}>
-                  {e.couleur && <span class="pastille" style={`--c:${e.couleur}`} aria-hidden="true" />}
-                  {e.libelle}
-                </a>
-              </li>
-            ))
-          }
+          {entrees.map((e) => (
+            <li class={e.cle === 'recherche' ? 'nav-recherche' : undefined}>
+              <a href={e.href} aria-current={actif === e.cle ? 'page' : undefined}>
+                {e.couleur && <span class="pastille" style={`--c:${e.couleur}`} aria-hidden="true" />}
+                {e.libelle}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
       <form class="recherche-entete" role="search" action={lien('recherche/')} method="get">
-        <label class="visuellement-cache" for="recherche-rapide">Rechercher dans la formation</label>
+        <label class="visuellement-cache" for="recherche-rapide">
+          Rechercher dans la formation
+        </label>
         <input id="recherche-rapide" name="q" type="search" placeholder="Rechercher" autocomplete="off" />
         <kbd aria-hidden="true">/</kbd>
       </form>
       <button type="button" class="theme-bascule" aria-pressed="false" data-theme-bascule>
         <span class="visuellement-cache">Thème sombre</span>
-        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M10 2a8 8 0 1 0 0 16V2Z" fill="currentColor"></path><circle cx="10" cy="10" r="7.2" fill="none" stroke="currentColor" stroke-width="1.6"></circle></svg>
+        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M10 2a8 8 0 1 0 0 16V2Z" fill="currentColor"></path>
+          <circle cx="10" cy="10" r="7.2" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+        </svg>
       </button>
     </div>
     <div class="progression-globale">
-      <div class="jauge" data-jauge-globale data-modules={modules} role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progression globale">
+      <div
+        class="jauge"
+        data-jauge-globale
+        data-modules={modules}
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        aria-label="Progression globale"
+      >
         <span class="jauge__remplissage"></span>
       </div>
-      <a href={lien('progression/')} data-libelle-progression>Ma progression : 0 %</a>
+      <a href={lien('progression/')} data-libelle-progression>
+        Ma progression : 0 %
+      </a>
     </div>
   </div>
 </header>

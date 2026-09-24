@@ -36,7 +36,9 @@ const cibles = liens
 if ('IntersectionObserver' in window && cibles.length) {
   const observateur = new IntersectionObserver(
     (entrees) => {
-      const visible = entrees.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      const visible = entrees
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
       if (!visible) return;
       liens.forEach((a) => a.setAttribute('aria-current', String(a.hash === `#${visible.target.id}`)));
     },

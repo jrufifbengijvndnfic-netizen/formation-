@@ -17,7 +17,7 @@ const parDefaut = (id: string): Resultat => {
   expect(erreurs).toEqual([]);
   return resultat!;
 };
-const synthese = (r: Resultat) => r.synthese.map((x) => x.valeur.replace(/ | /g, ' '));
+const synthese = (r: Resultat) => r.synthese.map((x) => x.valeur.replace(/\u202f|\u00a0/g, ' '));
 
 describe('simulateurs : valeurs par défaut issues des exemples de la formation', () => {
   it('14 simulateurs aux identifiants uniques, tous calculables', () => {
@@ -27,7 +27,10 @@ describe('simulateurs : valeurs par défaut issues des exemples de la formation'
       const r = executer(s, valeursParDefaut(s));
       expect(r.erreurs, s.id).toEqual([]);
       expect(rendreResultat(r.resultat!)).toContain('sim-synthese');
-      expect(s.champs.every((c) => s.groupes.some((g) => g.id === c.groupe)), s.id).toBe(true);
+      expect(
+        s.champs.every((c) => s.groupes.some((g) => g.id === c.groupe)),
+        s.id,
+      ).toBe(true);
     }
   });
   it('rentabilité (module 1.12)', () => {
@@ -51,7 +54,7 @@ describe('simulateurs : valeurs par défaut issues des exemples de la formation'
   it('micro-BIC ou réel (module 2.8)', () => {
     const r = parDefaut('micro-bic-ou-reel');
     expect(synthese(r)).toEqual(['2 187,00 €', '0,00 €']);
-    expect(r.synthese[1]?.detail?.replace(/ | /g, ' ')).toBe('2 014,29 € d’amortissements reportés');
+    expect(r.synthese[1]?.detail?.replace(/\u202f|\u00a0/g, ' ')).toBe('2 014,29 € d’amortissements reportés');
   });
   it('Jeanbrun (module 3.4)', () => {
     expect(synthese(parDefaut('jeanbrun'))).toEqual(['160 000 €', '5 600 €', '50 400 €']);
@@ -68,7 +71,9 @@ describe('simulateurs : valeurs par défaut issues des exemples de la formation'
   it('TRI (module 3.2)', () => {
     const r = parDefaut('tri');
     expect(synthese(r)).toEqual(['11,9 %', '4,1 %', '+308 €']);
-    const sens = r.blocs.find((b) => b.titre === 'Sensibilité')?.tableau?.lignes.map((l) => l[1]?.replace(/ /g, ' '));
+    const sens = r.blocs
+      .find((b) => b.titre === 'Sensibilité')
+      ?.tableau?.lignes.map((l) => l[1]?.replace(/\u00a0/g, ' '));
     expect(sens).toEqual(['11,9 %', '9,6 %', '9,4 %', '10,0 %', '7,9 %', '9,3 %']);
   });
   it('donation (module 3.7)', () => {

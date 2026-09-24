@@ -12,24 +12,23 @@ interface Props {
 const { element } = Astro.props;
 const { intro, rubriques } = rendreElement(element);
 ---
+
 <div class="contenu">
   {intro && <Fragment set:html={intro} />}
-  {
-    rubriques.map(({ rubrique, html }) =>
-      rubrique ? (
-        <section class="rubrique" id={rubrique.id} aria-labelledby={`${rubrique.id}-titre`}>
-          <h2 id={`${rubrique.id}-titre`}>{rubrique.titre}</h2>
-          {rubrique.quiz ? (
-            <Quiz module={element.numero ?? ''} questions={rubrique.quiz} />
-          ) : rubrique.lettre ? (
-            <Lettre lettre={rubrique.lettre} />
-          ) : rubrique.checklist ? (
-            <Checklist checklist={rubrique.checklist} />
-          ) : (
-            <Fragment set:html={html} />
-          )}
-        </section>
-      ) : null,
-    )
-  }
+  {rubriques.map(({ rubrique, html }) =>
+    rubrique ? (
+      <section class="rubrique" id={rubrique.id} aria-labelledby={`${rubrique.id}-titre`}>
+        <h2 id={`${rubrique.id}-titre`}>{rubrique.titre}</h2>
+        {rubrique.quiz ? (
+          <Quiz module={element.numero ?? ''} questions={rubrique.quiz} />
+        ) : rubrique.lettre ? (
+          <Lettre lettre={rubrique.lettre} />
+        ) : rubrique.checklist ? (
+          <Checklist checklist={rubrique.checklist} />
+        ) : (
+          <Fragment set:html={html} />
+        )}
+      </section>
+    ) : null,
+  )}
 </div>

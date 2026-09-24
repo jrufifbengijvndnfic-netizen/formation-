@@ -18,8 +18,9 @@ async function copier(texte: string): Promise<boolean> {
     zone.style.opacity = '0';
     document.body.appendChild(zone);
     zone.select();
-    let ok = false;
+    let ok: boolean;
     try {
+      // Repli pour les pages servies sans HTTPS, où l'API presse-papiers est absente.
       ok = document.execCommand('copy');
     } catch {
       ok = false;
@@ -48,11 +49,12 @@ document.querySelectorAll<HTMLElement>('[data-lettre]').forEach((racine) => {
   const segments = JSON.parse(brut) as SegmentLettre[];
   const apercu = racine.querySelector<HTMLElement>('[data-lettre-apercu]');
   const statut = racine.querySelector<HTMLElement>('[data-lettre-statut]');
-  const champs = [...racine.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[data-champ]')];
+  const champs = [
+    ...racine.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[data-champ]'),
+  ];
   const titre = racine.dataset.titre ?? 'Lettre';
 
-  const valeurs = (): Record<string, string> =>
-    Object.fromEntries(champs.map((c) => [c.dataset.champ ?? '', c.value]));
+  const valeurs = (): Record<string, string> => Object.fromEntries(champs.map((c) => [c.dataset.champ ?? '', c.value]));
 
   const texte = (): string => {
     const v = valeurs();
@@ -79,7 +81,11 @@ document.querySelectorAll<HTMLElement>('[data-lettre]').forEach((racine) => {
 
   champs.forEach((c) => c.addEventListener('input', rendre));
   racine.querySelector('[data-lettre-copier]')?.addEventListener('click', async () => {
-    annoncer((await copier(texte())) ? 'Texte copié dans le presse-papiers.' : 'Copie impossible : sélectionnez le texte de l’aperçu.');
+    annoncer(
+      (await copier(texte()))
+        ? 'Texte copié dans le presse-papiers.'
+        : 'Copie impossible : sélectionnez le texte de l’aperçu.',
+    );
   });
   racine.querySelector('[data-lettre-telecharger]')?.addEventListener('click', () => {
     const blob = new Blob(['﻿', texte().replace(/\n/g, '\r\n')], { type: 'text/plain;charset=utf-8' });

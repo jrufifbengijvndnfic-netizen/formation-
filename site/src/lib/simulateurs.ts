@@ -93,7 +93,13 @@ export interface Simulateur {
 // Aides à la déclaration
 // ---------------------------------------------------------------------------
 
-const eur = (id: string, libelle: string, defaut: number, groupe: string, extra: Partial<ChampNombre> = {}): ChampNombre => ({
+const eur = (
+  id: string,
+  libelle: string,
+  defaut: number,
+  groupe: string,
+  extra: Partial<ChampNombre> = {},
+): ChampNombre => ({
   type: 'nombre',
   id,
   libelle,
@@ -103,7 +109,13 @@ const eur = (id: string, libelle: string, defaut: number, groupe: string, extra:
   groupe,
   ...extra,
 });
-const pct = (id: string, libelle: string, defaut: number, groupe: string, extra: Partial<ChampNombre> = {}): ChampNombre => ({
+const pct = (
+  id: string,
+  libelle: string,
+  defaut: number,
+  groupe: string,
+  extra: Partial<ChampNombre> = {},
+): ChampNombre => ({
   type: 'nombre',
   id,
   libelle,
@@ -173,7 +185,9 @@ const rentabilite: Simulateur = {
   ],
   champs: [
     eur('prix', 'Prix du bien', 100_000, 'acq'),
-    eur('frais', "Frais d'acquisition", 8_000, 'acq', { aide: 'Environ 7 à 8,5 % dans l’ancien, 2 à 3 % dans le neuf.' }),
+    eur('frais', "Frais d'acquisition", 8_000, 'acq', {
+      aide: 'Environ 7 à 8,5 % dans l’ancien, 2 à 3 % dans le neuf.',
+    }),
     eur('travaux', 'Travaux', 7_000, 'acq'),
     eur('mobilier', 'Mobilier', 3_000, 'acq'),
     eur('fraisBancaires', 'Frais de garantie et de dossier du prêt', 0, 'acq'),
@@ -203,9 +217,10 @@ const rentabilite: Simulateur = {
       aide: 'Facultatif : impôt sur le revenu et prélèvements sociaux dus sur ce bien, pour la rentabilité nette-nette.',
     }),
   ],
-  controler: (v) => (n(v, 'prix') + n(v, 'frais') + n(v, 'travaux') + n(v, 'mobilier') + n(v, 'fraisBancaires') <= 0
-    ? [{ champ: 'prix', message: 'Le coût total de l’opération doit être supérieur à zéro.' }]
-    : []),
+  controler: (v) =>
+    n(v, 'prix') + n(v, 'frais') + n(v, 'travaux') + n(v, 'mobilier') + n(v, 'fraisBancaires') <= 0
+      ? [{ champ: 'prix', message: 'Le coût total de l’opération doit être supérieur à zéro.' }]
+      : [],
   calculer(v) {
     const r = C.rentabilite({
       prix: n(v, 'prix'),
@@ -238,7 +253,11 @@ const rentabilite: Simulateur = {
       {
         titre: 'Rentabilités',
         lignes: [
-          { libelle: 'Loyers annuels hors charges', valeur: euros(r.loyersAnnuels), detail: `12 × ${euros(n(v, 'loyer'))}` },
+          {
+            libelle: 'Loyers annuels hors charges',
+            valeur: euros(r.loyersAnnuels),
+            detail: `12 × ${euros(n(v, 'loyer'))}`,
+          },
           {
             libelle: 'Rentabilité brute',
             valeur: pourcent(r.rentaBrute),
@@ -246,7 +265,11 @@ const rentabilite: Simulateur = {
             fort: true,
           },
           { libelle: 'Charges non récupérables', valeur: euros(r.chargesNonRecup) },
-          { libelle: 'Provision pour vacance', valeur: euros(r.vacance), detail: `${nombre(n(v, 'vacance'), 0, 2)} mois de loyer` },
+          {
+            libelle: 'Provision pour vacance',
+            valeur: euros(r.vacance),
+            detail: `${nombre(n(v, 'vacance'), 0, 2)} mois de loyer`,
+          },
           {
             libelle: 'Rentabilité nette de charges',
             valeur: pourcent(r.rentaNette),
@@ -261,7 +284,11 @@ const rentabilite: Simulateur = {
       {
         titre: 'Cash-flow mensuel',
         lignes: [
-          { libelle: 'Loyers nets de charges et de vacance, par mois', valeur: euros(net / 12), detail: `${euros(net)} / 12` },
+          {
+            libelle: 'Loyers nets de charges et de vacance, par mois',
+            valeur: euros(net / 12),
+            detail: `${euros(net)} / 12`,
+          },
           { libelle: 'Mensualité du crédit (hors assurance)', valeur: euros(-r.mensualite) },
           { libelle: 'Assurance emprunteur', valeur: euros(-r.assuranceMensuelle) },
           { libelle: 'Cash-flow mensuel avant impôt', valeur: euros(r.cashFlowAvantImpot), fort: true },
@@ -310,7 +337,11 @@ const credit: Simulateur = {
         titre: 'Mensualité',
         lignes: [
           { libelle: 'Mensualité hors assurance', valeur: euros(c.mensualite), detail: 'C × t / (1 − (1 + t)^(−n))' },
-          { libelle: 'Assurance emprunteur', valeur: euros(c.assuranceMensuelle), detail: 'Capital × taux d’assurance / 12' },
+          {
+            libelle: 'Assurance emprunteur',
+            valeur: euros(c.assuranceMensuelle),
+            detail: 'Capital × taux d’assurance / 12',
+          },
           { libelle: 'Mensualité totale', valeur: euros(c.mensualiteTotale), fort: true },
         ],
       },
@@ -339,7 +370,8 @@ const credit: Simulateur = {
         },
       },
     ];
-    if (n(v, 'duree') > 25) blocs.unshift({ titre: 'Durée', alerte: { genre: 'attention', texte: AVERTISSEMENT_HCSF } });
+    if (n(v, 'duree') > 25)
+      blocs.unshift({ titre: 'Durée', alerte: { genre: 'attention', texte: AVERTISSEMENT_HCSF } });
     return {
       synthese: [
         { libelle: 'Mensualité hors assurance', valeur: euros(c.mensualite) },
@@ -367,7 +399,9 @@ const capacite: Simulateur = {
   ],
   champs: [
     eur('revenus', 'Revenus nets mensuels du foyer', 3_000, 'revenus'),
-    eur('loyers', 'Loyers mensuels (futurs et actuels)', 700, 'revenus', { aide: 'La banque en retient généralement 70 %.' }),
+    eur('loyers', 'Loyers mensuels (futurs et actuels)', 700, 'revenus', {
+      aide: 'La banque en retient généralement 70 %.',
+    }),
     eur('credits', 'Mensualités des crédits en cours', 0, 'revenus'),
     pct('taux', 'Taux du crédit (hors assurance)', 3.45, 'pret', { max: 20 }),
     ans('duree', 'Durée', 25, 'pret'),
@@ -408,16 +442,21 @@ const capacite: Simulateur = {
             fort: true,
           },
         ],
-        texte: 'La banque regarde aussi le reste à vivre, l’épargne résiduelle, la stabilité professionnelle et la tenue des comptes.',
+        texte:
+          'La banque regarde aussi le reste à vivre, l’épargne résiduelle, la stabilité professionnelle et la tenue des comptes.',
       },
     ];
     if (c.mensualiteMax <= 0) {
       blocs.unshift({
         titre: 'Capacité',
-        alerte: { genre: 'attention', texte: 'Les crédits en cours absorbent déjà toute la capacité d’endettement à 35 %.' },
+        alerte: {
+          genre: 'attention',
+          texte: 'Les crédits en cours absorbent déjà toute la capacité d’endettement à 35 %.',
+        },
       });
     }
-    if (n(v, 'duree') > 25) blocs.unshift({ titre: 'Durée', alerte: { genre: 'attention', texte: AVERTISSEMENT_HCSF } });
+    if (n(v, 'duree') > 25)
+      blocs.unshift({ titre: 'Durée', alerte: { genre: 'attention', texte: AVERTISSEMENT_HCSF } });
     return {
       synthese: [
         { libelle: 'Mensualité maximale (assurance comprise)', valeur: euros(c.mensualiteMax) },
@@ -473,7 +512,13 @@ const revision: Simulateur = {
       groupe: 'loyer',
       aide: 'Outre-mer : depuis le 1er juillet 2024.',
     },
-    { type: 'date', id: 'dateRevision', libelle: 'Date de révision prévue au bail', defaut: '2026-09-01', groupe: 'dates' },
+    {
+      type: 'date',
+      id: 'dateRevision',
+      libelle: 'Date de révision prévue au bail',
+      defaut: '2026-09-01',
+      groupe: 'dates',
+    },
     {
       type: 'date',
       id: 'dateDemande',
@@ -524,7 +569,11 @@ const revision: Simulateur = {
       titre: 'Date d’effet',
       lignes: [
         { libelle: 'Date limite pour demander la révision', valeur: dateFr(r.dateLimiteDemande) },
-        { libelle: 'Date d’effet', valeur: r.statut === 'perdue' ? 'Révision perdue' : dateFr(r.dateEffet), fort: true },
+        {
+          libelle: 'Date d’effet',
+          valeur: r.statut === 'perdue' ? 'Révision perdue' : dateFr(r.dateEffet),
+          fort: true,
+        },
       ],
       texte: explications[r.statut],
     });
@@ -614,14 +663,18 @@ const depot: Simulateur = {
     if (r.retard && !b(v, 'adresse')) {
       blocs.push({
         titre: 'Adresse',
-        alerte: { genre: 'info', texte: 'Faute de nouvelle adresse transmise par le locataire, la pénalité n’est pas due.' },
+        alerte: {
+          genre: 'info',
+          texte: 'Faute de nouvelle adresse transmise par le locataire, la pénalité n’est pas due.',
+        },
       });
     }
     blocs.push({
       titre: 'Copropriété',
       alerte: {
         genre: 'info',
-        texte: 'En copropriété, le bailleur peut conserver une provision de 20 % au plus jusqu’à l’approbation annuelle des comptes, puis doit régulariser dans le mois qui suit.',
+        texte:
+          'En copropriété, le bailleur peut conserver une provision de 20 % au plus jusqu’à l’approbation annuelle des comptes, puis doit régulariser dans le mois qui suit.',
       },
     });
     return {
@@ -642,7 +695,8 @@ const depot: Simulateur = {
 const foncier: Simulateur = {
   id: 'micro-foncier-ou-reel',
   titre: 'Micro-foncier ou régime réel',
-  resume: 'Impôt et prélèvements sociaux d’une location nue dans chaque régime, déficit foncier imputable et reportable.',
+  resume:
+    'Impôt et prélèvements sociaux d’une location nue dans chaque régime, déficit foncier imputable et reportable.',
   modules: ['2.6', '2.8'],
   formule: 'e6',
   groupes: [
@@ -683,7 +737,10 @@ const foncier: Simulateur = {
     },
   ],
   calculer(v) {
-    const autres = ['taxeFonciere', 'copro', 'assurances', 'travaux', 'gestion', 'autres'].reduce((t, k) => t + n(v, k), 0);
+    const autres = ['taxeFonciere', 'copro', 'assurances', 'travaux', 'gestion', 'autres'].reduce(
+      (t, k) => t + n(v, k),
+      0,
+    );
     const t = taux(v, 'tmi');
     const plafond = b(v, 'renovation') ? 21_400 : 10_700;
     const r = C.comparatifFoncier({
@@ -699,7 +756,10 @@ const foncier: Simulateur = {
     if (!r.micro.eligible) {
       blocs.push({
         titre: 'Micro-foncier',
-        alerte: { genre: 'attention', texte: 'Au-delà de 15 000 € de revenus fonciers bruts, le régime réel est obligatoire.' },
+        alerte: {
+          genre: 'attention',
+          texte: 'Au-delà de 15 000 € de revenus fonciers bruts, le régime réel est obligatoire.',
+        },
       });
     }
     blocs.push({
@@ -753,7 +813,9 @@ const foncier: Simulateur = {
         {
           libelle: ecart >= 0 ? 'Gain du régime réel' : 'Gain du micro-foncier',
           valeur: euros(Math.abs(ecart)),
-          ...(r.reel.deficitImputable > 0 ? { detail: `+ ${euros(r.reel.deficitImputable, 0)} de déficit imputable` } : {}),
+          ...(r.reel.deficitImputable > 0
+            ? { detail: `+ ${euros(r.reel.deficitImputable, 0)} de déficit imputable` }
+            : {}),
         },
       ],
       blocs,
@@ -799,7 +861,9 @@ const meuble: Simulateur = {
     eur('comptabilite', 'Expert-comptable', 500, 'charges'),
     eur('autres', 'Autres charges (CFE, gestion…)', 0, 'charges'),
     eur('prix', 'Prix d’acquisition du bien', 150_000, 'amort'),
-    pct('terrain', 'Part du terrain (non amortissable)', 15, 'amort', { aide: 'Souvent 10 à 20 % du prix selon la localisation.' }),
+    pct('terrain', 'Part du terrain (non amortissable)', 15, 'amort', {
+      aide: 'Souvent 10 à 20 % du prix selon la localisation.',
+    }),
     ans('dureeBati', 'Durée moyenne d’amortissement du bâti', 30, 'amort', 80),
     eur('mobilier', 'Mobilier et équipements', 5_000, 'amort'),
     ans('dureeMobilier', 'Durée d’amortissement du mobilier', 7, 'amort', 20),
@@ -864,7 +928,11 @@ const meuble: Simulateur = {
         { libelle: 'Amortissement des travaux', valeur: euros(r.reel.amortTravaux) },
         { libelle: 'Amortissements disponibles (avec reports)', valeur: euros(r.reel.amortissementsDisponibles) },
         { libelle: 'Amortissements utilisés', valeur: euros(r.reel.amortissementsUtilises) },
-        { libelle: 'Amortissements reportés sans limite de durée', valeur: euros(r.reel.amortissementsReportes), fort: true },
+        {
+          libelle: 'Amortissements reportés sans limite de durée',
+          valeur: euros(r.reel.amortissementsReportes),
+          fort: true,
+        },
         { libelle: 'Base imposable', valeur: euros(r.reel.base) },
         { libelle: 'Impôt et prélèvements sociaux', valeur: euros(r.reel.impot), fort: true },
       ],
@@ -877,7 +945,8 @@ const meuble: Simulateur = {
       titre: 'À la revente',
       alerte: {
         genre: 'info',
-        texte: 'Pour les cessions depuis le 15 février 2025, les amortissements déduits en LMNP (hors résidences services) minorent le prix d’acquisition et augmentent la plus-value.',
+        texte:
+          'Pour les cessions depuis le 15 février 2025, les amortissements déduits en LMNP (hors résidences services) minorent le prix d’acquisition et augmentent la plus-value.',
       },
     });
     if (n(v, 'recettes') > 23_000) {
@@ -885,7 +954,8 @@ const meuble: Simulateur = {
         titre: 'Statut',
         alerte: {
           genre: 'info',
-          texte: 'Au-delà de 23 000 € de recettes, vérifiez le statut : le loueur est professionnel (LMP) si ces recettes excèdent aussi les autres revenus d’activité du foyer.',
+          texte:
+            'Au-delà de 23 000 € de recettes, vérifiez le statut : le loueur est professionnel (LMP) si ces recettes excèdent aussi les autres revenus d’activité du foyer.',
         },
       });
     }
@@ -981,9 +1051,14 @@ const jeanbrun: Simulateur = {
             detail: r.plafonnee ? `Limitée au plafond de ${euros(n(v, 'plafond'), 0)}` : undefined,
             fort: true,
           },
-          { libelle: 'Total sur les neuf ans d’engagement', valeur: euros(r.total9Ans, 0), detail: 'Plafonné à la base amortissable' },
+          {
+            libelle: 'Total sur les neuf ans d’engagement',
+            valeur: euros(r.total9Ans, 0),
+            detail: 'Plafonné à la base amortissable',
+          },
         ],
-        texte: 'La déduction s’impute sur les revenus fonciers (location nue au régime réel) ; les charges restent déductibles.',
+        texte:
+          'La déduction s’impute sur les revenus fonciers (location nue au régime réel) ; les charges restent déductibles.',
       },
       {
         titre: 'Conditions principales',
@@ -1008,7 +1083,8 @@ const jeanbrun: Simulateur = {
         titre: 'Projet de loi',
         alerte: {
           genre: 'surveiller',
-          texte: 'Le projet de loi relance logement prévoit d’abaisser le seuil à 20 % et d’exiger au moins la classe D. Tant qu’il n’est pas promulgué, les règles de la loi de finances pour 2026 s’appliquent.',
+          texte:
+            'Le projet de loi relance logement prévoit d’abaisser le seuil à 20 % et d’exiger au moins la classe D. Tant qu’il n’est pas promulgué, les règles de la loi de finances pour 2026 s’appliquent.',
         },
       });
     }
@@ -1040,7 +1116,9 @@ const plusValue: Simulateur = {
   champs: [
     eur('prixAchat', 'Prix d’achat', 100_000, 'achat'),
     { type: 'date', id: 'dateAchat', libelle: 'Date d’achat', defaut: '2011-03-15', groupe: 'achat' },
-    eur('fraisReels', 'Frais d’acquisition réels', 0, 'achat', { aide: 'Le forfait de 7,5 % s’applique s’il est plus élevé.' }),
+    eur('fraisReels', 'Frais d’acquisition réels', 0, 'achat', {
+      aide: 'Le forfait de 7,5 % s’applique s’il est plus élevé.',
+    }),
     eur('travauxReels', 'Travaux réels non déduits (facturés par des entreprises)', 0, 'achat', {
       aide: 'Forfait de 15 % après 5 ans de détention s’il est plus élevé.',
     }),
@@ -1068,7 +1146,10 @@ const plusValue: Simulateur = {
       {
         titre: 'Plus-value brute',
         lignes: [
-          { libelle: 'Durée de détention', valeur: `${r.annees} année${r.annees > 1 ? 's' : ''} pleine${r.annees > 1 ? 's' : ''}` },
+          {
+            libelle: 'Durée de détention',
+            valeur: `${r.annees} année${r.annees > 1 ? 's' : ''} pleine${r.annees > 1 ? 's' : ''}`,
+          },
           { libelle: 'Prix de cession retenu', valeur: euros(r.prixCessionNet) },
           { libelle: 'Prix d’achat', valeur: euros(n(v, 'prixAchat')) },
           {
@@ -1110,7 +1191,10 @@ const plusValue: Simulateur = {
           {
             libelle: 'Surtaxe',
             valeur: euros(r.surtaxe),
-            detail: r.baseIr > 50_000 ? 'Base imposable à l’impôt sur le revenu supérieure à 50 000 €' : 'Aucune : base inférieure ou égale à 50 000 €',
+            detail:
+              r.baseIr > 50_000
+                ? 'Base imposable à l’impôt sur le revenu supérieure à 50 000 €'
+                : 'Aucune : base inférieure ou égale à 50 000 €',
           },
           { libelle: 'Total dû', valeur: euros(r.total), fort: true },
         ],
@@ -1145,7 +1229,9 @@ const ifiSim: Simulateur = {
       aide: 'Y compris parts de SCI et fraction immobilière des SCPI et OPCI.',
     }),
     eur('rp', 'Valeur de la résidence principale', 0, 'patrimoine', { aide: 'Abattement de 30 %.' }),
-    eur('dettes', 'Dettes déductibles', 0, 'patrimoine', { aide: 'Emprunts d’acquisition et de travaux, taxe foncière de l’année…' }),
+    eur('dettes', 'Dettes déductibles', 0, 'patrimoine', {
+      aide: 'Emprunts d’acquisition et de travaux, taxe foncière de l’année…',
+    }),
   ],
   calculer(v) {
     const r = C.ifiDetaille({ actifs: n(v, 'actifs'), residencePrincipale: n(v, 'rp'), dettes: n(v, 'dettes') });
@@ -1186,7 +1272,8 @@ const ifiSim: Simulateur = {
             : []),
           { libelle: 'IFI dû', valeur: euros(r.ifi), fort: true },
         ],
-        texte: 'Plafonnement non simulé : l’IFI, l’impôt sur le revenu et les prélèvements sociaux ne peuvent excéder 75 % des revenus de l’année précédente.',
+        texte:
+          'Plafonnement non simulé : l’IFI, l’impôt sur le revenu et les prélèvements sociaux ne peuvent excéder 75 % des revenus de l’année précédente.',
       });
     }
     return {
@@ -1249,7 +1336,12 @@ const frais: Simulateur = {
     });
     if (r.neuf) {
       return {
-        synthese: [{ libelle: 'Frais estimés dans le neuf', valeur: `${euros(r.estimationBasse, 0)} à ${euros(r.estimationHaute, 0)}` }],
+        synthese: [
+          {
+            libelle: 'Frais estimés dans le neuf',
+            valeur: `${euros(r.estimationBasse, 0)} à ${euros(r.estimationHaute, 0)}`,
+          },
+        ],
         blocs: [
           {
             titre: 'Logement neuf',
@@ -1268,8 +1360,16 @@ const frais: Simulateur = {
         {
           titre: 'Droits de mutation à titre onéreux (DMTO)',
           lignes: [
-            { libelle: 'Taxe départementale', valeur: euros(r.taxeDepartementale), detail: `${nombre(n(v, 'tauxDepartemental'), 1, 2)} % du prix` },
-            { libelle: 'Frais d’assiette et de recouvrement', valeur: euros(r.fraisAssiette), detail: '2,37 % de la taxe départementale' },
+            {
+              libelle: 'Taxe départementale',
+              valeur: euros(r.taxeDepartementale),
+              detail: `${nombre(n(v, 'tauxDepartemental'), 1, 2)} % du prix`,
+            },
+            {
+              libelle: 'Frais d’assiette et de recouvrement',
+              valeur: euros(r.fraisAssiette),
+              detail: '2,37 % de la taxe départementale',
+            },
             { libelle: 'Taxe communale', valeur: euros(r.taxeCommunale), detail: '1,20 % du prix' },
             { libelle: 'Total des droits de mutation', valeur: euros(r.dmto), fort: true },
           ],
@@ -1277,7 +1377,11 @@ const frais: Simulateur = {
         {
           titre: 'Autres frais',
           lignes: [
-            { libelle: 'Émoluments du notaire hors taxes', valeur: euros(r.emolumentsHt), detail: 'Barème réglementé dégressif, à vérifier' },
+            {
+              libelle: 'Émoluments du notaire hors taxes',
+              valeur: euros(r.emolumentsHt),
+              detail: 'Barème réglementé dégressif, à vérifier',
+            },
             { libelle: 'Émoluments du notaire TTC', valeur: euros(r.emolumentsTtc) },
             { libelle: 'Contribution de sécurité immobilière', valeur: euros(r.csi), detail: '0,10 % du prix' },
             { libelle: 'Débours et formalités', valeur: euros(r.debours) },
@@ -1321,7 +1425,8 @@ function paramsProjet(v: Valeurs, levier = true): C.ParamsProjet {
 const triSim: Simulateur = {
   id: 'tri',
   titre: 'TRI d’un projet locatif',
-  resume: 'Taux de rendement interne des fonds propres avec et sans crédit, flux annuels et sensibilité (cas d’étude du module 3.2).',
+  resume:
+    'Taux de rendement interne des fonds propres avec et sans crédit, flux annuels et sensibilité (cas d’étude du module 3.2).',
   modules: ['3.2'],
   formule: 'e12',
   groupes: [
@@ -1341,7 +1446,16 @@ const triSim: Simulateur = {
     ans('duree', 'Durée du crédit', 25, 'credit'),
     pct('assurance', 'Assurance emprunteur (du capital, par an)', 0.3, 'credit', { max: 5 }),
     eur('loyerLot', 'Loyer mensuel hors charges par chambre ou par lot', 450, 'loyers'),
-    { type: 'nombre', id: 'lots', libelle: 'Nombre de chambres ou de lots', defaut: 3, min: 1, max: 50, entier: true, groupe: 'loyers' },
+    {
+      type: 'nombre',
+      id: 'lots',
+      libelle: 'Nombre de chambres ou de lots',
+      defaut: 3,
+      min: 1,
+      max: 50,
+      entier: true,
+      groupe: 'loyers',
+    },
     pct('croissanceLoyers', 'Évolution des loyers par an', 1, 'loyers', { min: -10, max: 20 }),
     eur('taxeFonciere', 'Taxe foncière', 1_300, 'charges'),
     eur('copro', 'Copropriété non récupérable', 600, 'charges'),
@@ -1364,7 +1478,10 @@ const triSim: Simulateur = {
     const sansLevier = C.simulerProjet(paramsProjet(v, false));
     const variantes: [string, Partial<C.ParamsProjet>][] = [
       ['Scénario de base', {}],
-      [`Vacance de ${nombre(2 * n(v, 'vacance'), 0, 2)} % au lieu de ${nombre(n(v, 'vacance'), 0, 2)} %`, { tauxVacance: 2 * p.tauxVacance }],
+      [
+        `Vacance de ${nombre(2 * n(v, 'vacance'), 0, 2)} % au lieu de ${nombre(n(v, 'vacance'), 0, 2)} %`,
+        { tauxVacance: 2 * p.tauxVacance },
+      ],
       [
         `Taux du crédit de ${nombre(n(v, 'taux') + 0.75, 2)} % au lieu de ${nombre(n(v, 'taux'), 2)} %`,
         { tauxCredit: p.tauxCredit + 0.0075 },
@@ -1444,7 +1561,8 @@ const triSim: Simulateur = {
           titre: 'Hypothèses',
           alerte: {
             genre: 'attention',
-            texte: 'Ces résultats reposent sur des hypothèses simplificatrices (amortissement moyen, fiscalité constante, absence de gros travaux imprévus, pas de réforme). Ils illustrent une méthode, pas une promesse de rendement. Le levier amplifie aussi les pertes.',
+            texte:
+              'Ces résultats reposent sur des hypothèses simplificatrices (amortissement moyen, fiscalité constante, absence de gros travaux imprévus, pas de réforme). Ils illustrent une méthode, pas une promesse de rendement. Le levier amplifie aussi les pertes.',
           },
         },
       ],
@@ -1476,12 +1594,29 @@ const donation: Simulateur = {
       defaut: 'nue',
       groupe: 'don',
     },
-    { type: 'nombre', id: 'age', libelle: 'Âge de l’usufruitier', unite: 'ans', defaut: 65, min: 0, max: 120, entier: true, groupe: 'don' },
-    eur('abattement', 'Abattement disponible', 100_000, 'don', { aide: '100 000 € par parent et par enfant, reconstitué tous les quinze ans.' }),
+    {
+      type: 'nombre',
+      id: 'age',
+      libelle: 'Âge de l’usufruitier',
+      unite: 'ans',
+      defaut: 65,
+      min: 0,
+      max: 120,
+      entier: true,
+      groupe: 'don',
+    },
+    eur('abattement', 'Abattement disponible', 100_000, 'don', {
+      aide: '100 000 € par parent et par enfant, reconstitué tous les quinze ans.',
+    }),
   ],
   calculer(v) {
     const nue = s(v, 'nature') === 'nue';
-    const r = C.donation({ valeur: n(v, 'valeur'), nuePropriete: nue, ageUsufruitier: n(v, 'age'), abattement: n(v, 'abattement') });
+    const r = C.donation({
+      valeur: n(v, 'valeur'),
+      nuePropriete: nue,
+      ageUsufruitier: n(v, 'age'),
+      abattement: n(v, 'abattement'),
+    });
     const blocs: BlocResultat[] = [
       {
         titre: 'Valeur taxable',
@@ -1511,7 +1646,9 @@ const donation: Simulateur = {
         },
         lignes: [
           { libelle: 'Droits de donation', valeur: euros(r.droits), fort: true },
-          ...(nue ? [{ libelle: 'Pour comparaison, en pleine propriété', valeur: euros(r.droitsPleinePropriete) }] : []),
+          ...(nue
+            ? [{ libelle: 'Pour comparaison, en pleine propriété', valeur: euros(r.droitsPleinePropriete) }]
+            : []),
         ],
         texte: nue
           ? 'Au décès de l’usufruitier, le donataire devient plein propriétaire sans droits supplémentaires.'
@@ -1555,7 +1692,13 @@ const conge: Simulateur = {
       groupe: 'bail',
     },
     { type: 'date', id: 'echeance', libelle: 'Date d’échéance du bail', defaut: '2027-06-30', groupe: 'bail' },
-    { type: 'date', id: 'reception', libelle: 'Date de réception du congé du locataire', defaut: '2026-09-24', groupe: 'locataire' },
+    {
+      type: 'date',
+      id: 'reception',
+      libelle: 'Date de réception du congé du locataire',
+      defaut: '2026-09-24',
+      groupe: 'locataire',
+    },
     {
       type: 'case',
       id: 'reduit',
@@ -1596,7 +1739,8 @@ const conge: Simulateur = {
             { libelle: 'Préavis', valeur: `${preavis} mois` },
             { libelle: 'Fin du préavis', valeur: dateFr(r.finPreavisLocataire), fort: true },
           ],
-          texte: 'Le loyer reste dû jusqu’à la fin du préavis, sauf si un nouveau locataire entre plus tôt avec l’accord du bailleur.',
+          texte:
+            'Le loyer reste dû jusqu’à la fin du préavis, sauf si un nouveau locataire entre plus tôt avec l’accord du bailleur.',
         },
       ],
     };
@@ -1662,7 +1806,8 @@ export function controlerValeurs(sim: Simulateur, v: Valeurs): ErreurSaisie[] {
     } else if (c.type === 'date') {
       if (typeof x !== 'string' || !estDateIso(x)) erreurs.push({ champ: c.id, message: 'Saisissez une date valide.' });
     } else if (c.type === 'choix') {
-      if (!c.options.some((o) => o.valeur === String(x))) erreurs.push({ champ: c.id, message: 'Choisissez une option.' });
+      if (!c.options.some((o) => o.valeur === String(x)))
+        erreurs.push({ champ: c.id, message: 'Choisissez une option.' });
     }
   }
   if (!erreurs.length && sim.controler) erreurs.push(...sim.controler(normaliserChoix(sim, v)));

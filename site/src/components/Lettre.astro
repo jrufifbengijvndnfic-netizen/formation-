@@ -11,6 +11,7 @@ const champs = champsDe(segments);
 const majuscule = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const aide = (c: ChampLettre) => `${c.id}-contexte`;
 ---
+
 <div class="lettre" data-lettre={lettre.id} data-titre={`${lettre.numero}. ${lettre.titre}`}>
   <form class="lettre__champs formulaire" data-lettre-formulaire data-pagefind-ignore>
     <fieldset>
@@ -20,49 +21,64 @@ const aide = (c: ChampLettre) => `${c.id}-contexte`;
         reste dans votre navigateur.
       </p>
       <div class="lettre__champs">
-        {
-          champs.map((c) => (
-            <div class="champ">
-              <label for={c.id}>
-                {majuscule(c.libelle)}
-                <small id={aide(c)}>{c.contexte}</small>
-              </label>
-              {c.genre === 'choix' ? (
-                <select id={c.id} data-champ={c.id} aria-describedby={aide(c)}>
-                  <option value="">— à compléter —</option>
-                  {c.options?.map((o) => (
-                    <option value={o}>{o}</option>
-                  ))}
-                </select>
-              ) : c.genre === 'long' ? (
-                <textarea id={c.id} data-champ={c.id} rows="3" aria-describedby={aide(c)} />
-              ) : (
-                <input
-                  id={c.id}
-                  data-champ={c.id}
-                  type={c.genre === 'date' ? 'date' : 'text'}
-                  autocomplete="off"
-                  aria-describedby={aide(c)}
-                />
-              )}
-            </div>
-          ))
-        }
+        {champs.map((c) => (
+          <div class="champ">
+            <label for={c.id}>
+              {majuscule(c.libelle)}
+              <small id={aide(c)}>{c.contexte}</small>
+            </label>
+            {c.genre === 'choix' ? (
+              <select id={c.id} data-champ={c.id} aria-describedby={aide(c)}>
+                <option value="">— à compléter —</option>
+                {c.options?.map((o) => (
+                  <option value={o}>{o}</option>
+                ))}
+              </select>
+            ) : c.genre === 'long' ? (
+              <textarea id={c.id} data-champ={c.id} rows="3" aria-describedby={aide(c)}></textarea>
+            ) : (
+              <input
+                id={c.id}
+                data-champ={c.id}
+                type={c.genre === 'date' ? 'date' : 'text'}
+                autocomplete="off"
+                aria-describedby={aide(c)}
+              />
+            )}
+          </div>
+        ))}
       </div>
     </fieldset>
   </form>
   <div class="lettre__apercu-cadre">
     <h3 id={`${lettre.id}-apercu`}>Aperçu du courrier</h3>
-    <pre class="lettre__apercu" data-lettre-apercu tabindex="0" aria-labelledby={`${lettre.id}-apercu`}>{lettre.texte}</pre>
+    <pre
+      class="lettre__apercu"
+      data-lettre-apercu
+      tabindex="0"
+      aria-labelledby={`${lettre.id}-apercu`}
+    >{lettre.texte}</pre>
     <div class="groupe-boutons no-print" data-pagefind-ignore>
-      <button type="button" class="bouton bouton--plein" data-lettre-copier>Copier</button>
-      <button type="button" class="bouton" data-lettre-telecharger>Télécharger (.txt)</button>
-      <button type="button" class="bouton" data-lettre-imprimer>Imprimer</button>
-      <button type="button" class="bouton bouton--discret" data-lettre-effacer>Effacer les champs</button>
+      <button type="button" class="bouton bouton--plein" data-lettre-copier>
+        Copier
+      </button>
+      <button type="button" class="bouton" data-lettre-telecharger>
+        Télécharger (.txt)
+      </button>
+      <button type="button" class="bouton" data-lettre-imprimer>
+        Imprimer
+      </button>
+      <button type="button" class="bouton bouton--discret" data-lettre-effacer>
+        Effacer les champs
+      </button>
     </div>
     <p role="status" class="checklist-etat" data-lettre-statut data-pagefind-ignore></p>
   </div>
-  <script type="application/json" data-lettre-segments set:html={JSON.stringify(segments).replace(/</g, '\\u003c')} />
+  <script
+    type="application/json"
+    data-lettre-segments
+    set:html={JSON.stringify(segments).replace(/</g, '\\u003c')}
+  ></script>
 </div>
 
 <script>

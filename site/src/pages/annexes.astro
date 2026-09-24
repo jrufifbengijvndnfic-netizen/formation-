@@ -9,12 +9,22 @@ const resumes: Record<string, string> = Object.fromEntries(
   annexes.map((a) => {
     const n = a.rubriques.length;
     const detail =
-      a.numero === 'C' ? `${n} lettres, index et filtre instantané` : n > 1 ? `${n} rubriques` : resumer(texteBrut(a.intro || a.markdown), 140);
+      a.numero === 'C'
+        ? `${n} lettres, index et filtre instantané`
+        : n > 1
+          ? `${n} rubriques`
+          : resumer(texteBrut(a.intro || a.markdown), 140);
     return [a.id, detail];
   }),
 );
 ---
-<Base titre="Annexes" description={`${partieAnnexes.titreCourt} : chiffres clés, calendrier, glossaire, textes, formules, lettres, checklists, sources et points à surveiller.`} niveau="annexes" actif="annexes">
+
+<Base
+  titre="Annexes"
+  description={`${partieAnnexes.titreCourt} : chiffres clés, calendrier, glossaire, textes, formules, lettres, checklists, sources et points à surveiller.`}
+  niveau="annexes"
+  actif="annexes"
+>
   <div class="bandeau">
     <div class="conteneur">
       <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Annexes' }]} />
@@ -24,21 +34,19 @@ const resumes: Record<string, string> = Object.fromEntries(
   </div>
   <div class="conteneur">
     <ol class="registre">
-      {
-        annexes.map((a) => (
-          <li class="registre__ligne">
-            <span class="registre__numero">
-              <span class="parcelle">{a.numero}</span>
-            </span>
-            <div>
-              <h2 class="registre__titre">
-                <a href={lienElement(a)}>{a.titreCourt}</a>
-              </h2>
-              <p class="registre__resume">{resumes[a.id]}</p>
-            </div>
-          </li>
-        ))
-      }
+      {annexes.map((a) => (
+        <li class="registre__ligne">
+          <span class="registre__numero">
+            <span class="parcelle">{a.numero}</span>
+          </span>
+          <div>
+            <h2 class="registre__titre">
+              <a href={lienElement(a)}>{a.titreCourt}</a>
+            </h2>
+            <p class="registre__resume">{resumes[a.id]}</p>
+          </div>
+        </li>
+      ))}
     </ol>
   </div>
 </Base>

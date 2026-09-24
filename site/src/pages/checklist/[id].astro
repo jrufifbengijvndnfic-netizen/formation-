@@ -23,11 +23,23 @@ interface Props {
 const { element, checklist } = Astro.props;
 const n = element.niveau as Niveau;
 ---
-<Base titre={element.titre} description={`${checklist.items.length} étapes à cocher : ${checklist.titre.toLowerCase()}.`} niveau={String(n) as '1' | '2' | '3'} actif={`niveau-${n}`}>
+
+<Base
+  titre={element.titre}
+  description={`${checklist.items.length} étapes à cocher : ${checklist.titre.toLowerCase()}.`}
+  niveau={String(n) as '1' | '2' | '3'}
+  actif={`niveau-${n}`}
+>
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) }, { libelle: 'Checklist' }]} />
+        <FilAriane
+          etapes={[
+            { libelle: 'Accueil', href: lien() },
+            { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
+            { libelle: 'Checklist' },
+          ]}
+        />
         <p class="bandeau__sur">Niveau {n} · Checklist</p>
         <h1>{checklist.titre}</h1>
       </div>
@@ -35,7 +47,9 @@ const n = element.niveau as Niveau;
     <div class="conteneur">
       <div class="prose">
         <Checklist checklist={checklist} />
-        <p><a href={lien('annexe/g/')}>Six autres checklists dans l'annexe G</a></p>
+        <p>
+          <a href={lien('annexe/g/')}>Six autres checklists dans l'annexe G</a>
+        </p>
         <Avertissement />
       </div>
     </div>

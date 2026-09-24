@@ -48,7 +48,9 @@ class Quiz {
     racine.querySelector('[data-quiz-melanger]')?.addEventListener('change', () => {
       if (this.reponses.size === 0) this.ordonner();
     });
-    racine.querySelector('[data-quiz-recommencer]')?.addEventListener('click', () => this.recommencer());
+    racine
+      .querySelectorAll('[data-quiz-recommencer]')
+      .forEach((b) => b.addEventListener('click', () => this.recommencer()));
     this.afficherMeilleur();
     document.addEventListener('progression:modifiee', () => this.afficherMeilleur());
   }
@@ -63,9 +65,7 @@ class Quiz {
       const conteneur = q.querySelector<HTMLElement>('.quiz__options');
       if (!conteneur) continue;
       const options = [...conteneur.querySelectorAll<HTMLLabelElement>('.quiz__option')];
-      const ordre = this.melange
-        ? melanger(options)
-        : options.sort((a, b) => valeur(a).localeCompare(valeur(b)));
+      const ordre = this.melange ? melanger(options) : options.sort((a, b) => valeur(a).localeCompare(valeur(b)));
       ordre.forEach((o, i) => {
         conteneur.appendChild(o);
         const lettre = o.querySelector('[data-lettre-affichee]');

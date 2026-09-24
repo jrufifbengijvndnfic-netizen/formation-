@@ -79,7 +79,10 @@ export function contexteElement(e: Element, options: Partial<ContexteRendu> = {}
  * référence » ne reçoivent pas d'infobulles. Les quiz, lettres et checklists sont rendus
  * par leurs composants.
  */
-export function rendreElement(e: Element, options: Partial<ContexteRendu> = {}): { intro: string; rubriques: MorceauRendu[] } {
+export function rendreElement(
+  e: Element,
+  options: Partial<ContexteRendu> = {},
+): { intro: string; rubriques: MorceauRendu[] } {
   const ctx = contexteElement(e, options);
   const intro = rendreMarkdown(e.intro, ctx);
   const rubriques = e.rubriques.map((r) => {
