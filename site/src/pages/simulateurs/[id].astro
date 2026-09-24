@@ -3,7 +3,7 @@ import Avertissement from '../../components/Avertissement.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import Simulateur from '../../components/Simulateur.astro';
 import Base from '../../layouts/Base.astro';
-import { irlPublies, moduleParNumero } from '../../lib/donnees';
+import { exemplesModule, formuleSimulateur, irlPublies, moduleParNumero } from '../../lib/donnees';
 import { cheminModule, lien } from '../../lib/navigation';
 import { referencementSimulateur, simulateurJsonLd } from '../../lib/referencement-simulateurs';
 import { SITE_PAR_DEFAUT } from '../../lib/seo';
@@ -22,6 +22,9 @@ const i = SIMULATEURS.indexOf(sim);
 const precedent = SIMULATEURS[i - 1];
 const suivant = SIMULATEURS[i + 1];
 const seo = referencementSimulateur(sim);
+const formule = formuleSimulateur(sim.formule);
+const exemples = exemplesModule(seo.exemples ?? []);
+const autres = SIMULATEURS.filter((s) => s !== sim);
 const donnees = simulateurJsonLd(sim, Astro.url.pathname, Astro.site ?? SITE_PAR_DEFAUT);
 const filAriane = [
   { libelle: 'Accueil', href: lien() },
@@ -71,6 +74,41 @@ const filAriane = [
       </p>
       <Simulateur simulateur={sim} suggestions={suggestions} />
       <div class="prose">
+        <section aria-labelledby="methode-titre">
+          <h2 id="methode-titre">Comment le calcul est fait</h2>
+          <p>
+            Le simulateur applique la formule {sim.formule.toUpperCase()} (« {formule.titre} ») de l'annexe E de la
+            formation :
+          </p>
+          <Fragment set:html={formule.html} />
+        </section>
+        {exemples.length > 0 && (
+          <section aria-labelledby="exemple-titre">
+            <h2 id="exemple-titre">{exemples.length > 1 ? 'Exemples chiffrés' : 'Exemple chiffré'}</h2>
+            {exemples.map((e) => (
+              <>
+                <p>
+                  Extrait du{' '}
+                  <a href={lien(cheminModule(e.module.numero ?? ''))}>
+                    module {e.module.numero} — {e.module.titreCourt}
+                  </a>{' '}
+                  :
+                </p>
+                <Fragment set:html={e.html} />
+              </>
+            ))}
+          </section>
+        )}
+        <section aria-labelledby="autres-titre" data-pagefind-ignore>
+          <h2 id="autres-titre">Autres simulateurs gratuits</h2>
+          <ul class="liste-colonnes">
+            {autres.map((a) => (
+              <li>
+                <a href={lien(`simulateurs/${a.id}/`)}>{referencementSimulateur(a).h1}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
         <Avertissement />
       </div>
       <nav class="precedent-suivant" aria-label="Autres simulateurs" data-pagefind-ignore>

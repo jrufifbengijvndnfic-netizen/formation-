@@ -176,3 +176,29 @@ export const irlPublies: { valeur: number; libelle: string }[] = (() => {
 
 /** Questions de quiz par module (clé « 1.1 »). */
 export const questionsParModule = new Map(tousLesModules.map((m) => [m.numero as string, quizDuModule(m)]));
+
+// ---------------------------------------------------------------------------
+// Contenu des pages de simulateurs (référencement) : formule et exemples de la formation
+// ---------------------------------------------------------------------------
+
+const annexeE = annexes.find((a) => a.numero === 'E') as Element;
+
+/** Formule de l'annexe E d'un simulateur (« e1 »…) : titre et bloc rendu en HTML. */
+export function formuleSimulateur(ancre: string): { titre: string; html: string } {
+  const rang = Number(ancre.slice(1));
+  const code = annexeE.formules[rang - 1];
+  const titre = new RegExp(`\\*\\*E${rang}\\. ([^*]+?)\\.?\\*\\*`).exec(annexeE.markdown)?.[1];
+  if (!code || !titre) throw new Error(`Formule ${ancre} introuvable dans l'annexe E`);
+  return { titre, html: rendreMarkdown('```\n' + code + '\n```', nouveauContexte()) };
+}
+
+/** Encadrés « Exemple » désignés d'un module, rendus en HTML (le build échoue s'ils ont changé de place). */
+export function exemplesModule(liste: { module: string; rang: number }[]): { module: Element; html: string }[] {
+  return liste.map(({ module, rang }) => {
+    const m = moduleParNumero(module);
+    const e = m?.encadres.find((x) => x.rang === rang);
+    if (!m || e?.type !== 'EXEMPLE') throw new Error(`Exemple ${rang} du module ${module} introuvable`);
+    const md = ['> [!EXEMPLE]', ...e.lignes.map((l) => `> ${l}`)].join('\n');
+    return { module: m, html: rendreMarkdown(md, nouveauContexte()) };
+  });
+}

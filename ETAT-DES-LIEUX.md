@@ -47,7 +47,7 @@ branche `claude/admiring-einstein-bp3wj6`.
 ---
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **002**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **003**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)

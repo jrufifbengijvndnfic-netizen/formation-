@@ -1479,6 +1479,17 @@ details.corrige > p {
   border-width: 2px;
 }
 
+/* Liste de liens sur plusieurs colonnes (autres simulateurs) */
+.liste-colonnes {
+  columns: 2 18rem;
+  column-gap: 2rem;
+  padding-left: 1.2rem;
+}
+.liste-colonnes li {
+  break-inside: avoid;
+  margin-bottom: 0.4rem;
+}
+
 /* ------------------------------------------------------------------ Tarifs */
 .tarifs__prix {
   font-family: var(--titre);
