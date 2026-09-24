@@ -1,0 +1,274 @@
+---
+/**
+ * MAQUETTE (branche audit/propositions, non fusionnée) : page de vente réorganisée selon
+ * audit/AUDIT-conversion.md § 6. Les éléments marqués [À FOURNIR] attendent le propriétaire.
+ * Chiffres tirés du produit uniquement ; exemples chiffrés cités comme exemples (modules 2.6 et
+ * examen final). Aucun avis, aucune garantie, aucune urgence inventés.
+ */
+import Avertissement from '../components/Avertissement.astro';
+import Tarifs from '../components/Tarifs.astro';
+import Base from '../layouts/Base.astro';
+import { lettres, checklists } from '../lib/parse-formation';
+import { formation, miseAJour, modulesDuNiveau, niveaux, organisation, termes, tousLesModules } from '../lib/donnees';
+import { lien, lienElement } from '../lib/navigation';
+import { toutesLesQuestions } from '../lib/parse-formation';
+import { SIMULATEURS } from '../lib/simulateurs';
+import { offreNiveau, offrePack, prixSepares, prixTexte } from '../lib/seo';
+
+const nbQuestions = toutesLesQuestions(formation).length;
+const nbLettres = lettres(formation).length;
+const nbChecklists = checklists(formation).length;
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'La formation' }];
+const faq: [string, string][] = [
+  [
+    'C’est gratuit ailleurs, pourquoi payer ?',
+    `Les règles sont publiques mais dispersées. La formation les ordonne en trois niveaux, les illustre par des cas chiffrés et fournit ${SIMULATEURS.length} outils, ${nbLettres} lettres et ${nbChecklists} checklists.`,
+  ],
+  [
+    'Je n’ai pas encore de bien. Est-ce trop tôt ?',
+    'Non : le niveau 1 s’adresse aux débutants complets (type de location, décence, diagnostics, bail, premiers calculs).',
+  ],
+  [
+    'La loi change tout le temps. La formation sera-t-elle dépassée ?',
+    `Le contenu est daté (${miseAJour.toLowerCase()}) et les textes en cours d’adoption sont signalés. Mises à jour après l’achat : [À FOURNIR].`,
+  ],
+  [
+    'C’est trop technique pour moi ?',
+    `Chaque niveau part des bases ; ${termes.length} termes sont expliqués et chaque module se termine par un quiz.`,
+  ],
+  [
+    'Combien de temps faut-il ?',
+    `Niveau 1 : ${organisation['Niveau 1']?.duree} ; niveau 2 : ${organisation['Niveau 2']?.duree} ; niveau 3 : ${organisation['Niveau 3']?.duree} (durées indicatives).`,
+  ],
+  [
+    'Est-ce accessible sur mobile ?',
+    'Oui : le site est conçu et testé pour les petits écrans, simulateurs et lettres compris.',
+  ],
+  ['Puis-je être remboursé ?', '[À FOURNIR : garantie et conditions, articulées avec le droit de rétractation.]'],
+  ['Aurai-je une facture ?', '[À FOURNIR selon la plateforme de paiement.]'],
+  [
+    'Est-ce un conseil personnalisé ?',
+    'Non. C’est une formation d’information générale ; pour une décision engageante, consultez un professionnel (avocat, notaire, expert-comptable, conseiller en gestion de patrimoine).',
+  ],
+  [
+    'Par quel niveau commencer ?',
+    'Débutant : niveau 1. Bailleur en activité : niveau 2. Investisseur confirmé : niveau 3.',
+  ],
+  [
+    'Les simulateurs sont-ils inclus ?',
+    `Les ${SIMULATEURS.length} simulateurs et les ${nbLettres} modèles de lettres sont gratuits pour tous.`,
+  ],
+  ['Qui a écrit la formation ?', '[À FOURNIR : auteur, parcours, méthode.]'],
+  ['Y a-t-il des vidéos ?', 'Non : la formation est écrite, avec tableaux, cas chiffrés, quiz et outils interactifs.'],
+  ['La formation est-elle certifiante ou éligible au CPF ?', 'Non.'],
+  ['Comment payer ?', '[À FOURNIR : moyens de paiement, paiement en plusieurs fois.]'],
+  [
+    'Mes données sont-elles collectées ?',
+    'Aucun traceur publicitaire ; votre progression reste dans votre navigateur.',
+  ],
+];
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Formation investissement locatif en ligne : louer, gérer, déclarer"
+  description={`Formation en ligne en trois niveaux : ${tousLesModules.length} modules, ${SIMULATEURS.length} simulateurs, ${nbLettres} lettres. Dès ${offreNiveau(1).prix} € le niveau. À jour au 24 septembre 2026.`}
+  niveau="0"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <p class="bandeau__sur">Formation en ligne — immobilier locatif</p>
+      <h1>Louez, gérez et déclarez votre bien sans erreur coûteuse</h1>
+      <p class="chapeau">
+        {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs et {nbLettres} modèles de lettres pour décider
+        en connaissant les règles : bail, loyer, DPE, fiscalité, crédit, revente et transmission. {miseAJour}.
+      </p>
+      <p class="vente-cta">
+        <a class="bouton bouton--plein" href={lien('module/1-1/')}>
+          Commencer gratuitement le niveau 1
+        </a>
+        <a class="bouton" href="#offre">
+          Voir le programme et les prix
+        </a>
+      </p>
+      <p class="bandeau__meta">
+        <span>Dès {prixTexte(offreNiveau(1).prix)} le niveau</span>
+        <span>{prixTexte(offrePack().prix)} les trois niveaux</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="conteneur prose">
+    <section aria-labelledby="probleme">
+      <h2 id="probleme">Une erreur de bailleur coûte cher</h2>
+      <p>
+        Un logement devenu non décent, un impayé mal géré, un régime fiscal mal choisi, une revente mal anticipée : ces
+        erreurs se paient en loyers perdus, en procédures ou en impôt.
+      </p>
+      <ul>
+        <li>
+          Dans l'exemple du <a href={lien('module/2-6/')}>module 2.6</a>, le régime réel plutôt que le micro-foncier
+          représente environ 2 000 € d'impôt par an.
+        </li>
+        <li>
+          Dans le cas de revente de l'<a href={lien('examen/final/')}>examen final</a>, la réintégration des
+          amortissements LMNP ajoute environ 11 800 € d'impôt.
+        </li>
+      </ul>
+      <p>
+        <em>
+          Exemples pédagogiques tirés de la formation, pas des gains garantis : votre situation peut être différente.
+        </em>
+      </p>
+    </section>
+
+    <section aria-labelledby="methode">
+      <h2 id="methode">Comment fonctionne la formation</h2>
+      <ul>
+        <li>
+          <strong>Trois niveaux progressifs</strong>, du premier bail à la transmission.
+        </li>
+        <li>
+          <strong>{nbQuestions} questions de quiz</strong> pour valider chaque module, et un examen par niveau.
+        </li>
+        <li>
+          <strong>{SIMULATEURS.length} simulateurs</strong>, <strong>{nbLettres} modèles de lettres</strong> et{' '}
+          <strong>{nbChecklists} checklists</strong>.
+        </li>
+        <li>
+          <strong>Une date de mise à jour affichée</strong> et les textes en cours d'adoption signalés.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="gratuit">
+      <h2 id="gratuit">Tout est sur service-public.fr ? Presque.</h2>
+      <p>
+        Les règles existent, mais elles sont dispersées entre des dizaines de textes et de sites. La formation les
+        rassemble dans l'ordre où un bailleur en a besoin, avec des cas chiffrés et des outils prêts à l'emploi. Les
+        sources officielles restent la référence : chaque module cite ses textes.
+      </p>
+    </section>
+
+    <section aria-labelledby="programme">
+      <h2 id="programme">Le programme</h2>
+      {niveaux.map((n) => (
+        <details>
+          <summary>
+            Niveau {n.niveau} — {n.titreCourt} · {modulesDuNiveau(n.niveau).length} modules ·{' '}
+            {organisation[`Niveau ${n.niveau}`]?.duree} · {prixTexte(offreNiveau(n.niveau).prix)}
+          </summary>
+          <ol>
+            {modulesDuNiveau(n.niveau).map((m) => (
+              <li>
+                <a href={lienElement(m)}>
+                  Module {m.numero} — {m.titreCourt}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </details>
+      ))}
+    </section>
+
+    <section aria-labelledby="essayer">
+      <h2 id="essayer">Essayez avant d'acheter</h2>
+      <ul>
+        <li>
+          <a href={lien('module/1-1/')}>Module 1.1 en entier</a>, avec son quiz
+        </li>
+        <li>
+          <a href={lien('simulateurs/rentabilite/')}>Simulateur de rentabilité locative</a>
+        </li>
+        <li>
+          <a href={lien('lettres/revision-du-loyer/')}>Modèle de lettre de révision du loyer</a>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="pour-qui">
+      <h2 id="pour-qui">Pour qui ?</h2>
+      <ul>
+        {niveaux.map((n) => (
+          <li>
+            Niveau {n.niveau} : {organisation[`Niveau ${n.niveau}`]?.public}
+          </li>
+        ))}
+      </ul>
+      <p>
+        <strong>Ce n'est pas pour vous</strong> si vous cherchez un conseil personnalisé ou une méthode d'enrichissement
+        rapide.
+      </p>
+    </section>
+
+    <section aria-labelledby="auteur">
+      <h2 id="auteur">L'auteur et la méthode</h2>
+      <p>
+        [À FOURNIR : nom, parcours, pourquoi cette formation.] Méthode : textes officiels cités dans chaque module, date
+        de mise à jour affichée, textes en cours d'adoption signalés.
+      </p>
+      <p>[À FOURNIR : avis réels d'élèves, avec leur mode de vérification.]</p>
+    </section>
+  </div>
+
+  <div class="conteneur" id="offre">
+    <section aria-labelledby="offre-titre">
+      <h2 id="offre-titre">Choisissez votre niveau</h2>
+      <p>
+        La formation complète réunit les trois niveaux pour {prixTexte(offrePack().prix)} au lieu de
+        {prixTexte(prixSepares())}. Accès : [À FOURNIR]. Mises à jour : [À FOURNIR]. Garantie : [À FOURNIR]. Prix [TTC
+        ou mention TVA — À FOURNIR].
+      </p>
+      <Tarifs />
+    </section>
+  </div>
+
+  <div class="conteneur prose">
+    <section aria-labelledby="faq">
+      <h2 id="faq">Questions fréquentes</h2>
+      {faq.map(([q, r]) => (
+        <details>
+          <summary>{q}</summary>
+          <p>{r}</p>
+        </details>
+      ))}
+    </section>
+    <p class="vente-fin">
+      <a class="bouton bouton--plein" href={lien('module/1-1/')}>
+        Commencer gratuitement le niveau 1
+      </a>
+    </p>
+    <Avertissement />
+  </div>
+</Base>
+
+<style>
+  .vente-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.2rem 0 0.8rem;
+  }
+  .vente-cta .bouton--plein {
+    background: #fff;
+    border-color: #fff;
+    color: #1c2330;
+  }
+  .vente-cta .bouton:not(.bouton--plein) {
+    background: transparent;
+    border-color: #fff;
+    color: #fff;
+  }
+  .vente-fin {
+    margin: 2rem 0;
+  }
+  details {
+    border-bottom: 1px solid var(--filet);
+    padding: 0.6rem 0;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--titre);
+    font-weight: 600;
+  }
+</style>
