@@ -1,0 +1,1088 @@
+{
+  "edition": "septembre 2026",
+  "a_jour_au": "2026-09-24",
+  "source": "formation-immobilier-locatif-2026.md",
+  "total": 180,
+  "termes": [
+    {
+      "terme": "Abattement",
+      "definition": "Réduction forfaitaire d'une base imposable (par exemple 30 % au micro-foncier, 50 % au micro-BIC, abattements pour durée de détention des plus-values).",
+      "lettre": "A",
+      "id": "abattement"
+    },
+    {
+      "terme": "Abus de droit",
+      "definition": "Montage artificiel à but exclusivement ou principalement fiscal, que l'administration peut écarter avec des pénalités.",
+      "lettre": "A",
+      "id": "abus-de-droit"
+    },
+    {
+      "terme": "Accompagnateur Rénov'",
+      "definition": "Professionnel agréé qui accompagne obligatoirement les ménages dans une rénovation d'ampleur financée par MaPrimeRénov'.",
+      "lettre": "A",
+      "id": "accompagnateur-renov"
+    },
+    {
+      "terme": "ADIL",
+      "definition": "Agence départementale d'information sur le logement, qui délivre gratuitement des conseils juridiques, financiers et fiscaux neutres.",
+      "lettre": "A",
+      "id": "adil"
+    },
+    {
+      "terme": "Amortissement",
+      "definition": "Constatation comptable de la dépréciation d'un bien sur sa durée d'utilisation, déductible en location meublée au réel, en SCI à l'IS et, sous conditions, dans le dispositif Jeanbrun.",
+      "lettre": "A",
+      "id": "amortissement"
+    },
+    {
+      "terme": "Amortissements réputés différés",
+      "definition": "Part des amortissements non déductible une année faute de bénéfice suffisant, reportable sans limite de durée.",
+      "lettre": "A",
+      "id": "amortissements-reputes-differes"
+    },
+    {
+      "terme": "ANAH",
+      "definition": "Agence nationale de l'habitat, qui gère MaPrimeRénov' et le conventionnement Loc'Avantages.",
+      "lettre": "A",
+      "id": "anah"
+    },
+    {
+      "terme": "ANIL",
+      "definition": "Agence nationale pour l'information sur le logement, tête du réseau des ADIL ; publie des analyses juridiques de référence.",
+      "lettre": "A",
+      "id": "anil"
+    },
+    {
+      "terme": "APL",
+      "definition": "Aide personnalisée au logement, versée par la CAF ou la MSA au locataire ou directement au bailleur (tiers payant).",
+      "lettre": "A",
+      "id": "apl"
+    },
+    {
+      "terme": "Assemblée générale",
+      "definition": "Réunion des copropriétaires qui prend les décisions de la copropriété selon différentes majorités.",
+      "lettre": "A",
+      "id": "assemblee-generale"
+    },
+    {
+      "terme": "Assurance emprunteur",
+      "definition": "Assurance couvrant le remboursement du prêt en cas de décès, d'invalidité ou d'incapacité, librement choisie et résiliable à tout moment.",
+      "lettre": "A",
+      "id": "assurance-emprunteur"
+    },
+    {
+      "terme": "Assurance loyers impayés (GLI)",
+      "definition": "Contrat souscrit par le bailleur garantissant les loyers impayés et souvent les dégradations et les frais de procédure.",
+      "lettre": "A",
+      "id": "assurance-loyers-impayes-gli"
+    },
+    {
+      "terme": "Assurance propriétaire non occupant (PNO)",
+      "definition": "Assurance de responsabilité civile et de dommages du propriétaire qui n'occupe pas son bien, obligatoire en copropriété.",
+      "lettre": "A",
+      "id": "assurance-proprietaire-non-occupant-pno"
+    },
+    {
+      "terme": "Audit énergétique",
+      "definition": "Étude obligatoire pour la vente de certaines maisons et immeubles en monopropriété peu performants, proposant des scénarios de travaux.",
+      "lettre": "A",
+      "id": "audit-energetique"
+    },
+    {
+      "terme": "Autorisation préalable de mise en location",
+      "definition": "« Permis de louer » instauré par certaines communes pour lutter contre l'habitat indigne.",
+      "lettre": "A",
+      "id": "autorisation-prealable-de-mise-en-location"
+    },
+    {
+      "terme": "Avis d'échéance",
+      "definition": "Document appelant le loyer et les charges avant leur paiement, remis gratuitement.",
+      "lettre": "A",
+      "id": "avis-d-echeance"
+    },
+    {
+      "terme": "Bail",
+      "definition": "Contrat de location par lequel un bailleur met un bien à disposition d'un locataire contre un loyer.",
+      "lettre": "B",
+      "id": "bail"
+    },
+    {
+      "terme": "Bail civil",
+      "definition": "Bail régi par le Code civil, utilisé pour les résidences secondaires, les locations à une société ou les parkings.",
+      "lettre": "B",
+      "id": "bail-civil"
+    },
+    {
+      "terme": "Bail commercial",
+      "definition": "Bail d'au moins neuf ans d'un local d'exploitation d'un fonds de commerce, avec droit au renouvellement.",
+      "lettre": "B",
+      "id": "bail-commercial"
+    },
+    {
+      "terme": "Bail de cohabitation intergénérationnelle",
+      "definition": "Contrat par lequel une personne de 60 ans ou plus loue une partie de son logement à une personne de moins de 30 ans.",
+      "lettre": "B",
+      "id": "bail-de-cohabitation-intergenerationnelle"
+    },
+    {
+      "terme": "Bail dérogatoire",
+      "definition": "Bail commercial de courte durée (trois ans au plus au total) échappant au statut des baux commerciaux.",
+      "lettre": "B",
+      "id": "bail-derogatoire"
+    },
+    {
+      "terme": "Bail emphytéotique",
+      "definition": "Bail de 18 à 99 ans conférant au preneur un droit réel.",
+      "lettre": "B",
+      "id": "bail-emphyteotique"
+    },
+    {
+      "terme": "Bail étudiant",
+      "definition": "Bail meublé de neuf mois sans reconduction tacite réservé aux étudiants.",
+      "lettre": "B",
+      "id": "bail-etudiant"
+    },
+    {
+      "terme": "Bail mobilité",
+      "definition": "Bail meublé de 1 à 10 mois réservé aux personnes en formation, études, stage, apprentissage, service civique, mutation ou mission temporaire.",
+      "lettre": "B",
+      "id": "bail-mobilite"
+    },
+    {
+      "terme": "Bail professionnel",
+      "definition": "Bail d'au moins six ans pour une activité libérale non commerciale.",
+      "lettre": "B",
+      "id": "bail-professionnel"
+    },
+    {
+      "terme": "Bail réel solidaire (BRS)",
+      "definition": "Dispositif d'accession à la propriété dissociant le foncier (conservé par un organisme de foncier solidaire) et le bâti.",
+      "lettre": "B",
+      "id": "bail-reel-solidaire-brs"
+    },
+    {
+      "terme": "BIC",
+      "definition": "Bénéfices industriels et commerciaux, catégorie d'imposition des revenus de location meublée.",
+      "lettre": "B",
+      "id": "bic"
+    },
+    {
+      "terme": "BOFiP",
+      "definition": "Bulletin officiel des finances publiques, qui publie la doctrine fiscale opposable de l'administration.",
+      "lettre": "B",
+      "id": "bofip"
+    },
+    {
+      "terme": "Capacité d'emprunt",
+      "definition": "Montant maximal qu'un emprunteur peut obtenir compte tenu de ses revenus, de ses charges et des normes bancaires.",
+      "lettre": "C",
+      "id": "capacite-d-emprunt"
+    },
+    {
+      "terme": "Carte G",
+      "definition": "Carte professionnelle obligatoire pour gérer des biens immobiliers pour le compte de tiers.",
+      "lettre": "C",
+      "id": "carte-g"
+    },
+    {
+      "terme": "Cash-flow",
+      "definition": "Différence entre les encaissements et les décaissements liés à un bien sur une période.",
+      "lettre": "C",
+      "id": "cash-flow"
+    },
+    {
+      "terme": "Caution",
+      "definition": "Personne qui s'engage à payer les dettes locatives du locataire défaillant.",
+      "lettre": "C",
+      "id": "caution"
+    },
+    {
+      "terme": "CCAPEX",
+      "definition": "Commission départementale de coordination des actions de prévention des expulsions locatives.",
+      "lettre": "C",
+      "id": "ccapex"
+    },
+    {
+      "terme": "CDC",
+      "definition": "Commission départementale de conciliation, gratuite, compétente pour les litiges de loyers, charges, réparations, dépôt de garantie et congés.",
+      "lettre": "C",
+      "id": "cdc"
+    },
+    {
+      "terme": "CEE",
+      "definition": "Certificats d'économies d'énergie, qui financent des primes versées par les fournisseurs d'énergie pour des travaux d'économies d'énergie.",
+      "lettre": "C",
+      "id": "cee"
+    },
+    {
+      "terme": "CFE",
+      "definition": "Cotisation foncière des entreprises, due notamment par les loueurs en meublé.",
+      "lettre": "C",
+      "id": "cfe"
+    },
+    {
+      "terme": "Chambre d'hôtes",
+      "definition": "Chambre meublée louée chez l'habitant avec petit-déjeuner, cinq chambres au plus.",
+      "lettre": "C",
+      "id": "chambre-d-hotes"
+    },
+    {
+      "terme": "Changement d'usage",
+      "definition": "Autorisation administrative nécessaire dans certaines villes pour transformer un logement en local d'une autre nature, dont la location touristique répétée.",
+      "lettre": "C",
+      "id": "changement-d-usage"
+    },
+    {
+      "terme": "Charges récupérables",
+      "definition": "Dépenses payées par le bailleur et refacturables au locataire selon la liste du décret n° 87-713.",
+      "lettre": "C",
+      "id": "charges-recuperables"
+    },
+    {
+      "terme": "Clause résolutoire",
+      "definition": "Clause prévoyant la résiliation automatique du bail en cas de manquement du locataire, après un commandement resté infructueux.",
+      "lettre": "C",
+      "id": "clause-resolutoire"
+    },
+    {
+      "terme": "Colocation",
+      "definition": "Location d'un même logement par plusieurs locataires qui en font leur résidence principale.",
+      "lettre": "C",
+      "id": "colocation"
+    },
+    {
+      "terme": "Commandement de payer",
+      "definition": "Acte de commissaire de justice sommant le locataire de régler sa dette sous peine de résiliation du bail.",
+      "lettre": "C",
+      "id": "commandement-de-payer"
+    },
+    {
+      "terme": "Commissaire de justice",
+      "definition": "Officier public et ministériel issu de la fusion des huissiers de justice et des commissaires-priseurs judiciaires.",
+      "lettre": "C",
+      "id": "commissaire-de-justice"
+    },
+    {
+      "terme": "Complément de loyer",
+      "definition": "Supplément autorisé en zone d'encadrement pour un logement aux caractéristiques exceptionnelles.",
+      "lettre": "C",
+      "id": "complement-de-loyer"
+    },
+    {
+      "terme": "Concours de la force publique",
+      "definition": "Intervention de la police ou de la gendarmerie, autorisée par le préfet, pour exécuter une expulsion.",
+      "lettre": "C",
+      "id": "concours-de-la-force-publique"
+    },
+    {
+      "terme": "Congé",
+      "definition": "Acte par lequel le locataire ou le bailleur met fin au bail en respectant un préavis et, pour le bailleur, un motif.",
+      "lettre": "C",
+      "id": "conge"
+    },
+    {
+      "terme": "Contrat type",
+      "definition": "Modèle de bail obligatoire fixé par décret pour les locations de résidence principale.",
+      "lettre": "C",
+      "id": "contrat-type"
+    },
+    {
+      "terme": "Copropriété",
+      "definition": "Immeuble dont la propriété est répartie entre plusieurs personnes par lots comprenant une partie privative et une quote-part des parties communes.",
+      "lettre": "C",
+      "id": "copropriete"
+    },
+    {
+      "terme": "CRD",
+      "definition": "Capital restant dû d'un emprunt.",
+      "lettre": "C",
+      "id": "crd"
+    },
+    {
+      "terme": "CSG",
+      "definition": "Contribution sociale généralisée, principale composante des prélèvements sociaux.",
+      "lettre": "C",
+      "id": "csg"
+    },
+    {
+      "terme": "DAAF",
+      "definition": "Détecteur autonome avertisseur de fumée, obligatoire dans tout logement.",
+      "lettre": "D",
+      "id": "daaf"
+    },
+    {
+      "terme": "DALO",
+      "definition": "Droit au logement opposable ; la loi DALO de 2007 contient aussi la procédure administrative d'évacuation des squatteurs (article 38).",
+      "lettre": "D",
+      "id": "dalo"
+    },
+    {
+      "terme": "Décence",
+      "definition": "Ensemble des caractéristiques minimales qu'un logement loué doit présenter (sécurité, santé, équipements, surface, performance énergétique).",
+      "lettre": "D",
+      "id": "decence"
+    },
+    {
+      "terme": "Décote",
+      "definition": "Réduction de l'impôt pour les contribuables proches d'un seuil (IFI, impôt sur le revenu) ou réduction de valeur d'un bien ou de parts.",
+      "lettre": "D",
+      "id": "decote"
+    },
+    {
+      "terme": "Déficit foncier",
+      "definition": "Excédent des charges déductibles sur les loyers en location nue, imputable en partie sur le revenu global.",
+      "lettre": "D",
+      "id": "deficit-foncier"
+    },
+    {
+      "terme": "Démembrement",
+      "definition": "Division de la propriété entre usufruit et nue-propriété.",
+      "lettre": "D",
+      "id": "demembrement"
+    },
+    {
+      "terme": "Denormandie",
+      "definition": "Réduction d'impôt pour l'achat d'un logement ancien avec travaux dans les villes moyennes éligibles, jusqu'au 31 décembre 2027.",
+      "lettre": "D",
+      "id": "denormandie"
+    },
+    {
+      "terme": "Dépôt de garantie",
+      "definition": "Somme versée par le locataire à l'entrée pour garantir ses obligations, restituée en fin de bail.",
+      "lettre": "D",
+      "id": "depot-de-garantie"
+    },
+    {
+      "terme": "DMTO",
+      "definition": "Droits de mutation à titre onéreux, principale composante des frais d'acquisition dans l'ancien.",
+      "lettre": "D",
+      "id": "dmto"
+    },
+    {
+      "terme": "Donation-partage",
+      "definition": "Donation répartissant des biens entre héritiers en figeant leur valeur au jour de l'acte.",
+      "lettre": "D",
+      "id": "donation-partage"
+    },
+    {
+      "terme": "DossierFacile",
+      "definition": "Service public de constitution de dossiers de location vérifiés.",
+      "lettre": "D",
+      "id": "dossierfacile"
+    },
+    {
+      "terme": "DPE",
+      "definition": "Diagnostic de performance énergétique, classant le logement de A à G selon sa consommation et ses émissions de gaz à effet de serre.",
+      "lettre": "D",
+      "id": "dpe"
+    },
+    {
+      "terme": "DPE collectif",
+      "definition": "DPE établi à l'échelle d'un immeuble en copropriété.",
+      "lettre": "D",
+      "id": "dpe-collectif"
+    },
+    {
+      "terme": "Droit de préemption",
+      "definition": "Droit d'acquérir un bien en priorité (commune, locataire en cas de congé pour vente).",
+      "lettre": "D",
+      "id": "droit-de-preemption"
+    },
+    {
+      "terme": "Droit de préférence",
+      "definition": "Priorité du locataire commercial pour acheter le local mis en vente.",
+      "lettre": "D",
+      "id": "droit-de-preference"
+    },
+    {
+      "terme": "DVF",
+      "definition": "Base publique « Demandes de valeurs foncières » recensant les ventes immobilières réelles.",
+      "lettre": "D",
+      "id": "dvf"
+    },
+    {
+      "terme": "Éco-PTZ",
+      "definition": "Éco-prêt à taux zéro finançant des travaux de rénovation énergétique, jusqu'à 50 000 €.",
+      "lettre": "E",
+      "id": "eco-ptz"
+    },
+    {
+      "terme": "Effet de levier",
+      "definition": "Amplification de la rentabilité des fonds propres grâce à l'endettement.",
+      "lettre": "E",
+      "id": "effet-de-levier"
+    },
+    {
+      "terme": "ELAN (loi)",
+      "definition": "Loi du 23 novembre 2018, qui a notamment créé l'encadrement expérimental des loyers et le bail mobilité.",
+      "lettre": "E",
+      "id": "elan-loi"
+    },
+    {
+      "terme": "Encadrement des loyers",
+      "definition": "Plafonnement des loyers par référence à des loyers médians fixés par arrêté préfectoral dans des villes volontaires.",
+      "lettre": "E",
+      "id": "encadrement-des-loyers"
+    },
+    {
+      "terme": "État daté",
+      "definition": "Document établi par le syndic lors de la vente d'un lot, indiquant les sommes dues.",
+      "lettre": "E",
+      "id": "etat-date"
+    },
+    {
+      "terme": "État des lieux",
+      "definition": "Description contradictoire du logement à l'entrée et à la sortie du locataire.",
+      "lettre": "E",
+      "id": "etat-des-lieux"
+    },
+    {
+      "terme": "État des risques",
+      "definition": "Diagnostic informant le locataire ou l'acquéreur des risques naturels, miniers, technologiques, sismiques, radon, bruit et érosion.",
+      "lettre": "E",
+      "id": "etat-des-risques"
+    },
+    {
+      "terme": "Expulsion",
+      "definition": "Procédure judiciaire permettant de faire quitter les lieux à un occupant sans droit ni titre.",
+      "lettre": "E",
+      "id": "expulsion"
+    },
+    {
+      "terme": "Fonds de travaux",
+      "definition": "Épargne obligatoire de la copropriété pour financer les travaux futurs.",
+      "lettre": "F",
+      "id": "fonds-de-travaux"
+    },
+    {
+      "terme": "Forfait de charges",
+      "definition": "Montant fixe de charges non régularisable, possible en meublé et en colocation, obligatoire en bail mobilité.",
+      "lettre": "F",
+      "id": "forfait-de-charges"
+    },
+    {
+      "terme": "France Rénov'",
+      "definition": "Service public de conseil et d'orientation pour la rénovation énergétique.",
+      "lettre": "F",
+      "id": "france-renov"
+    },
+    {
+      "terme": "Franchise en base de TVA",
+      "definition": "Régime dispensant les petites entreprises de facturer la TVA.",
+      "lettre": "F",
+      "id": "franchise-en-base-de-tva"
+    },
+    {
+      "terme": "Garantie décennale",
+      "definition": "Garantie de dix ans due par les constructeurs pour les dommages compromettant la solidité ou l'usage de l'ouvrage.",
+      "lettre": "G",
+      "id": "garantie-decennale"
+    },
+    {
+      "terme": "Garantie financière d'achèvement",
+      "definition": "Garantie fournie par le promoteur en VEFA assurant l'achèvement de l'immeuble.",
+      "lettre": "G",
+      "id": "garantie-financiere-d-achevement"
+    },
+    {
+      "terme": "Grosses réparations",
+      "definition": "Réparations de la structure (gros murs, voûtes, poutres, couvertures entières) à la charge du propriétaire (article 606 du Code civil).",
+      "lettre": "G",
+      "id": "grosses-reparations"
+    },
+    {
+      "terme": "HCSF",
+      "definition": "Haut Conseil de stabilité financière, qui fixe les normes d'octroi des crédits immobiliers.",
+      "lettre": "H",
+      "id": "hcsf"
+    },
+    {
+      "terme": "Honoraires de location",
+      "definition": "Rémunération d'un professionnel pour la mise en location, plafonnée pour la part payée par le locataire.",
+      "lettre": "H",
+      "id": "honoraires-de-location"
+    },
+    {
+      "terme": "Hypothèque",
+      "definition": "Garantie réelle permettant au prêteur de saisir et faire vendre le bien en cas de défaut.",
+      "lettre": "H",
+      "id": "hypotheque"
+    },
+    {
+      "terme": "IFI",
+      "definition": "Impôt sur la fortune immobilière, dû au-delà de 1,3 million d'euros de patrimoine immobilier net.",
+      "lettre": "I",
+      "id": "ifi"
+    },
+    {
+      "terme": "ILC et ILAT",
+      "definition": "Indices des loyers commerciaux et des activités tertiaires, utilisés pour réviser les baux commerciaux.",
+      "lettre": "I",
+      "id": "ilc-et-ilat"
+    },
+    {
+      "terme": "Indemnité d'éviction",
+      "definition": "Indemnité due au locataire commercial dont le bail n'est pas renouvelé.",
+      "lettre": "I",
+      "id": "indemnite-d-eviction"
+    },
+    {
+      "terme": "Indemnité d'occupation",
+      "definition": "Somme due par l'occupant qui se maintient dans les lieux après la fin du bail.",
+      "lettre": "I",
+      "id": "indemnite-d-occupation"
+    },
+    {
+      "terme": "Indivision",
+      "definition": "Propriété d'un même bien par plusieurs personnes sans division matérielle des parts.",
+      "lettre": "I",
+      "id": "indivision"
+    },
+    {
+      "terme": "Injonction de payer",
+      "definition": "Procédure simplifiée de recouvrement d'une créance certaine devant le juge.",
+      "lettre": "I",
+      "id": "injonction-de-payer"
+    },
+    {
+      "terme": "Intermédiation locative",
+      "definition": "Location par l'intermédiaire d'une association ou d'une agence sociale qui sécurise la relation locative.",
+      "lettre": "I",
+      "id": "intermediation-locative"
+    },
+    {
+      "terme": "Inventaire",
+      "definition": "Liste détaillée du mobilier d'une location meublée, établie à l'entrée et à la sortie.",
+      "lettre": "I",
+      "id": "inventaire"
+    },
+    {
+      "terme": "IRL",
+      "definition": "Indice de référence des loyers publié chaque trimestre par l'INSEE, qui plafonne la révision annuelle.",
+      "lettre": "I",
+      "id": "irl"
+    },
+    {
+      "terme": "IRSI",
+      "definition": "Convention entre assureurs d'indemnisation et de recours des sinistres immeuble (dégâts des eaux, incendie).",
+      "lettre": "I",
+      "id": "irsi"
+    },
+    {
+      "terme": "Jeanbrun (dispositif)",
+      "definition": "Statut du bailleur privé créé par la loi de finances pour 2026, permettant d'amortir un logement loué nu à loyer plafonné.",
+      "lettre": "J",
+      "id": "jeanbrun-dispositif"
+    },
+    {
+      "terme": "Juge des contentieux de la protection",
+      "definition": "Juge du tribunal judiciaire compétent pour les litiges de bail d'habitation.",
+      "lettre": "J",
+      "id": "juge-des-contentieux-de-la-protection"
+    },
+    {
+      "terme": "Jouissance paisible",
+      "definition": "Obligation du bailleur de garantir au locataire un usage du logement sans trouble.",
+      "lettre": "J",
+      "id": "jouissance-paisible"
+    },
+    {
+      "terme": "LFSS",
+      "definition": "Loi de financement de la Sécurité sociale, qui fixe notamment le taux des prélèvements sociaux.",
+      "lettre": "L",
+      "id": "lfss"
+    },
+    {
+      "terme": "Liasse fiscale 2031",
+      "definition": "Déclaration de résultat des loueurs en meublé au régime réel.",
+      "lettre": "L",
+      "id": "liasse-fiscale-2031"
+    },
+    {
+      "terme": "LMNP",
+      "definition": "Loueur en meublé non professionnel.",
+      "lettre": "L",
+      "id": "lmnp"
+    },
+    {
+      "terme": "LMP",
+      "definition": "Loueur en meublé professionnel, dont les recettes dépassent 23 000 € et les autres revenus d'activité du foyer.",
+      "lettre": "L",
+      "id": "lmp"
+    },
+    {
+      "terme": "Loc'Avantages",
+      "definition": "Réduction d'impôt pour la location à loyer inférieur au marché conventionnée avec l'ANAH.",
+      "lettre": "L",
+      "id": "loc-avantages"
+    },
+    {
+      "terme": "Location meublée",
+      "definition": "Location d'un logement équipé du mobilier nécessaire pour y vivre, selon une liste réglementaire.",
+      "lettre": "L",
+      "id": "location-meublee"
+    },
+    {
+      "terme": "Location nue",
+      "definition": "Location d'un logement vide, dont les revenus relèvent des revenus fonciers.",
+      "lettre": "L",
+      "id": "location-nue"
+    },
+    {
+      "terme": "Loi du 6 juillet 1989",
+      "definition": "Loi fondamentale régissant les baux d'habitation de résidence principale.",
+      "lettre": "L",
+      "id": "loi-du-6-juillet-1989"
+    },
+    {
+      "terme": "Loi du 27 juillet 2023",
+      "definition": "Loi visant à protéger les logements contre l'occupation illicite, qui a aussi modifié la procédure d'impayés.",
+      "lettre": "L",
+      "id": "loi-du-27-juillet-2023"
+    },
+    {
+      "terme": "Loi Le Meur",
+      "definition": "Loi du 19 novembre 2024 renforçant la régulation des meublés de tourisme.",
+      "lettre": "L",
+      "id": "loi-le-meur"
+    },
+    {
+      "terme": "Loyer de référence",
+      "definition": "Loyer médian au m² fixé par arrêté préfectoral dans les zones d'encadrement, décliné en loyer majoré (plus 20 %) et minoré (moins 30 %).",
+      "lettre": "L",
+      "id": "loyer-de-reference"
+    },
+    {
+      "terme": "Malraux",
+      "definition": "Réduction d'impôt pour la restauration complète d'immeubles dans les secteurs patrimoniaux.",
+      "lettre": "M",
+      "id": "malraux"
+    },
+    {
+      "terme": "Mandat de gestion",
+      "definition": "Contrat par lequel un propriétaire confie la gestion de son bien à un professionnel.",
+      "lettre": "M",
+      "id": "mandat-de-gestion"
+    },
+    {
+      "terme": "MaPrimeRénov'",
+      "definition": "Aide de l'État à la rénovation énergétique, gérée par l'ANAH.",
+      "lettre": "M",
+      "id": "maprimerenov"
+    },
+    {
+      "terme": "Marchand de sommeil",
+      "definition": "Personne louant des logements indignes à des personnes vulnérables, pénalement sanctionnée.",
+      "lettre": "M",
+      "id": "marchand-de-sommeil"
+    },
+    {
+      "terme": "Meublé de tourisme",
+      "definition": "Logement meublé loué à une clientèle de passage qui n'y élit pas domicile.",
+      "lettre": "M",
+      "id": "meuble-de-tourisme"
+    },
+    {
+      "terme": "Micro-BIC",
+      "definition": "Régime simplifié d'imposition des revenus de location meublée avec abattement forfaitaire.",
+      "lettre": "M",
+      "id": "micro-bic"
+    },
+    {
+      "terme": "Micro-foncier",
+      "definition": "Régime simplifié d'imposition des revenus fonciers avec abattement de 30 %.",
+      "lettre": "M",
+      "id": "micro-foncier"
+    },
+    {
+      "terme": "Mise en demeure",
+      "definition": "Lettre sommant formellement une personne d'exécuter son obligation.",
+      "lettre": "M",
+      "id": "mise-en-demeure"
+    },
+    {
+      "terme": "Monuments historiques",
+      "definition": "Régime fiscal permettant de déduire du revenu global les charges d'immeubles classés ou inscrits.",
+      "lettre": "M",
+      "id": "monuments-historiques"
+    },
+    {
+      "terme": "Notice d'information",
+      "definition": "Document annexé au bail rappelant les droits et obligations des parties.",
+      "lettre": "N",
+      "id": "notice-d-information"
+    },
+    {
+      "terme": "Nue-propriété",
+      "definition": "Droit de disposer d'un bien sans en avoir l'usage ni les revenus, qui revient à la pleine propriété à la fin de l'usufruit.",
+      "lettre": "N",
+      "id": "nue-propriete"
+    },
+    {
+      "terme": "Numéro d'enregistrement",
+      "definition": "Identifiant obligatoire des meublés de tourisme, à afficher dans les annonces.",
+      "lettre": "N",
+      "id": "numero-d-enregistrement"
+    },
+    {
+      "terme": "Occupant sans droit ni titre",
+      "definition": "Personne qui occupe un logement sans bail valable (squatteur, ancien locataire après résiliation).",
+      "lettre": "O",
+      "id": "occupant-sans-droit-ni-titre"
+    },
+    {
+      "terme": "ORT",
+      "definition": "Opération de revitalisation de territoire, conditionnant notamment l'éligibilité au Denormandie.",
+      "lettre": "O",
+      "id": "ort"
+    },
+    {
+      "terme": "Passoire thermique",
+      "definition": "Logement classé F ou G au DPE.",
+      "lettre": "P",
+      "id": "passoire-thermique"
+    },
+    {
+      "terme": "Permis de louer",
+      "definition": "Voir autorisation préalable de mise en location.",
+      "lettre": "P",
+      "id": "permis-de-louer"
+    },
+    {
+      "terme": "PFU",
+      "definition": "Prélèvement forfaitaire unique sur les revenus du capital, 31,4 % en 2026.",
+      "lettre": "P",
+      "id": "pfu"
+    },
+    {
+      "terme": "Pinel",
+      "definition": "Ancienne réduction d'impôt pour l'investissement locatif neuf, fermée aux acquisitions depuis le 1er janvier 2025.",
+      "lettre": "P",
+      "id": "pinel"
+    },
+    {
+      "terme": "Plafonnement global des niches",
+      "definition": "Limite de 10 000 € par an de l'avantage procuré par certaines réductions et crédits d'impôt.",
+      "lettre": "P",
+      "id": "plafonnement-global-des-niches"
+    },
+    {
+      "terme": "Plan pluriannuel de travaux",
+      "definition": "Programme de travaux sur dix ans obligatoire dans les copropriétés de plus de quinze ans.",
+      "lettre": "P",
+      "id": "plan-pluriannuel-de-travaux"
+    },
+    {
+      "terme": "Plus-value immobilière",
+      "definition": "Gain réalisé lors de la vente d'un bien, imposé après abattements pour durée de détention.",
+      "lettre": "P",
+      "id": "plus-value-immobiliere"
+    },
+    {
+      "terme": "Prélèvements sociaux",
+      "definition": "CSG, CRDS et prélèvement de solidarité sur les revenus du patrimoine (17,2 % ou 18,6 % selon les revenus).",
+      "lettre": "P",
+      "id": "prelevements-sociaux"
+    },
+    {
+      "terme": "Prescription",
+      "definition": "Délai au-delà duquel une action en justice n'est plus recevable (trois ans pour les actions dérivant d'un bail d'habitation).",
+      "lettre": "P",
+      "id": "prescription"
+    },
+    {
+      "terme": "Provision pour charges",
+      "definition": "Acompte mensuel de charges, régularisé chaque année.",
+      "lettre": "P",
+      "id": "provision-pour-charges"
+    },
+    {
+      "terme": "PSLA",
+      "definition": "Prêt social location-accession, formule d'accession après une phase locative.",
+      "lettre": "P",
+      "id": "psla"
+    },
+    {
+      "terme": "PTZ",
+      "definition": "Prêt à taux zéro réservé à l'achat de la résidence principale.",
+      "lettre": "P",
+      "id": "ptz"
+    },
+    {
+      "terme": "Quittance",
+      "definition": "Document attestant le paiement du loyer et des charges, remis gratuitement au locataire qui la demande.",
+      "lettre": "Q",
+      "id": "quittance"
+    },
+    {
+      "terme": "Quotité",
+      "definition": "Part du prêt couverte par l'assurance emprunteur pour chaque emprunteur.",
+      "lettre": "Q",
+      "id": "quotite"
+    },
+    {
+      "terme": "Quotité disponible",
+      "definition": "Part du patrimoine dont on peut disposer librement en présence d'héritiers réservataires.",
+      "lettre": "Q",
+      "id": "quotite-disponible"
+    },
+    {
+      "terme": "Rappel fiscal",
+      "definition": "Prise en compte des donations de moins de quinze ans pour le calcul des droits.",
+      "lettre": "R",
+      "id": "rappel-fiscal"
+    },
+    {
+      "terme": "RE2020",
+      "definition": "Réglementation environnementale applicable aux constructions neuves.",
+      "lettre": "R",
+      "id": "re2020"
+    },
+    {
+      "terme": "Réévaluation du loyer",
+      "definition": "Augmentation du loyer au renouvellement d'un bail lorsqu'il est manifestement sous-évalué.",
+      "lettre": "R",
+      "id": "reevaluation-du-loyer"
+    },
+    {
+      "terme": "Régime réel",
+      "definition": "Régime d'imposition sur les recettes et les charges réelles (revenus fonciers ou BIC).",
+      "lettre": "R",
+      "id": "regime-reel"
+    },
+    {
+      "terme": "Régularisation des charges",
+      "definition": "Comparaison annuelle entre provisions versées et charges réelles.",
+      "lettre": "R",
+      "id": "regularisation-des-charges"
+    },
+    {
+      "terme": "Rentabilité brute",
+      "definition": "Loyers annuels hors charges divisés par le coût total de l'opération.",
+      "lettre": "R",
+      "id": "rentabilite-brute"
+    },
+    {
+      "terme": "Rentabilité nette",
+      "definition": "Rentabilité après charges non récupérables et vacance, et éventuellement après impôt (nette-nette).",
+      "lettre": "R",
+      "id": "rentabilite-nette"
+    },
+    {
+      "terme": "Réparations locatives",
+      "definition": "Menues réparations et entretien courant à la charge du locataire, listés par le décret n° 87-712.",
+      "lettre": "R",
+      "id": "reparations-locatives"
+    },
+    {
+      "terme": "Réserve héréditaire",
+      "definition": "Part de la succession réservée aux descendants.",
+      "lettre": "R",
+      "id": "reserve-hereditaire"
+    },
+    {
+      "terme": "Résidence principale",
+      "definition": "Logement occupé au moins huit mois par an, sauf obligation professionnelle, raison de santé ou cas de force majeure.",
+      "lettre": "R",
+      "id": "residence-principale"
+    },
+    {
+      "terme": "Révision du loyer",
+      "definition": "Ajustement annuel du loyer selon l'IRL, si le bail le prévoit.",
+      "lettre": "R",
+      "id": "revision-du-loyer"
+    },
+    {
+      "terme": "RGE",
+      "definition": "Label « Reconnu garant de l'environnement » des entreprises, nécessaire pour la plupart des aides à la rénovation.",
+      "lettre": "R",
+      "id": "rge"
+    },
+    {
+      "terme": "SARL de famille",
+      "definition": "Société entre membres d'une même famille pouvant opter pour l'impôt sur le revenu, adaptée à la location meublée.",
+      "lettre": "S",
+      "id": "sarl-de-famille"
+    },
+    {
+      "terme": "SCI",
+      "definition": "Société civile immobilière, outil de détention et de transmission d'immeubles.",
+      "lettre": "S",
+      "id": "sci"
+    },
+    {
+      "terme": "SCPI",
+      "definition": "Société civile de placement immobilier, qui collecte l'épargne pour acquérir un parc immobilier.",
+      "lettre": "S",
+      "id": "scpi"
+    },
+    {
+      "terme": "Sous-location",
+      "definition": "Location par le locataire de tout ou partie du logement, interdite sans accord écrit du bailleur.",
+      "lettre": "S",
+      "id": "sous-location"
+    },
+    {
+      "terme": "Squat",
+      "definition": "Occupation d'un local par une personne entrée par voie de fait, sans droit ni titre.",
+      "lettre": "S",
+      "id": "squat"
+    },
+    {
+      "terme": "Surface Carrez",
+      "definition": "Surface privative d'un lot de copropriété mentionnée obligatoirement lors de sa vente.",
+      "lettre": "S",
+      "id": "surface-carrez"
+    },
+    {
+      "terme": "Surface habitable",
+      "definition": "Surface de plancher construite après déduction des murs, cloisons, gaines et embrasures, et hors parties de moins de 1,80 m de hauteur.",
+      "lettre": "S",
+      "id": "surface-habitable"
+    },
+    {
+      "terme": "Surtaxe sur les plus-values",
+      "definition": "Taxe de 2 à 6 % sur les plus-values immobilières imposables supérieures à 50 000 €.",
+      "lettre": "S",
+      "id": "surtaxe-sur-les-plus-values"
+    },
+    {
+      "terme": "Syndic",
+      "definition": "Mandataire qui exécute les décisions de l'assemblée générale et gère la copropriété.",
+      "lettre": "S",
+      "id": "syndic"
+    },
+    {
+      "terme": "Syndicat des copropriétaires",
+      "definition": "Personne morale regroupant tous les copropriétaires.",
+      "lettre": "S",
+      "id": "syndicat-des-coproprietaires"
+    },
+    {
+      "terme": "TAEG",
+      "definition": "Taux annuel effectif global, qui mesure le coût total d'un crédit.",
+      "lettre": "T",
+      "id": "taeg"
+    },
+    {
+      "terme": "Tantièmes",
+      "definition": "Quote-part des parties communes attachée à chaque lot de copropriété.",
+      "lettre": "T",
+      "id": "tantiemes"
+    },
+    {
+      "terme": "Taux d'effort",
+      "definition": "Part des revenus consacrée au remboursement des crédits (35 % au plus selon le HCSF).",
+      "lettre": "T",
+      "id": "taux-d-effort"
+    },
+    {
+      "terme": "Taux d'usure",
+      "definition": "Taux maximal légal auquel un crédit peut être accordé.",
+      "lettre": "T",
+      "id": "taux-d-usure"
+    },
+    {
+      "terme": "Taxe foncière",
+      "definition": "Impôt local annuel dû par le propriétaire au 1er janvier.",
+      "lettre": "T",
+      "id": "taxe-fonciere"
+    },
+    {
+      "terme": "TEOM",
+      "definition": "Taxe d'enlèvement des ordures ménagères, incluse dans l'avis de taxe foncière et récupérable auprès du locataire.",
+      "lettre": "T",
+      "id": "teom"
+    },
+    {
+      "terme": "THRS",
+      "definition": "Taxe d'habitation sur les résidences secondaires et les logements meublés non affectés à l'habitation principale.",
+      "lettre": "T",
+      "id": "thrs"
+    },
+    {
+      "terme": "Tiers payant",
+      "definition": "Versement de l'aide au logement directement au bailleur.",
+      "lettre": "T",
+      "id": "tiers-payant"
+    },
+    {
+      "terme": "TLV et THLV",
+      "definition": "Taxes sur les logements vacants, fusionnées en une taxe unique sur la vacance à partir de 2027.",
+      "lettre": "T",
+      "id": "tlv-et-thlv"
+    },
+    {
+      "terme": "Trêve hivernale",
+      "definition": "Période du 1er novembre au 31 mars pendant laquelle les expulsions locatives ne peuvent être exécutées.",
+      "lettre": "T",
+      "id": "treve-hivernale"
+    },
+    {
+      "terme": "TRI",
+      "definition": "Taux de rendement interne, taux qui annule la valeur actuelle nette des flux d'un investissement.",
+      "lettre": "T",
+      "id": "tri"
+    },
+    {
+      "terme": "Usufruit",
+      "definition": "Droit d'utiliser un bien et d'en percevoir les revenus, sans pouvoir en disposer.",
+      "lettre": "U",
+      "id": "usufruit"
+    },
+    {
+      "terme": "Usufruit locatif social",
+      "definition": "Démembrement dans lequel un bailleur social détient l'usufruit d'un logement et un investisseur la nue-propriété.",
+      "lettre": "U",
+      "id": "usufruit-locatif-social"
+    },
+    {
+      "terme": "Vacance locative",
+      "definition": "Période pendant laquelle un logement n'est pas loué.",
+      "lettre": "V",
+      "id": "vacance-locative"
+    },
+    {
+      "terme": "Valeur locative cadastrale",
+      "definition": "Base de calcul des impôts locaux, révisée chaque année par coefficient.",
+      "lettre": "V",
+      "id": "valeur-locative-cadastrale"
+    },
+    {
+      "terme": "VAN",
+      "definition": "Valeur actuelle nette, somme des flux actualisés d'un investissement.",
+      "lettre": "V",
+      "id": "van"
+    },
+    {
+      "terme": "VEFA",
+      "definition": "Vente en l'état futur d'achèvement, achat d'un logement sur plan.",
+      "lettre": "V",
+      "id": "vefa"
+    },
+    {
+      "terme": "Vétusté",
+      "definition": "Usure normale d'un bien due au temps, qui reste à la charge du bailleur.",
+      "lettre": "V",
+      "id": "vetuste"
+    },
+    {
+      "terme": "Visale",
+      "definition": "Garantie gratuite d'Action Logement couvrant les impayés et dégradations locatives.",
+      "lettre": "V",
+      "id": "visale"
+    },
+    {
+      "terme": "Zonage A, B, C",
+      "definition": "Classement des communes selon la tension du marché, utilisé pour les plafonds de loyers et de ressources de plusieurs dispositifs.",
+      "lettre": "Z",
+      "id": "zonage-a-b-c"
+    },
+    {
+      "terme": "Zone tendue",
+      "definition": "Commune où la demande de logements excède fortement l'offre, soumise à des règles particulières (relocation, préavis réduit, taxe sur la vacance).",
+      "lettre": "Z",
+      "id": "zone-tendue"
+    }
+  ]
+}

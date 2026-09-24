@@ -1,0 +1,1738 @@
+{
+  "edition": "septembre 2026",
+  "a_jour_au": "2026-09-24",
+  "source": "formation-immobilier-locatif-2026.md",
+  "total_questions": 122,
+  "modules": [
+    {
+      "module": "1.1",
+      "titre": "Le paysage de l'immobilier locatif et les règles du jeu",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-1-1",
+          "question": "Quel texte régit principalement la location d'un logement loué vide ou meublé à titre de résidence principale ?",
+          "options": {
+            "A": "Le Code du tourisme",
+            "B": "La loi n° 89-462 du 6 juillet 1989",
+            "C": "La loi Hoguet du 2 janvier 1970",
+            "D": "Le décret du 17 mars 1967"
+          },
+          "reponse": "B",
+          "explication": "La loi du 6 juillet 1989 est le texte central des rapports locatifs pour les résidences principales. La loi Hoguet encadre les agents immobiliers, le décret de 1967 la copropriété."
+        },
+        {
+          "id": "q1-1-2",
+          "question": "À partir de combien de mois d'occupation par an un logement est-il considéré comme la résidence principale du locataire ?",
+          "options": {
+            "A": "6 mois",
+            "B": "8 mois",
+            "C": "10 mois",
+            "D": "12 mois"
+          },
+          "reponse": "B",
+          "explication": "L'article 2 de la loi de 1989 retient une occupation d'au moins huit mois par an, sauf obligation professionnelle, raison de santé ou force majeure."
+        },
+        {
+          "id": "q1-1-3",
+          "question": "Qui délivre les cartes professionnelles T, G et S des agents immobiliers ?",
+          "options": {
+            "A": "La préfecture",
+            "B": "La chambre de commerce et d'industrie (CCI)",
+            "C": "Le tribunal judiciaire",
+            "D": "L'ANIL"
+          },
+          "reponse": "B",
+          "explication": "Les cartes professionnelles prévues par la loi Hoguet sont délivrées par la CCI territoriale."
+        },
+        {
+          "id": "q1-1-4",
+          "question": "Que devient une clause d'un bail d'habitation contraire à la loi de 1989 et défavorable au locataire ?",
+          "options": {
+            "A": "Elle reste valable si le locataire l'a signée",
+            "B": "Elle est réputée non écrite",
+            "C": "Elle est valable pendant un an",
+            "D": "Elle doit être annulée par le préfet"
+          },
+          "reponse": "B",
+          "explication": "La loi de 1989 est d'ordre public. Les clauses interdites (article 4 notamment) sont réputées non écrites : le reste du bail s'applique normalement."
+        }
+      ]
+    },
+    {
+      "module": "1.2",
+      "titre": "Les notions de base à maîtriser",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-2-1",
+          "question": "Quel est le montant maximal du dépôt de garantie pour une location meublée de résidence principale ?",
+          "options": {
+            "A": "Un mois de loyer charges comprises",
+            "B": "Un mois de loyer hors charges",
+            "C": "Deux mois de loyer hors charges",
+            "D": "Trois mois de loyer hors charges"
+          },
+          "reponse": "C",
+          "explication": "Le dépôt de garantie est plafonné à deux mois de loyer hors charges en meublé (article 25-6), un mois en location vide et il est interdit en bail mobilité."
+        },
+        {
+          "id": "q1-2-2",
+          "question": "Un balcon est-il compté dans la surface habitable ?",
+          "options": {
+            "A": "Oui, pour moitié",
+            "B": "Oui, en totalité",
+            "C": "Non",
+            "D": "Seulement s'il est couvert"
+          },
+          "reponse": "C",
+          "explication": "Balcons, terrasses, loggias, caves, garages et parties de moins de 1,80 m sont exclus de la surface habitable."
+        },
+        {
+          "id": "q1-2-3",
+          "question": "La liste des charges récupérables auprès du locataire est :",
+          "options": {
+            "A": "Libre, fixée par le bail",
+            "B": "Limitative, fixée par décret",
+            "C": "Fixée chaque année par le syndic",
+            "D": "Fixée par la mairie"
+          },
+          "reponse": "B",
+          "explication": "Le décret n° 87-713 du 26 août 1987 fixe une liste limitative : toute charge absente de la liste reste à la charge du bailleur."
+        }
+      ]
+    },
+    {
+      "module": "1.3",
+      "titre": "Choisir le bon type de location",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-3-1",
+          "question": "Quelle est la durée minimale d'un bail vide consenti par une personne physique ?",
+          "options": {
+            "A": "1 an",
+            "B": "3 ans",
+            "C": "6 ans",
+            "D": "9 ans"
+          },
+          "reponse": "B",
+          "explication": "Trois ans pour un bailleur personne physique ou une SCI familiale, six ans pour une personne morale (article 10 de la loi de 1989)."
+        },
+        {
+          "id": "q1-3-2",
+          "question": "Dans quel type de bail le dépôt de garantie est-il interdit ?",
+          "options": {
+            "A": "Le bail meublé",
+            "B": "Le bail étudiant",
+            "C": "Le bail mobilité",
+            "D": "Le bail de colocation"
+          },
+          "reponse": "C",
+          "explication": "L'article 25-13 de la loi de 1989 interdit tout dépôt de garantie en bail mobilité."
+        },
+        {
+          "id": "q1-3-3",
+          "question": "Un bail étudiant meublé de 9 mois :",
+          "options": {
+            "A": "Se reconduit tacitement d'un an",
+            "B": "Prend fin automatiquement à son terme",
+            "C": "Se transforme en bail vide",
+            "D": "Doit être renouvelé par avenant obligatoirement"
+          },
+          "reponse": "B",
+          "explication": "Le bail de neuf mois réservé aux étudiants n'est pas reconduit tacitement ; il s'achève à son terme."
+        },
+        {
+          "id": "q1-3-4",
+          "question": "Un bail « civil » signé avec une personne qui vit toute l'année dans le logement :",
+          "options": {
+            "A": "Reste un bail civil puisque les parties l'ont choisi",
+            "B": "Peut être requalifié en bail soumis à la loi de 1989",
+            "C": "Est nul",
+            "D": "Est automatiquement un bail commercial"
+          },
+          "reponse": "B",
+          "explication": "Le juge s'attache à l'usage réel : si le logement est la résidence principale, la loi de 1989, d'ordre public, s'applique."
+        }
+      ]
+    },
+    {
+      "module": "1.4",
+      "titre": "Le logement décent et les normes à respecter",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-4-1",
+          "question": "Depuis le 1er janvier 2025, en métropole, quelle classe DPE rend un logement non décent ?",
+          "options": {
+            "A": "E",
+            "B": "F",
+            "C": "G",
+            "D": "D"
+          },
+          "reponse": "C",
+          "explication": "Le niveau de décence énergétique est compris entre A et F depuis 2025. F deviendra non décent en 2028, E en 2034."
+        },
+        {
+          "id": "q1-4-2",
+          "question": "Quelle est la surface minimale de la pièce principale d'un logement décent ?",
+          "options": {
+            "A": "7 m²",
+            "B": "9 m² avec 2,20 m de hauteur (ou 20 m³)",
+            "C": "12 m²",
+            "D": "14 m²"
+          },
+          "reponse": "B",
+          "explication": "Le décret de 2002 exige une pièce principale d'au moins 9 m² et 2,20 m sous plafond, ou un volume habitable d'au moins 20 m³."
+        },
+        {
+          "id": "q1-4-3",
+          "question": "Qui doit installer le détecteur de fumée dans un logement loué vide ?",
+          "options": {
+            "A": "Le locataire",
+            "B": "Le bailleur",
+            "C": "Le syndic",
+            "D": "La mairie"
+          },
+          "reponse": "B",
+          "explication": "Le bailleur fournit et installe le DAAF ; le locataire en assure l'entretien et le remplacement des piles dans une location vide classique."
+        },
+        {
+          "id": "q1-4-4",
+          "question": "Pendant un arrêté de traitement de l'insalubrité :",
+          "options": {
+            "A": "Le loyer reste dû intégralement",
+            "B": "Le loyer cesse d'être dû",
+            "C": "Le loyer est réduit de moitié",
+            "D": "Le locataire doit quitter le logement sans indemnité"
+          },
+          "reponse": "B",
+          "explication": "Le loyer cesse d'être dû à compter du premier jour du mois suivant la notification de l'arrêté, jusqu'à la mainlevée."
+        }
+      ]
+    },
+    {
+      "module": "1.5",
+      "titre": "Les diagnostics obligatoires (dossier de diagnostic technique)",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-5-1",
+          "question": "Un DPE réalisé en mars 2020 est-il encore valable pour louer en 2026 ?",
+          "options": {
+            "A": "Oui, il vaut 10 ans",
+            "B": "Non, les DPE réalisés entre 2018 et le 30 juin 2021 ne sont plus valables depuis le 1er janvier 2025",
+            "C": "Oui, s'il indique une classe D ou mieux",
+            "D": "Oui, s'il est accompagné d'une attestation ADEME"
+          },
+          "reponse": "B",
+          "explication": "Les DPE établis avant la réforme du 1er juillet 2021 ont perdu leur validité par étapes : ceux de 2013 à 2017 au 1er janvier 2023, ceux du 1er janvier 2018 au 30 juin 2021 au 1er janvier 2025."
+        },
+        {
+          "id": "q1-5-2",
+          "question": "Pour quel logement le constat de risque d'exposition au plomb est-il exigé ?",
+          "options": {
+            "A": "Tout logement construit avant 1997",
+            "B": "Tout logement construit avant le 1er janvier 1949",
+            "C": "Tout logement chauffé au gaz",
+            "D": "Tout logement de moins de 20 m²"
+          },
+          "reponse": "B",
+          "explication": "Le CREP concerne les logements construits avant le 1er janvier 1949, période où les peintures au plomb étaient courantes."
+        },
+        {
+          "id": "q1-5-3",
+          "question": "Quelle est la durée de validité maximale de l'état des risques à la signature du bail ?",
+          "options": {
+            "A": "1 mois",
+            "B": "6 mois",
+            "C": "1 an",
+            "D": "10 ans"
+          },
+          "reponse": "B",
+          "explication": "L'état des risques doit avoir été établi moins de six mois avant la signature."
+        },
+        {
+          "id": "q1-5-4",
+          "question": "Qu'a changé la réforme du DPE du 1er janvier 2026 ?",
+          "options": {
+            "A": "Les seuils de toutes les classes ont été relevés",
+            "B": "Le coefficient de conversion de l'électricité est passé de 2,3 à 1,9",
+            "C": "Le DPE n'est plus opposable",
+            "D": "Le DPE est devenu valable 15 ans"
+          },
+          "reponse": "B",
+          "explication": "Seul le coefficient de l'électricité change ; les seuils de classes restent identiques. Une attestation gratuite permet de mettre à jour l'étiquette sans nouveau diagnostic."
+        }
+      ]
+    },
+    {
+      "module": "1.6",
+      "titre": "Fixer le loyer : les premières règles",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-6-1",
+          "question": "Dans une commune en zone tendue, au départ d'un locataire, le bailleur peut en principe :",
+          "options": {
+            "A": "Fixer librement le nouveau loyer",
+            "B": "Relouer au plus au dernier loyer appliqué, éventuellement révisé selon l'IRL",
+            "C": "Augmenter de 10 % sans justification",
+            "D": "Augmenter du montant de l'inflation de l'année"
+          },
+          "reponse": "B",
+          "explication": "Le décret annuel d'encadrement de l'évolution des loyers, reconduit jusqu'au 31 juillet 2027, bloque le loyer à la relocation, sauf exceptions limitées."
+        },
+        {
+          "id": "q1-6-2",
+          "question": "Le loyer d'un logement classé G ou F loué en métropole :",
+          "options": {
+            "A": "Peut être révisé selon l'IRL",
+            "B": "Ne peut être ni révisé, ni augmenté à la relocation, ni réévalué au renouvellement",
+            "C": "Peut être augmenté de 3,5 % par an",
+            "D": "Est fixé par le préfet"
+          },
+          "reponse": "B",
+          "explication": "Depuis le 24 août 2022, le gel des loyers des passoires thermiques s'applique à la révision, à la relocation et au renouvellement."
+        },
+        {
+          "id": "q1-6-3",
+          "question": "Quelle source est la plus fiable pour estimer un loyer de marché ?",
+          "options": {
+            "A": "Les annonces en ligne depuis plus de trois mois",
+            "B": "Les loyers effectivement pratiqués, publiés par les observatoires locaux des loyers",
+            "C": "Le prix de vente au m² divisé par 100",
+            "D": "Le loyer demandé par le vendeur du bien"
+          },
+          "reponse": "B",
+          "explication": "Les observatoires locaux des loyers mesurent les loyers réellement payés, ce qui évite le biais des annonces invendues."
+        }
+      ]
+    },
+    {
+      "module": "1.7",
+      "titre": "Trouver et sélectionner son locataire",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-7-1",
+          "question": "Parmi ces pièces, laquelle pouvez-vous légalement exiger d'un candidat locataire ?",
+          "options": {
+            "A": "Ses trois derniers relevés bancaires",
+            "B": "Son dernier avis d'imposition",
+            "C": "Une attestation d'absence de crédit",
+            "D": "Une photo d'identité supplémentaire"
+          },
+          "reponse": "B",
+          "explication": "L'avis d'imposition figure dans la liste du décret de 2015. Relevés bancaires, attestation d'absence de crédit et photo hors pièce d'identité sont interdits."
+        },
+        {
+          "id": "q1-7-2",
+          "question": "Vous avez souscrit une assurance loyers impayés. Le candidat est salarié en CDI. Pouvez-vous exiger en plus la caution de ses parents ?",
+          "options": {
+            "A": "Oui, toujours",
+            "B": "Non, sauf pour un étudiant ou un apprenti",
+            "C": "Oui, si le loyer dépasse 1 000 €",
+            "D": "Oui, si la caution réside en France"
+          },
+          "reponse": "B",
+          "explication": "L'article 22-1 interdit le cumul d'une assurance loyers impayés et d'un cautionnement, sauf location à un étudiant ou à un apprenti."
+        },
+        {
+          "id": "q1-7-3",
+          "question": "Quel est le plafond des honoraires d'état des lieux facturables au locataire par une agence ?",
+          "options": {
+            "A": "3 € par m²",
+            "B": "5 € par m²",
+            "C": "8 € par m²",
+            "D": "12 € par m²"
+          },
+          "reponse": "A",
+          "explication": "Le décret de 2014 plafonne la part d'honoraires d'état des lieux imputable au locataire à 3 € par m² de surface habitable."
+        },
+        {
+          "id": "q1-7-4",
+          "question": "Une annonce pour un logement classé G doit comporter :",
+          "options": {
+            "A": "Aucune mention particulière",
+            "B": "La mention « logement à consommation énergétique excessive »",
+            "C": "Uniquement la classe climat",
+            "D": "Le montant de la taxe foncière"
+          },
+          "reponse": "B",
+          "explication": "Les logements classés F et G doivent être signalés comme « logement à consommation énergétique excessive » ; un logement G ne peut d'ailleurs plus faire l'objet d'un nouveau bail de résidence principale en métropole."
+        }
+      ]
+    },
+    {
+      "module": "1.8",
+      "titre": "Rédiger le bail",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-8-1",
+          "question": "À partir de quelle date le nouveau contrat type issu du décret du 6 juillet 2026 s'applique-t-il ?",
+          "options": {
+            "A": "1er juillet 2026",
+            "B": "1er octobre 2026",
+            "C": "1er janvier 2027",
+            "D": "Il s'applique aux baux en cours immédiatement"
+          },
+          "reponse": "B",
+          "explication": "Le décret s'applique aux baux conclus ou renouvelés à compter du 1er octobre 2026. Les baux en cours ne sont pas à refaire."
+        },
+        {
+          "id": "q1-8-2",
+          "question": "Une clause prévoyant une pénalité de 30 € par jour de retard de paiement est :",
+          "options": {
+            "A": "Valable si le locataire l'a acceptée",
+            "B": "Réputée non écrite",
+            "C": "Valable jusqu'à 10 % du loyer",
+            "D": "Valable en location meublée seulement"
+          },
+          "reponse": "B",
+          "explication": "L'article 4 de la loi de 1989 interdit les pénalités et amendes ; seuls les intérêts de retard au taux légal peuvent être réclamés, après mise en demeure."
+        },
+        {
+          "id": "q1-8-3",
+          "question": "Depuis le 1er janvier 2024, quelle mention supplémentaire le bail doit-il comporter ?",
+          "options": {
+            "A": "Le numéro de SIRET du bailleur",
+            "B": "L'identifiant fiscal du logement",
+            "C": "Le montant de la taxe foncière",
+            "D": "Le numéro de sécurité sociale du locataire"
+          },
+          "reponse": "B",
+          "explication": "Le décret du 18 août 2023 a ajouté l'identifiant fiscal du logement (et, depuis 2025, la classe DPE) aux mentions du contrat type."
+        },
+        {
+          "id": "q1-8-4",
+          "question": "Le bail peut-il interdire au locataire de détenir un chat ?",
+          "options": {
+            "A": "Oui",
+            "B": "Non, la clause interdisant un animal familier est réputée non écrite",
+            "C": "Oui, en location meublée",
+            "D": "Oui, si le logement fait moins de 30 m²"
+          },
+          "reponse": "B",
+          "explication": "La détention d'un animal familier ne peut pas être interdite (loi du 9 juillet 1970, article 10), sauf les chiens d'attaque de première catégorie ; le locataire reste responsable des dégâts et nuisances."
+        }
+      ]
+    },
+    {
+      "module": "1.9",
+      "titre": "L'état des lieux et l'inventaire",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-9-1",
+          "question": "Dans quel délai le locataire peut-il demander à compléter l'état des lieux d'entrée (hors chauffage) ?",
+          "options": {
+            "A": "48 heures",
+            "B": "10 jours",
+            "C": "1 mois",
+            "D": "3 mois"
+          },
+          "reponse": "B",
+          "explication": "Le locataire dispose de dix jours ; pour le chauffage, du premier mois de la période de chauffe."
+        },
+        {
+          "id": "q1-9-2",
+          "question": "En cas de désaccord, qui paie l'état des lieux dressé par un commissaire de justice ?",
+          "options": {
+            "A": "Le bailleur seul",
+            "B": "Le locataire seul",
+            "C": "Les deux parties par moitié",
+            "D": "La partie qui a refusé"
+          },
+          "reponse": "C",
+          "explication": "Le coût, fixé par un tarif réglementé, est partagé par moitié entre bailleur et locataire."
+        },
+        {
+          "id": "q1-9-3",
+          "question": "Un mur repeint à neuf il y a huit ans présente des traces normales d'usage. Le bailleur peut-il facturer une peinture complète ?",
+          "options": {
+            "A": "Oui, intégralement",
+            "B": "Non, il s'agit de vétusté",
+            "C": "Oui, à hauteur de 50 %",
+            "D": "Oui, si le bail le prévoit"
+          },
+          "reponse": "B",
+          "explication": "L'usure normale liée au temps (vétusté) reste à la charge du bailleur ; seules les dégradations imputables au locataire peuvent être retenues."
+        }
+      ]
+    },
+    {
+      "module": "1.10",
+      "titre": "La vie du bail : droits et obligations au quotidien",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-10-1",
+          "question": "Des travaux dans le logement durent 30 jours et privent le locataire d'une chambre. Que prévoit la loi ?",
+          "options": {
+            "A": "Rien, les travaux sont obligatoires",
+            "B": "Une diminution du loyer proportionnelle, car les travaux durent plus de 21 jours",
+            "C": "La résiliation automatique du bail",
+            "D": "Une indemnité forfaitaire de 100 €"
+          },
+          "reponse": "B",
+          "explication": "Au-delà de 21 jours, le loyer est diminué à proportion du temps et de la partie du logement dont le locataire a été privé."
+        },
+        {
+          "id": "q1-10-2",
+          "question": "Le locataire ne justifie pas de son assurance habitation. Que peut faire le bailleur un mois après une mise en demeure infructueuse ?",
+          "options": {
+            "A": "Changer les serrures",
+            "B": "Souscrire une assurance pour le compte du locataire et en récupérer le coût majoré de 10 % au plus",
+            "C": "Doubler le loyer",
+            "D": "Retenir le dépôt de garantie immédiatement"
+          },
+          "reponse": "B",
+          "explication": "L'article 7 g permet au bailleur de souscrire l'assurance pour le compte du locataire ; il peut aussi, si le bail le prévoit, actionner la clause résolutoire pour défaut d'assurance."
+        },
+        {
+          "id": "q1-10-3",
+          "question": "Qui paie l'entretien annuel de la chaudière individuelle dans un logement loué vide ?",
+          "options": {
+            "A": "Le bailleur",
+            "B": "Le locataire",
+            "C": "Le syndic",
+            "D": "Moitié chacun"
+          },
+          "reponse": "B",
+          "explication": "L'entretien courant, dont l'entretien annuel obligatoire de la chaudière, incombe au locataire ; le remplacement d'une chaudière vétuste incombe au bailleur."
+        }
+      ]
+    },
+    {
+      "module": "1.11",
+      "titre": "La fin du bail",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-11-1",
+          "question": "Un locataire d'un logement vide situé en zone tendue donne congé. Quel est son préavis ?",
+          "options": {
+            "A": "3 mois",
+            "B": "2 mois",
+            "C": "1 mois",
+            "D": "15 jours"
+          },
+          "reponse": "C",
+          "explication": "En zone tendue, le préavis du locataire d'un logement vide est réduit à un mois ; il doit simplement le mentionner dans son congé."
+        },
+        {
+          "id": "q1-11-2",
+          "question": "Quel délai minimal le bailleur d'un logement vide doit-il respecter pour donner congé ?",
+          "options": {
+            "A": "1 mois avant l'échéance",
+            "B": "3 mois avant l'échéance",
+            "C": "6 mois avant l'échéance",
+            "D": "12 mois avant l'échéance"
+          },
+          "reponse": "C",
+          "explication": "Six mois avant l'échéance en location vide, trois mois en meublé."
+        },
+        {
+          "id": "q1-11-3",
+          "question": "Le dépôt de garantie est restitué avec 40 jours de retard sur le délai légal, pour un loyer de 600 € HC. Quelle est la pénalité ?",
+          "options": {
+            "A": "60 €",
+            "B": "120 €",
+            "C": "600 €",
+            "D": "Aucune"
+          },
+          "reponse": "B",
+          "explication": "40 jours de retard entament deux mois : 10 % × 600 € × 2 = 120 €."
+        },
+        {
+          "id": "q1-11-4",
+          "question": "En location meublée, le locataire bénéficie-t-il d'un droit de préemption en cas de congé pour vente ?",
+          "options": {
+            "A": "Oui, comme en location vide",
+            "B": "Non, pas à ce jour",
+            "C": "Oui, seulement en zone tendue",
+            "D": "Oui, si le bail dure plus de 3 ans"
+          },
+          "reponse": "B",
+          "explication": "Le droit de préemption du congé pour vente est propre à la location vide ; son extension au meublé est évoquée mais n'est pas en vigueur."
+        }
+      ]
+    },
+    {
+      "module": "1.12",
+      "titre": "Premiers calculs de rentabilité",
+      "niveau": 1,
+      "questions": [
+        {
+          "id": "q1-12-1",
+          "question": "Un bien coûte au total 150 000 € et se loue 750 € HC par mois. Quelle est sa rentabilité brute ?",
+          "options": {
+            "A": "5 %",
+            "B": "6 %",
+            "C": "7,5 %",
+            "D": "4,5 %"
+          },
+          "reponse": "B",
+          "explication": "750 × 12 = 9 000 € ; 9 000 / 150 000 = 6 %."
+        },
+        {
+          "id": "q1-12-2",
+          "question": "Lequel de ces postes n'est pas une charge non récupérable pour le bailleur ?",
+          "options": {
+            "A": "La taxe foncière hors ordures ménagères",
+            "B": "L'assurance propriétaire non occupant",
+            "C": "L'entretien des parties communes refacturé au locataire",
+            "D": "Les frais de gestion d'une agence"
+          },
+          "reponse": "C",
+          "explication": "L'entretien des parties communes est une charge récupérable, refacturée au locataire ; elle ne pèse pas sur la rentabilité du bailleur, hormis en période de vacance."
+        },
+        {
+          "id": "q1-12-3",
+          "question": "Que représente un cash-flow mensuel négatif de 300 € ?",
+          "options": {
+            "A": "Une perte définitive de 300 € par mois",
+            "B": "L'effort d'épargne mensuel nécessaire pour détenir le bien, en partie compensé par le remboursement du capital",
+            "C": "Une erreur de calcul",
+            "D": "Le montant de l'impôt dû"
+          },
+          "reponse": "B",
+          "explication": "Le cash-flow négatif est l'effort d'épargne. Une partie de la mensualité rembourse le capital et enrichit le patrimoine de l'investisseur."
+        }
+      ]
+    },
+    {
+      "module": "2.1",
+      "titre": "Le loyer en profondeur : révision, relocation, encadrement, réévaluation",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-1-1",
+          "question": "Le bailleur oublie de réviser le loyer à la date anniversaire du 1er mars 2026 et le demande le 10 juin 2026. Que se passe-t-il ?",
+          "options": {
+            "A": "La révision est rétroactive au 1er mars",
+            "B": "La révision s'applique à compter du 10 juin",
+            "C": "La révision est perdue définitivement pour toujours",
+            "D": "Il doit attendre le 1er mars 2027"
+          },
+          "reponse": "B",
+          "explication": "Le bailleur dispose d'un an pour demander la révision, qui prend effet à la date de sa demande, sans rétroactivité."
+        },
+        {
+          "id": "q2-1-2",
+          "question": "En zone tendue, le logement a fait l'objet de travaux d'amélioration de 6 000 € TTC depuis le dernier bail, pour un loyer annuel précédent de 9 600 €. Quelle hausse annuelle maximale est possible ?",
+          "options": {
+            "A": "Aucune",
+            "B": "900 € par an (15 % de 6 000 €)",
+            "C": "6 000 € par an",
+            "D": "10 % du loyer"
+          },
+          "reponse": "B",
+          "explication": "Les travaux dépassent la moitié de la dernière année de loyer (4 800 €) : la hausse annuelle est limitée à 15 % de leur coût réel TTC, soit 900 €."
+        },
+        {
+          "id": "q2-1-3",
+          "question": "Jusqu'à quand le décret limitant les hausses de loyer à la relocation en zone tendue est-il reconduit ?",
+          "options": {
+            "A": "31 décembre 2026",
+            "B": "31 juillet 2027",
+            "C": "23 novembre 2026",
+            "D": "Il est permanent"
+          },
+          "reponse": "B",
+          "explication": "Le décret n° 2026-644 du 20 juillet 2026 s'applique aux baux conclus ou renouvelés du 1er août 2026 au 31 juillet 2027."
+        },
+        {
+          "id": "q2-1-4",
+          "question": "Un complément de loyer est-il possible pour un logement classé F dans une ville encadrée ?",
+          "options": {
+            "A": "Oui, s'il a une belle vue",
+            "B": "Non, le complément est interdit pour les logements F ou G",
+            "C": "Oui, dans la limite de 10 %",
+            "D": "Oui, si le locataire l'accepte"
+          },
+          "reponse": "B",
+          "explication": "La loi interdit le complément de loyer pour les logements présentant certains défauts, dont une classe énergétique F ou G."
+        }
+      ]
+    },
+    {
+      "module": "2.2",
+      "titre": "Les charges récupérables et leur régularisation",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-2-1",
+          "question": "La taxe foncière est-elle récupérable auprès du locataire ?",
+          "options": {
+            "A": "Oui, en totalité",
+            "B": "Non, seule la taxe d'enlèvement des ordures ménagères l'est",
+            "C": "Oui, pour moitié",
+            "D": "Oui, en location meublée"
+          },
+          "reponse": "B",
+          "explication": "La taxe foncière reste à la charge du propriétaire ; seule la TEOM figurant sur l'avis est récupérable, hors frais de gestion."
+        },
+        {
+          "id": "q2-2-2",
+          "question": "Combien de temps les justificatifs de charges doivent-ils être tenus à la disposition du locataire après l'envoi du décompte ?",
+          "options": {
+            "A": "1 mois",
+            "B": "3 mois",
+            "C": "6 mois",
+            "D": "1 an"
+          },
+          "reponse": "C",
+          "explication": "L'article 23 impose de tenir les pièces justificatives à disposition pendant six mois."
+        },
+        {
+          "id": "q2-2-3",
+          "question": "Un gardien assure uniquement l'entretien des parties communes. Quelle part de sa rémunération est récupérable ?",
+          "options": {
+            "A": "100 %",
+            "B": "75 %",
+            "C": "40 %",
+            "D": "0 %"
+          },
+          "reponse": "C",
+          "explication": "75 % si le gardien assure l'entretien et l'élimination des rejets, 40 % s'il n'assure qu'une des deux tâches."
+        },
+        {
+          "id": "q2-2-4",
+          "question": "En bail mobilité, les charges sont :",
+          "options": {
+            "A": "Obligatoirement régularisées chaque année",
+            "B": "Obligatoirement forfaitaires",
+            "C": "Interdites",
+            "D": "Payées par le bailleur"
+          },
+          "reponse": "B",
+          "explication": "L'article 25-18 impose un forfait de charges, non régularisable, en bail mobilité."
+        }
+      ]
+    },
+    {
+      "module": "2.3",
+      "titre": "Entretien, réparations et travaux",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-3-1",
+          "question": "Le chauffe-eau de 18 ans tombe en panne définitivement. Qui paie le remplacement ?",
+          "options": {
+            "A": "Le locataire",
+            "B": "Le bailleur",
+            "C": "Moitié chacun",
+            "D": "L'assurance du locataire"
+          },
+          "reponse": "B",
+          "explication": "Le remplacement d'un équipement vétuste incombe au bailleur ; le locataire ne supporte que l'entretien courant et les menues réparations."
+        },
+        {
+          "id": "q2-3-2",
+          "question": "Le locataire demande par lettre recommandée à installer une barre d'appui pour son handicap. Le bailleur ne répond pas pendant deux mois. Que se passe-t-il ?",
+          "options": {
+            "A": "La demande est rejetée",
+            "B": "Le silence vaut accord",
+            "C": "Le locataire doit saisir le juge",
+            "D": "Le bail est résilié"
+          },
+          "reponse": "B",
+          "explication": "Pour les travaux d'adaptation au handicap ou à la perte d'autonomie (et certains travaux de rénovation énergétique), le silence gardé pendant deux mois vaut accord."
+        },
+        {
+          "id": "q2-3-3",
+          "question": "Quel taux de TVA s'applique en principe à des travaux d'entretien dans un logement de plus de deux ans ?",
+          "options": {
+            "A": "5,5 %",
+            "B": "10 %",
+            "C": "20 %",
+            "D": "2,1 %"
+          },
+          "reponse": "B",
+          "explication": "Le taux intermédiaire de 10 % s'applique aux travaux d'amélioration et d'entretien ; 5,5 % pour la rénovation énergétique éligible."
+        }
+      ]
+    },
+    {
+      "module": "2.4",
+      "titre": "Garanties et assurances",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-4-1",
+          "question": "Depuis la réforme Visale du 6 janvier 2026, pour les nouveaux contrats, les impayés sont couverts :",
+          "options": {
+            "A": "Pendant toute la durée du bail",
+            "B": "S'ils surviennent pendant les trois premières années d'occupation",
+            "C": "Seulement la première année",
+            "D": "Seulement en zone tendue"
+          },
+          "reponse": "B",
+          "explication": "Visale couvre jusqu'à 36 mensualités dans le parc privé, mais seulement pour des impayés survenant pendant les trois premières années d'occupation."
+        },
+        {
+          "id": "q2-4-2",
+          "question": "Le commandement de payer n'a pas été signifié à la caution dans les quinze jours. Conséquence ?",
+          "options": {
+            "A": "Le cautionnement est nul",
+            "B": "La caution ne peut pas être tenue des pénalités ou intérêts de retard",
+            "C": "Aucune conséquence",
+            "D": "Le bail est résilié"
+          },
+          "reponse": "B",
+          "explication": "Faute de signification dans les quinze jours, la caution reste tenue de la dette principale mais pas des pénalités ou intérêts de retard."
+        },
+        {
+          "id": "q2-4-3",
+          "question": "L'assurance propriétaire non occupant est obligatoire :",
+          "options": {
+            "A": "Pour tout bailleur",
+            "B": "Pour tout copropriétaire, occupant ou non",
+            "C": "Uniquement en location meublée",
+            "D": "Jamais"
+          },
+          "reponse": "B",
+          "explication": "Depuis la loi ALUR, chaque copropriétaire doit être assuré en responsabilité civile (article 9-1 de la loi de 1965) ; hors copropriété, la PNO reste vivement recommandée."
+        }
+      ]
+    },
+    {
+      "module": "2.5",
+      "titre": "Colocation, bail mobilité et locations particulières",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-5-1",
+          "question": "Un colocataire en bail unique solidaire quitte le logement et n'est pas remplacé. Jusqu'à quand reste-t-il solidaire ?",
+          "options": {
+            "A": "Jusqu'à la fin du bail",
+            "B": "Jusqu'à six mois après la fin de son préavis",
+            "C": "Jusqu'à la fin de son préavis",
+            "D": "Trois ans"
+          },
+          "reponse": "B",
+          "explication": "La solidarité cesse au remplacement par un nouveau colocataire, et au plus tard six mois après la date d'effet du congé."
+        },
+        {
+          "id": "q2-5-2",
+          "question": "Un bail mobilité ne mentionne pas le motif du locataire. Conséquence ?",
+          "options": {
+            "A": "Aucune",
+            "B": "Il est requalifié en bail meublé d'un an",
+            "C": "Il est nul et le locataire doit partir",
+            "D": "Il devient un bail vide de trois ans"
+          },
+          "reponse": "B",
+          "explication": "Faute de mentions obligatoires (dont le motif et la durée), le bail mobilité est régi par les règles du bail meublé classique."
+        },
+        {
+          "id": "q2-5-3",
+          "question": "Le locataire sous-loue le logement sur une plateforme sans accord. Que peut obtenir le bailleur ?",
+          "options": {
+            "A": "Rien, s'il n'y a pas de dégâts",
+            "B": "La résiliation du bail et la restitution des sous-loyers perçus",
+            "C": "Seulement une amende de 100 €",
+            "D": "Uniquement une hausse de loyer"
+          },
+          "reponse": "B",
+          "explication": "La Cour de cassation juge que les sous-loyers sont des fruits civils appartenant au propriétaire ; la sous-location illicite justifie aussi une demande de résiliation."
+        }
+      ]
+    },
+    {
+      "module": "2.6",
+      "titre": "La fiscalité de la location nue : les revenus fonciers",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-6-1",
+          "question": "Quel est le plafond de revenus bruts permettant le micro-foncier ?",
+          "options": {
+            "A": "10 700 €",
+            "B": "15 000 €",
+            "C": "23 000 €",
+            "D": "77 700 €"
+          },
+          "reponse": "B",
+          "explication": "Le micro-foncier est ouvert si les revenus fonciers bruts du foyer n'excèdent pas 15 000 € par an ; l'abattement est de 30 %."
+        },
+        {
+          "id": "q2-6-2",
+          "question": "Dans la limite de quel montant un déficit foncier « classique » s'impute-t-il sur le revenu global ?",
+          "options": {
+            "A": "5 000 €",
+            "B": "10 700 €",
+            "C": "21 400 €",
+            "D": "Sans limite"
+          },
+          "reponse": "B",
+          "explication": "10 700 € par an, porté à 21 400 € pour certaines dépenses de rénovation énergétique payées jusqu'au 31 décembre 2027. La part liée aux intérêts ne s'impute que sur les revenus fonciers."
+        },
+        {
+          "id": "q2-6-3",
+          "question": "Quel est le taux des prélèvements sociaux sur les revenus fonciers d'une location nue en 2026 ?",
+          "options": {
+            "A": "17,2 %",
+            "B": "18,6 %",
+            "C": "9,7 %",
+            "D": "30 %"
+          },
+          "reponse": "A",
+          "explication": "Les revenus fonciers et les plus-values immobilières sont exclus de la hausse de CSG de 2026 et restent à 17,2 %."
+        },
+        {
+          "id": "q2-6-4",
+          "question": "Peut-on déduire le coût de construction d'une extension de 20 m² des revenus fonciers ?",
+          "options": {
+            "A": "Oui, en totalité",
+            "B": "Non, les travaux d'agrandissement ne sont pas déductibles",
+            "C": "Oui, sur cinq ans",
+            "D": "Oui, s'ils sont faits par un artisan RGE"
+          },
+          "reponse": "B",
+          "explication": "Les travaux de construction, reconstruction et agrandissement ne sont pas déductibles ; ils majorent le prix de revient pour le calcul de la plus-value."
+        }
+      ]
+    },
+    {
+      "module": "2.7",
+      "titre": "La fiscalité de la location meublée : LMNP et LMP",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-7-1",
+          "question": "En 2026, jusqu'à quel montant de recettes une location meublée de longue durée relève-t-elle du micro-BIC ?",
+          "options": {
+            "A": "15 000 €",
+            "B": "77 700 €",
+            "C": "83 600 €",
+            "D": "188 700 €"
+          },
+          "reponse": "C",
+          "explication": "Les seuils ont été revalorisés pour 2026-2028 : 83 600 € avec un abattement de 50 % ; 15 000 € et 30 % pour les meublés de tourisme non classés."
+        },
+        {
+          "id": "q2-7-2",
+          "question": "En LMNP au réel, l'amortissement peut-il créer un déficit imputable sur les salaires ?",
+          "options": {
+            "A": "Oui",
+            "B": "Non, l'amortissement ne peut ni créer ni augmenter un déficit",
+            "C": "Oui, dans la limite de 10 700 €",
+            "D": "Oui, pendant 3 ans"
+          },
+          "reponse": "B",
+          "explication": "La fraction d'amortissement qui excède le résultat est reportée sans limite de durée ; le déficit LMNP ne s'impute pas sur le revenu global."
+        },
+        {
+          "id": "q2-7-3",
+          "question": "Quel taux de prélèvements sociaux s'applique aux revenus LMNP en 2026 ?",
+          "options": {
+            "A": "17,2 %",
+            "B": "18,6 %",
+            "C": "9,7 %",
+            "D": "0 %"
+          },
+          "reponse": "B",
+          "explication": "La LFSS 2026 a porté la CSG à 10,6 % sur les revenus du patrimoine non exclus, dont la location meublée non professionnelle : 18,6 % au total."
+        },
+        {
+          "id": "q2-7-4",
+          "question": "Un LMNP revend en 2026 un appartement meublé classique. Que deviennent les amortissements déduits ?",
+          "options": {
+            "A": "Ils sont ignorés",
+            "B": "Ils minorent le prix d'acquisition et augmentent la plus-value imposable",
+            "C": "Ils sont imposés à 45 %",
+            "D": "Ils donnent droit à un crédit d'impôt"
+          },
+          "reponse": "B",
+          "explication": "Depuis la loi de finances pour 2025, pour les cessions à partir du 15 février 2025, les amortissements admis en déduction sont réintégrés dans le calcul de la plus-value, sauf pour les résidences services."
+        }
+      ]
+    },
+    {
+      "module": "2.8",
+      "titre": "Choisir son régime fiscal : comparatif chiffré",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-8-1",
+          "question": "Quel régime permet d'imputer un déficit sur le revenu global ?",
+          "options": {
+            "A": "Le LMNP au réel",
+            "B": "La location nue au régime réel (déficit foncier)",
+            "C": "Le micro-BIC",
+            "D": "Le micro-foncier"
+          },
+          "reponse": "B",
+          "explication": "Seul le déficit foncier (hors intérêts) s'impute sur le revenu global, dans la limite de 10 700 € ou 21 400 €. Le déficit LMNP ne s'impute que sur des revenus de même nature."
+        },
+        {
+          "id": "q2-8-2",
+          "question": "Pourquoi un LMNP au réel paie-t-il souvent zéro impôt sur ses loyers pendant des années ?",
+          "options": {
+            "A": "Parce que les loyers meublés sont exonérés",
+            "B": "Grâce à la déduction des amortissements du bâti et du mobilier",
+            "C": "Grâce à un crédit d'impôt de 50 %",
+            "D": "Parce que les prélèvements sociaux sont nuls"
+          },
+          "reponse": "B",
+          "explication": "L'amortissement absorbe le résultat ; il ne peut pas créer de déficit mais son excédent est reporté sans limite."
+        }
+      ]
+    },
+    {
+      "module": "2.9",
+      "titre": "Taxes locales et obligations déclaratives : le calendrier du bailleur",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-9-1",
+          "question": "Avant quelle date faut-il mettre à jour la déclaration d'occupation de ses biens en cas de changement ?",
+          "options": {
+            "A": "1er janvier",
+            "B": "1er juillet",
+            "C": "15 octobre",
+            "D": "31 décembre"
+          },
+          "reponse": "B",
+          "explication": "La déclaration d'occupation (article 1418 du CGI) est à mettre à jour avant le 1er juillet si la situation d'occupation a changé."
+        },
+        {
+          "id": "q2-9-2",
+          "question": "Un meublé de tourisme non loué au 1er janvier est soumis à :",
+          "options": {
+            "A": "Aucune taxe d'habitation",
+            "B": "La taxe d'habitation sur les résidences secondaires, au nom du propriétaire",
+            "C": "La taxe d'habitation au nom du dernier voyageur",
+            "D": "La taxe sur les logements vacants uniquement"
+          },
+          "reponse": "B",
+          "explication": "Le logement meublé dont le propriétaire garde la disposition au 1er janvier est soumis à la THRS, sauf exonération communale possible pour les meublés classés depuis 2026."
+        },
+        {
+          "id": "q2-9-3",
+          "question": "Depuis le 1er septembre 2026, qu'est-ce qui s'impose à un LMNP classique ?",
+          "options": {
+            "A": "Émettre des factures électroniques à ses locataires",
+            "B": "Pouvoir recevoir les factures électroniques de ses fournisseurs via une plateforme agréée",
+            "C": "Facturer la TVA sur ses loyers",
+            "D": "Tenir une comptabilité d'engagement certifiée"
+          },
+          "reponse": "B",
+          "explication": "L'obligation de réception concerne tous les assujettis, dont les loueurs en meublé titulaires d'un SIREN ; l'émission ne concerne que les activités soumises à la TVA."
+        }
+      ]
+    },
+    {
+      "module": "2.10",
+      "titre": "Financer son investissement",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-10-1",
+          "question": "Quel est le taux d'effort maximal fixé par le HCSF, assurance comprise ?",
+          "options": {
+            "A": "30 %",
+            "B": "33 %",
+            "C": "35 %",
+            "D": "40 %"
+          },
+          "reponse": "C",
+          "explication": "Le taux d'effort est limité à 35 % des revenus nets, assurance emprunteur incluse, sauf dérogations limitées."
+        },
+        {
+          "id": "q2-10-2",
+          "question": "Quel est le taux d'usure des prêts à taux fixe de 20 ans et plus au 3e trimestre 2026 ?",
+          "options": {
+            "A": "4,57 %",
+            "B": "5,29 %",
+            "C": "6,39 %",
+            "D": "3,45 %"
+          },
+          "reponse": "B",
+          "explication": "Publié par la Banque de France le 29 juin 2026, applicable du 1er juillet au 30 septembre 2026."
+        },
+        {
+          "id": "q2-10-3",
+          "question": "Depuis la loi Lemoine, l'emprunteur peut changer d'assurance de prêt :",
+          "options": {
+            "A": "Uniquement à la date anniversaire",
+            "B": "À tout moment, à garanties équivalentes",
+            "C": "Uniquement la première année",
+            "D": "Jamais"
+          },
+          "reponse": "B",
+          "explication": "La résiliation à tout moment de l'assurance emprunteur est possible depuis 2022, sous réserve d'équivalence des garanties."
+        },
+        {
+          "id": "q2-10-4",
+          "question": "Quelle part d'un futur loyer une banque retient-elle le plus souvent dans le calcul des revenus ?",
+          "options": {
+            "A": "50 %",
+            "B": "70 %",
+            "C": "90 %",
+            "D": "100 %"
+          },
+          "reponse": "B",
+          "explication": "La pratique courante est de retenir 70 % des loyers pour intégrer vacance et charges."
+        }
+      ]
+    },
+    {
+      "module": "2.11",
+      "titre": "Acheter un bien locatif",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-11-1",
+          "question": "Quel est le délai de rétractation de l'acquéreur non professionnel d'un logement après l'avant-contrat ?",
+          "options": {
+            "A": "7 jours",
+            "B": "10 jours",
+            "C": "14 jours",
+            "D": "30 jours"
+          },
+          "reponse": "B",
+          "explication": "L'article L. 271-1 du CCH accorde dix jours à compter de la notification de l'avant-contrat."
+        },
+        {
+          "id": "q2-11-2",
+          "question": "En VEFA, quel pourcentage du prix peut être appelé au maximum à la mise hors d'eau ?",
+          "options": {
+            "A": "35 %",
+            "B": "50 %",
+            "C": "70 %",
+            "D": "95 %"
+          },
+          "reponse": "C",
+          "explication": "L'échéancier légal plafonne les appels à 35 % aux fondations, 70 % à la mise hors d'eau et 95 % à l'achèvement."
+        },
+        {
+          "id": "q2-11-3",
+          "question": "Quel document de copropriété révèle le mieux les travaux déjà votés ?",
+          "options": {
+            "A": "Le règlement de copropriété",
+            "B": "Les procès-verbaux des dernières assemblées générales",
+            "C": "La fiche synthétique seule",
+            "D": "L'état des risques"
+          },
+          "reponse": "B",
+          "explication": "Les procès-verbaux d'assemblée générale retracent les travaux votés, les litiges et les projets ; le plan pluriannuel de travaux complète l'analyse."
+        }
+      ]
+    },
+    {
+      "module": "2.12",
+      "titre": "La copropriété vue par le bailleur",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-12-1",
+          "question": "Quel est le délai minimal de convocation à une assemblée générale de copropriété ?",
+          "options": {
+            "A": "8 jours",
+            "B": "15 jours",
+            "C": "21 jours",
+            "D": "30 jours"
+          },
+          "reponse": "C",
+          "explication": "Le décret du 17 mars 1967 impose une convocation au moins 21 jours avant la date de l'assemblée, sauf urgence."
+        },
+        {
+          "id": "q2-12-2",
+          "question": "Le fonds de travaux attaché à un lot est-il remboursé au vendeur lors de la vente ?",
+          "options": {
+            "A": "Oui, intégralement",
+            "B": "Non, il reste attaché au lot",
+            "C": "Oui, pour moitié",
+            "D": "Oui, s'il n'a pas été utilisé"
+          },
+          "reponse": "B",
+          "explication": "Les sommes versées au fonds de travaux sont définitivement acquises au syndicat et restent attachées au lot ; le prix de vente peut en tenir compte."
+        },
+        {
+          "id": "q2-12-3",
+          "question": "Depuis quand le DPE collectif s'impose-t-il aux copropriétés de moins de 50 lots (permis antérieur à 2013) ?",
+          "options": {
+            "A": "1er janvier 2024",
+            "B": "1er janvier 2025",
+            "C": "1er janvier 2026",
+            "D": "1er janvier 2028"
+          },
+          "reponse": "C",
+          "explication": "Le calendrier a été progressif : plus de 200 lots en 2024, de 50 à 200 lots en 2025, moins de 50 lots en 2026."
+        }
+      ]
+    },
+    {
+      "module": "2.13",
+      "titre": "Les impayés : prévenir, réagir, agir en justice",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-13-1",
+          "question": "Pour un bail signé en novembre 2026, quel délai le commandement de payer laisse-t-il au locataire ?",
+          "options": {
+            "A": "15 jours",
+            "B": "1 mois",
+            "C": "6 semaines",
+            "D": "2 mois"
+          },
+          "reponse": "C",
+          "explication": "Le contrat type en vigueur depuis le 1er octobre 2026 reprend le délai légal de six semaines issu de la loi du 27 juillet 2023."
+        },
+        {
+          "id": "q2-13-2",
+          "question": "Pendant quelle période aucune expulsion d'un locataire ne peut être exécutée ?",
+          "options": {
+            "A": "Du 1er décembre au 28 février",
+            "B": "Du 1er novembre au 31 mars",
+            "C": "Du 15 octobre au 15 avril",
+            "D": "Juillet et août"
+          },
+          "reponse": "B",
+          "explication": "La trêve hivernale s'étend du 1er novembre au 31 mars ; la procédure peut se poursuivre, mais pas l'exécution de l'expulsion."
+        },
+        {
+          "id": "q2-13-3",
+          "question": "Le préfet refuse le concours de la force publique. Que peut faire le bailleur ?",
+          "options": {
+            "A": "Expulser lui-même le locataire",
+            "B": "Demander à l'État l'indemnisation de son préjudice",
+            "C": "Rien",
+            "D": "Couper l'électricité"
+          },
+          "reponse": "B",
+          "explication": "Le refus ou le silence de l'État engage sa responsabilité : le bailleur peut obtenir l'indemnisation des loyers et charges perdus."
+        },
+        {
+          "id": "q2-13-4",
+          "question": "Un bailleur change les serrures pendant l'absence de son locataire en impayé. Qu'encourt-il ?",
+          "options": {
+            "A": "Rien s'il a un jugement de première instance non signifié",
+            "B": "Jusqu'à trois ans d'emprisonnement et 30 000 € d'amende",
+            "C": "Une simple amende de 150 €",
+            "D": "La perte du dépôt de garantie"
+          },
+          "reponse": "B",
+          "explication": "L'expulsion sans décision de justice ni concours de l'État est un délit (article 226-4-2 du Code pénal)."
+        }
+      ]
+    },
+    {
+      "module": "2.14",
+      "titre": "Gérer soi-même ou déléguer",
+      "niveau": 2,
+      "questions": [
+        {
+          "id": "q2-14-1",
+          "question": "Quelle carte professionnelle doit détenir un gestionnaire locatif ?",
+          "options": {
+            "A": "Carte T",
+            "B": "Carte G",
+            "C": "Carte S",
+            "D": "Aucune"
+          },
+          "reponse": "B",
+          "explication": "La carte G (gestion immobilière) est exigée pour gérer des biens pour le compte de tiers ; la carte T concerne la transaction, la carte S le syndic."
+        },
+        {
+          "id": "q2-14-2",
+          "question": "Combien de temps conserver les factures de travaux d'un bien locatif ?",
+          "options": {
+            "A": "1 an",
+            "B": "3 ans",
+            "C": "Au moins jusqu'à la revente et 10 ans pour la décennale",
+            "D": "Inutile de les conserver"
+          },
+          "reponse": "C",
+          "explication": "Elles servent à la déduction ou à l'amortissement, aux garanties des entreprises et au calcul de la plus-value."
+        }
+      ]
+    },
+    {
+      "module": "3.1",
+      "titre": "Construire sa stratégie d'investisseur",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-1-1",
+          "question": "Quelle stratégie génère en principe le plus de charge de gestion ?",
+          "options": {
+            "A": "La nue-propriété",
+            "B": "La SCPI",
+            "C": "La location courte durée en meublé de tourisme",
+            "D": "La location nue d'un T4 familial"
+          },
+          "reponse": "C",
+          "explication": "La courte durée implique ménage, accueil, tarification, avis clients et une réglementation dense."
+        },
+        {
+          "id": "q3-1-2",
+          "question": "Une division de logement peut-elle créer un lot de 12 m² ?",
+          "options": {
+            "A": "Oui, s'il a une fenêtre",
+            "B": "Non, la loi interdit les divisions créant des logements de moins de 14 m² et 33 m³",
+            "C": "Oui, en location meublée",
+            "D": "Oui, avec l'accord du syndic"
+          },
+          "reponse": "B",
+          "explication": "L'article L. 111-6-1 du CCH interdit notamment les divisions conduisant à des locaux de moins de 14 m² et de 33 m³."
+        }
+      ]
+    },
+    {
+      "module": "3.2",
+      "titre": "L'analyse financière avancée",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-2-1",
+          "question": "Que mesure le TRI des fonds propres ?",
+          "options": {
+            "A": "Le rendement brut du bien",
+            "B": "Le taux qui annule la valeur actuelle des flux de l'investisseur (apport, cash-flows, revente)",
+            "C": "Le taux d'intérêt du crédit",
+            "D": "La variation annuelle de l'IRL"
+          },
+          "reponse": "B",
+          "explication": "Le TRI intègre la chronologie de tous les flux, y compris l'apport initial et le produit net de revente."
+        },
+        {
+          "id": "q3-2-2",
+          "question": "Dans l'effet de levier, que se passe-t-il si la rentabilité de l'actif devient inférieure au coût de la dette ?",
+          "options": {
+            "A": "Le levier augmente quand même la rentabilité des fonds propres",
+            "B": "Le levier dégrade la rentabilité des fonds propres",
+            "C": "Rien ne change",
+            "D": "La dette est annulée"
+          },
+          "reponse": "B",
+          "explication": "La formule rA + (rA − i) × D/FP montre que si rA < i, l'endettement réduit la rentabilité des fonds propres."
+        }
+      ]
+    },
+    {
+      "module": "3.3",
+      "titre": "Les structures de détention",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-3-1",
+          "question": "Quel est le principal inconvénient d'une SCI à l'IS lors de la revente ?",
+          "options": {
+            "A": "La plus-value est exonérée",
+            "B": "La plus-value est calculée sur la valeur nette comptable, sans abattement pour durée de détention",
+            "C": "Il est impossible de vendre",
+            "D": "Les associés paient 45 % d'IR"
+          },
+          "reponse": "B",
+          "explication": "Les amortissements pratiqués diminuent la valeur comptable, ce qui augmente la plus-value taxée à l'IS, sans abattements ; la distribution ajoute ensuite la fiscalité des dividendes."
+        },
+        {
+          "id": "q3-3-2",
+          "question": "Une SCI à l'IR peut-elle louer habituellement des logements meublés ?",
+          "options": {
+            "A": "Oui, sans limite",
+            "B": "Non, au-delà d'une activité accessoire elle devient passible de l'IS",
+            "C": "Oui, en zone tendue",
+            "D": "Oui, si elle a plus de 10 associés"
+          },
+          "reponse": "B",
+          "explication": "La location meublée est une activité commerciale ; si les recettes commerciales dépassent 10 % des recettes totales, la SCI bascule à l'IS."
+        },
+        {
+          "id": "q3-3-3",
+          "question": "Quelle majorité faut-il en indivision pour conclure un bail d'habitation ?",
+          "options": {
+            "A": "L'unanimité",
+            "B": "Les deux tiers des droits indivis",
+            "C": "La moitié des indivisaires",
+            "D": "Un seul indivisaire suffit"
+          },
+          "reponse": "B",
+          "explication": "Conclure un bail d'habitation est un acte d'administration, décidé à la majorité des deux tiers des droits indivis."
+        }
+      ]
+    },
+    {
+      "module": "3.4",
+      "titre": "Les dispositifs fiscaux d'investissement en vigueur en 2026",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-4-1",
+          "question": "Quelle est la base amortissable du dispositif Jeanbrun pour un logement neuf acheté 250 000 € hors frais ?",
+          "options": {
+            "A": "250 000 €",
+            "B": "200 000 €",
+            "C": "225 000 €",
+            "D": "160 000 €"
+          },
+          "reponse": "B",
+          "explication": "La base est de 80 % du prix d'acquisition hors frais, le terrain étant réputé représenter 20 %."
+        },
+        {
+          "id": "q3-4-2",
+          "question": "Quel est le taux annuel d'amortissement Jeanbrun pour un logement neuf en location intermédiaire ?",
+          "options": {
+            "A": "3 %",
+            "B": "3,5 %",
+            "C": "4,5 %",
+            "D": "5,5 %"
+          },
+          "reponse": "B",
+          "explication": "3,5 % en intermédiaire, majoré d'un point en social et de deux points en très social pour le neuf."
+        },
+        {
+          "id": "q3-4-3",
+          "question": "Le Denormandie est-il encore ouvert en 2026 ?",
+          "options": {
+            "A": "Non, il a pris fin en 2024",
+            "B": "Oui, jusqu'au 31 décembre 2027",
+            "C": "Oui, sans limite",
+            "D": "Uniquement en outre-mer"
+          },
+          "reponse": "B",
+          "explication": "Denormandie et Loc'Avantages ont été prorogés jusqu'au 31 décembre 2027."
+        },
+        {
+          "id": "q3-4-4",
+          "question": "Le dispositif Malraux entre-t-il dans le plafonnement global de 10 000 € ?",
+          "options": {
+            "A": "Oui",
+            "B": "Non",
+            "C": "Seulement au-delà de 400 000 €",
+            "D": "Seulement en secteur sauvegardé"
+          },
+          "reponse": "B",
+          "explication": "La réduction Malraux est exclue du plafonnement global des niches fiscales, comme la déduction des monuments historiques."
+        }
+      ]
+    },
+    {
+      "module": "3.5",
+      "titre": "Les plus-values immobilières",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-5-1",
+          "question": "Après combien d'années de détention la plus-value est-elle totalement exonérée d'impôt sur le revenu ?",
+          "options": {
+            "A": "15 ans",
+            "B": "22 ans",
+            "C": "30 ans",
+            "D": "10 ans"
+          },
+          "reponse": "B",
+          "explication": "L'exonération d'impôt sur le revenu est acquise au-delà de 22 ans, celle des prélèvements sociaux au-delà de 30 ans."
+        },
+        {
+          "id": "q3-5-2",
+          "question": "Quel forfait peut majorer le prix d'acquisition au titre des travaux après cinq ans de détention ?",
+          "options": {
+            "A": "7,5 %",
+            "B": "10 %",
+            "C": "15 %",
+            "D": "20 %"
+          },
+          "reponse": "C",
+          "explication": "Le forfait travaux est de 15 % du prix d'acquisition après cinq ans de détention ; le forfait frais d'acquisition est de 7,5 %."
+        },
+        {
+          "id": "q3-5-3",
+          "question": "Quel est le taux des prélèvements sociaux sur une plus-value immobilière en 2026 ?",
+          "options": {
+            "A": "18,6 %",
+            "B": "17,2 %",
+            "C": "9,2 %",
+            "D": "0 %"
+          },
+          "reponse": "B",
+          "explication": "Les plus-values immobilières sont exclues de la hausse de CSG de la LFSS 2026 : 17,2 %."
+        }
+      ]
+    },
+    {
+      "module": "3.6",
+      "titre": "L'impôt sur la fortune immobilière (IFI)",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-6-1",
+          "question": "À partir de quel patrimoine immobilier net taxable est-on redevable de l'IFI ?",
+          "options": {
+            "A": "800 000 €",
+            "B": "1 000 000 €",
+            "C": "1 300 000 €",
+            "D": "2 570 000 €"
+          },
+          "reponse": "C",
+          "explication": "L'IFI est dû si le patrimoine immobilier net taxable dépasse 1,3 million d'euros au 1er janvier ; le barème commence toutefois à s'appliquer dès 800 000 € une fois le seuil franchi."
+        },
+        {
+          "id": "q3-6-2",
+          "question": "Quel abattement s'applique à la résidence principale ?",
+          "options": {
+            "A": "10 %",
+            "B": "20 %",
+            "C": "30 %",
+            "D": "50 %"
+          },
+          "reponse": "C",
+          "explication": "La valeur vénale de la résidence principale bénéficie d'un abattement de 30 %."
+        }
+      ]
+    },
+    {
+      "module": "3.7",
+      "titre": "Transmettre : donation, succession et démembrement",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-7-1",
+          "question": "Quelle est la valeur de la nue-propriété lorsque l'usufruitier a 58 ans ?",
+          "options": {
+            "A": "40 %",
+            "B": "50 %",
+            "C": "60 %",
+            "D": "70 %"
+          },
+          "reponse": "B",
+          "explication": "Entre 51 et 60 ans, l'usufruit vaut 50 % et la nue-propriété 50 % (article 669 du CGI)."
+        },
+        {
+          "id": "q3-7-2",
+          "question": "Jusqu'à quand l'exonération des dons familiaux affectés à l'achat d'un logement neuf ou à la rénovation énergétique s'applique-t-elle ?",
+          "options": {
+            "A": "31 décembre 2025",
+            "B": "31 décembre 2026",
+            "C": "31 décembre 2027",
+            "D": "Sans limite"
+          },
+          "reponse": "B",
+          "explication": "L'article 790 A bis du CGI vise les dons consentis du 15 février 2025 au 31 décembre 2026, dans la limite de 100 000 € par donateur et 300 000 € par donataire."
+        },
+        {
+          "id": "q3-7-3",
+          "question": "L'usufruitier peut-il signer seul un bail commercial sur le bien démembré ?",
+          "options": {
+            "A": "Oui",
+            "B": "Non, l'accord du nu-propriétaire est nécessaire",
+            "C": "Oui, pour 9 ans maximum",
+            "D": "Oui, si le loyer est au prix du marché"
+          },
+          "reponse": "B",
+          "explication": "L'article 595 du Code civil exige le concours du nu-propriétaire pour les baux commerciaux et les baux de plus de neuf ans."
+        }
+      ]
+    },
+    {
+      "module": "3.8",
+      "titre": "Meublés de tourisme et location de courte durée",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-8-1",
+          "question": "Combien de jours par an peut-on louer sa résidence principale en meublé de tourisme au maximum ?",
+          "options": {
+            "A": "60 jours",
+            "B": "90 jours partout",
+            "C": "120 jours, la commune pouvant abaisser à 90",
+            "D": "180 jours"
+          },
+          "reponse": "C",
+          "explication": "La limite légale est de 120 jours ; depuis la loi Le Meur, les communes peuvent la réduire à 90 jours."
+        },
+        {
+          "id": "q3-8-2",
+          "question": "Quel DPE faut-il pour obtenir une nouvelle autorisation de changement d'usage en meublé de tourisme ?",
+          "options": {
+            "A": "Aucune exigence",
+            "B": "Classe A à E",
+            "C": "Classe A à C",
+            "D": "Classe A uniquement"
+          },
+          "reponse": "B",
+          "explication": "Une nouvelle autorisation exige un logement classé de A à E ; en 2034, tous les meublés de tourisme hors résidence principale devront être classés de A à D."
+        },
+        {
+          "id": "q3-8-3",
+          "question": "Quel est l'abattement du micro-BIC pour un meublé de tourisme non classé ?",
+          "options": {
+            "A": "71 %",
+            "B": "50 %",
+            "C": "30 %",
+            "D": "0 %"
+          },
+          "reponse": "C",
+          "explication": "Pour les meublés de tourisme non classés, le plafond est de 15 000 € et l'abattement de 30 %."
+        }
+      ]
+    },
+    {
+      "module": "3.9",
+      "titre": "Rénovation énergétique et stratégie DPE",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-9-1",
+          "question": "À partir de quelle date un logement classé F sera-t-il non décent en métropole ?",
+          "options": {
+            "A": "1er janvier 2025",
+            "B": "1er janvier 2028",
+            "C": "1er janvier 2031",
+            "D": "1er janvier 2034"
+          },
+          "reponse": "B",
+          "explication": "G depuis 2025, F en 2028, E en 2034 en métropole."
+        },
+        {
+          "id": "q3-9-2",
+          "question": "L'audit énergétique réglementaire est-il obligatoire pour vendre un appartement en copropriété classé F ?",
+          "options": {
+            "A": "Oui",
+            "B": "Non, il concerne les maisons et immeubles en monopropriété",
+            "C": "Oui, seulement en zone tendue",
+            "D": "Oui, à partir de 2028"
+          },
+          "reponse": "B",
+          "explication": "L'audit réglementaire vise les maisons individuelles et les immeubles en monopropriété ; pour un lot de copropriété, seul le DPE est exigé."
+        },
+        {
+          "id": "q3-9-3",
+          "question": "Quel ordre de travaux est généralement le plus efficace ?",
+          "options": {
+            "A": "Changer d'abord le chauffage, puis isoler",
+            "B": "Isoler, ventiler, puis changer le chauffage et réguler",
+            "C": "Remplacer seulement les fenêtres",
+            "D": "Installer seulement un thermostat"
+          },
+          "reponse": "B",
+          "explication": "Réduire les besoins avant de dimensionner le système de chauffage évite le surdimensionnement et maximise le gain de classe."
+        }
+      ]
+    },
+    {
+      "module": "3.10",
+      "titre": "Contentieux et sécurisation juridique",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-10-1",
+          "question": "Dans quel délai le préfet doit-il statuer sur une demande d'évacuation d'un logement squatté ?",
+          "options": {
+            "A": "24 heures",
+            "B": "48 heures",
+            "C": "15 jours",
+            "D": "2 mois"
+          },
+          "reponse": "B",
+          "explication": "Le préfet dispose de 48 heures pour mettre en demeure les occupants, qui disposent d'au moins 24 heures pour partir."
+        },
+        {
+          "id": "q3-10-2",
+          "question": "La trêve hivernale protège-t-elle les squatteurs ?",
+          "options": {
+            "A": "Oui",
+            "B": "Non",
+            "C": "Oui, s'ils ont des enfants",
+            "D": "Oui, pour les résidences secondaires"
+          },
+          "reponse": "B",
+          "explication": "Les personnes entrées dans les lieux par voie de fait ne bénéficient pas de la trêve hivernale."
+        },
+        {
+          "id": "q3-10-3",
+          "question": "Un locataire réclame 1 800 € de dépôt de garantie non restitué. Que doit-il en principe faire avant de saisir le juge ?",
+          "options": {
+            "A": "Rien",
+            "B": "Tenter une conciliation, une médiation ou une procédure participative",
+            "C": "Saisir le préfet",
+            "D": "Porter plainte"
+          },
+          "reponse": "B",
+          "explication": "Pour une demande en paiement jusqu'à 5 000 €, une tentative préalable de résolution amiable est en principe obligatoire ; la CDC peut aussi être saisie."
+        }
+      ]
+    },
+    {
+      "module": "3.11",
+      "titre": "Les autres baux : commercial, professionnel, parking et baux de longue durée",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-11-1",
+          "question": "À quel moment le locataire d'un bail commercial peut-il en principe donner congé ?",
+          "options": {
+            "A": "À tout moment avec un mois de préavis",
+            "B": "À l'expiration de chaque période triennale, avec six mois de préavis",
+            "C": "Seulement au bout de neuf ans",
+            "D": "Jamais"
+          },
+          "reponse": "B",
+          "explication": "C'est la règle du « 3-6-9 », sauf clause contraire autorisée dans certains cas (baux de longue durée, locaux monovalents, bureaux, stockage)."
+        },
+        {
+          "id": "q3-11-2",
+          "question": "Quel indice sert à plafonner la révision triennale d'un bail commercial de boutique ?",
+          "options": {
+            "A": "L'IRL",
+            "B": "L'ILC",
+            "C": "L'indice du coût de la construction obligatoirement",
+            "D": "L'inflation"
+          },
+          "reponse": "B",
+          "explication": "Depuis la loi Pinel de 2014, la révision est plafonnée par l'ILC (activités commerciales et artisanales) ou l'ILAT (activités tertiaires)."
+        },
+        {
+          "id": "q3-11-3",
+          "question": "Quelle est la durée minimale d'un bail professionnel ?",
+          "options": {
+            "A": "3 ans",
+            "B": "6 ans",
+            "C": "9 ans",
+            "D": "Libre"
+          },
+          "reponse": "B",
+          "explication": "Le bail professionnel dure au moins six ans ; le locataire peut partir à tout moment avec six mois de préavis."
+        }
+      ]
+    },
+    {
+      "module": "3.12",
+      "titre": "La méthode de l'investisseur autonome",
+      "niveau": 3,
+      "questions": [
+        {
+          "id": "q3-12-1",
+          "question": "À quelle fréquence l'INSEE publie-t-il l'IRL ?",
+          "options": {
+            "A": "Chaque mois",
+            "B": "Chaque trimestre",
+            "C": "Chaque année",
+            "D": "Tous les deux ans"
+          },
+          "reponse": "B",
+          "explication": "L'IRL est publié mi-janvier, mi-avril, mi-juillet et mi-octobre."
+        },
+        {
+          "id": "q3-12-2",
+          "question": "Un article de presse annonce une mesure votée « par le Sénat ». Peut-on l'appliquer ?",
+          "options": {
+            "A": "Oui, immédiatement",
+            "B": "Non, il faut attendre l'adoption définitive, la promulgation, la publication et, le cas échéant, les décrets d'application",
+            "C": "Oui, si l'Assemblée l'a aussi votée en première lecture",
+            "D": "Oui, si le ministre l'a annoncée"
+          },
+          "reponse": "B",
+          "explication": "Seul un texte promulgué et publié au Journal officiel, entré en vigueur (et complété par ses décrets si nécessaire), s'applique."
+        }
+      ]
+    }
+  ]
+}

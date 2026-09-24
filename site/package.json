@@ -1,0 +1,53 @@
+{
+  "name": "formation-immobilier-locatif-2026",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site statique de la formation « L'immobilier locatif en France » (édition septembre 2026)",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node ./node_modules/astro/bin/astro.mjs dev",
+    "check": "node ./node_modules/astro/bin/astro.mjs check",
+    "test": "node ./node_modules/vitest/vitest.mjs run",
+    "test:watch": "node ./node_modules/vitest/vitest.mjs",
+    "build": "npm run check && node ./node_modules/astro/bin/astro.mjs build && node ./node_modules/pagefind/lib/runner/bin.cjs --site dist && node ./node_modules/tsx/dist/cli.mjs scripts/check-links.ts",
+    "preview": "node ./node_modules/astro/bin/astro.mjs preview",
+    "build-json": "node ./node_modules/tsx/dist/cli.mjs scripts/build-json.ts",
+    "lint": "node ./node_modules/eslint/bin/eslint.js .",
+    "format": "node ./node_modules/prettier/bin/prettier.cjs --write .",
+    "format:check": "node ./node_modules/prettier/bin/prettier.cjs --check .",
+    "test:a11y": "node ./node_modules/tsx/dist/cli.mjs scripts/a11y.ts"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/source-serif-4": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
+    "astro": "^7.3.5",
+    "hastscript": "^9.0.1",
+    "mdast-util-to-string": "^4.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@types/node": "^22.20.4",
+    "eslint": "^10.11.0",
+    "eslint-plugin-astro": "^1.7.0",
+    "pagefind": "^1.5.2",
+    "playwright": "^1.63.0",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.0.1",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.70.1",
+    "vitest": "^5.0.1"
+  }
+}

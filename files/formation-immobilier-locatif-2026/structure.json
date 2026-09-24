@@ -1,0 +1,756 @@
+{
+  "edition": "septembre 2026",
+  "a_jour_au": "2026-09-24",
+  "source": "formation-immobilier-locatif-2026.md",
+  "niveaux": [
+    {
+      "titre": "0. Mode d'emploi de la formation",
+      "id": "0-mode-d-emploi-de-la-formation",
+      "elements": [
+        {
+          "type": "section",
+          "titre": "0.1 À quoi sert cette formation",
+          "id": "0-1-a-quoi-sert-cette-formation",
+          "sections": []
+        },
+        {
+          "type": "section",
+          "titre": "0.2 Organisation",
+          "id": "0-2-organisation",
+          "sections": []
+        },
+        {
+          "type": "section",
+          "titre": "0.3 Conventions de rédaction (utiles pour la page web)",
+          "id": "0-3-conventions-de-redaction-utiles-pour-la-page-web",
+          "sections": []
+        },
+        {
+          "type": "section",
+          "titre": "0.4 Avertissement important",
+          "id": "0-4-avertissement-important",
+          "sections": []
+        },
+        {
+          "type": "section",
+          "titre": "0.5 Les nouveautés 2025-2026 à connaître absolument",
+          "id": "0-5-les-nouveautes-2025-2026-a-connaitre-absolument",
+          "sections": []
+        }
+      ]
+    },
+    {
+      "titre": "NIVEAU 1 — Fondations : comprendre et louer son premier logement",
+      "id": "niveau-1-fondations-comprendre-et-louer-son-premier-logement",
+      "elements": [
+        {
+          "type": "module",
+          "titre": "Module 1.1 — Le paysage de l'immobilier locatif et les règles du jeu",
+          "id": "module-1-1-le-paysage-de-l-immobilier-locatif-et-les-regles-du-jeu",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.1"
+          ],
+          "numero": "1.1",
+          "titre_court": "Le paysage de l'immobilier locatif et les règles du jeu"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.2 — Les notions de base à maîtriser",
+          "id": "module-1-2-les-notions-de-base-a-maitriser",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.2"
+          ],
+          "numero": "1.2",
+          "titre_court": "Les notions de base à maîtriser"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.3 — Choisir le bon type de location",
+          "id": "module-1-3-choisir-le-bon-type-de-location",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.3"
+          ],
+          "numero": "1.3",
+          "titre_court": "Choisir le bon type de location"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.4 — Le logement décent et les normes à respecter",
+          "id": "module-1-4-le-logement-decent-et-les-normes-a-respecter",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.4"
+          ],
+          "numero": "1.4",
+          "titre_court": "Le logement décent et les normes à respecter"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.5 — Les diagnostics obligatoires (dossier de diagnostic technique)",
+          "id": "module-1-5-les-diagnostics-obligatoires-dossier-de-diagnostic-technique",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.5"
+          ],
+          "numero": "1.5",
+          "titre_court": "Les diagnostics obligatoires (dossier de diagnostic technique)"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.6 — Fixer le loyer : les premières règles",
+          "id": "module-1-6-fixer-le-loyer-les-premieres-regles",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.6"
+          ],
+          "numero": "1.6",
+          "titre_court": "Fixer le loyer : les premières règles"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.7 — Trouver et sélectionner son locataire",
+          "id": "module-1-7-trouver-et-selectionner-son-locataire",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.7"
+          ],
+          "numero": "1.7",
+          "titre_court": "Trouver et sélectionner son locataire"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.8 — Rédiger le bail",
+          "id": "module-1-8-rediger-le-bail",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.8"
+          ],
+          "numero": "1.8",
+          "titre_court": "Rédiger le bail"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.9 — L'état des lieux et l'inventaire",
+          "id": "module-1-9-l-etat-des-lieux-et-l-inventaire",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.9"
+          ],
+          "numero": "1.9",
+          "titre_court": "L'état des lieux et l'inventaire"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.10 — La vie du bail : droits et obligations au quotidien",
+          "id": "module-1-10-la-vie-du-bail-droits-et-obligations-au-quotidien",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.10"
+          ],
+          "numero": "1.10",
+          "titre_court": "La vie du bail : droits et obligations au quotidien"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.11 — La fin du bail",
+          "id": "module-1-11-la-fin-du-bail",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.11"
+          ],
+          "numero": "1.11",
+          "titre_court": "La fin du bail"
+        },
+        {
+          "type": "module",
+          "titre": "Module 1.12 — Premiers calculs de rentabilité",
+          "id": "module-1-12-premiers-calculs-de-rentabilite",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 1.12"
+          ],
+          "numero": "1.12",
+          "titre_court": "Premiers calculs de rentabilité"
+        },
+        {
+          "type": "examen",
+          "titre": "Examen de fin de niveau 1 — cas pratiques corrigés",
+          "id": "examen-de-fin-de-niveau-1-cas-pratiques-corriges",
+          "sections": []
+        },
+        {
+          "type": "checklist",
+          "titre": "Checklist — Mettre en location son premier logement",
+          "id": "checklist-mettre-en-location-son-premier-logement",
+          "sections": []
+        }
+      ]
+    },
+    {
+      "titre": "NIVEAU 2 — Gestion, fiscalité et financement",
+      "id": "niveau-2-gestion-fiscalite-et-financement",
+      "elements": [
+        {
+          "type": "module",
+          "titre": "Module 2.1 — Le loyer en profondeur : révision, relocation, encadrement, réévaluation",
+          "id": "module-2-1-le-loyer-en-profondeur-revision-relocation-encadrement-reevaluation",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.1"
+          ],
+          "numero": "2.1",
+          "titre_court": "Le loyer en profondeur : révision, relocation, encadrement, réévaluation"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.2 — Les charges récupérables et leur régularisation",
+          "id": "module-2-2-les-charges-recuperables-et-leur-regularisation",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.2"
+          ],
+          "numero": "2.2",
+          "titre_court": "Les charges récupérables et leur régularisation"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.3 — Entretien, réparations et travaux",
+          "id": "module-2-3-entretien-reparations-et-travaux",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.3"
+          ],
+          "numero": "2.3",
+          "titre_court": "Entretien, réparations et travaux"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.4 — Garanties et assurances",
+          "id": "module-2-4-garanties-et-assurances",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.4"
+          ],
+          "numero": "2.4",
+          "titre_court": "Garanties et assurances"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.5 — Colocation, bail mobilité et locations particulières",
+          "id": "module-2-5-colocation-bail-mobilite-et-locations-particulieres",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.5"
+          ],
+          "numero": "2.5",
+          "titre_court": "Colocation, bail mobilité et locations particulières"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.6 — La fiscalité de la location nue : les revenus fonciers",
+          "id": "module-2-6-la-fiscalite-de-la-location-nue-les-revenus-fonciers",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.6"
+          ],
+          "numero": "2.6",
+          "titre_court": "La fiscalité de la location nue : les revenus fonciers"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.7 — La fiscalité de la location meublée : LMNP et LMP",
+          "id": "module-2-7-la-fiscalite-de-la-location-meublee-lmnp-et-lmp",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.7"
+          ],
+          "numero": "2.7",
+          "titre_court": "La fiscalité de la location meublée : LMNP et LMP"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.8 — Choisir son régime fiscal : comparatif chiffré",
+          "id": "module-2-8-choisir-son-regime-fiscal-comparatif-chiffre",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.8"
+          ],
+          "numero": "2.8",
+          "titre_court": "Choisir son régime fiscal : comparatif chiffré"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.9 — Taxes locales et obligations déclaratives : le calendrier du bailleur",
+          "id": "module-2-9-taxes-locales-et-obligations-declaratives-le-calendrier-du-bailleur",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.9"
+          ],
+          "numero": "2.9",
+          "titre_court": "Taxes locales et obligations déclaratives : le calendrier du bailleur"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.10 — Financer son investissement",
+          "id": "module-2-10-financer-son-investissement",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.10"
+          ],
+          "numero": "2.10",
+          "titre_court": "Financer son investissement"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.11 — Acheter un bien locatif",
+          "id": "module-2-11-acheter-un-bien-locatif",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.11"
+          ],
+          "numero": "2.11",
+          "titre_court": "Acheter un bien locatif"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.12 — La copropriété vue par le bailleur",
+          "id": "module-2-12-la-copropriete-vue-par-le-bailleur",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.12"
+          ],
+          "numero": "2.12",
+          "titre_court": "La copropriété vue par le bailleur"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.13 — Les impayés : prévenir, réagir, agir en justice",
+          "id": "module-2-13-les-impayes-prevenir-reagir-agir-en-justice",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.13"
+          ],
+          "numero": "2.13",
+          "titre_court": "Les impayés : prévenir, réagir, agir en justice"
+        },
+        {
+          "type": "module",
+          "titre": "Module 2.14 — Gérer soi-même ou déléguer",
+          "id": "module-2-14-gerer-soi-meme-ou-deleguer",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 2.14"
+          ],
+          "numero": "2.14",
+          "titre_court": "Gérer soi-même ou déléguer"
+        },
+        {
+          "type": "examen",
+          "titre": "Examen de fin de niveau 2 — cas pratiques corrigés",
+          "id": "examen-de-fin-de-niveau-2-cas-pratiques-corriges",
+          "sections": []
+        }
+      ]
+    },
+    {
+      "titre": "NIVEAU 3 — Expert : structurer, optimiser, sécuriser, transmettre",
+      "id": "niveau-3-expert-structurer-optimiser-securiser-transmettre",
+      "elements": [
+        {
+          "type": "module",
+          "titre": "Module 3.1 — Construire sa stratégie d'investisseur",
+          "id": "module-3-1-construire-sa-strategie-d-investisseur",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.1"
+          ],
+          "numero": "3.1",
+          "titre_court": "Construire sa stratégie d'investisseur"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.2 — L'analyse financière avancée",
+          "id": "module-3-2-l-analyse-financiere-avancee",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.2"
+          ],
+          "numero": "3.2",
+          "titre_court": "L'analyse financière avancée"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.3 — Les structures de détention",
+          "id": "module-3-3-les-structures-de-detention",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.3"
+          ],
+          "numero": "3.3",
+          "titre_court": "Les structures de détention"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.4 — Les dispositifs fiscaux d'investissement en vigueur en 2026",
+          "id": "module-3-4-les-dispositifs-fiscaux-d-investissement-en-vigueur-en-2026",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.4"
+          ],
+          "numero": "3.4",
+          "titre_court": "Les dispositifs fiscaux d'investissement en vigueur en 2026"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.5 — Les plus-values immobilières",
+          "id": "module-3-5-les-plus-values-immobilieres",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.5"
+          ],
+          "numero": "3.5",
+          "titre_court": "Les plus-values immobilières"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.6 — L'impôt sur la fortune immobilière (IFI)",
+          "id": "module-3-6-l-impot-sur-la-fortune-immobiliere-ifi",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.6"
+          ],
+          "numero": "3.6",
+          "titre_court": "L'impôt sur la fortune immobilière (IFI)"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.7 — Transmettre : donation, succession et démembrement",
+          "id": "module-3-7-transmettre-donation-succession-et-demembrement",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.7"
+          ],
+          "numero": "3.7",
+          "titre_court": "Transmettre : donation, succession et démembrement"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.8 — Meublés de tourisme et location de courte durée",
+          "id": "module-3-8-meubles-de-tourisme-et-location-de-courte-duree",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.8"
+          ],
+          "numero": "3.8",
+          "titre_court": "Meublés de tourisme et location de courte durée"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.9 — Rénovation énergétique et stratégie DPE",
+          "id": "module-3-9-renovation-energetique-et-strategie-dpe",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.9"
+          ],
+          "numero": "3.9",
+          "titre_court": "Rénovation énergétique et stratégie DPE"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.10 — Contentieux et sécurisation juridique",
+          "id": "module-3-10-contentieux-et-securisation-juridique",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.10"
+          ],
+          "numero": "3.10",
+          "titre_court": "Contentieux et sécurisation juridique"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.11 — Les autres baux : commercial, professionnel, parking et baux de longue durée",
+          "id": "module-3-11-les-autres-baux-commercial-professionnel-parking-et-baux-de-longue-d",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.11"
+          ],
+          "numero": "3.11",
+          "titre_court": "Les autres baux : commercial, professionnel, parking et baux de longue durée"
+        },
+        {
+          "type": "module",
+          "titre": "Module 3.12 — La méthode de l'investisseur autonome",
+          "id": "module-3-12-la-methode-de-l-investisseur-autonome",
+          "sections": [
+            "Objectifs",
+            "Leçon",
+            "Points clés",
+            "Pièges à éviter",
+            "Textes de référence",
+            "Quiz 3.12"
+          ],
+          "numero": "3.12",
+          "titre_court": "La méthode de l'investisseur autonome"
+        },
+        {
+          "type": "examen",
+          "titre": "Examen final — cas pratiques de synthèse corrigés",
+          "id": "examen-final-cas-pratiques-de-synthese-corriges",
+          "sections": []
+        }
+      ]
+    },
+    {
+      "titre": "ANNEXES — Boîte à outils permanente",
+      "id": "annexes-boite-a-outils-permanente",
+      "elements": [
+        {
+          "type": "annexe",
+          "titre": "Annexe A — Chiffres clés au 24 septembre 2026",
+          "id": "annexe-a-chiffres-cles-au-24-septembre-2026",
+          "sections": []
+        },
+        {
+          "type": "annexe",
+          "titre": "Annexe B — Calendrier réglementaire",
+          "id": "annexe-b-calendrier-reglementaire",
+          "sections": []
+        },
+        {
+          "type": "annexe",
+          "titre": "Annexe C — Glossaire de A à Z",
+          "id": "annexe-c-glossaire-de-a-a-z",
+          "sections": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "Z"
+          ]
+        },
+        {
+          "type": "annexe",
+          "titre": "Annexe D — Textes de référence",
+          "id": "annexe-d-textes-de-reference",
+          "sections": []
+        },
+        {
+          "type": "annexe",
+          "titre": "Annexe E — Formules de calcul pour les simulateurs",
+          "id": "annexe-e-formules-de-calcul-pour-les-simulateurs",
+          "sections": []
+        },
+        {
+          "type": "annexe",
+          "titre": "Annexe F — Modèles de lettres",
+          "id": "annexe-f-modeles-de-lettres",
+          "sections": [
+            "F1. Révision annuelle du loyer",
+            "F2. Régularisation annuelle des charges",
+            "F3. Relance amiable pour loyer impayé",
+            "F4. Mise en demeure de payer",
+            "F5. Congé pour vente (location vide)",
+            "F6. Congé pour reprise (location vide)",
+            "F7. Restitution du dépôt de garantie",
+            "F8. Quittance de loyer",
+            "F9. Demande d'attestation d'assurance",
+            "F10. Notification de travaux au locataire"
+          ]
+        },
+        {
+          "type": "annexe",
+          "titre": "Annexe G — Checklists",
+          "id": "annexe-g-checklists",
+          "sections": [
+            "G1. Avant de faire une offre d'achat",
+            "G2. Signature de l'avant-contrat et de l'acte",
+            "G3. Entrée d'un locataire",
+            "G4. Sortie d'un locataire",
+            "G5. Bilan annuel et déclarations",
+            "G6. Projet de rénovation énergétique"
+          ]
+        },
+        {
+          "type": "annexe",
+          "titre": "Annexe H — Veille et sources officielles",
+          "id": "annexe-h-veille-et-sources-officielles",
+          "sections": []
+        },
+        {
+          "type": "annexe",
+          "titre": "Annexe I — Points à surveiller (fin 2026 et 2027)",
+          "id": "annexe-i-points-a-surveiller-fin-2026-et-2027",
+          "sections": []
+        }
+      ]
+    }
+  ]
+}
