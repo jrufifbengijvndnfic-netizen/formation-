@@ -190,9 +190,9 @@ Formation-immobilier/          (dépôt GitHub « formation- »)
 
 ## 7. À faire ensuite
 
-1. **Fond juridique** : trancher les trois écarts de `VERIFICATION-JURIDIQUE.md` § 1
-   (MaPrimeRénov' par geste, arrêté DPE 1,7 publié, téléservice des meublés de tourisme) et les
-   points mineurs du § 2, puis corriger le Markdown. Le site se met à jour au prochain build.
+1. **Fond juridique** : corrections validées par l'auteur et intégrées le 24 septembre 2026
+   (`VERIFICATION-JURIDIQUE.md`, « Suite donnée »). Reste un point à trancher : « déclare un
+   meublé de tourisme en mairie » (module 2.12), à l'heure de Déclaloc.
 2. **Tests manuels** : dérouler `TESTS-MANUELS.md` sur un iPhone, un Android, avec VoiceOver,
    TalkBack et NVDA.
 3. **Firefox et Safari automatisés** : `NAVIGATEUR=firefox npm run test:site` et
@@ -214,15 +214,9 @@ Formation-immobilier/          (dépôt GitHub « formation- »)
 9. **Git local sur le Mac** : le travail est sur GitHub (branche `claude/admiring-einstein-bp3wj6`).
    Plutôt que de garder `.git` dans iCloud, cloner le dépôt dans un dossier local hors iCloud.
 
-### Remarques sur le contenu (non corrigées, à trancher par l'auteur)
+### Remarques sur le contenu
 
-Le texte n'a pas été modifié. La relecture complète du fond est dans `VERIFICATION-JURIDIQUE.md` ;
-ces trois points, relevés pendant l'intégration, y figurent aussi :
-
-- **Annexe G, G5, point 6** : « indicateurs de l'annexe 3.12 » — il s'agit sans doute du
-  **module** 3.12 (le tableau d'indicateurs y figure).
-- **Module 3.8, encadré « À surveiller »** : « Un texte dit « RIPOST » … a été adopté**e** » —
-  accord à vérifier (« adopté »).
-- **Module 3.2, tableau de sensibilité** : « Loyer de 420 € par chambre » → cash-flow année 1
-  affiché −686 € ; le modèle de référence donne −685,23 € (écart d'arrondi sur l'assurance loyers
-  impayés : 453,60 € arrondis à 454 €). Le TRI (9,3 %) est identique.
+Les remarques relevées pendant l'intégration (annexe G5 « annexe 3.12 », accord de « adoptée »,
+−686 € au lieu de −685 €) sont corrigées, avec la relecture juridique : voir
+`VERIFICATION-JURIDIQUE.md`. Ces corrections ont été faites à la demande de l'auteur ; la règle du
+brief (ne jamais modifier le fond de sa propre initiative) reste valable.

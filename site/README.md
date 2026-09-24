@@ -55,10 +55,10 @@ liens de téléchargement (accueil, pied de page, à propos). Sans ce fichier, l
 
 Le dossier `dist/` est autonome : il se dépose tel quel sur n'importe quel hébergement statique.
 
-| Variable                  | Effet                                                                                                      |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Variable                  | Effet                                                                                                       |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | `SITE_URL=https://…`      | Domaine des adresses canoniques, d'Open Graph et du plan du site (défaut : `https://formation-locatif.com`) |
-| `BASE_PATH=/sous-dossier` | Site servi dans un sous-dossier (GitHub Pages : `/nom-du-depot`)                                           |
+| `BASE_PATH=/sous-dossier` | Site servi dans un sous-dossier (GitHub Pages : `/nom-du-depot`)                                            |
 
 Chaque build produit aussi dans `dist/` :
 

@@ -145,10 +145,11 @@ describe('encadrés', () => {
       ['A_SURVEILLER', 3],
     ]);
   });
-  it('repère les dix encadrés « À surveiller »', () => {
+  it('repère les neuf encadrés « À surveiller », dont deux dans l’avertissement 0.4', () => {
     const aSurveiller = encadres(formation).filter((e) => e.type === 'A_SURVEILLER');
-    expect(aSurveiller).toHaveLength(10);
+    expect(aSurveiller).toHaveLength(9);
     expect(aSurveiller[0].elementId).toBe('0-4-avertissement-important');
+    expect(aSurveiller[1].elementId).toBe('0-4-avertissement-important');
   });
 });
 

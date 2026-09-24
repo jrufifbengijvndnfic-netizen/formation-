@@ -3,9 +3,43 @@
 Relecture de `files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.md` à la
 date d'édition affichée (« contenu à jour au 24 septembre 2026 »).
 
-**Le texte n'a pas été modifié.** Conformément au brief (chiffres, dates, taux, montants et
-références juridiques intouchables), ce rapport liste les constats ; les corrections proposées sont
-à valider par l'auteur, puis à reporter dans le Markdown (le site se régénère seul au build).
+Ce rapport liste les constats de la relecture. **L'auteur a validé les corrections le 24 septembre
+2026 ; elles sont intégrées au Markdown** (voir « Suite donnée » ci-dessous).
+
+## Suite donnée (24 septembre 2026)
+
+Intégré à la demande de l'auteur :
+
+- **Écarts de fond (§ 1)** : MaPrimeRénov' par geste réécrit (module 3.9) ; arrêté DPE du
+  19 août 2026 présenté comme publié, avec la consigne de générer l'attestation ADEME avant des
+  travaux (0.5, modules 1.5 et 3.9, annexes A, B et I ; les deux encadrés « À surveiller »
+  deviennent « Nouveau ») ; Déclaloc obligatoire depuis le 20 mai 2026, numéro à 13 caractères,
+  transition communale au second semestre 2026 (0.4, 0.5, module 3.8, annexes B et I).
+- **Points mineurs (§ 2)** : « environ 1 150 communes » ; source EY-Palladio ; « inférieure ou
+  égale à 10 % » ; −685 € ; « adopté » ; « module 3.12 ». Fin de l'encadrement des loyers :
+  24 novembre 2026 maintenu.
+- **Compléments** : LMP des non-résidents (module 2.7) ; Visale pour les saisonniers, 1 à 9 mois,
+  600 € hors Île-de-France et 800 € en Île-de-France (module 2.4) ; DMTO, articles 683 et 1594 D
+  du CGI (module 2.10) ; encadré « Avertissement d'automne » sur le PLF 2027 et la loi « relance
+  logement » (0.4).
+
+Adapté après vérification :
+
+- **LMP des non-résidents** : la loi de finances pour 2026 (article 53) ne fixe pas un « seuil de
+  50 % ». Elle compare les recettes à l'ensemble des revenus d'activité, y compris de source
+  étrangère soumis à un impôt équivalent, et rend donc la qualification LMP plus difficile pour un
+  non-résident. Le texte décrit cette règle
+  ([BOFiP, actualité 2026](https://bofip.impots.gouv.fr/bofip/14962-PGP.html/ACTU-2026-00029)).
+- **Quiz 2.10** : « publié au Journal officiel fin juin 2026 » plutôt que « le 29 juin ». Les
+  sources donnent le 26 ou le 28 juin, aucune le 29.
+- **Visale saisonniers** : confirmé par [visale.fr](https://www.visale.fr/visale-saisonnier/).
+
+Reste à voir : module 2.12, « le copropriétaire qui déclare un meublé de tourisme **en mairie**
+doit en informer le syndic ». Avec Déclaloc, la déclaration ne se fait plus forcément en mairie.
+
+Les calculs du simulateur ne changent pas. Les trois JSON du pack ont été régénérés (seul
+`quiz.json` change) et les comptages d'encadrés mis à jour (47 dont 9 « Nouveau » et
+9 « À surveiller »).
 
 ## Méthode et limites
 
@@ -26,7 +60,7 @@ références juridiques intouchables), ce rapport liste les constats ; les corre
 
 ---
 
-## 1. Écarts de fond (le texte semble dépassé au 24 septembre 2026)
+## 1. Écarts de fond (corrigés depuis)
 
 ### 1.1 MaPrimeRénov' par geste : la liste des gestes restants est inversée
 

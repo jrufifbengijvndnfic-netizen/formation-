@@ -30,14 +30,14 @@ export const ATTENDUS = {
   formules: 18,
   formulesAnnexeE: 14,
   checklists: 7,
-  encadres: 46,
+  encadres: 47,
   encadresParType: {
-    NOUVEAU: 7,
+    NOUVEAU: 9,
     ATTENTION: 9,
     EXEMPLE: 15,
     ASTUCE: 3,
     DEFINITION: 2,
-    A_SURVEILLER: 10,
+    A_SURVEILLER: 9,
   } satisfies Record<TypeEncadre, number>,
 } as const;
 

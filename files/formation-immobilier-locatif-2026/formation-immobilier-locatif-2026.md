@@ -36,7 +36,10 @@ Les montants sont en euros, les pourcentages s'entendent hors mention contraire 
 Cette formation est un outil pédagogique d'information générale. Elle ne remplace pas un conseil juridique, fiscal ou financier personnalisé (avocat, notaire, expert-comptable, conseiller en gestion de patrimoine). Le droit immobilier évolue plusieurs fois par an : avant toute décision engageante, vérifiez la règle sur les sources officielles listées en annexe H (Légifrance, service-public.gouv.fr, impots.gouv.fr et BOFiP, ANIL et ADIL de votre département).
 
 > [!A_SURVEILLER]
-> Plusieurs textes sont en cours d'évolution à la date de rédaction : la fin (ou la prolongation) de l'expérimentation de l'encadrement des loyers le 24 novembre 2026 (examen au Sénat annoncé pour le 21 octobre 2026), le projet de loi « relance et décentralisation du logement » (adopté par le Sénat le 8 juillet 2026, examiné par l'Assemblée nationale depuis septembre 2026), le projet de loi de finances pour 2027 présenté à l'automne 2026, un projet d'arrêté abaissant le coefficient électricité du DPE à 1,7 au 1er janvier 2027, l'ouverture du téléservice national d'enregistrement des meublés de tourisme annoncée pour le 4e trimestre 2026 et le texte dit « RIPOST » sur l'occupation illicite des meublés de tourisme. L'annexe I récapitule ces points.
+> Plusieurs textes sont en cours d'évolution à la date de rédaction : la fin (ou la prolongation) de l'expérimentation de l'encadrement des loyers le 24 novembre 2026 (examen au Sénat annoncé pour le 21 octobre 2026), le projet de loi « relance et décentralisation du logement » (adopté par le Sénat le 8 juillet 2026, examiné par l'Assemblée nationale depuis septembre 2026), le projet de loi de finances pour 2027 présenté à l'automne 2026, la fin de la période de transition vers le téléservice national Déclaloc d'enregistrement des meublés de tourisme au second semestre 2026 et le texte dit « RIPOST » sur l'occupation illicite des meublés de tourisme. L'annexe I récapitule ces points.
+
+> [!A_SURVEILLER]
+> **Avertissement d'automne.** Le projet de loi de finances pour 2027 et le projet de loi « relance et décentralisation du logement » sont en cours de navette parlementaire : leur contenu peut encore changer. Ne fondez pas une stratégie d'investissement sur ces textes avant leur promulgation, attendue au plus tôt fin décembre 2026 pour la loi de finances, et la publication de leurs décrets d'application.
 
 ### 0.5 Les nouveautés 2025-2026 à connaître absolument
 
@@ -46,13 +49,13 @@ Cette formation est un outil pédagogique d'information générale. Elle ne remp
 | 2 | Déficit foncier « rénovation énergétique » | Le plafond doublé de 21 400 € est prolongé pour les dépenses payées jusqu'au 31 décembre 2027 | 2.6 |
 | 3 | Loi de financement de la Sécurité sociale pour 2026 | Prélèvements sociaux à 18,6 % sur les revenus de location meublée non professionnelle ; maintien à 17,2 % pour les revenus fonciers (location nue) et les plus-values immobilières | 2.6, 2.7 |
 | 4 | Seuils micro-BIC 2026-2028 | Location meublée de longue durée, meublés de tourisme classés et chambres d'hôtes : 83 600 € de recettes, abattement 50 % ; meublés de tourisme non classés : 15 000 €, abattement 30 % | 2.7 |
-| 5 | DPE | Coefficient de conversion de l'électricité passé de 2,3 à 1,9 au 1er janvier 2026 ; attestation actualisée gratuite sur l'observatoire de l'ADEME | 1.5, 3.9 |
+| 5 | DPE | Coefficient de conversion de l'électricité passé de 2,3 à 1,9 au 1er janvier 2026, puis à 1,7 au 1er janvier 2027 (arrêté du 19 août 2026) ; attestation actualisée gratuite sur l'observatoire de l'ADEME | 1.5, 3.9 |
 | 6 | Décence énergétique | Logements classés G non décents depuis le 1er janvier 2025 ; F à partir du 1er janvier 2028 ; E à partir du 1er janvier 2034 | 1.4, 3.9 |
 | 7 | Contrat type de bail modifié (décret n° 2026-596 du 6 juillet 2026) | Pour les baux conclus ou renouvelés à partir du 1er octobre 2026 : clause résolutoire à 6 semaines incluant le non-versement du dépôt de garantie, clauses facultatives nouvelles | 1.8 |
 | 8 | Relocation en zone tendue (décret n° 2026-644 du 20 juillet 2026) | Blocage des hausses de loyer entre deux locataires reconduit jusqu'au 31 juillet 2027 ; liste des communes actualisée par le décret n° 2025-1267 du 22 décembre 2025 | 2.1 |
 | 9 | Encadrement des loyers (villes pilotes) | Expérimentation qui s'achève le 24 novembre 2026 sauf prolongation votée (proposition de loi dont l'examen au Sénat est annoncé pour le 21 octobre 2026) | 2.1 |
 | 10 | Garantie Visale | Réforme du 6 janvier 2026 : pour les nouveaux contrats, la couverture des impayés ne joue que sur les trois premières années d'occupation | 2.4 |
-| 11 | Meublés de tourisme (loi Le Meur) | Enregistrement national obligatoire (décret n° 2026-196 du 19 mars 2026), DPE exigé pour les changements d'usage, fiscalité alignée | 3.8 |
+| 11 | Meublés de tourisme (loi Le Meur) | Enregistrement national obligatoire depuis le 20 mai 2026 sur le téléservice Déclaloc (décret n° 2026-196 du 19 mars 2026), DPE exigé pour les changements d'usage, fiscalité alignée | 3.8 |
 | 12 | MaPrimeRénov' | Depuis le 1er septembre 2026 (décret n° 2026-822 du 25 août 2026), le parcours par geste est fortement restreint et la rénovation d'ampleur des maisons est refusée si un chauffage au gaz est conservé | 3.9 |
 | 13 | Facturation électronique | Depuis le 1er septembre 2026, les loueurs en meublé (LMNP, LMP) doivent pouvoir recevoir les factures électroniques de leurs fournisseurs via une plateforme agréée | 2.9 |
 | 14 | Thermostat programmable | Obligation dans les logements existants reportée au 1er janvier 2030 (décret n° 2025-1343 du 26 décembre 2025) | 1.4 |
@@ -83,7 +86,7 @@ Comprendre pourquoi on investit dans la pierre locative, quels sont les risques,
 
 **Les risques.** La vacance (logement vide sans loyer), l'impayé, les travaux imprévus (toiture, ravalement, chauffage), le durcissement réglementaire (performance énergétique, encadrement des loyers, meublés de tourisme), la faible liquidité (vendre prend des mois et coûte des frais), la fiscalité parfois lourde (tranche marginale d'imposition plus prélèvements sociaux), la concentration de son patrimoine sur un seul actif et un seul emplacement. Un bon investisseur ne supprime pas ces risques : il les mesure et les couvre.
 
-**Le contexte de 2026 en quelques repères.** L'offre locative privée est sous tension dans la plupart des grandes villes : la production neuve reste faible (environ 278 000 logements livrés en 2025 selon le gouvernement, pour un besoin estimé d'environ 400 000 par an), une partie des passoires thermiques sort du marché et de nombreux bailleurs ont basculé vers la location touristique avant que la loi Le Meur ne la resserre. Côté financement, les taux de crédit immobilier tournent autour de 3,2 % à 3,5 % sur 15 à 25 ans à l'été 2026, après une hausse des taux directeurs de la Banque centrale européenne en juin 2026. L'État a relancé l'investissement locatif avec le dispositif Jeanbrun (loi de finances pour 2026). Ces repères datés doivent être réactualisés à chaque nouvelle étude.
+**Le contexte de 2026 en quelques repères.** L'offre locative privée est sous tension dans la plupart des grandes villes : la production neuve reste faible (environ 278 000 logements livrés en 2025 selon le baromètre de la Fondation EY-Palladio, pour un besoin estimé d'environ 400 000 par an), une partie des passoires thermiques sort du marché et de nombreux bailleurs ont basculé vers la location touristique avant que la loi Le Meur ne la resserre. Côté financement, les taux de crédit immobilier tournent autour de 3,2 % à 3,5 % sur 15 à 25 ans à l'été 2026, après une hausse des taux directeurs de la Banque centrale européenne en juin 2026. L'État a relancé l'investissement locatif avec le dispositif Jeanbrun (loi de finances pour 2026). Ces repères datés doivent être réactualisés à chaque nouvelle étude.
 
 **Les acteurs à connaître.**
 
@@ -429,8 +432,8 @@ Le dossier de diagnostic technique (DDT) est annexé au bail (article 3-3 de la 
 > [!NOUVEAU]
 > Depuis le 1er janvier 2026, le coefficient qui convertit l'électricité consommée en énergie primaire est passé de 2,3 à 1,9 (arrêté du 13 août 2025). Un logement chauffé à l'électricité peut ainsi gagner une classe sans travaux. Les propriétaires d'un DPE établi depuis le 1er juillet 2021 peuvent télécharger gratuitement une attestation de nouvelle étiquette sur l'observatoire DPE-Audit de l'ADEME, sans nouvelle visite ; elle a la même durée de validité que le DPE d'origine.
 
-> [!A_SURVEILLER]
-> Un projet d'arrêté mis en consultation publique jusqu'au 6 août 2026 prévoit d'abaisser encore ce coefficient à 1,7 au 1er janvier 2027. Vérifiez sa publication avant d'arbitrer des travaux sur un logement chauffé à l'électricité.
+> [!NOUVEAU]
+> L'arrêté du 19 août 2026 abaisse encore ce coefficient à 1,7 pour les DPE et les audits énergétiques établis à partir du 1er janvier 2027 ; une attestation gratuite de nouvelle étiquette sera là aussi téléchargeable sur l'observatoire DPE-Audit de l'ADEME. Avant d'engager des travaux sur un logement chauffé à l'électricité, générez cette attestation : le logement peut changer de classe sans travaux.
 
 **Obligations liées au DPE dans la vie du bail.** La classe énergétique et une estimation des dépenses annuelles d'énergie figurent dans l'annonce ; les logements F et G portent la mention « logement à consommation énergétique excessive ». La classe doit également figurer dans le bail (depuis le 1er janvier 2025, décret n° 2023-796). Enfin, depuis le 24 août 2022 en métropole (1er juillet 2024 outre-mer), le loyer d'un logement classé F ou G ne peut être ni révisé, ni majoré à la relocation, ni réévalué au renouvellement (module 2.1).
 
@@ -1125,7 +1128,7 @@ Des IRL spécifiques existent pour la Corse (146,22 au 2e trimestre 2026) et pou
 > [!ATTENTION]
 > Aucune révision n'est possible pour un logement classé F ou G en métropole si le bail a été conclu, renouvelé ou tacitement reconduit depuis le 24 août 2022 (1er juillet 2024 outre-mer).
 
-**2. La relocation en zone tendue (article 18 et décret n° 2017-1198).** Dans les communes de la zone tendue (plus de 1 400 communes, liste actualisée par le décret n° 2025-1267 du 22 décembre 2025), le loyer d'un nouveau bail ne peut excéder le dernier loyer appliqué au précédent locataire, éventuellement augmenté de la variation de l'IRL si le loyer n'a pas été révisé au cours des douze derniers mois. Le décret n° 2026-644 du 20 juillet 2026 reconduit ce régime pour les baux conclus ou renouvelés du 1er août 2026 au 31 juillet 2027. Il s'applique aux locations vides et meublées de résidence principale.
+**2. La relocation en zone tendue (article 18 et décret n° 2017-1198).** Dans les communes de la zone tendue (environ 1 150 communes, liste actualisée par le décret n° 2025-1267 du 22 décembre 2025), le loyer d'un nouveau bail ne peut excéder le dernier loyer appliqué au précédent locataire, éventuellement augmenté de la variation de l'IRL si le loyer n'a pas été révisé au cours des douze derniers mois. Le décret n° 2026-644 du 20 juillet 2026 reconduit ce régime pour les baux conclus ou renouvelés du 1er août 2026 au 31 juillet 2027. Il s'applique aux locations vides et meublées de résidence principale.
 
 Exceptions permettant une hausse :
 
@@ -1148,7 +1151,7 @@ Territoires concernés en 2026 (environ 70 communes) : Paris ; Lille, Hellemmes 
 > [!A_SURVEILLER]
 > L'expérimentation créée par la loi ELAN du 23 novembre 2018, prolongée à huit ans par la loi 3DS, arrive à son terme le 24 novembre 2026. Une proposition de loi visant à la pérenniser a été adoptée par l'Assemblée nationale le 11 décembre 2025 ; le gouvernement l'a inscrite à l'ordre du jour du Sénat, où son examen est annoncé pour le 21 octobre 2026, en indiquant vouloir la limiter à une prolongation de deux ans sans nouvelles communes. Tant qu'aucun texte n'est promulgué, retenez la date butoir du 24 novembre 2026. Attention : même si l'encadrement expérimental disparaissait, le blocage des loyers à la relocation en zone tendue (point 2) continuerait de s'appliquer jusqu'au 31 juillet 2027.
 
-**4. La réévaluation au renouvellement (article 17-2).** Si le loyer est manifestement sous-évalué, le bailleur peut proposer un nouveau loyer au renouvellement du bail vide, au moins six mois avant le terme, en fournissant des références de loyers du voisinage pour des logements comparables (au moins trois, six dans les agglomérations de plus d'un million d'habitants). À défaut d'accord ou de réponse quatre mois avant le terme, l'une des parties saisit la commission de conciliation, puis le juge avant le terme. La hausse s'étale : par tiers sur trois ans si elle est inférieure à 10 %, par sixièmes annuels sur six ans si elle est supérieure. En zone tendue, la hausse est plafonnée (moitié de l'écart avec les loyers du voisinage, ou 15 % du coût des travaux importants), et dans les zones d'encadrement la réévaluation n'est possible que si le loyer est inférieur au loyer de référence minoré. Réévaluation impossible pour un logement F ou G.
+**4. La réévaluation au renouvellement (article 17-2).** Si le loyer est manifestement sous-évalué, le bailleur peut proposer un nouveau loyer au renouvellement du bail vide, au moins six mois avant le terme, en fournissant des références de loyers du voisinage pour des logements comparables (au moins trois, six dans les agglomérations de plus d'un million d'habitants). À défaut d'accord ou de réponse quatre mois avant le terme, l'une des parties saisit la commission de conciliation, puis le juge avant le terme. La hausse s'étale : par tiers sur trois ans si elle est inférieure ou égale à 10 %, par sixièmes annuels sur six ans si elle est supérieure. En zone tendue, la hausse est plafonnée (moitié de l'écart avec les loyers du voisinage, ou 15 % du coût des travaux importants), et dans les zones d'encadrement la réévaluation n'est possible que si le loyer est inférieur au loyer de référence minoré. Réévaluation impossible pour un logement F ou G.
 
 En location meublée, le bailleur qui souhaite modifier les conditions du bail (dont le loyer) à son terme doit en informer le locataire au moins trois mois avant, dans le respect des mêmes plafonds en zone tendue et en zone d'encadrement.
 
@@ -1366,7 +1369,7 @@ Rédiger un cautionnement valable, utiliser Visale ou une assurance loyers impay
 
 Points pratiques : préférez un engagement à durée déterminée avec un plafond clair (par exemple « loyers, charges, indemnités d'occupation et réparations locatives, dans la limite de X € et jusqu'au [date] »). Une caution à durée indéterminée peut être résiliée à tout moment, mais reste tenue jusqu'au terme du bail en cours. La caution solidaire peut être poursuivie directement, sans que le bailleur ait d'abord agi contre le locataire. Le commandement de payer doit être signifié à la caution dans les quinze jours de sa signification au locataire, faute de quoi elle ne peut être tenue des pénalités ou intérêts de retard. En colocation, l'acte doit identifier le colocataire garanti, et l'engagement prend fin avec la solidarité de celui-ci (au plus tard six mois après son départ).
 
-**La garantie Visale (Action Logement).** Caution gratuite apportée par Action Logement au locataire qui obtient un « visa » en ligne. Elle est ouverte notamment à tous les jeunes de 18 à 30 ans sans condition de ressources, aux salariés de plus de 30 ans sous conditions (entrée dans l'emploi, mutation, revenus modestes), aux locataires en bail mobilité, et, depuis 2026, plus largement aux travailleurs saisonniers et à la location intergénérationnelle. Le bailleur crée son espace, saisit le numéro de visa et signe électroniquement le contrat de cautionnement avant ou au plus tard le jour de la signature du bail. Conditions : bail de résidence principale conforme à la loi de 1989, logement décent, loyer dans les plafonds applicables, pas de location à un membre de la famille, pas d'autre caution ni d'assurance loyers impayés.
+**La garantie Visale (Action Logement).** Caution gratuite apportée par Action Logement au locataire qui obtient un « visa » en ligne. Elle est ouverte notamment à tous les jeunes de 18 à 30 ans sans condition de ressources, aux salariés de plus de 30 ans sous conditions (entrée dans l'emploi, mutation, revenus modestes), aux locataires en bail mobilité, et, depuis 2026, plus largement aux travailleurs saisonniers et à la location intergénérationnelle. Pour un travailleur saisonnier, Visale couvre une occupation de 1 à 9 mois, pour un loyer d'au plus 600 € par mois hors Île-de-France et 800 € en Île-de-France. Le bailleur crée son espace, saisit le numéro de visa et signe électroniquement le contrat de cautionnement avant ou au plus tard le jour de la signature du bail. Conditions : bail de résidence principale conforme à la loi de 1989, logement décent, loyer dans les plafonds applicables, pas de location à un membre de la famille, pas d'autre caution ni d'assurance loyers impayés.
 
 > [!NOUVEAU]
 > Pour les contrats de cautionnement Visale signés depuis le 6 janvier 2026, les impayés sont couverts jusqu'à 36 mensualités dans le parc privé, mais uniquement s'ils surviennent pendant les trois premières années d'occupation du logement. Les dégradations locatives restent couvertes dans la limite de deux mois de loyer charges comprises, sans franchise ni délai de carence. Les contrats antérieurs conservent leurs anciennes conditions. Anticipez un relais de garantie à l'approche de la quatrième année.
@@ -1601,7 +1604,7 @@ Déterminer son statut, choisir entre micro-BIC et réel, comprendre l'amortisse
 
 **Nature des revenus.** La location meublée est une activité commerciale : ses revenus sont des bénéfices industriels et commerciaux (BIC), même lorsqu'elle est exercée par un particulier.
 
-**LMNP ou LMP (article 155 IV du CGI).** Le loueur est professionnel (LMP) si les recettes de location meublée de l'ensemble du foyer fiscal dépassent 23 000 € par an et excèdent les autres revenus d'activité du foyer (salaires, BIC, BNC, bénéfices agricoles, rémunérations de gérant). Sinon, il est non professionnel (LMNP). La loi de finances pour 2026 précise la règle pour les non-résidents : leurs recettes doivent excéder leurs revenus de même nature soumis à un impôt équivalent à l'impôt sur le revenu.
+**LMNP ou LMP (article 155 IV du CGI).** Le loueur est professionnel (LMP) si les recettes de location meublée de l'ensemble du foyer fiscal dépassent 23 000 € par an et excèdent les autres revenus d'activité du foyer (salaires, BIC, BNC, bénéfices agricoles, rémunérations de gérant). Sinon, il est non professionnel (LMNP). La loi de finances pour 2026 (article 53) précise la règle pour les non-résidents, à compter de l'imposition des revenus 2026 : leurs recettes sont comparées à l'ensemble de leurs revenus d'activité, y compris de source étrangère (revenus mondiaux), dès lors qu'ils sont soumis dans leur État de résidence à un impôt équivalent à l'impôt sur le revenu. Un non-résident n'est donc plus LMP du seul fait de l'absence de revenus d'activité en France.
 
 **Formalités de démarrage.** Déclaration de début d'activité dans les quinze jours sur le guichet unique des formalités d'entreprises (INPI), qui attribue un numéro SIREN/SIRET ; choix du régime d'imposition ; déclaration initiale de cotisation foncière des entreprises (CFE) avant le 31 décembre de l'année de début. Depuis le 1er septembre 2026, tout loueur en meublé doit aussi pouvoir recevoir les factures électroniques de ses fournisseurs via une plateforme agréée (module 2.9).
 
@@ -1929,7 +1932,7 @@ B: 5,29 %
 C: 6,39 %
 D: 3,45 %
 R: B
-E: Publié par la Banque de France le 29 juin 2026, applicable du 1er juillet au 30 septembre 2026.
+E: Publié au Journal officiel fin juin 2026, applicable du 1er juillet au 30 septembre 2026.
 
 Q: Depuis la loi Lemoine, l'emprunteur peut changer d'assurance de prêt :
 A: Uniquement à la date anniversaire
@@ -1973,7 +1976,7 @@ Mener une recherche méthodique, analyser un bien et une copropriété, sécuris
 
 L'acquéreur non professionnel d'un logement bénéficie d'un délai de rétractation de dix jours après la notification de l'avant-contrat. Les conditions suspensives protègent l'acquéreur : obtention du prêt (durée minimale d'un mois ; prévoyez en pratique 45 à 60 jours et des caractéristiques de prêt réalistes), absence de préemption (droit de préemption urbain de la commune), absence de servitudes graves, obtention d'un permis ou d'une autorisation si nécessaire.
 
-**Les frais d'acquisition dans l'ancien.** Ils comprennent les droits de mutation à titre onéreux (DMTO), les émoluments du notaire (barème réglementé dégressif), la contribution de sécurité immobilière (0,10 %) et les débours et formalités.
+**Les frais d'acquisition dans l'ancien.** Ils comprennent les droits de mutation à titre onéreux (DMTO, articles 683 et 1594 D du CGI), les émoluments du notaire (barème réglementé dégressif), la contribution de sécurité immobilière (0,10 %) et les débours et formalités.
 
 | Composante des DMTO | Taux |
 |---|---|
@@ -2407,7 +2410,7 @@ Résultat : pour un apport de 18 800 € et des cash-flows annuels cumulés d'en
 | Taux du crédit de 4,20 % au lieu de 3,45 % | 9,4 % | −577 € |
 | Prix de revente stable (0 % par an) | 10,0 % | +308 € |
 | Prix de revente en baisse de 1 % par an | 7,9 % | +308 € |
-| Loyer de 420 € par chambre au lieu de 450 € | 9,3 % | −686 € |
+| Loyer de 420 € par chambre au lieu de 450 € | 9,3 % | −685 € |
 
 > [!ATTENTION]
 > Ces résultats reposent sur des hypothèses simplificatrices (amortissement moyen, fiscalité constante, absence de gros travaux imprévus, pas de réforme). Ils illustrent une méthode, pas une promesse de rendement. Le levier amplifie aussi les pertes : une vacance prolongée, une hausse des taux ou une baisse des prix peuvent rendre le TRI négatif.
@@ -2900,7 +2903,7 @@ Maîtriser le cadre renforcé par la loi Le Meur : enregistrement, changement d'
 
 | Règle | Contenu |
 |---|---|
-| Enregistrement | Tout meublé de tourisme, y compris la résidence principale, doit être enregistré et recevoir un numéro, à afficher dans chaque annonce ; les plateformes doivent retirer les annonces sans numéro valide. Décret n° 2026-196 du 19 mars 2026 ; le téléservice national est annoncé pour le 4e trimestre 2026 : d'ici là, suivez la procédure de votre commune |
+| Enregistrement | Tout meublé de tourisme, y compris la résidence principale, doit être enregistré et recevoir un numéro, à afficher dans chaque annonce ; les plateformes doivent retirer les annonces sans numéro valide. Décret n° 2026-196 du 19 mars 2026 : depuis le 20 mai 2026, la déclaration se fait sur le téléservice national Déclaloc, qui délivre un numéro d'enregistrement à 13 caractères. Pendant la période de transition du second semestre 2026, certaines communes orientent encore vers leur propre portail : vérifiez la démarche auprès de la vôtre |
 | Résidence principale | Location limitée à 120 jours par an, que la commune peut abaisser à 90 jours ; pas d'autorisation de changement d'usage |
 | Changement d'usage | Dans les communes de plus de 200 000 habitants, les Hauts-de-Seine, la Seine-Saint-Denis, le Val-de-Marne et les communes qui l'ont instauré par délibération, louer de manière répétée pour de courtes durées un logement qui n'est pas la résidence principale exige une autorisation préalable du maire, parfois assortie d'une compensation (transformer un local non résidentiel en logement) ; autorisation temporaire et personnelle |
 | Quotas et zonage | Les communes peuvent fixer des quotas d'autorisations et délimiter, dans leur plan local d'urbanisme, des secteurs où les logements neufs sont réservés à la résidence principale (servitude reprise dans le contrat type de bail de 2026) |
@@ -2926,7 +2929,7 @@ Le classement (délivré après visite d'un organisme accrédité selon le réf�
 > Deux-pièces loué 120 € la nuit avec 65 % d'occupation : environ 237 nuits et 28 470 € de recettes brutes. Commissions et conciergerie (35 %), énergie, internet, consommables, entretien, THRS, CFE et comptabilité : environ 15 300 €. Reste environ 13 200 € avant taxe foncière, copropriété et crédit, à comparer à 10 800 € de loyers annuels en location meublée classique (900 € par mois) avec une gestion bien plus légère, une fiscalité plus favorable (83 600 € et 50 % au micro-BIC contre 15 000 € et 30 % si le meublé de tourisme n'est pas classé) et beaucoup moins de risque réglementaire.
 
 > [!A_SURVEILLER]
-> Un texte dit « RIPOST », destiné notamment à renforcer la protection des meublés de tourisme contre les occupations illicites, a été adoptée par le Sénat le 26 mai 2026 et par l'Assemblée nationale le 15 juillet 2026 dans des rédactions différentes : vérifiez l'issue de la commission mixte paritaire. Surveillez aussi l'ouverture du téléservice national d'enregistrement.
+> Un texte dit « RIPOST », destiné notamment à renforcer la protection des meublés de tourisme contre les occupations illicites, a été adopté par le Sénat le 26 mai 2026 et par l'Assemblée nationale le 15 juillet 2026 dans des rédactions différentes : vérifiez l'issue de la commission mixte paritaire. Surveillez aussi la fin de la période de transition vers Déclaloc dans votre commune.
 
 #### Points clés
 
@@ -2980,8 +2983,8 @@ Anticiper les échéances de décence énergétique, bâtir un plan de travaux e
 
 **Le DPE, outil réglementaire central.** Méthode 3CL, double seuil énergie et climat, adaptations pour les petites surfaces et en altitude, validité de dix ans (module 1.5). Depuis le 1er janvier 2026, le coefficient de conversion de l'électricité est de 1,9, ce qui améliore l'étiquette de nombreux logements chauffés à l'électricité (attestation gratuite de l'ADEME).
 
-> [!A_SURVEILLER]
-> Un projet d'arrêté soumis à consultation jusqu'au 6 août 2026 prévoit d'abaisser ce coefficient à 1,7 au 1er janvier 2027. Vérifiez sa publication avant d'arbitrer des travaux sur un logement chauffé à l'électricité.
+> [!NOUVEAU]
+> L'arrêté du 19 août 2026 abaisse ce coefficient à 1,7 pour les DPE et les audits énergétiques établis à partir du 1er janvier 2027. Avant d'engager des travaux sur un logement chauffé à l'électricité, générez l'attestation de nouvelle étiquette sur l'observatoire DPE-Audit de l'ADEME : le logement peut changer de classe sans travaux.
 
 **Le calendrier de la décence énergétique.**
 
@@ -3007,7 +3010,7 @@ Rappel : ces critères s'appliquent aux nouveaux baux, renouvellements et recond
 
 | Aide ou levier | Principe pour un bailleur |
 |---|---|
-| MaPrimeRénov' | Ouverte aux bailleurs (engagement de location du logement en résidence principale, et conditions de loyer pour certaines aides). Guichet rouvert le 23 février 2026. Depuis le 1er septembre 2026 (décret n° 2026-822 du 25 août 2026), la rénovation d'ampleur n'est plus financée dans une maison qui conserve un chauffage au gaz, et l'aide par geste est recentrée sur l'isolation, la ventilation, le chauffage au bois et le solaire, les autres équipements de chauffage étant pour l'essentiel exclus : vérifiez la liste à jour. Accompagnateur Rénov' obligatoire pour la rénovation d'ampleur |
+| MaPrimeRénov' | Ouverte aux bailleurs (engagement de location du logement en résidence principale, et conditions de loyer pour certaines aides). Guichet rouvert le 23 février 2026. Depuis le 1er septembre 2026 (décret n° 2026-822 du 25 août 2026), la rénovation d'ampleur n'est plus financée dans une maison qui conserve un chauffage au gaz, et l'aide par geste est réservée aux pompes à chaleur air-eau ou géothermiques, au raccordement à un réseau de chaleur et à la dépose des cuves à fioul. L'isolation (combles, toitures, fenêtres), la ventilation, le chauffage au bois et le solaire n'y sont plus éligibles : ils ne sont plus financés que dans une rénovation d'ampleur. Vérifiez la liste à jour. Accompagnateur Rénov' obligatoire pour la rénovation d'ampleur |
 | MaPrimeRénov' Copropriété | Aide versée au syndicat pour une rénovation d'au moins 35 % de gain énergétique, avec des bonus |
 | Certificats d'économies d'énergie (CEE) | Primes des fournisseurs d'énergie (« coups de pouce »), souvent cumulables |
 | Éco-prêt à taux zéro | Jusqu'à 50 000 € pour une rénovation globale, jusqu'au 31 décembre 2027 |
@@ -3340,7 +3343,7 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | Agences | Honoraires imputables au locataire (visite, dossier, bail) | 12 € / 10 € / 8 € par m² selon la zone, plus 3 € par m² pour l'état des lieux |
 | Décence | Pièce principale | 9 m² et 2,20 m de hauteur, ou 20 m³ |
 | Décence énergétique (métropole) | Classes non décentes | G depuis le 1er janvier 2025 ; F le 1er janvier 2028 ; E le 1er janvier 2034 |
-| DPE | Coefficient de conversion de l'électricité | 1,9 depuis le 1er janvier 2026 (projet 1,7 au 1er janvier 2027) |
+| DPE | Coefficient de conversion de l'électricité | 1,9 depuis le 1er janvier 2026 ; 1,7 au 1er janvier 2027 (arrêté du 19 août 2026) |
 | Fiscalité nue | Micro-foncier | Revenus bruts jusqu'à 15 000 €, abattement 30 % |
 | Fiscalité nue | Déficit foncier imputable sur le revenu global | 10 700 € ; 21 400 € pour une rénovation énergétique (dépenses payées jusqu'au 31 décembre 2027) |
 | Fiscalité meublée | Micro-BIC longue durée, meublé de tourisme classé, chambre d'hôtes | 83 600 €, abattement 50 % (revenus 2026 à 2028) ; 77 700 € pour les revenus 2025 |
@@ -3393,7 +3396,7 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | 19 février 2026 | Loi de finances pour 2026 (JO du 20 février) : dispositif Jeanbrun (acquisitions à partir du 21 février 2026) |
 | 23 février 2026 | Réouverture du guichet MaPrimeRénov' |
 | 19 mars 2026 | Décret sur l'enregistrement des meublés de tourisme |
-| 20 mai 2026 | Application du règlement européen sur les locations de courte durée |
+| 20 mai 2026 | Application du règlement européen sur les locations de courte durée ; déclaration obligatoire des meublés de tourisme sur le téléservice national Déclaloc |
 | 1er juillet 2026 | Restriction des aides au logement pour certains étudiants extracommunautaires non boursiers |
 | 6 juillet 2026 | Décret modifiant les contrats types de bail |
 | 8 juillet 2026 | Adoption par le Sénat du projet de loi relance logement |
@@ -3405,9 +3408,8 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | 21 octobre 2026 | Examen annoncé au Sénat de la proposition de loi sur l'encadrement des loyers |
 | 1er novembre 2026 | Début de la trêve hivernale |
 | 24 novembre 2026 | Terme de l'expérimentation de l'encadrement des loyers, sauf prolongation |
-| 4e trimestre 2026 | Ouverture annoncée du téléservice national d'enregistrement des meublés de tourisme |
 | 31 décembre 2026 | Fin des dons familiaux exonérés affectés au logement neuf ou à la rénovation énergétique |
-| 1er janvier 2027 | Volet aides au logement du contrat type ; projet de coefficient DPE à 1,7 ; taxe unique sur la vacance |
+| 1er janvier 2027 | Volet aides au logement du contrat type ; coefficient DPE à 1,7 (arrêté du 19 août 2026) ; taxe unique sur la vacance |
 | 31 juillet 2027 | Fin du décret annuel de relocation en zone tendue (sauf reconduction) |
 | 1er septembre 2027 | Émission des factures électroniques pour les petites entreprises assujetties à la TVA |
 | 31 décembre 2027 | Fin du déficit foncier majoré, de Denormandie, de Loc'Avantages et de l'éco-PTZ (sauf prorogation) |
@@ -4276,7 +4278,7 @@ Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distin
 3. Remplir la 2044 (location nue au réel) ou transmettre la comptabilité à l'expert-comptable (meublé au réel) ; vérifier les reports de déficits et d'amortissements.
 4. Vérifier le seuil de l'IFI.
 5. Contrôler les échéances à venir : fin de bail, DPE, engagements fiscaux, assurance, trêve hivernale.
-6. Mettre à jour le tableau de bord (indicateurs de l'annexe 3.12).
+6. Mettre à jour le tableau de bord (indicateurs du module 3.12).
 
 #### G6. Projet de rénovation énergétique
 
@@ -4328,10 +4330,10 @@ Rythme de veille conseillé : chaque semaine, actualités de service-public et d
 | Projet de loi relance logement | Jeanbrun ancien assoupli (travaux 20 %, classe D sans chaudière fossile, maisons) ; relocation des logements F et G avec contrat de travaux ; nouveaux outils pour les copropriétés | Examen à l'Assemblée nationale depuis septembre 2026 |
 | Projet de loi de finances pour 2027 | Fiscalité locative, IFI, prorogation des dispositifs, mise en œuvre de la taxe sur la vacance | Octobre à décembre 2026 |
 | Loi de financement de la Sécurité sociale pour 2027 | Taux des prélèvements sociaux | Octobre à décembre 2026 |
-| DPE | Coefficient électricité à 1,7 (projet d'arrêté) | 1er janvier 2027 |
+| DPE | Entrée en vigueur du coefficient électricité à 1,7 (arrêté du 19 août 2026) : générer les attestations de nouvelle étiquette | 1er janvier 2027 |
 | IRL | Publication du 3e trimestre 2026 | 15 octobre 2026 |
 | Taux d'usure | Seuils du 4e trimestre 2026 | Fin septembre 2026 |
-| Meublés de tourisme | Ouverture du téléservice national d'enregistrement ; issue du texte « RIPOST » | 4e trimestre 2026 |
+| Meublés de tourisme | Fin de la période de transition vers Déclaloc dans les communes ; issue du texte « RIPOST » | Second semestre 2026 |
 | Bail mobilité | Décret sur les baux d'une semaine à dix-huit mois en résidences à vocation d'emploi | À paraître |
 | Aides au logement et bail | Nouvelles clauses liées aux aides au logement dans le contrat type | 1er janvier 2027 |
 | MaPrimeRénov' | Budget et règles 2027 | Loi de finances pour 2027 |

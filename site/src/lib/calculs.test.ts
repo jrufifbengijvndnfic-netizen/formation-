@@ -206,8 +206,8 @@ describe('module 3.2 — tableau du cas d’étude et sensibilité', () => {
     ok(tauxPct({ croissancePrix: -0.01 }), 7.9, 0.05);
     ok(tauxPct({ loyersAnnuels: 420 * 3 * 12 }), 9.3, 0.05);
     ok(simulerProjet({ ...PROJET_MODULE_3_2, tauxCredit: 0.042 }).annees[0].cashFlow, -577, 0.5);
-    // Le module affiche −686 € : écart d'arrondi sur l'assurance loyers impayés (453,60 € arrondis à 454 €).
-    ok(simulerProjet({ ...PROJET_MODULE_3_2, loyersAnnuels: 420 * 3 * 12 }).annees[0].cashFlow, -686, 1);
+    // Le module affiche −685 € (−685,23 € arrondi).
+    ok(simulerProjet({ ...PROJET_MODULE_3_2, loyersAnnuels: 420 * 3 * 12 }).annees[0].cashFlow, -685, 0.5);
   });
 
   it('coïncide avec le TRI recalculé sur les flux (VAN nulle)', () => {
