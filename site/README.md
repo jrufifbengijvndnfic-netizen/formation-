@@ -57,7 +57,7 @@ Le dossier `dist/` est autonome : il se dépose tel quel sur n'importe quel héb
 
 | Variable                  | Effet                                                                                                      |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `SITE_URL=https://…`      | Domaine des adresses canoniques, d'Open Graph et du plan du site (défaut : `https://formation-locatif.fr`) |
+| `SITE_URL=https://…`      | Domaine des adresses canoniques, d'Open Graph et du plan du site (défaut : `https://formation-locatif.com`) |
 | `BASE_PATH=/sous-dossier` | Site servi dans un sous-dossier (GitHub Pages : `/nom-du-depot`)                                           |
 
 Chaque build produit aussi dans `dist/` :

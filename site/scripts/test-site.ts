@@ -142,7 +142,7 @@ async function referencement(page: Page, chemin: string, titre: string): Promise
       filAriane: [...document.querySelectorAll('.fil-ariane li')].map((li) => li.textContent?.trim()),
     };
   });
-  const attendue = new URL(chemin, 'https://formation-locatif.fr').href;
+  const attendue = new URL(chemin, 'https://formation-locatif.com').href;
   verifier(titre.endsWith(' | Formation Locatif'), `SEO ${chemin} : titre « ${titre} »`);
   verifier(
     h.description.length >= 50 && h.description.length <= 160,
@@ -166,7 +166,7 @@ async function referencement(page: Page, chemin: string, titre: string): Promise
       `SEO ${chemin} : BreadcrumbList absent ou différent du fil d'Ariane affiché`,
     );
     verifier(
-      ariane?.itemListElement.slice(0, -1).every((e) => e.item?.startsWith('https://formation-locatif.fr/')),
+      ariane?.itemListElement.slice(0, -1).every((e) => e.item?.startsWith('https://formation-locatif.com/')),
       `SEO ${chemin} : BreadcrumbList sans adresses absolues`,
     );
   }

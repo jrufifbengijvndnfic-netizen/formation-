@@ -25,14 +25,14 @@ describe('fil d’Ariane (schema.org)', () => {
   it('produit des adresses absolues, sans adresse pour la page courante', () => {
     const j = filArianeJsonLd(
       [{ libelle: 'Accueil', href: '/' }, { libelle: 'Niveau 1', href: '/niveau-1/' }, { libelle: 'Module 1.1' }],
-      'https://formation-locatif.fr',
+      'https://formation-locatif.com',
     );
     expect(j).toEqual({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://formation-locatif.fr/' },
-        { '@type': 'ListItem', position: 2, name: 'Niveau 1', item: 'https://formation-locatif.fr/niveau-1/' },
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://formation-locatif.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Niveau 1', item: 'https://formation-locatif.com/niveau-1/' },
         { '@type': 'ListItem', position: 3, name: 'Module 1.1' },
       ],
     });

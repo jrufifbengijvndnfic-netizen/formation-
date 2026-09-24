@@ -7,7 +7,7 @@
 export const MARQUE = 'Formation Locatif';
 
 /** Domaine de production : utilisé si SITE_URL n'est pas défini au build (voir astro.config.mjs). */
-export const SITE_PAR_DEFAUT = 'https://formation-locatif.fr';
+export const SITE_PAR_DEFAUT = 'https://formation-locatif.com';
 
 /**
  * Offre commerciale déclarée dans les données structurées `Course` (cahier des charges, § 5.1).

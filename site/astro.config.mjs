@@ -7,7 +7,7 @@ import { REDIRECTIONS, SITE_PAR_DEFAUT } from './src/lib/seo.ts';
 
 /**
  * Déploiement :
- * - SITE_URL (par défaut https://formation-locatif.fr) : adresses canoniques, Open Graph, plan du site ;
+ * - SITE_URL (par défaut https://formation-locatif.com) : adresses canoniques, Open Graph, plan du site ;
  * - BASE_PATH (ex. /formation-) permet d'héberger le site dans un sous-dossier (GitHub Pages).
  */
 const site = process.env.SITE_URL || SITE_PAR_DEFAUT;

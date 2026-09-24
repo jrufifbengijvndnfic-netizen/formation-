@@ -9,7 +9,7 @@ Dernière mise à jour : 24 septembre 2026.
 
 Transformer la formation livrée dans `files/` en site statique, selon
 `files/BRIEF-claude-code-site-formation.md` (le cahier des charges), complété par
-`files/cahier-des-charges-seo.md` (référencement, performances, domaine `formation-locatif.fr`).
+`files/cahier-des-charges-seo.md` (référencement, performances, domaine `formation-locatif.com`).
 
 - 38 modules sur 3 niveaux, 3 examens, 7 checklists, 9 annexes
 - 122 questions de quiz, 180 termes de glossaire, 10 modèles de lettres
@@ -81,7 +81,7 @@ Congé, Zonage A, B, C.
 
 **Référencement** (`files/cahier-des-charges-seo.md`, tout est dans `site/src/lib/seo.ts`,
 `site/src/layouts/Base.astro` et `site/astro.config.mjs`) :
-- domaine par défaut `https://formation-locatif.fr` (modifiable par `SITE_URL`) ; marque
+- domaine par défaut `https://formation-locatif.com` (modifiable par `SITE_URL`) ; marque
   « Formation Locatif » en suffixe des titres ;
 - JSON-LD `Course` sur l'accueil : nom et description repris de la page (Google exige qu'ils
   reflètent le contenu affiché ; la phrase d'exemple « devenir rentier… » du cahier n'a pas été
@@ -202,7 +202,7 @@ Formation-immobilier/          (dépôt GitHub « formation- »)
    `site/src/lib/seo.ts`, repris du cahier des charges SEO), mais aucun prix n'est affiché sur le
    site et tout le contenu y est librement lisible. Google exige que le prix figure en clair sur la
    page. Soit afficher le prix (page de vente), soit corriger `OFFRE` si la formation est gratuite.
-5. **Domaine** : le cahier des charges SEO fixe `formation-locatif.fr` (défaut du build). Une autre
+5. **Domaine** : le cahier des charges SEO fixe `formation-locatif.com` (défaut du build). Une autre
    adresse se choisit par `SITE_URL=https://… npm run build`.
 6. **PDF** : il n'a pas été fourni à cette session. Le déposer sous
    `files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.pdf` : le build le
