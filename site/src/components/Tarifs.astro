@@ -1,6 +1,7 @@
 ---
 /** Grille des offres : trois niveaux et la formation complète, avec prix et lien d'achat. */
 import { modulesDuNiveau, niveauDe, organisation } from '../lib/donnees';
+import { COURS_PUBLIC } from '../lib/edition';
 import { lien } from '../lib/navigation';
 import { OFFRES, prixSepares, prixTexte, type Offre } from '../lib/seo';
 import type { Niveau } from '../lib/types';
@@ -18,7 +19,9 @@ const contenu = (o: Offre) => {
     <article class="feuille" data-niveau={o.id === 'pack' ? 'annexes' : String(o.niveaux[0])}>
       <div class="feuille__tete">
         <span class="parcelle">{o.id === 'pack' ? 'N1–3' : `N${o.niveaux[0]}`}</span>
-        <h3>{o.id === 'pack' ? titre(o) : <a href={lien(`niveau-${o.niveaux[0]}/`)}>{titre(o)}</a>}</h3>
+        <h3>
+          {o.id === 'pack' || !COURS_PUBLIC ? titre(o) : <a href={lien(`niveau-${o.niveaux[0]}/`)}>{titre(o)}</a>}
+        </h3>
       </div>
       <div class="feuille__corps">
         <p class="tarifs__prix">
@@ -26,6 +29,12 @@ const contenu = (o: Offre) => {
           {o.id === 'pack' && <small> au lieu de {prixTexte(prixSepares())}</small>}
         </p>
         <dl>
+          {o.id !== 'pack' && (
+            <>
+              <dt>Public</dt>
+              <dd>{organisation[`Niveau ${o.niveaux[0]}`]?.public}</dd>
+            </>
+          )}
           <dt>Contenu</dt>
           <dd>{contenu(o)}</dd>
           <dt>Durée</dt>

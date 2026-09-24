@@ -22,3 +22,4 @@ HTTPS). Aucune installation n'est nécessaire.
 | 001 | 24 septembre 2026 | Site complet : 38 modules, quiz, examens, checklists, lettres, 14 simulateurs gratuits, tarifs, référencement (formation-locatif.com), corrections juridiques. Livrée sous forme de dossier (site + code source) |
 | 002 | 24 septembre 2026 | Déploiement Vercel corrigé (erreur 404 : le site est construit depuis le sous-dossier `site/`) ; ZIP prêt à publier avec `vercel.json` |
 | 003 | 24 septembre 2026 | Simulateurs enrichis pour Google : méthode de calcul (formule de l'annexe E), exemple chiffré du module et liens vers les autres simulateurs gratuits sur chaque page |
+| 004 | 24 septembre 2026 | Site public recentré sur les outils gratuits : nouvel accueil par thèmes, 10 modèles de lettres avec une page chacun (`/lettres/…`), cours retiré du site public (édition complète disponible par `EDITION=complete`), exemples du cours retirés des simulateurs |

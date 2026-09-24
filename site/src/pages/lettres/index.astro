@@ -1,0 +1,52 @@
+---
+import Avertissement from '../../components/Avertissement.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Base from '../../layouts/Base.astro';
+import { formation } from '../../lib/donnees';
+import { lien } from '../../lib/navigation';
+import { lettres } from '../../lib/parse-formation';
+import { referencementLettre } from '../../lib/referencement-lettres';
+
+const liste = lettres(formation);
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Modèles de lettres' }];
+---
+
+<Base
+  filAriane={filAriane}
+  titre={`Modèles de lettres pour bailleurs : ${liste.length} courriers gratuits à compléter`}
+  description={`Révision du loyer, régularisation des charges, relance, mise en demeure, congé, quittance, dépôt de garantie : ${liste.length} modèles gratuits.`}
+  niveau="annexes"
+  actif="lettres"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <p class="bandeau__sur">Gratuits, sans inscription</p>
+      <h1>Modèles de lettres pour bailleurs</h1>
+      <p>
+        {liste.length} courriers types à compléter en ligne : l'aperçu se met à jour pendant la saisie, puis il suffit
+        de le copier ou de l'imprimer.
+      </p>
+    </div>
+  </div>
+  <div class="conteneur">
+    <ol class="registre">
+      {liste.map((l) => (
+        <li class="registre__ligne">
+          <span class="registre__numero">
+            <span class="parcelle">{l.numero}</span>
+          </span>
+          <div>
+            <h2 class="registre__titre">
+              <a href={lien(`lettres/${referencementLettre(l).slug}/`)}>{referencementLettre(l).h1}</a>
+            </h2>
+            <p class="registre__resume">{referencementLettre(l).description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <div class="prose">
+      <Avertissement />
+    </div>
+  </div>
+</Base>

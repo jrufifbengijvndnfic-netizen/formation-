@@ -3,7 +3,8 @@ import Avertissement from '../../components/Avertissement.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import Simulateur from '../../components/Simulateur.astro';
 import Base from '../../layouts/Base.astro';
-import { exemplesModule, formuleSimulateur, irlPublies, moduleParNumero } from '../../lib/donnees';
+import { COURS_PUBLIC } from '../../lib/edition';
+import { formuleSimulateur, irlPublies, moduleParNumero } from '../../lib/donnees';
 import { cheminModule, lien } from '../../lib/navigation';
 import { referencementSimulateur, simulateurJsonLd } from '../../lib/referencement-simulateurs';
 import { SITE_PAR_DEFAUT } from '../../lib/seo';
@@ -23,7 +24,7 @@ const precedent = SIMULATEURS[i - 1];
 const suivant = SIMULATEURS[i + 1];
 const seo = referencementSimulateur(sim);
 const formule = formuleSimulateur(sim.formule);
-const exemples = exemplesModule(seo.exemples ?? []);
+const niveauxDuSimulateur = [...new Set(sim.modules.map((n) => n.split('.')[0]))].sort();
 const autres = SIMULATEURS.filter((s) => s !== sim);
 const donnees = simulateurJsonLd(sim, Astro.url.pathname, Astro.site ?? SITE_PAR_DEFAUT);
 const filAriane = [
@@ -49,21 +50,30 @@ const filAriane = [
         <h1>{seo.h1}</h1>
         <p>{sim.resume}</p>
         <p class="bandeau__meta" data-pagefind-ignore>
-          <span>
-            Comprendre le calcul :{' '}
-            {sim.modules.map((n, k) => (
-              <>
-                {k > 0 && ', '}
-                <a href={lien(cheminModule(n))}>
-                  module {n}
-                  {moduleParNumero(n) ? ` — ${moduleParNumero(n)?.titreCourt}` : ''}
-                </a>
-              </>
-            ))}
-          </span>
-          <span>
-            <a href={lien(`annexe/e/#${sim.formule}`)}>Formule {sim.formule.toUpperCase()}</a>
-          </span>
+          {COURS_PUBLIC ? (
+            <>
+              <span>
+                Comprendre le calcul :{' '}
+                {sim.modules.map((n, k) => (
+                  <>
+                    {k > 0 && ', '}
+                    <a href={lien(cheminModule(n))}>
+                      module {n}
+                      {moduleParNumero(n) ? ` — ${moduleParNumero(n)?.titreCourt}` : ''}
+                    </a>
+                  </>
+                ))}
+              </span>
+              <span>
+                <a href={lien(`annexe/e/#${sim.formule}`)}>Formule {sim.formule.toUpperCase()}</a>
+              </span>
+            </>
+          ) : (
+            <span>
+              Expliqué pas à pas dans {niveauxDuSimulateur.length > 1 ? 'les niveaux' : 'le niveau'}{' '}
+              {niveauxDuSimulateur.join(' et ')} de la formation : <a href={lien('tarifs/')}>découvrir la formation</a>
+            </span>
+          )}
         </p>
       </div>
     </div>
@@ -82,23 +92,6 @@ const filAriane = [
           </p>
           <Fragment set:html={formule.html} />
         </section>
-        {exemples.length > 0 && (
-          <section aria-labelledby="exemple-titre">
-            <h2 id="exemple-titre">{exemples.length > 1 ? 'Exemples chiffrés' : 'Exemple chiffré'}</h2>
-            {exemples.map((e) => (
-              <>
-                <p>
-                  Extrait du{' '}
-                  <a href={lien(cheminModule(e.module.numero ?? ''))}>
-                    module {e.module.numero} — {e.module.titreCourt}
-                  </a>{' '}
-                  :
-                </p>
-                <Fragment set:html={e.html} />
-              </>
-            ))}
-          </section>
-        )}
         <section aria-labelledby="autres-titre" data-pagefind-ignore>
           <h2 id="autres-titre">Autres simulateurs gratuits</h2>
           <ul class="liste-colonnes">

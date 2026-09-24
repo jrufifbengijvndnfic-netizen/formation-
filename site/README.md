@@ -71,6 +71,12 @@ Chaque build produit aussi dans `dist/` :
 Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`) ; un test vérifie que
 `vercel.json` les reprend.
 
+## Éditions
+
+Par défaut, le build produit le **site public d'outils** (simulateurs, modèles de lettres, tarifs).
+`EDITION=complete npm run build` ajoute le cours complet (pages de `src/cours/`, routes injectées par
+`astro.config.mjs`). Voir `src/lib/edition.ts`.
+
 ## Tarifs et vente
 
 Les prix se règlent dans `OFFRES` (`src/lib/seo.ts`) : niveau 1 à 97 €, niveau 2 à 197 €, niveau 3 à

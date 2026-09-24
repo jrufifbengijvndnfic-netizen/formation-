@@ -2,6 +2,7 @@
  * Données prêtes à l'emploi pour les pages (exécuté au build uniquement) :
  * formation chargée et vérifiée, index, rendu HTML des éléments, repères du glossaire.
  */
+import { COURS_PUBLIC } from './edition';
 import { ChercheurGlossaire } from './glossaire-match';
 import { chargerFormation } from './formation';
 import { cheminElement, lien } from './navigation';
@@ -49,7 +50,7 @@ export const organisation: Record<string, { intitule: string; public: string; du
 
 /** Premier paragraphe de la section 0.4 (avertissement), à afficher partout où le brief l'exige. */
 export const avertissementMd = section('0.4').markdown.split('\n\n')[0] as string;
-export const avertissementHtml = rendreMarkdown(avertissementMd, nouveauContexte());
+export const avertissementHtml = rendreMarkdown(avertissementMd, nouveauContexte({ liensAnnexes: COURS_PUBLIC }));
 
 // ---------------------------------------------------------------------------
 // Rendu des éléments
@@ -178,7 +179,7 @@ export const irlPublies: { valeur: number; libelle: string }[] = (() => {
 export const questionsParModule = new Map(tousLesModules.map((m) => [m.numero as string, quizDuModule(m)]));
 
 // ---------------------------------------------------------------------------
-// Contenu des pages de simulateurs (référencement) : formule et exemples de la formation
+// Contenu des pages de simulateurs (référencement) : formule de l'annexe E
 // ---------------------------------------------------------------------------
 
 const annexeE = annexes.find((a) => a.numero === 'E') as Element;
@@ -190,15 +191,4 @@ export function formuleSimulateur(ancre: string): { titre: string; html: string 
   const titre = new RegExp(`\\*\\*E${rang}\\. ([^*]+?)\\.?\\*\\*`).exec(annexeE.markdown)?.[1];
   if (!code || !titre) throw new Error(`Formule ${ancre} introuvable dans l'annexe E`);
   return { titre, html: rendreMarkdown('```\n' + code + '\n```', nouveauContexte()) };
-}
-
-/** Encadrés « Exemple » désignés d'un module, rendus en HTML (le build échoue s'ils ont changé de place). */
-export function exemplesModule(liste: { module: string; rang: number }[]): { module: Element; html: string }[] {
-  return liste.map(({ module, rang }) => {
-    const m = moduleParNumero(module);
-    const e = m?.encadres.find((x) => x.rang === rang);
-    if (!m || e?.type !== 'EXEMPLE') throw new Error(`Exemple ${rang} du module ${module} introuvable`);
-    const md = ['> [!EXEMPLE]', ...e.lignes.map((l) => `> ${l}`)].join('\n');
-    return { module: m, html: rendreMarkdown(md, nouveauContexte()) };
-  });
 }

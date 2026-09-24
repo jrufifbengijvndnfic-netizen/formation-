@@ -94,4 +94,4 @@ export function filArianeJsonLd(etapes: EtapeFilAriane[], site: URL | string): R
  * Redirections permanentes (301), chemins relatifs à la base du site. Servies par _redirects
  * (Netlify, Cloudflare Pages) et vercel.json ; une page de repli (meta refresh) existe aussi.
  */
-export const REDIRECTIONS: Record<string, string> = { 'annexe/c/': 'glossaire/' };
+export const REDIRECTIONS: Record<string, string> = {};

@@ -1,6 +1,7 @@
 ---
 import { lien } from '../lib/navigation';
 import { annexes, avecPdf, miseAJour } from '../lib/donnees';
+import { COURS_PUBLIC } from '../lib/edition';
 ---
 
 <footer class="pied" data-pagefind-ignore>
@@ -8,44 +9,54 @@ import { annexes, avecPdf, miseAJour } from '../lib/donnees';
     <section aria-labelledby="pied-formation">
       <h2 id="pied-formation">La formation</h2>
       <ul>
+        {COURS_PUBLIC && (
+          <>
+            <li>
+              <a href={lien('mode-d-emploi/')}>Mode d'emploi</a>
+            </li>
+            <li>
+              <a href={lien('niveau-1/')}>Niveau 1 — Fondations</a>
+            </li>
+            <li>
+              <a href={lien('niveau-2/')}>Niveau 2 — Gestion, fiscalité et financement</a>
+            </li>
+            <li>
+              <a href={lien('niveau-3/')}>Niveau 3 — Expert</a>
+            </li>
+          </>
+        )}
         <li>
-          <a href={lien('mode-d-emploi/')}>Mode d'emploi</a>
+          <a href={lien('tarifs/')}>Niveaux et tarifs</a>
         </li>
-        <li>
-          <a href={lien('niveau-1/')}>Niveau 1 — Fondations</a>
-        </li>
-        <li>
-          <a href={lien('niveau-2/')}>Niveau 2 — Gestion, fiscalité et financement</a>
-        </li>
-        <li>
-          <a href={lien('niveau-3/')}>Niveau 3 — Expert</a>
-        </li>
-        <li>
-          <a href={lien('tarifs/')}>Tarifs</a>
-        </li>
-        <li>
-          <a href={lien('progression/')}>Ma progression</a>
-        </li>
+        {COURS_PUBLIC && (
+          <li>
+            <a href={lien('progression/')}>Ma progression</a>
+          </li>
+        )}
       </ul>
     </section>
     <section aria-labelledby="pied-outils">
-      <h2 id="pied-outils">Boîte à outils</h2>
+      <h2 id="pied-outils">{COURS_PUBLIC ? 'Boîte à outils' : 'Outils gratuits'}</h2>
       <ul>
         <li>
           <a href={lien('simulateurs/')}>Simulateurs</a>
         </li>
         <li>
-          <a href={lien('glossaire/')}>Glossaire</a>
+          <a href={lien('lettres/')}>Modèles de lettres</a>
         </li>
-        <li>
-          <a href={lien('a-surveiller/')}>À surveiller</a>
-        </li>
-        <li>
-          <a href={lien('annexe/f/')}>Modèles de lettres</a>
-        </li>
-        <li>
-          <a href={lien('annexes/')}>Toutes les annexes ({annexes.length})</a>
-        </li>
+        {COURS_PUBLIC && (
+          <>
+            <li>
+              <a href={lien('glossaire/')}>Glossaire</a>
+            </li>
+            <li>
+              <a href={lien('a-surveiller/')}>À surveiller</a>
+            </li>
+            <li>
+              <a href={lien('annexes/')}>Toutes les annexes ({annexes.length})</a>
+            </li>
+          </>
+        )}
       </ul>
     </section>
     <section aria-labelledby="pied-info">
@@ -55,7 +66,7 @@ import { annexes, avecPdf, miseAJour } from '../lib/donnees';
         <li>
           <a href={lien('a-propos/')}>À propos et avertissement</a>
         </li>
-        {avecPdf && (
+        {COURS_PUBLIC && avecPdf && (
           <li>
             <a href={lien('formation-immobilier-locatif-2026.pdf')} download>
               Version PDF imprimable
@@ -63,7 +74,7 @@ import { annexes, avecPdf, miseAJour } from '../lib/donnees';
           </li>
         )}
       </ul>
-      <p>Aucun traceur, aucune donnée transmise : votre progression reste dans votre navigateur.</p>
+      <p>Aucun traceur, aucune donnée transmise : vos saisies restent dans votre navigateur.</p>
     </section>
   </div>
 </footer>

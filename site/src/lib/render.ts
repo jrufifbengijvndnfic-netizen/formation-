@@ -48,6 +48,8 @@ export interface ContexteRendu {
   ancresFormules?: boolean;
   /** Lie les numéros de la colonne « Module » du tableau des nouveautés (section 0.5). */
   colonneModule?: boolean;
+  /** Faux : « annexe H » reste du texte (édition « outils », où les annexes ne sont pas publiées). */
+  liensAnnexes?: boolean;
 }
 
 export function nouveauContexte(options: Partial<ContexteRendu> = {}): ContexteRendu {
@@ -205,7 +207,9 @@ function remarkLiensInternes(ctx: ContexteRendu) {
         let r: RegExpExecArray | null;
         while ((r = re.exec(liste))) {
           const cible = r[0];
-          const valide = annexe ? true : ctx.modulesExistants.has(cible) && cible !== ctx.moduleCourant;
+          const valide = annexe
+            ? ctx.liensAnnexes !== false
+            : ctx.modulesExistants.has(cible) && cible !== ctx.moduleCourant;
           if (!valide) continue;
           const pos = debutListe + r.index;
           if (pos > curseur) nouveaux.push({ type: 'text', value: t.value.slice(curseur, pos) });

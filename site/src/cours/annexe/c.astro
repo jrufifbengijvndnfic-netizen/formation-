@@ -1,9 +1,9 @@
 ---
 /** L'annexe C est présentée par la page Glossaire (index, filtre, renvois) : simple redirection. */
 import { lien } from '../../lib/navigation';
-import { REDIRECTIONS, adresseAbsolue } from '../../lib/seo';
-// Page de repli : l'hébergeur répond normalement par une redirection 301 (_redirects, vercel.json).
-const cible = lien(REDIRECTIONS['annexe/c/'] ?? 'glossaire/');
+import { adresseAbsolue } from '../../lib/seo';
+// Édition complète : l'annexe C est présentée par la page Glossaire.
+const cible = lien('glossaire/');
 const canonique = Astro.site ? adresseAbsolue(cible, Astro.site) : cible;
 ---
 

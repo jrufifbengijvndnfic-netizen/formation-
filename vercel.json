@@ -5,18 +5,7 @@
   "buildCommand": "cd site && npm run build",
   "outputDirectory": "site/dist",
   "trailingSlash": true,
-  "redirects": [
-    {
-      "source": "/annexe/c/",
-      "destination": "/glossaire/",
-      "statusCode": 301
-    },
-    {
-      "source": "/annexe/c",
-      "destination": "/glossaire/",
-      "statusCode": 301
-    }
-  ],
+  "redirects": [],
   "headers": [
     {
       "source": "/(.*)",

@@ -46,8 +46,17 @@ branche `claude/admiring-einstein-bp3wj6`.
 
 ---
 
+**Deux éditions** (`site/src/lib/edition.ts`) :
+- **« outils »** (par défaut, c'est le site public) : accueil vitrine, 14 simulateurs gratuits (avec
+  la formule de calcul, sans exemple du cours), 10 modèles de lettres (`/lettres/…`, une page chacun),
+  tarifs, à propos. Le cours n'est pas publié ; les pages de simulateurs renvoient vers les tarifs.
+- **« complete »** (`EDITION=complete npm run build`) : ajoute tout le cours, rangé dans
+  `site/src/cours/` (modules, quiz, examens, checklists, annexes, glossaire, recherche, progression ;
+  accueil du cours sur `/formation/`), par exemple pour l'espace membre.
+`npm run test:site` teste l'édition construite (les deux passent).
+
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **003**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **004**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)

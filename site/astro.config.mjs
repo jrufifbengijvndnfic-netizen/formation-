@@ -3,6 +3,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 import { copyFileSync, existsSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { COURS_PUBLIC, ROUTES_COURS } from './src/lib/edition.ts';
 import { REDIRECTIONS, SITE_PAR_DEFAUT } from './src/lib/seo.ts';
 
 /**
@@ -27,6 +28,19 @@ function rechargerSurMarkdown() {
         serveur.moduleGraph.invalidateAll();
         serveur.ws.send({ type: 'full-reload' });
       });
+    },
+  };
+}
+
+/** Édition complète (EDITION=complete) : ajoute les pages du cours, rangées dans src/cours/. */
+function pagesDuCours() {
+  return {
+    name: 'formation-cours',
+    hooks: {
+      /** @param {{ injectRoute: (r: { pattern: string, entrypoint: string }) => void }} options */
+      'astro:config:setup': ({ injectRoute }) => {
+        if (COURS_PUBLIC) ROUTES_COURS.forEach((r) => injectRoute(r));
+      },
     },
   };
 }
@@ -128,7 +142,7 @@ export default defineConfig({
   base,
   trailingSlash: 'always',
   build: { format: 'directory' },
-  integrations: [copierPdf(), fichiersReferencement()],
+  integrations: [pagesDuCours(), copierPdf(), fichiersReferencement()],
   fonts: [
     police(
       'Poppins',

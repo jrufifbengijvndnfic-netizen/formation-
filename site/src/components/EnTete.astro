@@ -1,6 +1,8 @@
 ---
 import { lien } from '../lib/navigation';
 import { formation, miseAJour, tousLesModules } from '../lib/donnees';
+import { COURS_PUBLIC } from '../lib/edition';
+import { MARQUE } from '../lib/seo';
 import Logo from './Logo.astro';
 
 interface Props {
@@ -8,7 +10,13 @@ interface Props {
   actif?: string | undefined;
 }
 const { actif } = Astro.props;
-const entrees = [
+const entreesOutils = [
+  { cle: 'simulateurs', libelle: 'Simulateurs', href: lien('simulateurs/') },
+  { cle: 'lettres', libelle: 'Lettres types', href: lien('lettres/') },
+  { cle: 'tarifs', libelle: 'La formation', href: lien('tarifs/') },
+  { cle: 'a-propos', libelle: 'À propos', href: lien('a-propos/') },
+];
+const entreesCours = [
   { cle: 'niveau-1', libelle: 'Niveau 1', href: lien('niveau-1/'), couleur: 'var(--n1)' },
   { cle: 'niveau-2', libelle: 'Niveau 2', href: lien('niveau-2/'), couleur: 'var(--n2)' },
   { cle: 'niveau-3', libelle: 'Niveau 3', href: lien('niveau-3/'), couleur: 'var(--n3)' },
@@ -17,6 +25,9 @@ const entrees = [
   { cle: 'glossaire', libelle: 'Glossaire', href: lien('glossaire/') },
   { cle: 'recherche', libelle: 'Recherche', href: lien('recherche/') },
 ];
+const entrees: { cle: string; libelle: string; href: string; couleur?: string }[] = COURS_PUBLIC
+  ? entreesCours
+  : entreesOutils;
 const modules = tousLesModules.map((m) => m.numero).join(',');
 ---
 
@@ -34,9 +45,16 @@ const modules = tousLesModules.map((m) => m.numero).join(',');
     <div class="entete__barre">
       <a class="logo" href={lien()}>
         <Logo />
-        <span class="logo__texte">
-          L'immobilier locatif en France<small>Formation, édition {formation.edition}</small>
-        </span>
+        {COURS_PUBLIC ? (
+          <span class="logo__texte">
+            L'immobilier locatif en France<small>Formation, édition {formation.edition}</small>
+          </span>
+        ) : (
+          <span class="logo__texte">
+            {MARQUE}
+            <small>Outils gratuits pour bailleurs</small>
+          </span>
+        )}
       </a>
       <button
         type="button"
@@ -58,13 +76,15 @@ const modules = tousLesModules.map((m) => m.numero).join(',');
           ))}
         </ul>
       </nav>
-      <form class="recherche-entete" role="search" action={lien('recherche/')} method="get">
-        <label class="visuellement-cache" for="recherche-rapide">
-          Rechercher dans la formation
-        </label>
-        <input id="recherche-rapide" name="q" type="search" placeholder="Rechercher" autocomplete="off" />
-        <kbd aria-hidden="true">/</kbd>
-      </form>
+      {COURS_PUBLIC && (
+        <form class="recherche-entete" role="search" action={lien('recherche/')} method="get">
+          <label class="visuellement-cache" for="recherche-rapide">
+            Rechercher dans la formation
+          </label>
+          <input id="recherche-rapide" name="q" type="search" placeholder="Rechercher" autocomplete="off" />
+          <kbd aria-hidden="true">/</kbd>
+        </form>
+      )}
       <button type="button" class="theme-bascule" aria-pressed="false" data-theme-bascule>
         <span class="visuellement-cache">Thème sombre</span>
         <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
@@ -73,22 +93,24 @@ const modules = tousLesModules.map((m) => m.numero).join(',');
         </svg>
       </button>
     </div>
-    <div class="progression-globale">
-      <div
-        class="jauge"
-        data-jauge-globale
-        data-modules={modules}
-        role="progressbar"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-valuenow="0"
-        aria-label="Progression globale"
-      >
-        <span class="jauge__remplissage"></span>
+    {COURS_PUBLIC && (
+      <div class="progression-globale">
+        <div
+          class="jauge"
+          data-jauge-globale
+          data-modules={modules}
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          aria-label="Progression globale"
+        >
+          <span class="jauge__remplissage"></span>
+        </div>
+        <a href={lien('progression/')} data-libelle-progression>
+          Ma progression : 0 %
+        </a>
       </div>
-      <a href={lien('progression/')} data-libelle-progression>
-        Ma progression : 0 %
-      </a>
-    </div>
+    )}
   </div>
 </header>

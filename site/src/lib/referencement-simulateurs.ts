@@ -13,8 +13,6 @@ export interface ReferencementSimulateur {
   /** Titre principal (h1). */
   h1: string;
   description: string;
-  /** Exemples chiffrés de la formation affichés sur la page (module, rang de l'encadré « Exemple »). */
-  exemples?: { module: string; rang: number }[];
 }
 
 export const REFERENCEMENT_SIMULATEURS: Record<string, ReferencementSimulateur> = {
@@ -23,80 +21,66 @@ export const REFERENCEMENT_SIMULATEURS: Record<string, ReferencementSimulateur> 
     h1: 'Simulateur de rentabilité locative et de cash-flow',
     description:
       'Calculez gratuitement la rentabilité brute et nette et le cash-flow mensuel de votre investissement locatif : prix, frais, loyer, charges, crédit, vacance.',
-    exemples: [{ module: '1.12', rang: 1 }],
   },
   credit: {
     titre: 'Simulateur prêt immobilier gratuit : mensualité et amortissement',
     h1: 'Simulateur de prêt immobilier : mensualité et tableau d’amortissement',
     description:
       'Calculez la mensualité, le coût total et le tableau d’amortissement annuel d’un prêt immobilier à taux fixe, assurance emprunteur comprise. Gratuit.',
-    exemples: [{ module: '1.12', rang: 1 }],
   },
   'capacite-emprunt': {
     titre: 'Calcul capacité d’emprunt immobilier gratuit (règle des 35 %)',
     h1: 'Calcul de capacité d’emprunt immobilier',
     description:
       'Estimez votre mensualité maximale et le capital empruntable selon la règle des 35 % d’endettement, avec 70 % des loyers retenus. Gratuit, sans inscription.',
-    exemples: [{ module: '2.10', rang: 1 }],
   },
   'revision-loyer': {
     titre: 'Calcul révision de loyer IRL gratuit : nouveau loyer et date d’effet',
     h1: 'Calcul de la révision de loyer avec l’IRL',
     description:
       'Calculez le loyer révisé selon l’indice de référence des loyers (IRL), la date d’effet de la révision et le blocage des logements classés F ou G. Gratuit.',
-    exemples: [{ module: '2.1', rang: 1 }],
   },
   'depot-de-garantie': {
     titre: 'Dépôt de garantie non rendu : calcul de la pénalité de retard',
     h1: 'Calcul de la pénalité de retard du dépôt de garantie',
     description:
       'Délai légal de restitution du dépôt de garantie, mois de retard et pénalité de 10 % du loyer par mois commencé : calcul gratuit pour locataires et bailleurs.',
-    exemples: [{ module: '1.11', rang: 2 }],
   },
   'micro-foncier-ou-reel': {
     titre: 'Micro-foncier ou réel : simulateur gratuit de l’impôt sur les loyers',
     h1: 'Simulateur micro-foncier ou régime réel',
     description:
       'Comparez l’impôt et les prélèvements sociaux de vos loyers de location nue au micro-foncier et au régime réel, déficit foncier compris. Simulateur gratuit.',
-    exemples: [
-      { module: '2.6', rang: 3 },
-      { module: '2.6', rang: 2 },
-    ],
   },
   'micro-bic-ou-reel': {
     titre: 'Simulateur LMNP gratuit : micro-BIC ou régime réel',
     h1: 'Simulateur LMNP : micro-BIC ou régime réel',
     description:
       'Comparez l’impôt de votre location meublée non professionnelle (LMNP) au micro-BIC et au régime réel avec amortissements. Simulateur gratuit, sans inscription.',
-    exemples: [{ module: '2.7', rang: 1 }],
   },
   jeanbrun: {
     titre: 'Simulateur Jeanbrun gratuit : amortissement du bailleur privé',
     h1: 'Simulateur du dispositif Jeanbrun (statut du bailleur privé)',
     description:
       'Base amortissable, déduction annuelle et total sur l’engagement de neuf ans du dispositif Jeanbrun (loi de finances pour 2026). Simulateur gratuit.',
-    exemples: [{ module: '3.4', rang: 1 }],
   },
   'plus-value': {
     titre: 'Calcul plus-value immobilière gratuit : abattements et impôt',
     h1: 'Calcul de la plus-value immobilière',
     description:
       'Calculez la plus-value brute, les abattements pour durée de détention, l’impôt, les prélèvements sociaux et la surtaxe à la vente d’un bien. Gratuit.',
-    exemples: [{ module: '3.5', rang: 1 }],
   },
   ifi: {
     titre: 'Simulateur IFI gratuit : impôt sur la fortune immobilière',
     h1: 'Simulateur de l’impôt sur la fortune immobilière (IFI)',
     description:
       'Calculez votre patrimoine immobilier net taxable et l’IFI dû selon le barème, décote comprise. Simulateur gratuit de l’impôt sur la fortune immobilière.',
-    exemples: [{ module: '3.6', rang: 1 }],
   },
   'frais-acquisition': {
     titre: 'Calcul frais de notaire gratuit : achat immobilier ancien ou neuf',
     h1: 'Calcul des frais de notaire',
     description:
       'Estimez les frais de notaire d’un achat immobilier : droits de mutation, émoluments du notaire, contribution de sécurité immobilière et débours. Gratuit.',
-    exemples: [{ module: '2.11', rang: 1 }],
   },
   tri: {
     titre: 'Calcul TRI investissement locatif gratuit : flux et sensibilité',
@@ -109,7 +93,6 @@ export const REFERENCEMENT_SIMULATEURS: Record<string, ReferencementSimulateur> 
     h1: 'Calcul des droits de donation d’un bien immobilier',
     description:
       'Calculez la valeur taxable d’un bien donné en pleine ou en nue-propriété, l’abattement et les droits de donation selon le barème. Simulateur gratuit.',
-    exemples: [{ module: '3.7', rang: 2 }],
   },
   'dates-de-conge': {
     titre: 'Congé et préavis du bail : calcul gratuit des dates limites',
@@ -143,3 +126,17 @@ export function simulateurJsonLd(sim: Simulateur, chemin: string, site: URL | st
     publisher: { '@type': 'Organization', name: MARQUE, url: adresseAbsolue('/', site) },
   };
 }
+
+/** Regroupement des simulateurs par thème (page d'accueil). */
+export const CATEGORIES_SIMULATEURS: { titre: string; ids: string[] }[] = [
+  {
+    titre: 'Rentabilité et financement',
+    ids: ['rentabilite', 'tri', 'credit', 'capacite-emprunt', 'frais-acquisition'],
+  },
+  { titre: 'Loyer et bail', ids: ['revision-loyer', 'depot-de-garantie', 'dates-de-conge'] },
+  {
+    titre: 'Fiscalité des loyers et de la revente',
+    ids: ['micro-foncier-ou-reel', 'micro-bic-ou-reel', 'jeanbrun', 'plus-value'],
+  },
+  { titre: 'Patrimoine et transmission', ids: ['ifi', 'donation'] },
+];

@@ -3,7 +3,8 @@ import FilAriane from '../components/FilAriane.astro';
 import Base from '../layouts/Base.astro';
 import { avertissementHtml, avecPdf, formation, miseAJour, partieModeEmploi } from '../lib/donnees';
 import { lien } from '../lib/navigation';
-import { rendreMarkdown } from '../lib/render';
+import { COURS_PUBLIC } from '../lib/edition';
+import { nouveauContexte, rendreMarkdown } from '../lib/render';
 
 const s01 = partieModeEmploi.elements.find((e) => e.numero === '0.1');
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'À propos' }];
@@ -25,19 +26,21 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'À propos' 
   </div>
   <div class="conteneur prose contenu">
     <h2 id="objectif">L'objectif</h2>
-    {s01 && <Fragment set:html={rendreMarkdown(s01.markdown)} />}
+    {s01 && <Fragment set:html={rendreMarkdown(s01.markdown, nouveauContexte({ liensAnnexes: COURS_PUBLIC }))} />}
 
     <h2 id="avertissement">Avertissement</h2>
     <Fragment set:html={avertissementHtml} />
-    <p>
-      Les encadrés « À surveiller » signalent les textes non encore adoptés et les échéances proches ; ils sont
-      regroupés sur la page <a href={lien('a-surveiller/')}>À surveiller</a>.
-    </p>
+    {COURS_PUBLIC && (
+      <p>
+        Les encadrés « À surveiller » signalent les textes non encore adoptés et les échéances proches ; ils sont
+        regroupés sur la page <a href={lien('a-surveiller/')}>À surveiller</a>.
+      </p>
+    )}
 
     <h2 id="mise-a-jour">Mise à jour</h2>
     <p>
-      {miseAJour}. Le site est entièrement généré à partir d'un seul fichier Markdown : lorsque le droit évolue (voir l'
-      <a href={lien('annexe/i/')}>annexe I</a>), le texte est mis à jour puis le site reconstruit.
+      {miseAJour}. Le site est entièrement généré à partir d'un seul fichier Markdown : lorsque le droit évolue, le
+      texte est mis à jour puis le site reconstruit ; les simulateurs appliquent les règles en vigueur à cette date.
     </p>
 
     <h2 id="fidelite">Fidélité au texte</h2>
@@ -52,11 +55,15 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'À propos' 
     <h2 id="confidentialite">Confidentialité</h2>
     <ul>
       <li>Aucun traceur, aucun outil de mesure d'audience, aucun cookie publicitaire.</li>
-      <li>
-        Votre progression (modules lus, scores, cases cochées) et votre choix de thème sont enregistrés uniquement dans
-        le stockage local de votre navigateur. Vous pouvez les exporter, les importer ou les effacer depuis{' '}
-        <a href={lien('progression/')}>Ma progression</a>.
-      </li>
+      {COURS_PUBLIC ? (
+        <li>
+          Votre progression (modules lus, scores, cases cochées) et votre choix de thème sont enregistrés uniquement
+          dans le stockage local de votre navigateur. Vous pouvez les exporter, les importer ou les effacer depuis{' '}
+          <a href={lien('progression/')}>Ma progression</a>.
+        </li>
+      ) : (
+        <li>Votre choix de thème est enregistré uniquement dans le stockage local de votre navigateur.</li>
+      )}
       <li>
         Les simulateurs et les modèles de lettres calculent et remplissent tout dans votre navigateur : rien n'est
         envoyé à un serveur. Les paramètres d'un simulateur ne figurent dans l'adresse de la page que si vous la copiez
@@ -71,7 +78,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'À propos' 
       réduction des animations.
     </p>
 
-    {avecPdf && (
+    {COURS_PUBLIC && avecPdf && (
       <>
         <h2 id="pdf">Version imprimable</h2>
         <p>

@@ -19,3 +19,11 @@ describe('référencement des simulateurs', () => {
     expect(j).toMatchObject({ '@type': 'WebApplication', isAccessibleForFree: true, offers: { price: '0' } });
   });
 });
+
+describe('catégories de la page d’accueil', () => {
+  it('rangent chaque simulateur exactement une fois', async () => {
+    const { CATEGORIES_SIMULATEURS } = await import('./referencement-simulateurs');
+    const ids = CATEGORIES_SIMULATEURS.flatMap((c) => c.ids);
+    expect([...ids].sort()).toEqual(SIMULATEURS.map((s) => s.id).sort());
+  });
+});

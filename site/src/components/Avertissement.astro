@@ -1,5 +1,6 @@
 ---
 import { avertissementHtml } from '../lib/donnees';
+import { COURS_PUBLIC } from '../lib/edition';
 import { lien } from '../lib/navigation';
 ---
 
@@ -8,7 +9,9 @@ import { lien } from '../lib/navigation';
     <strong id="avertissement-titre">Avertissement (section 0.4)</strong>
   </p>
   <Fragment set:html={avertissementHtml} />
-  <p>
-    <a href={lien('annexe/h/')}>Sources officielles (annexe H)</a>
-  </p>
+  {COURS_PUBLIC && (
+    <p>
+      <a href={lien('annexe/h/')}>Sources officielles (annexe H)</a>
+    </p>
+  )}
 </aside>

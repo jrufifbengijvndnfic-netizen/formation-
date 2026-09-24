@@ -1,186 +1,90 @@
 ---
 import Avertissement from '../components/Avertissement.astro';
+import Tarifs from '../components/Tarifs.astro';
 import Base from '../layouts/Base.astro';
-import {
-  annexes,
-  aSurveiller,
-  avecPdf,
-  formation,
-  miseAJour,
-  modulesDuNiveau,
-  niveaux,
-  numerosDuNiveau,
-  organisation,
-  termes,
-  titreSite,
-  tousLesModules,
-} from '../lib/donnees';
+import { formation, miseAJour } from '../lib/donnees';
 import { lien } from '../lib/navigation';
-import { toutesLesQuestions } from '../lib/parse-formation';
-import { texteBrut } from '../lib/render';
-import {
-  MARQUE,
-  SITE_PAR_DEFAUT,
-  adresseAbsolue,
-  offreJsonLd,
-  offreNiveau,
-  offrePack,
-  prixSepares,
-  prixTexte,
-} from '../lib/seo';
-import { SIMULATEURS } from '../lib/simulateurs';
+import { lettres } from '../lib/parse-formation';
+import { referencementLettre } from '../lib/referencement-lettres';
+import { CATEGORIES_SIMULATEURS, referencementSimulateur } from '../lib/referencement-simulateurs';
+import { MARQUE, SITE_PAR_DEFAUT, adresseAbsolue } from '../lib/seo';
+import { SIMULATEURS, simulateurParId, type Simulateur } from '../lib/simulateurs';
 
-const accroche = texteBrut(formation.accroche);
-const description = `${accroche} ${tousLesModules.length} modules, ${SIMULATEURS.length} simulateurs.`;
-const site = (Astro.site ?? new URL(SITE_PAR_DEFAUT)).href;
-// Durée indicative du tableau 0.2 (« 10 à 12 heures », « 15 à 18 heures », « 20 heures et plus ») :
-// somme des minimums.
-const heures = niveaux.reduce(
-  (s, n) => s + Number(/\d+/.exec(organisation[`Niveau ${n.niveau}`]?.duree ?? '')?.[0] ?? 0),
-  0,
-);
-// Cahier des charges SEO, § 5.1 : formation (Course) avec son offre.
+const site = Astro.site ?? SITE_PAR_DEFAUT;
+const listeLettres = lettres(formation);
 const donnees = {
   '@context': 'https://schema.org',
-  '@type': 'Course',
-  name: titreSite,
-  description: accroche,
-  inLanguage: 'fr',
-  dateModified: formation.aJourAu,
-  educationalLevel: 'Débutant à confirmé',
-  provider: { '@type': 'Organization', name: MARQUE, sameAs: site },
-  // Formation complète = pack ; chaque niveau porte sa propre offre (prix affichés sur la page).
-  offers: offreJsonLd(offrePack(), adresseAbsolue('tarifs/', site)),
-  hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: `PT${heures}H` },
-  hasPart: niveaux.map((n) => ({
-    '@type': 'Course',
-    name: `Niveau ${n.niveau} — ${n.titreCourt}`,
-    description: texteBrut(n.intro),
-    inLanguage: 'fr',
-    offers: offreJsonLd(offreNiveau(n.niveau), adresseAbsolue('tarifs/', site)),
-  })),
+  '@graph': [
+    { '@type': 'WebSite', name: MARQUE, url: adresseAbsolue('/', site), inLanguage: 'fr' },
+    {
+      '@type': 'Organization',
+      name: MARQUE,
+      url: adresseAbsolue('/', site),
+      logo: adresseAbsolue('/favicon.svg', site),
+    },
+  ],
 };
+const categories = CATEGORIES_SIMULATEURS.map((c) => ({
+  titre: c.titre,
+  simulateurs: c.ids.map((id) => simulateurParId(id) as Simulateur),
+}));
 ---
 
-<Base titre={titreSite} description={description} niveau="0" donneesStructurees={donnees}>
-  <div class="bandeau" data-pagefind-body>
+<Base
+  titre="Simulateurs immobiliers gratuits et lettres types pour bailleurs"
+  description={`${SIMULATEURS.length} simulateurs gratuits (rentabilité, prêt, frais de notaire, LMNP, plus-value, IFI…) et ${listeLettres.length} modèles de lettres pour bailleurs. Sans inscription.`}
+  niveau="0"
+  donneesStructurees={donnees}
+>
+  <div class="bandeau">
     <div class="conteneur">
-      <p class="bandeau__sur">Formation complète · édition {formation.edition}</p>
-      <h1>{titreSite}</h1>
-      <p class="chapeau">{accroche}</p>
-      <p class="bandeau__meta">
-        <span>{miseAJour}</span>
-        <span>{tousLesModules.length} modules</span>
-        <span>{toutesLesQuestions(formation).length} questions de quiz</span>
-        <span>{SIMULATEURS.length} simulateurs</span>
+      <p class="bandeau__sur">Gratuits, sans inscription · {miseAJour}</p>
+      <h1>Simulateurs et outils gratuits pour bailleurs et investisseurs</h1>
+      <p class="chapeau">
+        {SIMULATEURS.length} simulateurs et {listeLettres.length} modèles de lettres pour calculer, comparer et rédiger
+        juste. Rien n'est envoyé : tout se calcule dans votre navigateur.
       </p>
     </div>
   </div>
 
   <div class="conteneur">
-    <section aria-labelledby="niveaux-titre">
-      <h2 id="niveaux-titre">Trois niveaux progressifs</h2>
-      <div class="feuilles">
-        {niveaux.map((n) => {
-          const org = organisation[`Niveau ${n.niveau}`];
-          const nb = modulesDuNiveau(n.niveau).length;
-          return (
-            <article
-              class="feuille"
-              data-niveau={String(n.niveau)}
-              data-avancement={numerosDuNiveau(n.niveau).join(',')}
-            >
-              <div class="feuille__tete">
-                <span class="parcelle">N{n.niveau}</span>
-                <h3>
-                  <a href={lien(`niveau-${n.niveau}/`)}>{n.titreCourt}</a>
-                </h3>
-              </div>
-              <div class="feuille__corps">
-                <dl>
-                  <dt>Public</dt>
-                  <dd>{org?.public}</dd>
-                  <dt>Durée</dt>
-                  <dd>{org?.duree}</dd>
-                  <dt>Contenu</dt>
-                  <dd>{nb} modules et un examen</dd>
-                  <dt>Prix</dt>
-                  <dd>{prixTexte(offreNiveau(n.niveau).prix)}</dd>
-                </dl>
-                <p class="registre__meta" data-avancement-texte>
-                  Progression : 0 %
-                </p>
-                <div
-                  class="jauge"
-                  role="progressbar"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  aria-valuenow="0"
-                  aria-label={`Progression du niveau ${n.niveau}`}
-                >
-                  <span class="jauge__remplissage" />
-                </div>
-                <p hidden data-si-termine>
-                  <span class="badge-niveau">Niveau terminé</span>
-                </p>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-      <p>
-        Formation complète : <strong>{prixTexte(offrePack().prix)}</strong> au lieu de {prixTexte(prixSepares())}.{' '}
-        <a href={lien('tarifs/')}>Voir les tarifs</a>
-      </p>
-    </section>
+    {categories.map((c, i) => (
+      <section aria-labelledby={`categorie-${i}`}>
+        <h2 id={`categorie-${i}`}>{c.titre}</h2>
+        <ul class="acces">
+          {c.simulateurs.map((s) => (
+            <li>
+              <a href={lien(`simulateurs/${s.id}/`)}>
+                {referencementSimulateur(s).h1}
+                <small>{s.resume}</small>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
 
-    <section aria-labelledby="acces-titre">
-      <h2 id="acces-titre">Accès rapides</h2>
+    <section aria-labelledby="lettres-titre">
+      <h2 id="lettres-titre">Modèles de lettres</h2>
       <ul class="acces">
-        <li>
-          <a href={lien('mode-d-emploi/')}>
-            Mode d'emploi<small>Organisation, conventions et les 20 nouveautés 2025-2026</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('simulateurs/')}>
-            Simulateurs gratuits
-            <small>{SIMULATEURS.length} calculs détaillés : rentabilité, crédit, fiscalité, plus-value…</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('glossaire/')}>
-            Glossaire<small>{termes.length} termes de A à Z</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('a-surveiller/')}>
-            À surveiller<small>{aSurveiller.length} textes en cours d'adoption et échéances</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('annexe/f/')}>
-            Modèles de lettres<small>Dix courriers à compléter, copier ou imprimer</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('annexes/')}>
-            Annexes<small>{annexes.length} outils : chiffres clés, calendrier, textes, formules, checklists</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('progression/')}>
-            Ma progression<small>Suivi, export et remise à zéro</small>
-          </a>
-        </li>
-        {avecPdf && (
+        {listeLettres.map((l) => (
           <li>
-            <a href={lien('formation-immobilier-locatif-2026.pdf')} download>
-              Version PDF<small>La formation complète à imprimer</small>
+            <a href={lien(`lettres/${referencementLettre(l).slug}/`)}>
+              {referencementLettre(l).h1}
+              <small>À compléter en ligne, puis copier ou imprimer</small>
             </a>
           </li>
-        )}
+        ))}
       </ul>
+    </section>
+
+    <section aria-labelledby="formation-titre">
+      <h2 id="formation-titre">Aller plus loin : la formation</h2>
+      <p>
+        Ces outils sont issus de la formation « {formation.titre.split(' — ').at(-1)} » : trois niveaux pour comprendre,
+        acheter, louer, gérer, déclarer, optimiser et transmettre.
+      </p>
+      <Tarifs />
     </section>
 
     <div class="prose">

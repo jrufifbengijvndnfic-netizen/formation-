@@ -1,0 +1,87 @@
+---
+import Avertissement from '../../components/Avertissement.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Lettre from '../../components/Lettre.astro';
+import Base from '../../layouts/Base.astro';
+import { formation } from '../../lib/donnees';
+import { lien } from '../../lib/navigation';
+import { lettres } from '../../lib/parse-formation';
+import { referencementLettre } from '../../lib/referencement-lettres';
+import { referencementSimulateur } from '../../lib/referencement-simulateurs';
+import { MARQUE, SITE_PAR_DEFAUT, adresseAbsolue } from '../../lib/seo';
+import { simulateurParId } from '../../lib/simulateurs';
+import type { Lettre as TLettre } from '../../lib/types';
+
+export function getStaticPaths() {
+  return lettres(formation).map((l) => ({ params: { slug: referencementLettre(l).slug }, props: { lettre: l } }));
+}
+interface Props {
+  lettre: TLettre;
+}
+const { lettre } = Astro.props;
+const seo = referencementLettre(lettre);
+const simulateur = seo.simulateur ? simulateurParId(seo.simulateur) : undefined;
+const autres = lettres(formation).filter((l) => l.id !== lettre.id);
+const site = Astro.site ?? SITE_PAR_DEFAUT;
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: 'Modèles de lettres', href: lien('lettres/') },
+  { libelle: lettre.titre },
+];
+const donnees = {
+  '@context': 'https://schema.org',
+  '@type': 'DigitalDocument',
+  name: seo.h1,
+  description: seo.description,
+  url: adresseAbsolue(Astro.url.pathname, site),
+  inLanguage: 'fr',
+  isAccessibleForFree: true,
+  publisher: { '@type': 'Organization', name: MARQUE, url: adresseAbsolue('/', site) },
+};
+---
+
+<Base
+  filAriane={filAriane}
+  titre={seo.titre}
+  description={seo.description}
+  niveau="annexes"
+  actif="lettres"
+  donneesStructurees={donnees}
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <p class="bandeau__sur">Modèle de lettre gratuit · {lettre.numero}</p>
+      <h1>{seo.h1}</h1>
+      <p>
+        Complétez les champs : l'aperçu du courrier se met à jour. Copiez-le ou imprimez-le ensuite. Rien n'est envoyé :
+        tout reste dans votre navigateur.
+      </p>
+    </div>
+  </div>
+  <div class="conteneur">
+    <section aria-labelledby="modele-titre">
+      <h2 id="modele-titre">Compléter la lettre</h2>
+      <Lettre lettre={lettre} />
+    </section>
+    <div class="prose">
+      {simulateur && (
+        <p>
+          Outil utile avec ce courrier :{' '}
+          <a href={lien(`simulateurs/${simulateur.id}/`)}>{referencementSimulateur(simulateur).h1}</a>.
+        </p>
+      )}
+      <section aria-labelledby="autres-lettres-titre" data-pagefind-ignore>
+        <h2 id="autres-lettres-titre">Autres modèles de lettres gratuits</h2>
+        <ul class="liste-colonnes">
+          {autres.map((l) => (
+            <li>
+              <a href={lien(`lettres/${referencementLettre(l).slug}/`)}>{referencementLettre(l).h1}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <Avertissement />
+    </div>
+  </div>
+</Base>
