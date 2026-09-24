@@ -76,7 +76,7 @@ Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`) ; un test 
 - Données structurées JSON-LD dans le `<head>` : `Course` sur l'accueil (avec l'offre de `OFFRE`
   dans `src/lib/seo.ts`), `BreadcrumbList` sur toutes les autres pages, identique au fil d'Ariane affiché.
 - Polices hébergées avec le site (`fonts` dans `astro.config.mjs`), préchargées, `font-display: swap`,
-  avec polices de secours aux métriques ajustées (pas de saut de mise en page au chargement).
+  avec polices de secours aux métriques ajustées (pour limiter les sauts de mise en page au chargement).
 - Aucun script tiers (ni mesure d'audience ni traceur, conformément au brief du site).
 - `npm run test:site` vérifie tout cela sur chaque page.
 
