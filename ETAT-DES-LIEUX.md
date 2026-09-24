@@ -13,7 +13,8 @@ Transformer la formation livrée dans `files/` en site statique, selon
 
 - 38 modules sur 3 niveaux, 3 examens, 7 checklists, 9 annexes
 - 122 questions de quiz, 180 termes de glossaire, 10 modèles de lettres
-- 14 simulateurs de calcul
+- 24 simulateurs et outils de calcul : les 14 de l'annexe E et 10 outils ajoutés en version 005
+  (DPE, charges, courte durée, Denormandie, Loc'Avantages, relocation, encadrement, usure, TVA, loyer au m²)
 - Site statique Astro 7 + TypeScript, hébergeable n'importe où
 
 **Règle absolue du brief** : ne jamais modifier un chiffre, une date, un taux, un montant ou une
@@ -47,7 +48,7 @@ branche `claude/admiring-einstein-bp3wj6`.
 ---
 
 **Deux éditions** (`site/src/lib/edition.ts`) :
-- **« outils »** (par défaut, c'est le site public) : accueil vitrine, 14 simulateurs gratuits (avec
+- **« outils »** (par défaut, c'est le site public) : accueil vitrine, 24 simulateurs et outils gratuits (avec
   la formule de calcul, sans exemple du cours), 10 modèles de lettres (`/lettres/…`, une page chacun),
   tarifs, à propos. Le cours n'est pas publié ; les pages de simulateurs renvoient vers les tarifs.
 - **« complete »** (`EDITION=complete npm run build`) : ajoute tout le cours, rangé dans
@@ -56,7 +57,7 @@ branche `claude/admiring-einstein-bp3wj6`.
 `npm run test:site` teste l'édition construite (les deux passent).
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **004**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **005**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)

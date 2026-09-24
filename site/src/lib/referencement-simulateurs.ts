@@ -100,6 +100,66 @@ export const REFERENCEMENT_SIMULATEURS: Record<string, ReferencementSimulateur> 
     description:
       'Date limite du congé donné par le bailleur et date de fin du préavis du locataire, selon le type de bail et le préavis applicable. Calcul gratuit.',
   },
+  'dpe-location': {
+    titre: 'DPE et location : mon logement est-il encore louable ? (calcul gratuit)',
+    h1: 'Mon logement est-il encore louable ? Décence énergétique et DPE',
+    description:
+      'Classe DPE G, F ou E : date d’interdiction de louer, gel du loyer, audit à la vente. Vérifiez gratuitement si votre logement est encore louable en 2026.',
+  },
+  'regularisation-charges': {
+    titre: 'Calcul régularisation des charges locatives gratuit',
+    h1: 'Calcul de la régularisation des charges locatives',
+    description:
+      'Comparez les provisions versées aux charges récupérables réelles : complément dû par le locataire ou trop-perçu, et nouvelle provision mensuelle. Gratuit.',
+  },
+  'meuble-de-tourisme': {
+    titre: 'Rentabilité Airbnb ou location meublée classique : simulateur gratuit',
+    h1: 'Rentabilité location courte durée (Airbnb) ou meublé à l’année',
+    description:
+      'Nuits louées, recettes, commissions et revenu net d’une location courte durée type Airbnb comparés à un meublé à l’année, micro-BIC compris. Gratuit.',
+  },
+  denormandie: {
+    titre: 'Simulateur Denormandie gratuit : réduction d’impôt dans l’ancien',
+    h1: 'Simulateur de réduction d’impôt Denormandie',
+    description:
+      'Calculez la réduction d’impôt Denormandie (12, 18 ou 21 %) d’un logement ancien rénové : plafonds de 300 000 € et 5 500 €/m², condition de 25 % de travaux.',
+  },
+  'loc-avantages': {
+    titre: 'Simulateur Loc’Avantages gratuit : réduction d’impôt Loc1, Loc2, Loc3',
+    h1: 'Simulateur de réduction d’impôt Loc’Avantages',
+    description:
+      'Calculez la réduction d’impôt Loc’Avantages selon la convention Loc1, Loc2 ou Loc3 et l’intermédiation locative : 15 à 65 % des loyers. Simulateur gratuit.',
+  },
+  'loyer-relocation': {
+    titre: 'Loyer à la relocation en zone tendue : calcul gratuit du maximum',
+    h1: 'Calcul du loyer maximal à la relocation en zone tendue',
+    description:
+      'Loyer maximal d’un nouveau bail en zone tendue : dernier loyer, révision IRL, exceptions (travaux, sous-évaluation) et blocage des logements F et G. Gratuit.',
+  },
+  'encadrement-loyers': {
+    titre: 'Encadrement des loyers : calcul gratuit du loyer maximal',
+    h1: 'Encadrement des loyers : calcul du loyer maximal',
+    description:
+      'Loyer de référence majoré et minoré, plafond du loyer de base et dépassement : vérifiez gratuitement si un loyer respecte l’encadrement des loyers.',
+  },
+  'taux-usure': {
+    titre: 'Taux d’usure 2026 : calcul gratuit pour votre prêt immobilier',
+    h1: 'Taux d’usure : mon prêt immobilier est-il possible ?',
+    description:
+      'Comparez le TAEG de votre offre au taux d’usure du 3e trimestre 2026 selon la durée et le type de prêt (fixe, variable, relais). Vérification gratuite.',
+  },
+  'tva-travaux': {
+    titre: 'TVA travaux 5,5 %, 10 % ou 20 % : calcul gratuit',
+    h1: 'Calcul de la TVA sur travaux : 5,5 %, 10 % ou 20 %',
+    description:
+      'Quel taux de TVA pour vos travaux : 10 % en entretien et amélioration, 5,5 % en rénovation énergétique, 20 % en neuf ou agrandissement ? Calcul gratuit.',
+  },
+  'loyer-au-m2': {
+    titre: 'Calcul loyer au m² et dépôt de garantie maximal : gratuit',
+    h1: 'Calcul du loyer au m² et du dépôt de garantie maximal',
+    description:
+      'Estimez le loyer hors charges à partir du prix au m², le loyer charges comprises et le dépôt de garantie maximal en location vide ou meublée. Gratuit.',
+  },
 };
 
 export const referencementSimulateur = (sim: Simulateur): ReferencementSimulateur => {
@@ -131,12 +191,24 @@ export function simulateurJsonLd(sim: Simulateur, chemin: string, site: URL | st
 export const CATEGORIES_SIMULATEURS: { titre: string; ids: string[] }[] = [
   {
     titre: 'Rentabilité et financement',
-    ids: ['rentabilite', 'tri', 'credit', 'capacite-emprunt', 'frais-acquisition'],
+    ids: ['rentabilite', 'meuble-de-tourisme', 'tri', 'credit', 'capacite-emprunt', 'taux-usure', 'frais-acquisition'],
   },
-  { titre: 'Loyer et bail', ids: ['revision-loyer', 'depot-de-garantie', 'dates-de-conge'] },
+  {
+    titre: 'Loyer et bail',
+    ids: [
+      'loyer-au-m2',
+      'revision-loyer',
+      'loyer-relocation',
+      'encadrement-loyers',
+      'regularisation-charges',
+      'depot-de-garantie',
+      'dates-de-conge',
+    ],
+  },
+  { titre: 'Logement et travaux', ids: ['dpe-location', 'tva-travaux'] },
   {
     titre: 'Fiscalité des loyers et de la revente',
-    ids: ['micro-foncier-ou-reel', 'micro-bic-ou-reel', 'jeanbrun', 'plus-value'],
+    ids: ['micro-foncier-ou-reel', 'micro-bic-ou-reel', 'jeanbrun', 'denormandie', 'loc-avantages', 'plus-value'],
   },
   { titre: 'Patrimoine et transmission', ids: ['ifi', 'donation'] },
 ];

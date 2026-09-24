@@ -76,9 +76,9 @@ const filAriane = [
               <strong>Simulateurs correspondants.</strong> Chaque formule alimente un simulateur :
             </p>
             <ol>
-              {SIMULATEURS.map((s) => (
+              {SIMULATEURS.filter((s) => s.formule).map((s) => (
                 <li>
-                  <a href={`#${s.formule}`}>{s.formule.toUpperCase()}</a> →{' '}
+                  <a href={`#${s.formule}`}>{s.formule?.toUpperCase()}</a> →{' '}
                   <a href={lien(`simulateurs/${s.id}/`)}>{s.titre}</a>
                 </li>
               ))}

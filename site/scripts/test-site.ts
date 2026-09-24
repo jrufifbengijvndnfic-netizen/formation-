@@ -446,6 +446,13 @@ console.log('Parcours fonctionnels…');
     'simulateur : message d’erreur',
   );
 
+  // Outil DPE : un logement G n'est plus louable en métropole.
+  await page.goto(`${BASE}/simulateurs/dpe-location/?classe=G`);
+  verifier(
+    (await page.textContent('.sim-synthese'))?.includes('Non'),
+    'outil DPE : logement G non louable (paramètre lu depuis l’adresse)',
+  );
+
   // Lettre : aperçu en direct.
   await page.goto(`${BASE}/lettres/revision-du-loyer/`);
   const lieu = page.locator('[data-lettre="f1"] label', { hasText: /^Lieu/ }).first();

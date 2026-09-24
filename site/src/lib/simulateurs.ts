@@ -1,10 +1,11 @@
 /**
- * Les 14 simulateurs : champs (avec valeurs par défaut issues des exemples de la formation),
+ * Les simulateurs et outils : champs (avec valeurs par défaut issues des exemples de la formation),
  * contrôles de saisie et résultats détaillés. Module pur, partagé par le build (résultat
  * pré-affiché, lisible sans JavaScript) et par le navigateur (recalcul à chaque saisie).
  * Tous les calculs passent par calculs.ts.
  */
 import * as C from './calculs';
+import * as O from './calculs-outils';
 import { ecartJours, estDateIso, formaterDateFr } from './dates-fr';
 import { euros, eurosArrondis, nombre, pourcent } from './format';
 
@@ -80,8 +81,10 @@ export interface Simulateur {
   resume: string;
   /** Modules qui expliquent le calcul. */
   modules: string[];
-  /** Ancre de la formule dans l'annexe E (« e1 »…). */
-  formule: string;
+  /** Ancre de la formule dans l'annexe E (« e1 »…), pour les 14 simulateurs de l'annexe E. */
+  formule?: string;
+  /** Règles appliquées, tirées de la formation (outils sans formule dans l'annexe E). */
+  methode?: string[];
   groupes: { id: string; titre: string }[];
   champs: Champ[];
   /** Contrôles croisés entre champs (en plus des bornes de chaque champ). */
@@ -1748,6 +1751,801 @@ const conge: Simulateur = {
 };
 
 // ---------------------------------------------------------------------------
+// Outils ajoutés en version 005 (règles des modules cités ; calculs dans calculs-outils.ts)
+// ---------------------------------------------------------------------------
+
+const dpeLocation: Simulateur = {
+  id: 'dpe-location',
+  titre: 'Mon logement est-il encore louable ? (DPE)',
+  resume: 'Décence énergétique selon la classe DPE, dates d’interdiction de louer, gel du loyer et audit à la vente.',
+  modules: ['1.4', '1.5', '3.9'],
+  methode: [
+    'Métropole : logements G non décents depuis le 1er janvier 2025, F à partir du 1er janvier 2028, E à partir du 1er janvier 2034.',
+    'Outre-mer : G non décent à partir du 1er janvier 2028, F à partir du 1er janvier 2031.',
+    'Le critère s’applique aux nouveaux baux, aux renouvellements et aux reconductions tacites intervenus après chaque échéance.',
+    'Logements F et G : loyer gelé (révision, relocation, renouvellement) depuis le 24 août 2022 en métropole, le 1er juillet 2024 outre-mer.',
+  ],
+  groupes: [{ id: 'logement', titre: 'Logement' }],
+  champs: [
+    {
+      type: 'choix',
+      id: 'classe',
+      libelle: 'Classe DPE du logement',
+      options: CLASSES_DPE,
+      defaut: 'F',
+      groupe: 'logement',
+    },
+    {
+      type: 'choix',
+      id: 'territoire',
+      libelle: 'Situation',
+      options: [
+        { valeur: 'metropole', libelle: 'Métropole' },
+        { valeur: 'outre-mer', libelle: 'Outre-mer' },
+      ],
+      defaut: 'metropole',
+      groupe: 'logement',
+    },
+    {
+      type: 'date',
+      id: 'dateBail',
+      libelle: 'Date du bail, du renouvellement ou de la reconduction',
+      defaut: '2026-09-24',
+      groupe: 'logement',
+    },
+  ],
+  controler: (v) =>
+    s(v, 'dateBail') < '2025-01-01'
+      ? [{ champ: 'dateBail', message: 'Saisissez une date à partir du 1er janvier 2025.' }]
+      : [],
+  calculer(v) {
+    const classe = s(v, 'classe') as O.ClasseDpe;
+    const territoire = s(v, 'territoire') as O.Territoire;
+    const d = O.diagnosticDpe(classe, territoire, s(v, 'dateBail'));
+    const blocs: BlocResultat[] = [
+      {
+        titre: 'Décence énergétique',
+        lignes: [
+          { libelle: 'Logement décent à cette date', valeur: d.decent ? 'Oui' : 'Non', fort: true },
+          {
+            libelle: 'Non décent à partir du',
+            valeur: d.nonDecentDepuis ? dateFr(d.nonDecentDepuis) : 'Aucune échéance prévue',
+          },
+        ],
+        alerte: d.decent
+          ? d.nonDecentDepuis
+            ? {
+                genre: 'surveiller',
+                texte: `À partir du ${dateFr(d.nonDecentDepuis)}, un nouveau bail, un renouvellement ou une reconduction ne sera plus possible sans travaux.`,
+              }
+            : undefined
+          : {
+              genre: 'attention',
+              texte:
+                'Nouveau bail, renouvellement ou reconduction impossibles : le logement doit d’abord gagner au moins une classe. Un bail en cours n’est pas anéanti, mais le locataire peut exiger la mise en conformité.',
+            },
+      },
+      {
+        titre: 'Loyer',
+        lignes: [
+          {
+            libelle: 'Gel du loyer (révision, relocation, renouvellement)',
+            valeur: d.loyerGele ? 'Oui' : 'Non',
+            detail: d.loyerGele ? `Classe ${classe} : aucune hausse possible` : undefined,
+          },
+          {
+            libelle: 'Mention « logement à consommation énergétique excessive » dans l’annonce',
+            valeur: d.mentionExcessive ? 'Obligatoire' : 'Non',
+          },
+        ],
+      },
+      {
+        titre: 'Vente',
+        lignes: [
+          {
+            libelle: 'Audit énergétique (maison ou immeuble en monopropriété)',
+            valeur: d.auditVenteDepuis ? `Obligatoire depuis le ${dateFr(d.auditVenteDepuis)}` : 'Non requis',
+          },
+        ],
+      },
+    ];
+    return {
+      synthese: [
+        { libelle: 'Louable à cette date', valeur: d.decent ? 'Oui' : 'Non' },
+        { libelle: 'Échéance', valeur: d.nonDecentDepuis ? dateFr(d.nonDecentDepuis) : 'Aucune' },
+        { libelle: 'Loyer gelé', valeur: d.loyerGele ? 'Oui' : 'Non' },
+      ],
+      blocs,
+    };
+  },
+};
+
+const regularisation: Simulateur = {
+  id: 'regularisation-charges',
+  titre: 'Régularisation des charges locatives',
+  resume:
+    'Provisions versées comparées aux dépenses récupérables réelles : complément dû ou trop-perçu, nouvelle provision.',
+  modules: ['2.2'],
+  methode: [
+    'Provisions de l’année = provision mensuelle × nombre de mois.',
+    'Solde = dépenses récupérables réelles − provisions : complément dû par le locataire s’il est positif, remboursement s’il est négatif.',
+    'Nouvelle provision mensuelle = dépenses réelles ÷ 12.',
+    'Décompte par nature de charges communiqué un mois avant ; justificatifs tenus à disposition pendant six mois ; prescription de trois ans.',
+  ],
+  groupes: [{ id: 'charges', titre: 'Charges de l’année' }],
+  champs: [
+    eur('provision', 'Provision mensuelle sur charges', 50, 'charges'),
+    {
+      type: 'nombre',
+      id: 'mois',
+      libelle: 'Nombre de mois de provisions',
+      unite: 'mois',
+      defaut: 12,
+      min: 1,
+      max: 12,
+      entier: true,
+      groupe: 'charges',
+    },
+    eur('depenses', 'Dépenses récupérables réelles de l’année', 672, 'charges', {
+      aide: 'Seules les charges du décret n° 87-713 sont récupérables (ni taxe foncière hors ordures ménagères, ni honoraires du syndic).',
+    }),
+    {
+      type: 'case',
+      id: 'tardive',
+      libelle: 'Régularisation faite après la fin de l’année civile suivant l’année concernée',
+      defaut: false,
+      groupe: 'charges',
+    },
+  ],
+  calculer(v) {
+    const r = O.regularisationCharges(n(v, 'provision'), n(v, 'mois'), n(v, 'depenses'));
+    const du = r.solde > 0;
+    const blocs: BlocResultat[] = [
+      {
+        titre: 'Régularisation',
+        lignes: [
+          {
+            libelle: 'Provisions versées',
+            valeur: euros(r.provisionsAnnuelles),
+            detail: `${euros(n(v, 'provision'))} × ${n(v, 'mois')} mois`,
+          },
+          { libelle: 'Dépenses récupérables réelles', valeur: euros(n(v, 'depenses')) },
+          {
+            libelle: du
+              ? 'Complément dû par le locataire'
+              : r.solde < 0
+                ? 'Trop-perçu à rembourser au locataire'
+                : 'Solde',
+            valeur: euros(Math.abs(r.solde)),
+            fort: true,
+          },
+          { libelle: 'Nouvelle provision mensuelle conseillée', valeur: euros(r.provisionMensuelleAjustee) },
+        ],
+      },
+    ];
+    if (b(v, 'tardive') && du) {
+      blocs.push({
+        titre: 'Régularisation tardive',
+        alerte: { genre: 'attention', texte: 'Le locataire peut exiger un paiement échelonné sur douze mois.' },
+      });
+    }
+    return {
+      synthese: [
+        { libelle: du ? 'Complément dû' : 'À rembourser', valeur: euros(Math.abs(r.solde)) },
+        { libelle: 'Nouvelle provision', valeur: euros(r.provisionMensuelleAjustee) },
+      ],
+      blocs,
+    };
+  },
+};
+
+const tourisme: Simulateur = {
+  id: 'meuble-de-tourisme',
+  titre: 'Location courte durée (type Airbnb) ou meublé classique',
+  resume:
+    'Recettes, charges et revenu net d’un meublé de tourisme comparés à une location meublée à l’année, micro-BIC compris.',
+  modules: ['3.8'],
+  methode: [
+    'Nuits louées = 365 × taux d’occupation ; recettes = nuits × prix par nuit.',
+    'Charges = commissions et conciergerie (en % des recettes) + autres charges annuelles.',
+    'Micro-BIC (revenus 2026) : meublé de tourisme classé ou location meublée de longue durée, plafond 83 600 € et abattement de 50 % ; meublé de tourisme non classé, plafond 15 000 € et abattement de 30 %.',
+    'Résidence principale : location touristique limitée à 120 jours par an (la commune peut abaisser à 90).',
+  ],
+  groupes: [
+    { id: 'tourisme', titre: 'Location de courte durée' },
+    { id: 'classique', titre: 'Location meublée à l’année' },
+  ],
+  champs: [
+    eur('prixNuit', 'Prix moyen par nuit', 120, 'tourisme'),
+    pct('occupation', 'Taux d’occupation', 65, 'tourisme'),
+    pct('commission', 'Commissions et conciergerie', 35, 'tourisme', { aide: 'En pourcentage des recettes.' }),
+    eur('autres', 'Autres charges annuelles', 5335, 'tourisme', {
+      aide: 'Énergie, internet, consommables, entretien, THRS, CFE, comptabilité…',
+    }),
+    {
+      type: 'case',
+      id: 'classe',
+      libelle: 'Meublé de tourisme classé (1 à 5 étoiles)',
+      defaut: false,
+      groupe: 'tourisme',
+    },
+    {
+      type: 'case',
+      id: 'residence',
+      libelle: 'Il s’agit de ma résidence principale',
+      defaut: false,
+      groupe: 'tourisme',
+    },
+    eur('loyer', 'Loyer mensuel en meublé classique', 900, 'classique'),
+    eur('chargesClassique', 'Charges annuelles à votre charge', 0, 'classique'),
+  ],
+  calculer(v) {
+    const r = O.comparaisonTourisme({
+      prixNuit: n(v, 'prixNuit'),
+      tauxOccupation: taux(v, 'occupation'),
+      commission: taux(v, 'commission'),
+      autresChargesTourisme: n(v, 'autres'),
+      classe: b(v, 'classe'),
+      loyerMensuelClassique: n(v, 'loyer'),
+      chargesClassique: n(v, 'chargesClassique'),
+    });
+    const ecart = r.netTourisme - r.netClassique;
+    const blocs: BlocResultat[] = [
+      {
+        titre: 'Location de courte durée',
+        lignes: [
+          { libelle: 'Nuits louées', valeur: nombre(r.nuits, 0) },
+          { libelle: 'Recettes brutes', valeur: euros(r.recettesTourisme, 0) },
+          { libelle: 'Commissions et conciergerie', valeur: euros(r.commissions, 0) },
+          { libelle: 'Total des charges', valeur: euros(r.chargesTourisme, 0) },
+          {
+            libelle: 'Revenu avant impôt, crédit, taxe foncière et copropriété',
+            valeur: euros(r.netTourisme, 0),
+            fort: true,
+          },
+        ],
+      },
+      {
+        titre: 'Location meublée à l’année',
+        lignes: [
+          { libelle: 'Loyers annuels', valeur: euros(r.recettesClassique, 0) },
+          {
+            libelle: 'Revenu avant impôt, crédit, taxe foncière et copropriété',
+            valeur: euros(r.netClassique, 0),
+            fort: true,
+          },
+        ],
+      },
+      {
+        titre: 'Micro-BIC',
+        tableau: {
+          legende: 'Base imposable au micro-BIC',
+          entetes: ['Location', 'Plafond', 'Abattement', 'Base imposable'],
+          lignes: [
+            [
+              b(v, 'classe') ? 'Tourisme classé' : 'Tourisme non classé',
+              euros(r.microBicTourisme.plafond, 0),
+              pourcent(r.microBicTourisme.abattement, 0),
+              r.microBicTourisme.dansLePlafond ? euros(r.microBicTourisme.base, 0) : 'Plafond dépassé : régime réel',
+            ],
+            ['Meublé à l’année', euros(83_600, 0), '50 %', euros(r.microBicClassique.base, 0)],
+          ],
+          numeriques: [false, true, true, true],
+        },
+      },
+    ];
+    if (b(v, 'residence') && r.nuits > 120) {
+      blocs.unshift({
+        titre: 'Résidence principale',
+        alerte: {
+          genre: 'attention',
+          texte: `${nombre(r.nuits, 0)} nuits dépassent la limite de 120 jours par an (90 si votre commune l’a abaissée).`,
+        },
+      });
+    }
+    blocs.push({
+      titre: 'Avant de vous lancer',
+      alerte: {
+        genre: 'info',
+        texte:
+          'Enregistrement obligatoire sur Déclaloc, autorisation de changement d’usage dans de nombreuses villes, DPE exigé, gestion bien plus lourde et risque réglementaire plus élevé.',
+      },
+    });
+    return {
+      synthese: [
+        { libelle: 'Courte durée', valeur: euros(r.netTourisme, 0) },
+        { libelle: 'Meublé à l’année', valeur: euros(r.netClassique, 0) },
+        { libelle: 'Écart annuel', valeur: signe(ecart, 0) },
+      ],
+      blocs,
+    };
+  },
+};
+
+const denormandieSim: Simulateur = {
+  id: 'denormandie',
+  titre: 'Réduction d’impôt Denormandie',
+  resume:
+    'Réduction de 12, 18 ou 21 % du prix de revient d’un logement ancien rénové, plafonds et condition de travaux.',
+  modules: ['3.4'],
+  methode: [
+    'Prix de revient = prix d’acquisition + travaux, retenu dans la limite de 300 000 € et de 5 500 € par m².',
+    'Réduction = 12 % (6 ans), 18 % (9 ans) ou 21 % (12 ans) du prix de revient retenu, répartie par parts égales.',
+    'Travaux d’au moins 25 % du coût total de l’opération, dans une commune « Action cœur de ville » ou en ORT ; dispositif ouvert jusqu’au 31 décembre 2027.',
+    'La réduction entre dans le plafonnement global des avantages fiscaux (10 000 € par an).',
+  ],
+  groupes: [{ id: 'projet', titre: 'Projet' }],
+  champs: [
+    eur('prix', 'Prix d’acquisition (frais compris)', 150_000, 'projet'),
+    eur('travaux', 'Montant des travaux', 60_000, 'projet'),
+    { type: 'nombre', id: 'surface', libelle: 'Surface habitable', unite: 'm²', defaut: 60, min: 1, groupe: 'projet' },
+    {
+      type: 'choix',
+      id: 'duree',
+      libelle: 'Durée d’engagement de location',
+      options: [
+        { valeur: '6', libelle: '6 ans (12 %)' },
+        { valeur: '9', libelle: '9 ans (18 %)' },
+        { valeur: '12', libelle: '12 ans (21 %)' },
+      ],
+      defaut: '9',
+      groupe: 'projet',
+    },
+  ],
+  calculer(v) {
+    const duree = Number(s(v, 'duree')) as 6 | 9 | 12;
+    const r = O.denormandie({ prix: n(v, 'prix'), travaux: n(v, 'travaux'), surface: n(v, 'surface'), duree });
+    return {
+      synthese: [
+        { libelle: 'Réduction totale', valeur: euros(r.reduction, 0) },
+        { libelle: 'Par an', valeur: euros(r.parAn, 0) },
+      ],
+      blocs: [
+        {
+          titre: 'Calcul',
+          lignes: [
+            { libelle: 'Prix de revient', valeur: euros(r.prixDeRevient, 0) },
+            { libelle: 'Plafond (300 000 € et 5 500 €/m²)', valeur: euros(r.plafond, 0) },
+            { libelle: 'Base retenue', valeur: euros(r.base, 0) },
+            { libelle: 'Taux', valeur: pourcent(r.taux, 0) },
+            { libelle: 'Réduction d’impôt totale', valeur: euros(r.reduction, 0), fort: true },
+            { libelle: `Réduction annuelle pendant ${duree} ans`, valeur: euros(r.parAn, 0) },
+          ],
+        },
+        {
+          titre: 'Condition de travaux',
+          lignes: [{ libelle: 'Part des travaux dans le coût total', valeur: pourcent(r.partTravaux, 1) }],
+          alerte: r.conditionTravaux
+            ? undefined
+            : {
+                genre: 'attention',
+                texte: 'Les travaux doivent représenter au moins 25 % du coût total de l’opération.',
+              },
+        },
+      ],
+    };
+  },
+};
+
+const locAvantagesSim: Simulateur = {
+  id: 'loc-avantages',
+  titre: 'Réduction d’impôt Loc’Avantages',
+  resume:
+    'Réduction annuelle de 15 à 65 % des loyers selon la convention Loc1, Loc2 ou Loc3 et l’intermédiation locative.',
+  modules: ['3.4'],
+  methode: [
+    'Réduction annuelle = loyers bruts × taux : Loc1 15 % (20 % avec intermédiation locative), Loc2 35 % (40 %), Loc3 65 % (intermédiation obligatoire).',
+    'Convention avec l’ANAH d’au moins six ans, loyer inférieur au marché (environ −15 %, −30 % ou −45 %), plafonds de ressources des locataires.',
+    'Dispositif ouvert jusqu’au 31 décembre 2027 ; il entre dans le plafonnement global des avantages fiscaux.',
+  ],
+  groupes: [{ id: 'convention', titre: 'Convention' }],
+  champs: [
+    eur('loyer', 'Loyer mensuel hors charges', 600, 'convention'),
+    {
+      type: 'choix',
+      id: 'convention',
+      libelle: 'Convention',
+      options: [
+        { valeur: 'loc1', libelle: 'Loc1 (environ −15 % du marché)' },
+        { valeur: 'loc2', libelle: 'Loc2 (environ −30 %)' },
+        { valeur: 'loc3', libelle: 'Loc3 (environ −45 %)' },
+      ],
+      defaut: 'loc2',
+      groupe: 'convention',
+    },
+    { type: 'case', id: 'intermediation', libelle: 'Intermédiation locative', defaut: false, groupe: 'convention' },
+  ],
+  calculer(v) {
+    const conv = s(v, 'convention') as O.ConventionLocAvantages;
+    const r = O.locAvantages(n(v, 'loyer'), conv, b(v, 'intermediation'));
+    return {
+      synthese: [
+        { libelle: 'Réduction par an', valeur: euros(r.reductionAnnuelle, 0) },
+        { libelle: 'Sur 6 ans', valeur: euros(r.sur6Ans, 0) },
+      ],
+      blocs: [
+        {
+          titre: 'Calcul',
+          lignes: [
+            { libelle: 'Loyers bruts annuels', valeur: euros(r.loyersAnnuels, 0) },
+            { libelle: 'Taux de réduction', valeur: pourcent(r.taux, 0) },
+            { libelle: 'Réduction d’impôt annuelle', valeur: euros(r.reductionAnnuelle, 0), fort: true },
+            { libelle: 'Sur la durée minimale de six ans', valeur: euros(r.sur6Ans, 0) },
+          ],
+          alerte:
+            conv === 'loc3' && !b(v, 'intermediation')
+              ? {
+                  genre: 'info',
+                  texte: 'En Loc3, l’intermédiation locative est obligatoire : elle est retenue d’office.',
+                }
+              : undefined,
+        },
+      ],
+    };
+  },
+};
+
+const relocation: Simulateur = {
+  id: 'loyer-relocation',
+  titre: 'Loyer maximal à la relocation en zone tendue',
+  resume:
+    'Loyer d’un nouveau bail en zone tendue : dernier loyer, révision IRL, exceptions et blocage des logements F et G.',
+  modules: ['2.1'],
+  methode: [
+    'Le loyer du nouveau bail ne peut excéder le dernier loyer du précédent locataire, augmenté de la variation de l’IRL s’il n’a pas été révisé dans les douze derniers mois.',
+    'Travaux d’au moins la moitié de la dernière année de loyer : hausse annuelle limitée à 15 % de leur coût TTC. Loyer sous-évalué : moitié de l’écart avec le loyer du voisinage.',
+    'Vacance de plus de 18 mois, première location ou gros travaux récents : loyer libre (sous réserve de l’encadrement).',
+    'Logements F ou G : aucune hausse, quelle que soit l’exception. Régime reconduit pour les baux du 1er août 2026 au 31 juillet 2027.',
+  ],
+  groupes: [
+    { id: 'loyer', titre: 'Dernier loyer' },
+    { id: 'exception', titre: 'Exception' },
+  ],
+  champs: [
+    eur('dernierLoyer', 'Dernier loyer du précédent locataire (hors charges)', 700, 'loyer'),
+    {
+      type: 'case',
+      id: 'revise',
+      libelle: 'Loyer révisé dans les douze derniers mois',
+      defaut: false,
+      groupe: 'loyer',
+    },
+    {
+      type: 'nombre',
+      id: 'irlAncien',
+      libelle: 'IRL de la dernière révision',
+      defaut: 146.68,
+      min: 1,
+      groupe: 'loyer',
+    },
+    { type: 'nombre', id: 'irlNouveau', libelle: 'Dernier IRL publié', defaut: 148.37, min: 1, groupe: 'loyer' },
+    { type: 'choix', id: 'dpe', libelle: 'Classe DPE', options: CLASSES_DPE, defaut: 'D', groupe: 'loyer' },
+    {
+      type: 'choix',
+      id: 'exception',
+      libelle: 'Exception invoquée',
+      options: [
+        { valeur: 'aucune', libelle: 'Aucune' },
+        { valeur: 'travaux', libelle: 'Travaux d’amélioration depuis le dernier bail' },
+        { valeur: 'sous-evalue', libelle: 'Loyer manifestement sous-évalué' },
+        { valeur: 'libre', libelle: 'Vacance > 18 mois, première location ou gros travaux récents' },
+      ],
+      defaut: 'aucune',
+      groupe: 'exception',
+    },
+    eur('travaux', 'Coût TTC des travaux', 0, 'exception'),
+    eur('voisinage', 'Loyer de référence du voisinage (mensuel)', 0, 'exception'),
+  ],
+  calculer(v) {
+    const r = O.loyerRelocation({
+      dernierLoyer: n(v, 'dernierLoyer'),
+      reviseDansLes12Mois: b(v, 'revise'),
+      irlAncien: n(v, 'irlAncien'),
+      irlNouveau: n(v, 'irlNouveau'),
+      passoire: ['F', 'G'].includes(s(v, 'dpe')),
+      exception: s(v, 'exception') as O.ExceptionRelocation,
+      coutTravaux: n(v, 'travaux'),
+      loyerVoisinage: n(v, 'voisinage'),
+    });
+    const blocs: BlocResultat[] = [
+      {
+        titre: 'Loyer du nouveau bail',
+        lignes: [
+          { libelle: 'Dernier loyer', valeur: euros(n(v, 'dernierLoyer')) },
+          { libelle: 'Après révision IRL éventuelle', valeur: euros(r.avecIrl) },
+          {
+            libelle: 'Loyer maximal',
+            valeur: r.maximum === null ? 'Libre' : euros(r.maximum),
+            detail: r.motif,
+            fort: true,
+          },
+        ],
+      },
+    ];
+    if (r.exceptionRefusee) {
+      blocs.push({
+        titre: 'Exception',
+        alerte: {
+          genre: 'attention',
+          texte: ['F', 'G'].includes(s(v, 'dpe'))
+            ? 'Logement F ou G : aucune exception ne permet de hausse.'
+            : 'Les conditions de l’exception ne sont pas remplies avec les montants saisis.',
+        },
+      });
+    }
+    return { synthese: [{ libelle: 'Loyer maximal', valeur: r.maximum === null ? 'Libre' : euros(r.maximum) }], blocs };
+  },
+};
+
+const encadrement: Simulateur = {
+  id: 'encadrement-loyers',
+  titre: 'Encadrement des loyers : mon loyer est-il conforme ?',
+  resume: 'Loyer de référence majoré et minoré, plafond du loyer de base, dépassement et complément de loyer.',
+  modules: ['2.1'],
+  methode: [
+    'Loyer de référence majoré = loyer de référence × 1,2 ; minoré = loyer de référence × 0,7 (en € par m²).',
+    'Le loyer de base ne peut dépasser loyer de référence majoré × surface habitable.',
+    'Complément de loyer possible pour des caractéristiques exceptionnelles, interdit notamment pour un logement F ou G.',
+    'Loyers de référence : arrêté préfectoral en vigueur (Paris, Lille, Lyon et Villeurbanne, Montpellier, Bordeaux, Pays basque, Grenoble-Alpes Métropole, Plaine Commune, Est Ensemble).',
+  ],
+  groupes: [{ id: 'logement', titre: 'Logement' }],
+  champs: [
+    {
+      type: 'nombre',
+      id: 'surface',
+      libelle: 'Surface habitable',
+      unite: 'm²',
+      defaut: 30,
+      min: 1,
+      groupe: 'logement',
+    },
+    {
+      type: 'nombre',
+      id: 'reference',
+      libelle: 'Loyer de référence (arrêté préfectoral)',
+      unite: '€/m²',
+      defaut: 25,
+      min: 0,
+      groupe: 'logement',
+      aide: 'Le loyer de référence (médian) de votre secteur, type de logement et époque de construction.',
+    },
+    eur('loyerBase', 'Loyer de base prévu (hors charges)', 950, 'logement'),
+    eur('complement', 'Complément de loyer', 0, 'logement'),
+    { type: 'choix', id: 'dpe', libelle: 'Classe DPE', options: CLASSES_DPE, defaut: 'D', groupe: 'logement' },
+  ],
+  calculer(v) {
+    const r = O.encadrementLoyer({
+      surface: n(v, 'surface'),
+      loyerReference: n(v, 'reference'),
+      loyerBase: n(v, 'loyerBase'),
+      complement: n(v, 'complement'),
+      passoire: ['F', 'G'].includes(s(v, 'dpe')),
+    });
+    const blocs: BlocResultat[] = [
+      {
+        titre: 'Références',
+        lignes: [
+          { libelle: 'Loyer de référence majoré', valeur: `${nombre(r.majore, 2)} €/m²` },
+          { libelle: 'Loyer de référence minoré', valeur: `${nombre(r.minore, 2)} €/m²` },
+          { libelle: 'Loyer de base maximal', valeur: euros(r.plafond), fort: true },
+        ],
+      },
+      {
+        titre: 'Votre loyer',
+        lignes: [
+          { libelle: 'Loyer de base prévu', valeur: euros(n(v, 'loyerBase')) },
+          { libelle: 'Dépassement mensuel', valeur: euros(r.depassement), fort: r.depassement > 0 },
+        ],
+        alerte: r.conforme
+          ? undefined
+          : {
+              genre: 'attention',
+              texte:
+                'Loyer supérieur au plafond : le locataire peut obtenir une diminution et le remboursement du trop-perçu ; amende administrative jusqu’à 5 000 € (15 000 € pour une personne morale).',
+            },
+      },
+    ];
+    if (r.complementInterdit) {
+      blocs.push({
+        titre: 'Complément',
+        alerte: { genre: 'attention', texte: 'Complément de loyer interdit pour un logement F ou G.' },
+      });
+    }
+    return {
+      synthese: [
+        { libelle: 'Loyer maximal', valeur: euros(r.plafond) },
+        { libelle: 'Conforme', valeur: r.conforme ? 'Oui' : 'Non' },
+      ],
+      blocs,
+    };
+  },
+};
+
+const usure: Simulateur = {
+  id: 'taux-usure',
+  titre: 'Taux d’usure : mon prêt immobilier est-il possible ?',
+  resume: 'Comparaison du TAEG de votre offre avec le taux d’usure du trimestre selon la durée et le type de prêt.',
+  modules: ['2.10'],
+  methode: [
+    'Aucun prêt ne peut dépasser le taux d’usure : on compare le TAEG (intérêts, assurance obligatoire, frais de dossier et de garantie) au seuil.',
+    'Seuils du 3e trimestre 2026 : taux fixe de moins de 10 ans 4,07 % ; de 10 à moins de 20 ans 4,57 % ; 20 ans et plus 5,29 % ; taux variable 5,28 % ; prêts relais 6,39 %.',
+    'Les seuils sont publiés à la fin de chaque trimestre pour le trimestre suivant.',
+  ],
+  groupes: [{ id: 'pret', titre: 'Offre de prêt' }],
+  champs: [
+    {
+      type: 'nombre',
+      id: 'taeg',
+      libelle: 'TAEG de l’offre',
+      unite: '%',
+      defaut: 4.2,
+      min: 0,
+      max: 30,
+      groupe: 'pret',
+    },
+    ans('duree', 'Durée du prêt', 20, 'pret'),
+    {
+      type: 'choix',
+      id: 'type',
+      libelle: 'Type de prêt',
+      options: [
+        { valeur: 'fixe', libelle: 'Taux fixe' },
+        { valeur: 'variable', libelle: 'Taux variable' },
+        { valeur: 'relais', libelle: 'Prêt relais' },
+      ],
+      defaut: 'fixe',
+      groupe: 'pret',
+    },
+  ],
+  calculer(v) {
+    const seuil = O.seuilUsure(s(v, 'type') as O.TypePret, n(v, 'duree'));
+    const ok = n(v, 'taeg') <= seuil;
+    return {
+      synthese: [
+        { libelle: 'Taux d’usure', valeur: `${nombre(seuil, 2)} %` },
+        { libelle: 'Offre possible', valeur: ok ? 'Oui' : 'Non' },
+      ],
+      blocs: [
+        {
+          titre: 'Comparaison (3e trimestre 2026)',
+          lignes: [
+            { libelle: 'TAEG de l’offre', valeur: `${nombre(n(v, 'taeg'), 2)} %` },
+            { libelle: 'Taux d’usure applicable', valeur: `${nombre(seuil, 2)} %`, fort: true },
+            {
+              libelle: 'Marge',
+              valeur: `${nombre(seuil - n(v, 'taeg'), 2)} point${Math.abs(seuil - n(v, 'taeg')) >= 2 ? 's' : ''}`,
+            },
+          ],
+          alerte: ok
+            ? undefined
+            : {
+                genre: 'attention',
+                texte: 'TAEG supérieur au taux d’usure : la banque ne peut pas accorder ce prêt en l’état.',
+              },
+        },
+      ],
+    };
+  },
+};
+
+const tva: Simulateur = {
+  id: 'tva-travaux',
+  titre: 'TVA des travaux : 5,5 %, 10 % ou 20 %',
+  resume: 'Taux de TVA applicable aux travaux dans un logement, montant de TVA et prix TTC.',
+  modules: ['2.3'],
+  methode: [
+    '10 % pour l’amélioration et l’entretien de logements achevés depuis plus de deux ans.',
+    '5,5 % pour les travaux de rénovation énergétique éligibles (étendu en 2026 à certaines pompes à chaleur air-air performantes).',
+    '20 % pour les travaux assimilés à une construction neuve ou à un agrandissement.',
+  ],
+  groupes: [{ id: 'travaux', titre: 'Travaux' }],
+  champs: [
+    eur('montant', 'Montant hors taxes', 10_000, 'travaux'),
+    {
+      type: 'choix',
+      id: 'nature',
+      libelle: 'Nature des travaux',
+      options: [
+        { valeur: 'entretien', libelle: 'Amélioration ou entretien (logement de plus de deux ans)' },
+        { valeur: 'energetique', libelle: 'Rénovation énergétique éligible' },
+        { valeur: 'neuf', libelle: 'Construction neuve ou agrandissement' },
+      ],
+      defaut: 'entretien',
+      groupe: 'travaux',
+    },
+  ],
+  calculer(v) {
+    const r = O.tvaTravaux(n(v, 'montant'), s(v, 'nature') as O.NatureTravaux);
+    return {
+      synthese: [
+        { libelle: 'Taux', valeur: pourcent(r.taux, 1) },
+        { libelle: 'Prix TTC', valeur: euros(r.ttc) },
+      ],
+      blocs: [
+        {
+          titre: 'Montants',
+          lignes: [
+            { libelle: 'Hors taxes', valeur: euros(n(v, 'montant')) },
+            { libelle: `TVA à ${pourcent(r.taux, 1)}`, valeur: euros(r.tva) },
+            { libelle: 'Toutes taxes comprises', valeur: euros(r.ttc), fort: true },
+          ],
+        },
+      ],
+    };
+  },
+};
+
+const loyerM2: Simulateur = {
+  id: 'loyer-au-m2',
+  titre: 'Estimer un loyer au m² et le dépôt de garantie',
+  resume:
+    'Loyer hors charges à partir du prix au m² des biens comparables, loyer charges comprises et dépôt de garantie maximal.',
+  modules: ['1.6'],
+  methode: [
+    'Loyer hors charges = surface habitable × prix au m² retenu parmi les biens comparables.',
+    'Loyer charges comprises = loyer hors charges + provision sur charges récupérables.',
+    'Dépôt de garantie : au plus un mois de loyer hors charges en location vide, deux mois en meublé, interdit en bail mobilité.',
+    'En zone tendue et dans les villes encadrées, vérifiez aussi les plafonds de relocation et d’encadrement.',
+  ],
+  groupes: [{ id: 'logement', titre: 'Logement' }],
+  champs: [
+    {
+      type: 'nombre',
+      id: 'surface',
+      libelle: 'Surface habitable',
+      unite: 'm²',
+      defaut: 42,
+      min: 1,
+      groupe: 'logement',
+    },
+    {
+      type: 'nombre',
+      id: 'prixM2',
+      libelle: 'Loyer au m² retenu (hors charges)',
+      unite: '€/m²',
+      defaut: 13.2,
+      min: 0,
+      groupe: 'logement',
+    },
+    eur('charges', 'Provision mensuelle sur charges', 55, 'logement'),
+    { type: 'case', id: 'meuble', libelle: 'Location meublée', defaut: false, groupe: 'logement' },
+  ],
+  calculer(v) {
+    const r = O.loyerAuM2({
+      surface: n(v, 'surface'),
+      prixM2: n(v, 'prixM2'),
+      charges: n(v, 'charges'),
+      meuble: b(v, 'meuble'),
+    });
+    return {
+      synthese: [
+        { libelle: 'Loyer hors charges', valeur: euros(r.loyer) },
+        { libelle: 'Dépôt maximal', valeur: euros(r.depotMaximum) },
+      ],
+      blocs: [
+        {
+          titre: 'Loyer',
+          lignes: [
+            {
+              libelle: 'Loyer hors charges',
+              valeur: euros(r.loyer),
+              detail: `${nombre(n(v, 'surface'), 0)} m² × ${nombre(n(v, 'prixM2'), 2)} €`,
+              fort: true,
+            },
+            { libelle: 'Loyer charges comprises', valeur: euros(r.chargesComprises) },
+            {
+              libelle: 'Dépôt de garantie maximal',
+              valeur: euros(r.depotMaximum),
+              detail: b(v, 'meuble') ? 'Deux mois de loyer hors charges' : 'Un mois de loyer hors charges',
+            },
+          ],
+        },
+      ],
+    };
+  },
+};
+
+// ---------------------------------------------------------------------------
 // Registre, valeurs et contrôles
 // ---------------------------------------------------------------------------
 
@@ -1766,6 +2564,16 @@ export const SIMULATEURS: Simulateur[] = [
   triSim,
   donation,
   conge,
+  dpeLocation,
+  regularisation,
+  tourisme,
+  denormandieSim,
+  locAvantagesSim,
+  relocation,
+  encadrement,
+  usure,
+  tva,
+  loyerM2,
 ];
 
 export const simulateurParId = (id: string): Simulateur | undefined => SIMULATEURS.find((x) => x.id === id);

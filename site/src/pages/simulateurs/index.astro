@@ -20,8 +20,8 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs
       <p class="bandeau__sur">Gratuits, sans inscription</p>
       <h1>Simulateurs immobiliers gratuits</h1>
       <p>
-        Chaque simulateur reprend une formule de l'annexe E, détaille les étapes du calcul et s'ouvre sur un exemple de
-        la formation. Gratuits et sans inscription ; rien n'est envoyé : les calculs se font dans votre navigateur.
+        Chaque outil applique les règles de la formation, détaille les étapes du calcul et s'ouvre sur un exemple.
+        Gratuits et sans inscription ; rien n'est envoyé : les calculs se font dans votre navigateur.
       </p>
     </div>
   </div>
@@ -30,7 +30,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs
       {SIMULATEURS.map((s, i) => (
         <li class="registre__ligne">
           <span class="registre__numero">
-            <span class="parcelle">{s.formule.toUpperCase()}</span>
+            <span class="parcelle">{s.formule ? s.formule.toUpperCase() : String(i + 1)}</span>
           </span>
           <div>
             <h2 class="registre__titre">

@@ -17,13 +17,14 @@ interface Props {
   simulateur: TSimulateur;
 }
 const { simulateur: sim } = Astro.props;
-const suggestions: Record<string, typeof irlPublies> =
-  sim.id === 'revision-loyer' ? { irlAncien: irlPublies, irlNouveau: irlPublies } : {};
+const suggestions: Record<string, typeof irlPublies> = ['revision-loyer', 'loyer-relocation'].includes(sim.id)
+  ? { irlAncien: irlPublies, irlNouveau: irlPublies }
+  : {};
 const i = SIMULATEURS.indexOf(sim);
 const precedent = SIMULATEURS[i - 1];
 const suivant = SIMULATEURS[i + 1];
 const seo = referencementSimulateur(sim);
-const formule = formuleSimulateur(sim.formule);
+const formule = sim.formule ? formuleSimulateur(sim.formule) : undefined;
 const niveauxDuSimulateur = [...new Set(sim.modules.map((n) => n.split('.')[0]))].sort();
 const autres = SIMULATEURS.filter((s) => s !== sim);
 const donnees = simulateurJsonLd(sim, Astro.url.pathname, Astro.site ?? SITE_PAR_DEFAUT);
@@ -46,7 +47,9 @@ const filAriane = [
     <div class="bandeau">
       <div class="conteneur">
         <FilAriane etapes={filAriane} />
-        <p class="bandeau__sur">Simulateur gratuit · formule {sim.formule.toUpperCase()} de l'annexe E</p>
+        <p class="bandeau__sur">
+          {sim.formule ? `Simulateur gratuit · formule ${sim.formule.toUpperCase()} de l'annexe E` : 'Outil gratuit'}
+        </p>
         <h1>{seo.h1}</h1>
         <p>{sim.resume}</p>
         <p class="bandeau__meta" data-pagefind-ignore>
@@ -64,9 +67,11 @@ const filAriane = [
                   </>
                 ))}
               </span>
-              <span>
-                <a href={lien(`annexe/e/#${sim.formule}`)}>Formule {sim.formule.toUpperCase()}</a>
-              </span>
+              {sim.formule && (
+                <span>
+                  <a href={lien(`annexe/e/#${sim.formule}`)}>Formule {sim.formule.toUpperCase()}</a>
+                </span>
+              )}
             </>
           ) : (
             <span>
@@ -86,11 +91,24 @@ const filAriane = [
       <div class="prose">
         <section aria-labelledby="methode-titre">
           <h2 id="methode-titre">Comment le calcul est fait</h2>
-          <p>
-            Le simulateur applique la formule {sim.formule.toUpperCase()} (« {formule.titre} ») de l'annexe E de la
-            formation :
-          </p>
-          <Fragment set:html={formule.html} />
+          {formule ? (
+            <>
+              <p>
+                Le simulateur applique la formule {sim.formule?.toUpperCase()} (« {formule.titre} ») de l'annexe E de la
+                formation :
+              </p>
+              <Fragment set:html={formule.html} />
+            </>
+          ) : (
+            <>
+              <p>L'outil applique les règles suivantes, tirées de la formation :</p>
+              <ul>
+                {sim.methode?.map((r) => (
+                  <li>{r}</li>
+                ))}
+              </ul>
+            </>
+          )}
         </section>
         <section aria-labelledby="autres-titre" data-pagefind-ignore>
           <h2 id="autres-titre">Autres simulateurs gratuits</h2>

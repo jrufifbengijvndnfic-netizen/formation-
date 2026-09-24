@@ -4,7 +4,8 @@ Site statique (Astro 7 + TypeScript) généré à partir d'un **seul fichier Mar
 `../files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.md`.
 
 38 modules sur trois niveaux, 3 examens, 7 checklists, 9 annexes, 122 questions de quiz,
-180 termes de glossaire, 10 modèles de lettres et 14 simulateurs.
+180 termes de glossaire, 10 modèles de lettres et 24 simulateurs et outils (14 formules de l'annexe E,
+10 outils fondés sur les règles des modules).
 
 ## Commandes
 
@@ -107,7 +108,8 @@ src/
     json-export.ts          régénération à l'identique des trois JSON du pack
     attendus.ts             comptages vérifiés au build (critère d'acceptation 1)
     calculs.ts              traduction fidèle de reference-calculs.py + résultats détaillés
-    simulateurs.ts          les 14 simulateurs : champs, valeurs par défaut, contrôles, résultats
+    simulateurs.ts          les 24 simulateurs et outils : champs, valeurs par défaut, contrôles, résultats
+    calculs-outils.ts       calculs des 10 outils de la version 005 (DPE, charges, courte durée…)
     render.ts               Markdown → HTML : encadrés, tableaux, formules, liens, infobulles
     glossaire-match.ts      repérage des termes (sigles sensibles à la casse)
     lettres.ts              champs à compléter des modèles de lettres

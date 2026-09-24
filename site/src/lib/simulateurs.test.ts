@@ -20,9 +20,9 @@ const parDefaut = (id: string): Resultat => {
 const synthese = (r: Resultat) => r.synthese.map((x) => x.valeur.replace(/\u202f|\u00a0/g, ' '));
 
 describe('simulateurs : valeurs par défaut issues des exemples de la formation', () => {
-  it('14 simulateurs aux identifiants uniques, tous calculables', () => {
-    expect(SIMULATEURS).toHaveLength(14);
-    expect(new Set(SIMULATEURS.map((s) => s.id)).size).toBe(14);
+  it('24 simulateurs et outils aux identifiants uniques, tous calculables', () => {
+    expect(SIMULATEURS).toHaveLength(24);
+    expect(new Set(SIMULATEURS.map((s) => s.id)).size).toBe(24);
     for (const s of SIMULATEURS) {
       const r = executer(s, valeursParDefaut(s));
       expect(r.erreurs, s.id).toEqual([]);
