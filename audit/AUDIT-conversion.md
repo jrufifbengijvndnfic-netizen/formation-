@@ -129,6 +129,10 @@ Sur les seules captures du haut de page (`audit/captures/*-haut.jpg`). 0 = absen
 - Q5 : « Dès 97 € le niveau · 447 € la formation complète » sous le titre.
 - Q6 : deux boutons visibles sans défiler : principal « Commencer gratuitement le niveau 1 »,
   secondaire « Voir le programme et les prix ».
+- **Maquette** (branche `audit/propositions`, page `/formation-investissement-locatif/`, captures
+  `audit/captures/maquette-page-de-vente-*`) : en mobile, Q1 2, Q2 1, Q3 2, Q4 1, Q5 2, Q6 2, soit
+  **10 / 12**. Restent à renforcer : « pour qui » au-dessus de la ligne de flottaison et la preuve
+  (auteur, avis) [À FOURNIR].
 - Retirer du haut de page, pour un nouveau visiteur, la barre « Ma progression : 0 % » et les jauges
   « 0 % — 0 module lu » des cartes (`formation.astro:110-114`) : bruit, et signal « rien n'est
   commencé ».
