@@ -64,7 +64,9 @@ Chaque build produit aussi dans `dist/` :
 
 - `sitemap.xml` (adresses canoniques indexables uniquement) et `robots.txt` ;
 - `_redirects` (redirections 301) et `_headers` (HTTPS strict, sécurité, cache), lus par Netlify et
-  Cloudflare Pages. Vercel lit l'équivalent dans `vercel.json` ; Netlify, `../netlify.toml`.
+  Cloudflare Pages. Vercel lit l'équivalent dans `vercel.json` : celui de la racine du dépôt
+  (construit `site/`, publie `site/dist`) ou celui de `site/` si le « Root Directory » du projet Vercel
+  est `site` ; un test vérifie qu'ils concordent. Netlify lit `../netlify.toml`.
 
 Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`) ; un test vérifie que
 `vercel.json` les reprend.

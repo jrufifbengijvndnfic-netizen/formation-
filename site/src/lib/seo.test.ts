@@ -71,3 +71,15 @@ describe('offres', () => {
     expect(offreJsonLd(offreNiveau(1), 'https://x/tarifs/')).not.toHaveProperty('availability');
   });
 });
+
+describe('déploiement Vercel', () => {
+  it('le vercel.json de la racine du dépôt reprend redirections et en-têtes de site/vercel.json', async () => {
+    const { readFileSync } = await import('node:fs');
+    const lire = (chemin: string) => JSON.parse(readFileSync(new URL(chemin, import.meta.url), 'utf8'));
+    const racine = lire('../../../vercel.json');
+    const site = lire('../../vercel.json');
+    expect(racine.redirects).toEqual(site.redirects);
+    expect(racine.headers).toEqual(site.headers);
+    expect(racine.outputDirectory).toBe('site/dist');
+  });
+});
