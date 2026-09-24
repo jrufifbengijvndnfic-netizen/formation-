@@ -74,9 +74,11 @@ Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`) ; un test 
 
 ## Éditions
 
-Par défaut, le build produit le **site public d'outils** (simulateurs, modèles de lettres, tarifs).
-`EDITION=complete npm run build` ajoute le cours complet (pages de `src/cours/`, routes injectées par
-`astro.config.mjs`). Voir `src/lib/edition.ts`.
+Par défaut, le build produit le **site complet** : la formation en page d'accueil et les outils
+gratuits (vitrine sur `/outils/`). `EDITION=outils npm run build` ne produit que les outils gratuits,
+les tarifs et les informations (pour le jour où le cours deviendra payant). Pages du cours :
+`src/cours/` ; vitrine des outils : `src/outils/` ; routes injectées par `astro.config.mjs`. Voir
+`src/lib/edition.ts`.
 
 ## Tarifs et vente
 

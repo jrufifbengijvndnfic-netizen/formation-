@@ -1,20 +1,21 @@
 /**
  * Édition construite :
- * - « outils » (par défaut) : le site public ne contient que les outils gratuits (simulateurs,
- *   modèles de lettres), les tarifs et les informations ; le cours est réservé aux acheteurs ;
- * - « complete » (EDITION=complete) : ajoute tout le cours (modules, quiz, examens, checklists,
- *   annexes, glossaire, recherche, progression), par exemple pour l'espace membre.
+ * - « complete » (par défaut) : la formation en page d'accueil (modules, quiz, examens, checklists,
+ *   annexes, glossaire, recherche, progression) et les outils gratuits (simulateurs, lettres), vitrine
+ *   sur /outils/, qui amènent du trafic vers la formation ;
+ * - « outils » (EDITION=outils) : seulement les outils gratuits, les tarifs et les informations, pour
+ *   le jour où le cours sera réservé aux acheteurs.
  */
 export type Edition = 'outils' | 'complete';
 
-export const EDITION: Edition = process.env.EDITION === 'complete' ? 'complete' : 'outils';
+export const EDITION: Edition = process.env.EDITION === 'outils' ? 'outils' : 'complete';
 
 /** Vrai si les pages du cours sont construites (et peuvent donc recevoir des liens). */
 export const COURS_PUBLIC = EDITION === 'complete';
 
 /** Pages du cours, construites seulement dans l'édition complète (src/cours/, routes injectées). */
 export const ROUTES_COURS: { pattern: string; entrypoint: string }[] = [
-  ['/formation', 'formation.astro'],
+  ['/', 'formation.astro'],
   ['/mode-d-emploi', 'mode-d-emploi.astro'],
   ['/niveau-[n]', 'niveau-[n].astro'],
   ['/module/[id]', 'module/[id].astro'],
@@ -28,3 +29,9 @@ export const ROUTES_COURS: { pattern: string; entrypoint: string }[] = [
   ['/progression', 'progression.astro'],
   ['/recherche', 'recherche.astro'],
 ].map(([pattern, fichier]) => ({ pattern: pattern as string, entrypoint: `./src/cours/${fichier}` }));
+
+/** Vitrine des outils gratuits : page d'accueil de l'édition « outils », /outils/ sinon. */
+export const ROUTE_ACCUEIL_OUTILS = {
+  pattern: COURS_PUBLIC ? '/outils' : '/',
+  entrypoint: './src/outils/accueil.astro',
+};

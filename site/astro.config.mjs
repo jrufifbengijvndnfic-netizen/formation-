@@ -3,7 +3,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 import { copyFileSync, existsSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { COURS_PUBLIC, ROUTES_COURS } from './src/lib/edition.ts';
+import { COURS_PUBLIC, ROUTE_ACCUEIL_OUTILS, ROUTES_COURS } from './src/lib/edition.ts';
 import { REDIRECTIONS, SITE_PAR_DEFAUT } from './src/lib/seo.ts';
 
 /**
@@ -32,7 +32,7 @@ function rechargerSurMarkdown() {
   };
 }
 
-/** Édition complète (EDITION=complete) : ajoute les pages du cours, rangées dans src/cours/. */
+/** Pages du cours (src/cours/, édition complète) et vitrine des outils (src/outils/). */
 function pagesDuCours() {
   return {
     name: 'formation-cours',
@@ -40,6 +40,7 @@ function pagesDuCours() {
       /** @param {{ injectRoute: (r: { pattern: string, entrypoint: string }) => void }} options */
       'astro:config:setup': ({ injectRoute }) => {
         if (COURS_PUBLIC) ROUTES_COURS.forEach((r) => injectRoute(r));
+        injectRoute(ROUTE_ACCUEIL_OUTILS);
       },
     },
   };

@@ -73,7 +73,7 @@ const echantillonOutils = [
 ];
 const echantillonSombre = COURS
   ? [
-      '/formation/',
+      '/outils/',
       '/module/2-1/',
       '/annexe/b/',
       '/glossaire/',
@@ -178,7 +178,7 @@ async function referencement(page: Page, chemin: string, titre: string): Promise
       'SEO /tarifs/ : données structurées Course avec les quatre offres',
     );
   }
-  if (chemin === '/' || chemin === '/formation/') {
+  if (chemin === '/') {
     verifier(h.jsonLd.length > 0, `SEO ${chemin} : données structurées`);
   } else {
     verifier(

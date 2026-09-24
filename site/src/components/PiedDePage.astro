@@ -38,6 +38,11 @@ import { COURS_PUBLIC } from '../lib/edition';
     <section aria-labelledby="pied-outils">
       <h2 id="pied-outils">{COURS_PUBLIC ? 'Boîte à outils' : 'Outils gratuits'}</h2>
       <ul>
+        {COURS_PUBLIC && (
+          <li>
+            <a href={lien('outils/')}>Tous les outils gratuits</a>
+          </li>
+        )}
         <li>
           <a href={lien('simulateurs/')}>Simulateurs</a>
         </li>

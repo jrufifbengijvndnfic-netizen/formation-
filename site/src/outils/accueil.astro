@@ -1,8 +1,10 @@
 ---
 import Avertissement from '../components/Avertissement.astro';
+import FilAriane from '../components/FilAriane.astro';
 import Tarifs from '../components/Tarifs.astro';
 import Base from '../layouts/Base.astro';
 import { formation, miseAJour } from '../lib/donnees';
+import { COURS_PUBLIC } from '../lib/edition';
 import { lien } from '../lib/navigation';
 import { lettres } from '../lib/parse-formation';
 import { referencementLettre } from '../lib/referencement-lettres';
@@ -11,6 +13,8 @@ import { MARQUE, SITE_PAR_DEFAUT, adresseAbsolue } from '../lib/seo';
 import { SIMULATEURS, simulateurParId, type Simulateur } from '../lib/simulateurs';
 
 const site = Astro.site ?? SITE_PAR_DEFAUT;
+// Édition complète : la formation est l'accueil, cette vitrine est une page de second niveau.
+const filAriane = COURS_PUBLIC ? [{ libelle: 'Accueil', href: lien() }, { libelle: 'Outils gratuits' }] : undefined;
 const listeLettres = lettres(formation);
 const donnees = {
   '@context': 'https://schema.org',
@@ -34,10 +38,13 @@ const categories = CATEGORIES_SIMULATEURS.map((c) => ({
   titre="Simulateurs immobiliers gratuits et lettres types pour bailleurs"
   description={`${SIMULATEURS.length} simulateurs gratuits (rentabilité, prêt, frais de notaire, LMNP, plus-value, IFI…) et ${listeLettres.length} modèles de lettres pour bailleurs. Sans inscription.`}
   niveau="0"
-  donneesStructurees={donnees}
+  donneesStructurees={COURS_PUBLIC ? undefined : donnees}
+  filAriane={filAriane}
+  actif="simulateurs"
 >
   <div class="bandeau">
     <div class="conteneur">
+      {filAriane && <FilAriane etapes={filAriane} />}
       <p class="bandeau__sur">Gratuits, sans inscription · {miseAJour}</p>
       <h1>Simulateurs et outils gratuits pour bailleurs et investisseurs</h1>
       <p class="chapeau">
@@ -84,6 +91,13 @@ const categories = CATEGORIES_SIMULATEURS.map((c) => ({
         Ces outils sont issus de la formation « {formation.titre.split(' — ').at(-1)} » : trois niveaux pour comprendre,
         acheter, louer, gérer, déclarer, optimiser et transmettre.
       </p>
+      {COURS_PUBLIC && (
+        <p>
+          <a class="bouton bouton--plein" href={lien()}>
+            Commencer la formation
+          </a>
+        </p>
+      )}
       <Tarifs />
     </section>
 
