@@ -65,7 +65,8 @@ class Quiz {
       const conteneur = q.querySelector<HTMLElement>('.quiz__options');
       if (!conteneur) continue;
       const options = [...conteneur.querySelectorAll<HTMLLabelElement>('.quiz__option')];
-      const ordre = this.melange ? melanger(options) : options.sort((a, b) => valeur(a).localeCompare(valeur(b)));
+      // Sans mélange : ordre d'affichage fixé au build (data-rang).
+      const ordre = this.melange ? melanger(options) : options.sort((a, b) => rang(a) - rang(b));
       ordre.forEach((o, i) => {
         conteneur.appendChild(o);
         const lettre = o.querySelector('[data-lettre-affichee]');
@@ -218,6 +219,11 @@ class Quiz {
 
 function valeur(option: HTMLLabelElement): string {
   return option.querySelector('input')?.value ?? '';
+}
+
+/** Position d'affichage fixée au build. */
+function rang(option: HTMLLabelElement): number {
+  return Number(option.dataset.rang ?? 0);
 }
 
 function paragraphe(texte: string, classe?: string): HTMLParagraphElement {

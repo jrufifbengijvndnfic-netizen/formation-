@@ -57,7 +57,7 @@ branche `claude/admiring-einstein-bp3wj6`.
 `npm run test:site` teste l'édition construite (les deux passent).
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **005**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **006**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)
@@ -115,6 +115,14 @@ Congé, Zonage A, B, C.
 
 **Serveur de test compressé.** `scripts/serveur-statique.ts` sert `dist/` en gzip, comme tout
 hébergeur : sans compression, Lighthouse mesurait des temps irréalistes (93 au lieu de 98–100).
+
+**Ordre des propositions de quiz** (`site/src/lib/ordre-quiz.ts`). Dans le texte, la bonne réponse est
+« B » 97 fois sur 122 (jamais « D ») : les quiz semblaient tous identiques. L'affichage place la bonne
+réponse à une lettre différente pour chaque question d'un même quiz, de façon stable ; le texte et
+`quiz.json` sont inchangés.
+
+**Avertissement discret.** Le texte de la section 0.4 reste affiché intégralement sur chaque page
+d'outil (brief), en petit, sous un filet, sans cadre.
 
 **Scripts en fichiers séparés** (`assetsInlineLimit: 0`) : l'intégration en ligne des petits
 scripts par Astro 7 casse l'import dynamique de Pagefind (placeholder `__VITE_PRELOAD__` non remplacé).

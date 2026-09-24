@@ -1,5 +1,6 @@
 ---
 import { espacesInsecables as ty } from '../lib/format';
+import { LETTRES, ordreAffichage } from '../lib/ordre-quiz';
 import type { QuizQuestion } from '../lib/types';
 
 interface Props {
@@ -8,7 +9,8 @@ interface Props {
 }
 const { module, questions } = Astro.props;
 const idQuiz = `quiz-${module.replace('.', '-')}`;
-const LETTRES = ['A', 'B', 'C', 'D'] as const;
+// Ordre d'affichage équilibré : la bonne réponse n'est pas toujours à la même lettre.
+const ordres = ordreAffichage(module, questions);
 ---
 
 <div class="quiz" id={idQuiz} data-quiz={module}>
@@ -42,11 +44,11 @@ const LETTRES = ['A', 'B', 'C', 'D'] as const;
               {ty(q.question)}
             </legend>
             <div class="quiz__options">
-              {LETTRES.map((l) => (
-                <label class="quiz__option">
+              {(ordres[i] ?? LETTRES).map((l, rang) => (
+                <label class="quiz__option" data-rang={rang}>
                   <input type="radio" name={q.id} value={l} />
                   <span class="quiz__lettre" data-lettre-affichee>
-                    {l}
+                    {LETTRES[rang]}
                   </span>
                   <span class="quiz__texte">{ty(q.options[l])}</span>
                 </label>

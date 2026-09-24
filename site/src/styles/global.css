@@ -992,18 +992,21 @@ details.corrige > p {
 }
 
 .avertissement {
-  margin: 2.5rem 0 0;
-  padding: 1rem 1.2rem;
-  border: 1px dashed var(--filet-fort);
-  border-radius: var(--rayon);
-  font-size: 0.9rem;
+  /* Discret : présent sur chaque page d'outil (brief), sans détourner l'attention. */
+  margin: 3rem 0 0;
+  padding: 0.8rem 0 0;
+  border-top: 1px solid var(--filet);
+  font-size: 0.78rem;
+  line-height: 1.5;
   color: var(--texte-doux);
-  background: var(--papier);
+}
+.avertissement p {
+  margin: 0 0 0.4rem;
 }
 .avertissement strong {
-  color: var(--encre);
   font-family: var(--titre);
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.78rem;
 }
 .avertissement p:last-child {
   margin-bottom: 0;
