@@ -57,7 +57,7 @@ branche `claude/admiring-einstein-bp3wj6`.
 `npm run test:site` teste l'édition construite (les deux passent).
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **006**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **007**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)
