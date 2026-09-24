@@ -13,14 +13,25 @@ export const EDITION: Edition = process.env.EDITION === 'outils' ? 'outils' : 'c
 /** Vrai si les pages du cours sont construites (et peuvent donc recevoir des liens). */
 export const COURS_PUBLIC = EDITION === 'complete';
 
+/**
+ * Extraits gratuits (aimant à prospects) : publiés dans les deux éditions. Dans l'édition « outils »,
+ * ce sont les seules pages du cours construites.
+ */
+export const MODULES_GRATUITS = ['1.1'];
+export const CHECKLISTS_GRATUITES = ['mettre-en-location-son-premier-logement'];
+
+/** Pages à extraits gratuits : injectées dans les deux éditions (leurs chemins sont filtrés). */
+export const ROUTES_EXTRAITS: { pattern: string; entrypoint: string }[] = [
+  { pattern: '/module/[id]', entrypoint: './src/cours/module/[id].astro' },
+  { pattern: '/checklist/[id]', entrypoint: './src/cours/checklist/[id].astro' },
+];
+
 /** Pages du cours, construites seulement dans l'édition complète (src/cours/, routes injectées). */
 export const ROUTES_COURS: { pattern: string; entrypoint: string }[] = [
   ['/', 'formation.astro'],
   ['/mode-d-emploi', 'mode-d-emploi.astro'],
   ['/niveau-[n]', 'niveau-[n].astro'],
-  ['/module/[id]', 'module/[id].astro'],
   ['/examen/[id]', 'examen/[id].astro'],
-  ['/checklist/[id]', 'checklist/[id].astro'],
   ['/annexe/[id]', 'annexe/[id].astro'],
   ['/annexe/c', 'annexe/c.astro'],
   ['/annexes', 'annexes.astro'],

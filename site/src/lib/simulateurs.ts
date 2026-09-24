@@ -85,6 +85,11 @@ export interface Simulateur {
   formule?: string;
   /** Règles appliquées, tirées de la formation (outils sans formule dans l'annexe E). */
   methode?: string[];
+  /**
+   * Vrai si les valeurs par défaut sont un exemple d'illustration, et non un cas chiffré de la
+   * formation (audit de conversion, action A5).
+   */
+  exempleIllustratif?: boolean;
   groupes: { id: string; titre: string }[];
   champs: Champ[];
   /** Contrôles croisés entre champs (en plus des bornes de chaque champ). */
@@ -1756,6 +1761,7 @@ const conge: Simulateur = {
 
 const dpeLocation: Simulateur = {
   id: 'dpe-location',
+  exempleIllustratif: true,
   titre: 'Mon logement est-il encore louable ? (DPE)',
   resume: 'Décence énergétique selon la classe DPE, dates d’interdiction de louer, gel du loyer et audit à la vente.',
   modules: ['1.4', '1.5', '3.9'],
@@ -2064,6 +2070,7 @@ const tourisme: Simulateur = {
 
 const denormandieSim: Simulateur = {
   id: 'denormandie',
+  exempleIllustratif: true,
   titre: 'Réduction d’impôt Denormandie',
   resume:
     'Réduction de 12, 18 ou 21 % du prix de revient d’un logement ancien rénové, plafonds et condition de travaux.',
@@ -2129,6 +2136,7 @@ const denormandieSim: Simulateur = {
 
 const locAvantagesSim: Simulateur = {
   id: 'loc-avantages',
+  exempleIllustratif: true,
   titre: 'Réduction d’impôt Loc’Avantages',
   resume:
     'Réduction annuelle de 15 à 65 % des loyers selon la convention Loc1, Loc2 ou Loc3 et l’intermédiation locative.',
@@ -2279,6 +2287,7 @@ const relocation: Simulateur = {
 
 const encadrement: Simulateur = {
   id: 'encadrement-loyers',
+  exempleIllustratif: true,
   titre: 'Encadrement des loyers : mon loyer est-il conforme ?',
   resume: 'Loyer de référence majoré et minoré, plafond du loyer de base, dépassement et complément de loyer.',
   modules: ['2.1'],
@@ -2363,6 +2372,7 @@ const encadrement: Simulateur = {
 
 const usure: Simulateur = {
   id: 'taux-usure',
+  exempleIllustratif: true,
   titre: 'Taux d’usure : mon prêt immobilier est-il possible ?',
   resume: 'Comparaison du TAEG de votre offre avec le taux d’usure du trimestre selon la durée et le type de prêt.',
   modules: ['2.10'],
@@ -2430,6 +2440,7 @@ const usure: Simulateur = {
 
 const tva: Simulateur = {
   id: 'tva-travaux',
+  exempleIllustratif: true,
   titre: 'TVA des travaux : 5,5 %, 10 % ou 20 %',
   resume: 'Taux de TVA applicable aux travaux dans un logement, montant de TVA et prix TTC.',
   modules: ['2.3'],

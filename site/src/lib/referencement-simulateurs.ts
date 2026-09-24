@@ -212,3 +212,25 @@ export const CATEGORIES_SIMULATEURS: { titre: string; ids: string[] }[] = [
   },
   { titre: 'Patrimoine et transmission', ids: ['ifi', 'donation'] },
 ];
+
+/**
+ * Sigles des titres et résumés des outils, développés sous le titre (audit de conversion, § 7 :
+ * garder les mots recherchés, mais les expliquer).
+ */
+export const SIGLES: Record<string, string> = {
+  DPE: 'diagnostic de performance énergétique',
+  LMNP: 'location meublée non professionnelle',
+  BIC: 'bénéfices industriels et commerciaux',
+  IRL: 'indice de référence des loyers',
+  TRI: 'taux de rendement interne',
+  TAEG: 'taux annuel effectif global',
+  IFI: 'impôt sur la fortune immobilière',
+};
+
+/** Sigles présents dans le texte et pas déjà développés entre parenthèses, dans l'ordre d'apparition. */
+export function siglesAExpliquer(texte: string): [string, string][] {
+  const trouves = [...texte.matchAll(/\b([A-Z]{2,5})\b(?!\s*\))/g)]
+    .map((m) => m[1] as string)
+    .filter((sigle) => SIGLES[sigle] && !texte.includes(`(${sigle})`));
+  return [...new Set(trouves)].map((sigle) => [sigle, SIGLES[sigle] as string]);
+}

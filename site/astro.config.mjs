@@ -3,7 +3,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 import { copyFileSync, existsSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { COURS_PUBLIC, ROUTE_ACCUEIL_OUTILS, ROUTES_COURS } from './src/lib/edition.ts';
+import { COURS_PUBLIC, ROUTE_ACCUEIL_OUTILS, ROUTES_COURS, ROUTES_EXTRAITS } from './src/lib/edition.ts';
+import { manquants } from './src/lib/entreprise.ts';
 import { REDIRECTIONS, SITE_PAR_DEFAUT } from './src/lib/seo.ts';
 
 /**
@@ -40,7 +41,22 @@ function pagesDuCours() {
       /** @param {{ injectRoute: (r: { pattern: string, entrypoint: string }) => void }} options */
       'astro:config:setup': ({ injectRoute }) => {
         if (COURS_PUBLIC) ROUTES_COURS.forEach((r) => injectRoute(r));
+        ROUTES_EXTRAITS.forEach((r) => injectRoute(r));
         injectRoute(ROUTE_ACCUEIL_OUTILS);
+      },
+    },
+  };
+}
+
+/** Rappelle à chaque build les informations légales et commerciales encore vides (src/lib/entreprise.ts). */
+function informationsAFournir() {
+  return {
+    name: 'formation-informations',
+    hooks: {
+      /** @param {{ logger: { warn: (message: string) => void } }} options */
+      'astro:build:done': ({ logger }) => {
+        const liste = manquants();
+        if (liste.length) logger.warn(`Informations à compléter dans src/lib/entreprise.ts : ${liste.join(', ')}`);
       },
     },
   };
@@ -143,7 +159,7 @@ export default defineConfig({
   base,
   trailingSlash: 'always',
   build: { format: 'directory' },
-  integrations: [pagesDuCours(), copierPdf(), fichiersReferencement()],
+  integrations: [pagesDuCours(), copierPdf(), fichiersReferencement(), informationsAFournir()],
   fonts: [
     police(
       'Poppins',

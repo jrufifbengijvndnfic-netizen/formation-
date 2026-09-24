@@ -1,0 +1,352 @@
+---
+/**
+ * Page de vente de la formation (audit de conversion, B2 et B6 ; structure du § 6). Chiffres tirés du
+ * produit uniquement ; exemples chiffrés cités comme exemples (module 2.6 et examen final). Aucun
+ * avis, aucune garantie, aucune urgence inventés : auteur, avis et conditions viennent de
+ * src/lib/entreprise.ts et ne s'affichent que renseignés.
+ */
+import Avertissement from '../components/Avertissement.astro';
+import FilAriane from '../components/FilAriane.astro';
+import InscriptionEmail from '../components/InscriptionEmail.astro';
+import Tarifs from '../components/Tarifs.astro';
+import Base from '../layouts/Base.astro';
+import { coursJsonLd } from '../lib/cours-jsonld';
+import {
+  estPublie,
+  formation,
+  miseAJour,
+  modulesDuNiveau,
+  niveaux,
+  organisation,
+  termes,
+  titreSite,
+  tousLesModules,
+} from '../lib/donnees';
+import { COURS_PUBLIC } from '../lib/edition';
+import { AUTEUR, AVIS, CONDITIONS } from '../lib/entreprise';
+import { checklists, lettres, toutesLesQuestions } from '../lib/parse-formation';
+import { CHEMIN_VENTE, cheminModule, lien, lienElement } from '../lib/navigation';
+import { SITE_PAR_DEFAUT, offreNiveau, offrePack, prixSepares, prixTexte } from '../lib/seo';
+import { SIMULATEURS } from '../lib/simulateurs';
+
+const nbQuestions = toutesLesQuestions(formation).length;
+const nbLettres = lettres(formation).length;
+const nbChecklists = checklists(formation).length;
+const publicNiveau = (n: number) => organisation[`Niveau ${n}`]?.public ?? '';
+const dureeNiveau = (n: number) => organisation[`Niveau ${n}`]?.duree ?? '';
+const pourQui = niveaux.map((n) => `${publicNiveau(n.niveau).toLowerCase()} (niveau ${n.niveau})`).join(', ');
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'La formation' }];
+const donnees = coursJsonLd(Astro.site ?? SITE_PAR_DEFAUT, lien(CHEMIN_VENTE));
+
+// Conditions de l'offre : seules celles renseignées sont affichées.
+const conditions = [
+  ['Accès', CONDITIONS.acces],
+  ['Mises à jour', CONDITIONS.misesAJour],
+  ['Facture', CONDITIONS.facture],
+  ['Paiement', CONDITIONS.paiement],
+  ['Garantie', CONDITIONS.garantie],
+].filter(([, v]) => v?.trim()) as [string, string][];
+
+const remboursement = CONDITIONS.garantie
+  ? `${CONDITIONS.garantie}. Le détail figure dans les conditions générales de vente.`
+  : 'Vous disposez du droit de rétractation de quatorze jours, sauf si vous demandez l’accès immédiat au contenu et renoncez expressément à ce droit avant le paiement (article L. 221-28 du Code de la consommation). Le détail figure dans les conditions générales de vente.';
+
+const faq: [string, string][] = [
+  [
+    'Tout est gratuit ailleurs, pourquoi payer ?',
+    `Les règles sont publiques mais dispersées. La formation les ordonne en trois niveaux, les illustre par des cas chiffrés et fournit ${SIMULATEURS.length} outils, ${nbLettres} lettres et ${nbChecklists} checklists. Vous gagnez du temps et vous évitez les oublis.`,
+  ],
+  [
+    'Je n’ai pas encore de bien. Est-ce trop tôt ?',
+    'Non : le niveau 1 s’adresse aux débutants complets et couvre le choix du type de location, la décence, les diagnostics, le bail et les premiers calculs de rentabilité.',
+  ],
+  [
+    'La loi change tout le temps. La formation sera-t-elle dépassée ?',
+    `Le contenu est daté (${miseAJour.toLowerCase()}) et les textes en cours d’adoption sont signalés.${CONDITIONS.misesAJour ? ` Mises à jour après l’achat : ${CONDITIONS.misesAJour}.` : ''}`,
+  ],
+  [
+    'C’est trop technique pour moi ?',
+    `Chaque niveau part des bases ; ${termes.length} termes sont expliqués dans le glossaire et chaque module se termine par un quiz.`,
+  ],
+  [
+    'Combien de temps faut-il ?',
+    `Niveau 1 : ${dureeNiveau(1)} ; niveau 2 : ${dureeNiveau(2)} ; niveau 3 : ${dureeNiveau(3)} (durées indicatives de la formation).`,
+  ],
+  [
+    'Est-ce accessible sur mobile ?',
+    'Oui : le site est conçu et testé pour les petits écrans, y compris les simulateurs et les lettres.',
+  ],
+  ['Puis-je être remboursé ?', remboursement],
+  ...(CONDITIONS.facture ? [['Aurai-je une facture ?', CONDITIONS.facture] as [string, string]] : []),
+  [
+    'Est-ce un conseil personnalisé ?',
+    'Non. C’est une formation d’information générale ; pour une décision engageante, consultez un avocat, un notaire, un expert-comptable ou un conseiller en gestion de patrimoine.',
+  ],
+  [
+    'Par quel niveau commencer ?',
+    niveaux.map((n) => `${publicNiveau(n.niveau)} : niveau ${n.niveau}`).join('. ') + '.',
+  ],
+  [
+    'Les simulateurs sont-ils inclus ?',
+    `Les ${SIMULATEURS.length} simulateurs et les ${nbLettres} modèles de lettres sont gratuits pour tous, sans inscription.`,
+  ],
+  ...(AUTEUR.nom
+    ? [['Qui a écrit la formation ?', `${AUTEUR.nom}. ${AUTEUR.presentation}`.trim()] as [string, string]]
+    : []),
+  ['Y a-t-il des vidéos ?', 'Non : la formation est écrite, avec tableaux, cas chiffrés, quiz et outils interactifs.'],
+  ['La formation est-elle certifiante ou éligible au CPF ?', 'Non.'],
+  ...(CONDITIONS.paiement ? [['Comment payer ?', CONDITIONS.paiement] as [string, string]] : []),
+  [
+    'Mes données sont-elles collectées ?',
+    'Aucun cookie ni traceur publicitaire ; votre progression et vos saisies restent dans votre navigateur. Voir la politique de confidentialité.',
+  ],
+];
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Formation investissement locatif : programme, prix et extrait gratuit"
+  description={`Formation en ligne en trois niveaux : ${tousLesModules.length} modules, ${SIMULATEURS.length} simulateurs, ${nbLettres} lettres. Module 1.1 gratuit, dès ${offreNiveau(1).prix} € le niveau. À jour au 24 septembre 2026.`}
+  niveau="0"
+  actif="formation"
+  donneesStructurees={donnees}
+>
+  <div class="bandeau" data-suivi-vue="vue_page_vente">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <p class="bandeau__sur">Formation en ligne « {titreSite} »</p>
+      <h1>Louez, gérez et déclarez votre bien sans erreur coûteuse</h1>
+      <p class="chapeau">
+        {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs et {nbLettres} modèles de lettres pour décider
+        en connaissant les règles : bail, loyer, DPE, fiscalité, crédit, revente et transmission. {miseAJour}.
+      </p>
+      <p class="bandeau__pour-qui">Pour qui : {pourQui}.</p>
+      <p class="bandeau__actions">
+        <a
+          class="bouton bouton--plein"
+          href={lien('module/1-1/')}
+          data-suivi="clic_cta_principal debut_contenu_gratuit"
+        >
+          Commencer gratuitement le niveau 1
+        </a>
+        <a class="bouton" href="#offre" data-suivi="clic_programme_prix">
+          Voir le programme et les prix
+        </a>
+      </p>
+      <p class="bandeau__meta">
+        <span>Dès {prixTexte(offreNiveau(1).prix)} le niveau</span>
+        <span>{prixTexte(offrePack().prix)} les trois niveaux</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="conteneur prose">
+    <section aria-labelledby="probleme">
+      <h2 id="probleme">Une erreur de bailleur coûte cher</h2>
+      <p>
+        Un logement devenu non décent, un impayé mal géré, un régime fiscal mal choisi, une revente mal anticipée : ces
+        erreurs se paient en loyers perdus, en procédures ou en impôt.
+      </p>
+      <ul>
+        <li>
+          Dans l'exemple du {COURS_PUBLIC ? <a href={lien(cheminModule('2.6'))}>module 2.6</a> : 'module 2.6'}, le
+          régime réel plutôt que le micro-foncier représente environ 2 000 € d'impôt par an.
+        </li>
+        <li>
+          Dans le cas de revente de l'{COURS_PUBLIC ? <a href={lien('examen/final/')}>examen final</a> : 'examen final'}
+          , la réintégration des amortissements LMNP (location meublée non professionnelle) ajoute environ 11 800 €
+          d'impôt.
+        </li>
+      </ul>
+      <p>
+        <em>
+          Exemples pédagogiques tirés de la formation, pas des gains garantis : votre situation peut être différente.
+        </em>
+      </p>
+    </section>
+
+    <section aria-labelledby="methode">
+      <h2 id="methode">Comment fonctionne la formation</h2>
+      <ul>
+        <li>
+          <strong>Trois niveaux progressifs</strong>, du premier bail à la transmission.
+        </li>
+        <li>
+          <strong>{nbQuestions} questions de quiz</strong> pour valider chaque module, et un examen par niveau.
+        </li>
+        <li>
+          <strong>{SIMULATEURS.length} simulateurs</strong>, <strong>{nbLettres} modèles de lettres</strong> et{' '}
+          <strong>{nbChecklists} checklists</strong>.
+        </li>
+        <li>
+          <strong>Une date de mise à jour affichée</strong> et les textes en cours d'adoption signalés.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="gratuit">
+      <h2 id="gratuit">Tout est sur service-public.fr ? Presque.</h2>
+      <p>
+        Les règles existent, mais elles sont dispersées entre des dizaines de textes, de sites et de mises à jour. La
+        formation les rassemble dans l'ordre où un bailleur en a besoin, avec des cas chiffrés et des outils prêts à
+        l'emploi. Les sources officielles restent la référence : chaque module cite ses textes.
+      </p>
+    </section>
+
+    <section aria-labelledby="programme">
+      <h2 id="programme">Le programme</h2>
+      {niveaux.map((n) => (
+        <details>
+          <summary>
+            Niveau {n.niveau} — {n.titreCourt} · {modulesDuNiveau(n.niveau).length} modules · {dureeNiveau(n.niveau)} ·{' '}
+            {prixTexte(offreNiveau(n.niveau).prix)}
+          </summary>
+          <p>Pour : {publicNiveau(n.niveau).toLowerCase()}.</p>
+          <ol>
+            {modulesDuNiveau(n.niveau).map((m) => (
+              <li>
+                {estPublie(m.numero ?? '') ? (
+                  <a href={lienElement(m)}>
+                    Module {m.numero} — {m.titreCourt}
+                  </a>
+                ) : (
+                  <>
+                    Module {m.numero} — {m.titreCourt}
+                  </>
+                )}
+                {m.numero === '1.1' && <strong> (gratuit)</strong>}
+              </li>
+            ))}
+          </ol>
+        </details>
+      ))}
+    </section>
+
+    <section aria-labelledby="essayer">
+      <h2 id="essayer">Essayez avant d'acheter</h2>
+      <ul>
+        <li>
+          <a href={lien('module/1-1/')} data-suivi="debut_contenu_gratuit">
+            Le module 1.1 en entier
+          </a>
+          , avec son quiz
+        </li>
+        <li>
+          <a href={lien('checklist/mettre-en-location-son-premier-logement/')}>
+            La checklist « Mettre en location son premier logement »
+          </a>
+        </li>
+        <li>
+          <a href={lien('simulateurs/')}>Les {SIMULATEURS.length} simulateurs</a> et{' '}
+          <a href={lien('lettres/')}>les {nbLettres} modèles de lettres</a>, gratuits et sans inscription
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="pour-qui">
+      <h2 id="pour-qui">Pour qui ?</h2>
+      <ul>
+        {niveaux.map((n) => (
+          <li>
+            Niveau {n.niveau} : {publicNiveau(n.niveau).toLowerCase()}
+          </li>
+        ))}
+      </ul>
+      <p>
+        <strong>Ce n'est pas pour vous</strong> si vous cherchez un conseil personnalisé ou une méthode d'enrichissement
+        rapide.
+      </p>
+    </section>
+
+    <section aria-labelledby="auteur">
+      <h2 id="auteur">{AUTEUR.nom ? 'L’auteur et la méthode' : 'La méthode'}</h2>
+      {AUTEUR.nom && (
+        <p>
+          <strong>{AUTEUR.nom}</strong>
+          {AUTEUR.presentation && ` — ${AUTEUR.presentation}`}
+        </p>
+      )}
+      <p>
+        Textes officiels cités dans chaque module, date de mise à jour affichée, textes en cours d'adoption signalés,
+        exemples chiffrés présentés comme des exemples et non comme des promesses.
+      </p>
+    </section>
+
+    {AVIS.length > 0 && (
+      <section aria-labelledby="avis">
+        <h2 id="avis">Ce qu'en disent les élèves</h2>
+        {AVIS.map((a) => (
+          <blockquote>
+            <p>{a.texte}</p>
+            <footer>
+              {a.auteur} — <small>{a.verification}</small>
+            </footer>
+          </blockquote>
+        ))}
+      </section>
+    )}
+  </div>
+
+  <div class="conteneur" id="offre">
+    <section aria-labelledby="offre-titre">
+      <h2 id="offre-titre">Choisissez votre niveau</h2>
+      <p>
+        Chaque niveau s'achète séparément. La formation complète réunit les trois pour {prixTexte(offrePack().prix)} au
+        lieu de {prixTexte(prixSepares())}. Inclus dans chaque niveau : les modules du niveau, leurs quiz, l'examen du
+        niveau et les checklists associées. Les simulateurs et les modèles de lettres restent gratuits pour tous.
+        {CONDITIONS.mentionPrix && ` ${CONDITIONS.mentionPrix}.`}
+      </p>
+      {conditions.length > 0 && (
+        <ul class="offre-conditions">
+          {conditions.map(([k, v]) => (
+            <li>
+              <strong>{k}</strong> : {v}
+            </li>
+          ))}
+        </ul>
+      )}
+      <Tarifs />
+    </section>
+  </div>
+
+  <div class="conteneur prose">
+    <InscriptionEmail />
+    <section aria-labelledby="faq">
+      <h2 id="faq">Questions fréquentes</h2>
+      {faq.map(([q, r]) => (
+        <details class="faq">
+          <summary>{q}</summary>
+          <p>{r}</p>
+        </details>
+      ))}
+      <p>
+        Voir aussi les <a href={lien('cgv/')}>conditions générales de vente</a> et la{' '}
+        <a href={lien('confidentialite/')}>politique de confidentialité</a>.
+      </p>
+    </section>
+    <p class="vente-fin">
+      <a class="bouton bouton--plein" href={lien('module/1-1/')} data-suivi="clic_cta_principal debut_contenu_gratuit">
+        Commencer gratuitement le niveau 1
+      </a>
+    </p>
+    <Avertissement />
+  </div>
+</Base>
+
+<style>
+  .vente-fin {
+    margin: 2rem 0;
+  }
+  details {
+    border-bottom: 1px solid var(--filet);
+    padding: 0.6rem 0;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--titre);
+    font-weight: 600;
+  }
+  .offre-conditions {
+    padding-left: 1.2rem;
+  }
+</style>

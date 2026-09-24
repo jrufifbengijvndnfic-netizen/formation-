@@ -6,6 +6,22 @@ describe('titres et descriptions', () => {
     expect(titreDePage('Module 1.1 — Le paysage')).toBe('Module 1.1 — Le paysage | Formation Locatif');
   });
 
+  it('omet la marque quand le titre dépasserait 70 caractères', () => {
+    const long = 'Simulateur rentabilité locative gratuit : brute, nette et cash-flow';
+    expect(titreDePage(long)).toBe(long);
+    expect(titreDePage('x'.repeat(50))).toHaveLength(70);
+  });
+
+  it('abrège un titre de plus de 72 caractères avant son sous-titre', () => {
+    expect(titreDePage('Module 2.1 — Le loyer en profondeur : révision, relocation, encadrement, réévaluation')).toBe(
+      'Module 2.1 — Le loyer en profondeur | Formation Locatif',
+    );
+    expect(titreDePage('Module 1.5 — Les diagnostics obligatoires (dossier de diagnostic technique)')).toBe(
+      'Module 1.5 — Les diagnostics obligatoires | Formation Locatif',
+    );
+    expect(titreDePage('mot '.repeat(30)).length).toBeLessThanOrEqual(72);
+  });
+
   it('laisse intacte une description courte', () => {
     expect(raccourcir('Base amortissable et déduction annuelle.')).toBe('Base amortissable et déduction annuelle.');
   });

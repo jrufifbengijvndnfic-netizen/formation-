@@ -2,7 +2,7 @@
  * Données prêtes à l'emploi pour les pages (exécuté au build uniquement) :
  * formation chargée et vérifiée, index, rendu HTML des éléments, repères du glossaire.
  */
-import { COURS_PUBLIC } from './edition';
+import { COURS_PUBLIC, MODULES_GRATUITS } from './edition';
 import { ChercheurGlossaire } from './glossaire-match';
 import { chargerFormation } from './formation';
 import { cheminElement, lien } from './navigation';
@@ -19,7 +19,11 @@ export const partieModeEmploi = formation.parties.find((p) => p.type === 'mode-e
 export const partieAnnexes = formation.parties.find((p) => p.type === 'annexes') as Partie;
 export const annexes = partieAnnexes.elements;
 export const termes = glossaire(formation);
-export const modulesExistants = new Set(tousLesModules.map((m) => m.numero as string));
+/** Modules publiés (liens autorisés) : tous dans l'édition complète, les extraits gratuits sinon. */
+export const modulesExistants = new Set(
+  tousLesModules.map((m) => m.numero as string).filter((n) => COURS_PUBLIC || MODULES_GRATUITS.includes(n)),
+);
+export const estPublie = (numeroModule: string): boolean => modulesExistants.has(numeroModule);
 export const chercheur = new ChercheurGlossaire(termes);
 export const avecPdf = pdfDisponible();
 
@@ -65,7 +69,9 @@ export function contexteElement(e: Element, options: Partial<ContexteRendu> = {}
   return nouveauContexte({
     modulesExistants,
     moduleCourant: e.numero,
-    glossaire: e.type === 'module' ? chercheur : undefined,
+    // Infobulles et liens d'annexes seulement si le glossaire et les annexes sont publiés.
+    glossaire: e.type === 'module' && COURS_PUBLIC ? chercheur : undefined,
+    liensAnnexes: COURS_PUBLIC,
     corriges: e.type === 'examen',
     ancresFormules: e.type === 'annexe' && e.numero === 'E',
     colonneModule: e.numero === '0.5',

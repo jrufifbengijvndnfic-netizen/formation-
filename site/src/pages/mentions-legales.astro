@@ -1,0 +1,83 @@
+---
+/**
+ * Mentions légales (audit de conversion, B3). Identité de l'éditeur : src/lib/entreprise.ts ; tant
+ * qu'un champ est vide, la page affiche « à compléter » et le build le signale.
+ */
+import FilAriane from '../components/FilAriane.astro';
+import Info from '../components/Info.astro';
+import Base from '../layouts/Base.astro';
+import { EDITEUR, HEBERGEUR, manquants } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+import { MARQUE } from '../lib/seo';
+
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Mentions légales' }];
+const incomplet = manquants().some((c) => c.startsWith('EDITEUR.'));
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Mentions légales"
+  description={`Mentions légales du site ${MARQUE} : éditeur, directeur de la publication, hébergeur, propriété intellectuelle et contact.`}
+  niveau="0"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <h1>Mentions légales</h1>
+    </div>
+  </div>
+  <div class="conteneur prose contenu">
+    {incomplet && (
+      <p class="registre__meta">Page en cours de finalisation : certaines informations sont à compléter.</p>
+    )}
+
+    <h2 id="editeur">Éditeur du site</h2>
+    <ul>
+      <li>
+        Nom ou raison sociale : <Info valeur={EDITEUR.nom} />
+      </li>
+      <li>
+        Forme juridique : <Info valeur={EDITEUR.statut} />
+      </li>
+      <li>
+        Adresse : <Info valeur={EDITEUR.adresse} />
+      </li>
+      <li>
+        Immatriculation : <Info valeur={EDITEUR.immatriculation} />
+      </li>
+      <li>Contact : {EDITEUR.email ? <a href={`mailto:${EDITEUR.email}`}>{EDITEUR.email}</a> : <Info valeur="" />}</li>
+      <li>
+        Directeur de la publication : <Info valeur={EDITEUR.directeurPublication} />
+      </li>
+    </ul>
+
+    <h2 id="hebergeur">Hébergeur</h2>
+    <p>
+      {HEBERGEUR.nom}, {HEBERGEUR.adresse} — <a href={HEBERGEUR.site}>{HEBERGEUR.site.replace(/^https:\/\//, '')}</a>.
+    </p>
+
+    <h2 id="propriete">Propriété intellectuelle</h2>
+    <p>
+      Les textes de la formation, les simulateurs, les modèles de lettres, les illustrations et la mise en page du site
+      sont protégés par le droit d'auteur. Vous pouvez utiliser les modèles de lettres et les résultats des simulateurs
+      pour vos besoins personnels ; toute autre reproduction ou diffusion, totale ou partielle, nécessite l'accord écrit
+      de l'éditeur.
+    </p>
+
+    <h2 id="responsabilite">Responsabilité</h2>
+    <p>
+      Le site et la formation sont des outils d'information générale : ils ne remplacent pas un conseil juridique,
+      fiscal ou financier personnalisé. Voir l'<a href={lien('a-propos/#avertissement')}>avertissement</a>.
+    </p>
+
+    <h2 id="donnees">Données personnelles</h2>
+    <p>
+      Voir la <a href={lien('confidentialite/')}>politique de confidentialité</a>.
+    </p>
+
+    <h2 id="vente">Conditions de vente</h2>
+    <p>
+      Voir les <a href={lien('cgv/')}>conditions générales de vente</a>.
+    </p>
+  </div>
+</Base>

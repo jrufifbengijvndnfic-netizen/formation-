@@ -2,6 +2,11 @@
 import { lien } from '../lib/navigation';
 import { annexes, avecPdf, miseAJour } from '../lib/donnees';
 import { COURS_PUBLIC } from '../lib/edition';
+import { EDITEUR, MESURE_AUDIENCE } from '../lib/entreprise';
+import { CHEMIN_VENTE } from '../lib/navigation';
+import { MARQUE } from '../lib/seo';
+
+const annee = new Date().getFullYear();
 ---
 
 <footer class="pied" data-pagefind-ignore>
@@ -25,6 +30,12 @@ import { COURS_PUBLIC } from '../lib/edition';
             </li>
           </>
         )}
+        <li>
+          <a href={lien(CHEMIN_VENTE)}>Programme, prix et questions fréquentes</a>
+        </li>
+        <li>
+          <a href={lien('module/1-1/')}>Module 1.1 gratuit</a>
+        </li>
         <li>
           <a href={lien('tarifs/')}>Niveaux et tarifs</a>
         </li>
@@ -71,6 +82,20 @@ import { COURS_PUBLIC } from '../lib/edition';
         <li>
           <a href={lien('a-propos/')}>À propos et avertissement</a>
         </li>
+        <li>
+          <a href={lien('mentions-legales/')}>Mentions légales</a>
+        </li>
+        <li>
+          <a href={lien('cgv/')}>Conditions générales de vente</a>
+        </li>
+        <li>
+          <a href={lien('confidentialite/')}>Confidentialité</a>
+        </li>
+        {EDITEUR.email && (
+          <li>
+            <a href={`mailto:${EDITEUR.email}`}>Contact</a>
+          </li>
+        )}
         {COURS_PUBLIC && avecPdf && (
           <li>
             <a href={lien('formation-immobilier-locatif-2026.pdf')} download>
@@ -79,7 +104,14 @@ import { COURS_PUBLIC } from '../lib/edition';
           </li>
         )}
       </ul>
-      <p>Aucun traceur, aucune donnée transmise : vos saisies restent dans votre navigateur.</p>
+      <p>
+        {MESURE_AUDIENCE
+          ? 'Aucun cookie ni traceur publicitaire ; mesure d’audience anonyme et sans cookie. Vos saisies restent dans votre navigateur.'
+          : 'Aucun traceur, aucune donnée transmise : vos saisies restent dans votre navigateur.'}
+      </p>
+      <p>
+        © {annee} {EDITEUR.nom || MARQUE}
+      </p>
     </section>
   </div>
 </footer>

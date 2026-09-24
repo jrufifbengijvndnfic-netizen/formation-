@@ -1,0 +1,98 @@
+---
+/**
+ * Politique de confidentialité (audit de conversion, B3 et B5) : ce que le site collecte réellement.
+ * Les sections « mesure d'audience » et « inscription par e-mail » suivent src/lib/entreprise.ts.
+ */
+import FilAriane from '../components/FilAriane.astro';
+import Info from '../components/Info.astro';
+import Base from '../layouts/Base.astro';
+import { COURS_PUBLIC } from '../lib/edition';
+import { EDITEUR, FORMULAIRE_EMAIL, HEBERGEUR, MESURE_AUDIENCE } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+import { MARQUE } from '../lib/seo';
+
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Confidentialité' }];
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Politique de confidentialité"
+  description={`Données traitées par le site ${MARQUE} : aucun cookie publicitaire, progression et saisies conservées dans votre navigateur, mesure d'audience sans cookie.`}
+  niveau="0"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <h1>Politique de confidentialité</h1>
+    </div>
+  </div>
+  <div class="conteneur prose contenu">
+    <h2 id="responsable">Responsable du traitement</h2>
+    <p>
+      <Info valeur={EDITEUR.nom} /> —{' '}
+      {EDITEUR.email ? <a href={`mailto:${EDITEUR.email}`}>{EDITEUR.email}</a> : <Info valeur="" />}.
+    </p>
+
+    <h2 id="navigateur">Ce qui reste dans votre navigateur</h2>
+    <ul>
+      <li>Aucun cookie publicitaire, aucun traceur de réseau social, aucun compte à créer.</li>
+      {COURS_PUBLIC ? (
+        <li>
+          Votre progression (modules lus, scores, cases cochées) et votre choix de thème sont enregistrés uniquement
+          dans le stockage local de votre navigateur. Vous pouvez les exporter, les importer ou les effacer depuis{' '}
+          <a href={lien('progression/')}>Ma progression</a>.
+        </li>
+      ) : (
+        <li>Votre choix de thème est enregistré uniquement dans le stockage local de votre navigateur.</li>
+      )}
+      <li>
+        Les simulateurs et les modèles de lettres calculent et remplissent tout dans votre navigateur : rien n'est
+        envoyé à un serveur. Les paramètres d'un simulateur ne figurent dans l'adresse de la page que si vous la copiez
+        pour la partager.
+      </li>
+    </ul>
+
+    {MESURE_AUDIENCE && (
+      <>
+        <h2 id="mesure">Mesure d'audience</h2>
+        <p>
+          Le site compte ses visites avec Vercel Web Analytics, sans cookie : pages vues, pages d'arrivée, pays, type
+          d'appareil et de navigateur, et quelques clics sur les boutons (par exemple « Commencer gratuitement le niveau
+          1 »), sous forme de statistiques agrégées. Ces données servent uniquement à améliorer le site ; elles ne sont
+          ni vendues ni utilisées pour de la publicité.
+        </p>
+      </>
+    )}
+
+    {FORMULAIRE_EMAIL.action && (
+      <>
+        <h2 id="email">Inscription par e-mail</h2>
+        <p>
+          Si vous vous inscrivez, votre adresse e-mail est utilisée uniquement pour vous envoyer le document demandé et
+          les messages liés à la formation. L'inscription est confirmée par un e-mail (double consentement) et chaque
+          message contient un lien de désinscription en un clic. L'adresse est conservée jusqu'à votre désinscription.
+        </p>
+      </>
+    )}
+
+    <h2 id="hebergement">Hébergement</h2>
+    <p>
+      Le site est hébergé par {HEBERGEUR.nom} ({HEBERGEUR.adresse}), qui peut conserver des journaux techniques (adresse
+      IP, date, page demandée) pour assurer la sécurité et le bon fonctionnement du service.
+    </p>
+
+    <h2 id="achat">Achat de la formation</h2>
+    <p>
+      Lors d'un achat, les données nécessaires à la commande (nom, adresse e-mail, facturation) sont traitées par la
+      plateforme de paiement pour exécuter le contrat et respecter les obligations comptables. Les données de carte
+      bancaire ne transitent pas par ce site.
+    </p>
+
+    <h2 id="droits">Vos droits</h2>
+    <p>
+      Vous pouvez demander l'accès à vos données, leur rectification ou leur effacement, vous opposer à leur traitement
+      ou en demander la limitation, en écrivant à l'adresse de contact ci-dessus. Vous pouvez aussi introduire une
+      réclamation auprès de la CNIL (<a href="https://www.cnil.fr">www.cnil.fr</a>).
+    </p>
+  </div>
+</Base>

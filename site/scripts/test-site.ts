@@ -157,7 +157,11 @@ async function referencement(page: Page, chemin: string, titre: string): Promise
     };
   });
   const attendue = new URL(chemin, 'https://formation-locatif.com').href;
-  verifier(titre.endsWith(' | Formation Locatif'), `SEO ${chemin} : titre « ${titre} »`);
+  // Marque en suffixe, sauf quand elle ferait dépasser 70 caractères (titreDePage, audit C4).
+  verifier(
+    titre.length <= 72 && (titre.endsWith(' | Formation Locatif') || `${titre} | Formation Locatif`.length > 70),
+    `SEO ${chemin} : titre « ${titre} »`,
+  );
   verifier(
     h.description.length >= 50 && h.description.length <= 160,
     `SEO ${chemin} : description de ${h.description.length} caractères`,

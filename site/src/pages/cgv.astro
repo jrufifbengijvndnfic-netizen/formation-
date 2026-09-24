@@ -1,0 +1,158 @@
+---
+/**
+ * Conditions générales de vente (audit de conversion, B3). Trame à faire valider par un juriste avant
+ * la première vente ; les informations propres au vendeur viennent de src/lib/entreprise.ts.
+ */
+import FilAriane from '../components/FilAriane.astro';
+import Info from '../components/Info.astro';
+import Base from '../layouts/Base.astro';
+import { modulesDuNiveau, niveauDe, titreSite } from '../lib/donnees';
+import { CONDITIONS, EDITEUR, manquants } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+import { OFFRES, prixTexte, type Offre } from '../lib/seo';
+import type { Niveau } from '../lib/types';
+
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Conditions générales de vente' }];
+const incomplet = manquants().some((c) => c.startsWith('EDITEUR.') || c.startsWith('CONDITIONS.'));
+const libelleOffre = (o: Offre) =>
+  o.id === 'pack'
+    ? 'Formation complète (niveaux 1, 2 et 3)'
+    : `Niveau ${o.niveaux[0]} — ${niveauDe(o.niveaux[0] as Niveau).titreCourt}`;
+const nbModules = (o: Offre) => o.niveaux.reduce((t, n) => t + modulesDuNiveau(n as Niveau).length, 0);
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Conditions générales de vente"
+  description={`Conditions générales de vente de la formation en ligne « ${titreSite} » : offres, prix, accès, droit de rétractation, garanties et médiation.`}
+  niveau="0"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <h1>Conditions générales de vente</h1>
+    </div>
+  </div>
+  <div class="conteneur prose contenu">
+    {incomplet && (
+      <p class="registre__meta">Page en cours de finalisation : certaines informations sont à compléter.</p>
+    )}
+
+    <h2 id="objet">1. Objet</h2>
+    <p>
+      Les présentes conditions régissent la vente à distance de la formation en ligne « {titreSite} » à des
+      consommateurs. Toute commande vaut acceptation des conditions en vigueur à sa date.
+    </p>
+
+    <h2 id="vendeur">2. Vendeur</h2>
+    <p>
+      <Info valeur={EDITEUR.nom} />, <Info valeur={EDITEUR.statut} />, <Info valeur={EDITEUR.adresse} />,{' '}
+      <Info valeur={EDITEUR.immatriculation} />. Contact :{' '}
+      {EDITEUR.email ? <a href={`mailto:${EDITEUR.email}`}>{EDITEUR.email}</a> : <Info valeur="" />}.
+    </p>
+
+    <h2 id="offres">3. Offres et contenu</h2>
+    <ul>
+      {OFFRES.map((o) => (
+        <li>
+          {libelleOffre(o)} : {nbModules(o)} modules avec leurs quiz,{' '}
+          {o.niveaux.length > 1 ? `${o.niveaux.length} examens` : 'un examen'} et les checklists associées —{' '}
+          {prixTexte(o.prix)}.
+        </li>
+      ))}
+    </ul>
+    <p>
+      La formation est écrite (textes, tableaux, cas chiffrés, quiz et outils interactifs) et accessible en ligne. Les
+      simulateurs et les modèles de lettres du site sont gratuits et ne font pas partie des offres payantes. La
+      formation est un outil pédagogique d'information générale : elle ne constitue pas un conseil juridique, fiscal ou
+      financier personnalisé.
+    </p>
+    <ul>
+      <li>
+        Durée d'accès : <Info valeur={CONDITIONS.acces} />
+      </li>
+      <li>
+        Mises à jour : <Info valeur={CONDITIONS.misesAJour} />
+      </li>
+    </ul>
+
+    <h2 id="prix">4. Prix</h2>
+    <p>
+      Les prix sont indiqués en euros. <Info valeur={CONDITIONS.mentionPrix} />. Le prix applicable est celui affiché au
+      moment de la commande.
+    </p>
+
+    <h2 id="commande">5. Commande, paiement et facture</h2>
+    <ul>
+      <li>
+        Moyens et modalités de paiement : <Info valeur={CONDITIONS.paiement} />
+      </li>
+      <li>
+        Facture : <Info valeur={CONDITIONS.facture} />
+      </li>
+    </ul>
+    <p>
+      Le contrat est conclu à la confirmation du paiement. Une confirmation de la commande, reprenant ces conditions,
+      est envoyée par e-mail.
+    </p>
+
+    <h2 id="retractation">6. Droit de rétractation</h2>
+    <p>
+      Vous disposez d'un délai de quatorze jours à compter de la conclusion du contrat pour vous rétracter, sans avoir à
+      motiver votre décision (article L. 221-18 du Code de la consommation).
+    </p>
+    <p>
+      La formation est un contenu numérique fourni sans support matériel. Si vous souhaitez y accéder immédiatement,
+      vous devez, avant le paiement, donner votre accord exprès pour que l'accès commence avant la fin du délai de
+      rétractation et reconnaître que vous perdez ainsi votre droit de rétractation ; ces choix vous sont confirmés par
+      e-mail. Dans ce cas, le droit de rétractation ne peut plus être exercé (article L. 221-28, 13°, du Code de la
+      consommation). Si vous ne donnez pas cet accord, vous conservez votre droit de rétractation.
+    </p>
+    <p>
+      Pour vous rétracter, adressez une déclaration dénuée d'ambiguïté (par exemple par e-mail) à l'adresse de contact
+      ci-dessus. Le remboursement intervient dans les quatorze jours suivant la réception de votre demande, par le moyen
+      de paiement utilisé lors de la commande.
+    </p>
+
+    <h2 id="garanties">7. Garanties</h2>
+    <p>
+      Le contenu numérique bénéficie de la garantie légale de conformité prévue aux articles L. 224-25-12 et suivants du
+      Code de la consommation.
+    </p>
+    <p>
+      Garantie commerciale :{' '}
+      {CONDITIONS.garantie ? CONDITIONS.garantie : 'aucune garantie commerciale n’est proposée à ce jour.'}
+    </p>
+
+    <h2 id="responsabilite">8. Responsabilité</h2>
+    <p>
+      Le contenu est à jour à la date indiquée sur le site. Il ne tient pas compte de votre situation personnelle ; pour
+      une décision engageante, consultez un professionnel (avocat, notaire, expert-comptable, conseiller en gestion de
+      patrimoine).
+    </p>
+
+    <h2 id="propriete">9. Propriété intellectuelle et usage</h2>
+    <p>
+      L'achat donne un droit d'usage personnel de la formation. Les accès ne peuvent être ni partagés ni revendus, et le
+      contenu ne peut être reproduit ou diffusé sans l'accord écrit du vendeur.
+    </p>
+
+    <h2 id="donnees">10. Données personnelles</h2>
+    <p>
+      Voir la <a href={lien('confidentialite/')}>politique de confidentialité</a>.
+    </p>
+
+    <h2 id="mediation">11. Réclamations et médiation</h2>
+    <p>
+      Toute réclamation peut être adressée à l'adresse de contact ci-dessus. En cas de litige non résolu, vous pouvez
+      recourir gratuitement au médiateur de la consommation (article L. 612-1 du Code de la consommation) :{' '}
+      <Info valeur={CONDITIONS.mediateur} />.
+    </p>
+
+    <h2 id="droit">12. Droit applicable</h2>
+    <p>
+      Les présentes conditions sont soumises au droit français. Elles ne privent pas le consommateur des protections que
+      lui accordent les dispositions impératives de la loi.
+    </p>
+  </div>
+</Base>

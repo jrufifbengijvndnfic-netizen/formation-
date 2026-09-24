@@ -5,7 +5,7 @@ import Tarifs from '../components/Tarifs.astro';
 import Base from '../layouts/Base.astro';
 import { formation, miseAJour } from '../lib/donnees';
 import { COURS_PUBLIC } from '../lib/edition';
-import { lien } from '../lib/navigation';
+import { CHEMIN_VENTE, lien } from '../lib/navigation';
 import { lettres } from '../lib/parse-formation';
 import { referencementLettre } from '../lib/referencement-lettres';
 import { CATEGORIES_SIMULATEURS, referencementSimulateur } from '../lib/referencement-simulateurs';
@@ -91,13 +91,18 @@ const categories = CATEGORIES_SIMULATEURS.map((c) => ({
         Ces outils sont issus de la formation « {formation.titre.split(' — ').at(-1)} » : trois niveaux pour comprendre,
         acheter, louer, gérer, déclarer, optimiser et transmettre.
       </p>
-      {COURS_PUBLIC && (
-        <p>
-          <a class="bouton bouton--plein" href={lien()}>
-            Commencer la formation
-          </a>
-        </p>
-      )}
+      <p class="actions-formation">
+        <a
+          class="bouton bouton--plein"
+          href={lien('module/1-1/')}
+          data-suivi="clic_cta_principal debut_contenu_gratuit"
+        >
+          Commencer gratuitement le niveau 1
+        </a>
+        <a class="bouton" href={lien(CHEMIN_VENTE)} data-suivi="clic_programme_prix">
+          Voir le programme et les prix
+        </a>
+      </p>
       <Tarifs />
     </section>
 

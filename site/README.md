@@ -76,7 +76,8 @@ Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`) ; un test 
 
 Par défaut, le build produit le **site complet** : la formation en page d'accueil et les outils
 gratuits (vitrine sur `/outils/`). `EDITION=outils npm run build` ne produit que les outils gratuits,
-les tarifs et les informations (pour le jour où le cours deviendra payant). Pages du cours :
+la page de vente, les tarifs, les pages d'information et les extraits gratuits (module 1.1 et une
+checklist : `MODULES_GRATUITS`, `CHECKLISTS_GRATUITES`), pour le jour où le cours deviendra payant. Pages du cours :
 `src/cours/` ; vitrine des outils : `src/outils/` ; routes injectées par `astro.config.mjs`. Voir
 `src/lib/edition.ts`.
 
@@ -88,11 +89,26 @@ Renseigner `lienAchat` (page de paiement de la plateforme de vente) fait appara�
 « Acheter » ; sans lui, le site indique « achat en ligne bientôt disponible ». Le site étant statique,
 il ne protège pas le contenu payant : la plateforme de vente s'en charge.
 
+Page de vente : `src/pages/formation-investissement-locatif.astro` (`CHEMIN_VENTE` dans
+`src/lib/navigation.ts`). Encart « Aller plus loin » vers la formation : `src/components/EncartFormation.astro`
+(simulateurs, lettres, fin des extraits gratuits).
+
+**Informations du vendeur** : `src/lib/entreprise.ts` (éditeur, conditions de vente, auteur, avis
+réels, formulaire e-mail, mesure d'audience). Elles alimentent `/mentions-legales/`, `/cgv/`,
+`/confidentialite/`, la page de vente et le pied de page ; un champ vide s'affiche « à compléter » et
+le build liste les champs manquants.
+
+**Mesure d'audience** : Vercel Web Analytics, sans cookie (`MESURE_AUDIENCE`). Un attribut
+`data-suivi="nom"` sur un lien ou un bouton envoie l'événement au clic, `data-suivi-vue` à
+l'affichage, `data-suivi-envoi` sur un formulaire à l'envoi (`src/scripts/global.ts`). Le serveur de
+test sert un script vide à la place de `/_vercel/insights/script.js`.
+
 Les simulateurs sont gratuits et référencés comme tels (`src/lib/referencement-simulateurs.ts`).
 
 ## Référencement (cahier des charges SEO)
 
-- Titres « … | Formation Locatif », descriptions de 160 caractères au plus (coupées au mot),
+- Titres « … | Formation Locatif » (marque omise au-delà de 70 caractères, titre abrégé au-delà de 72),
+  descriptions de 160 caractères au plus (coupées au mot),
   adresse canonique, Open Graph et carte Twitter `summary_large_image` sur chaque page.
 - Données structurées JSON-LD dans le `<head>` : `Course` sur l'accueil, la page Tarifs et les pages
   de niveau (offres de `OFFRES` dans `src/lib/seo.ts`), `WebApplication` gratuite sur chaque simulateur, `BreadcrumbList` sur toutes les autres pages, identique au fil d'Ariane affiché.

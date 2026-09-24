@@ -41,7 +41,7 @@ const contenu = (o: Offre) => {
           <dd>{o.id === 'pack' ? 'Les trois niveaux' : organisation[`Niveau ${o.niveaux[0]}`]?.duree}</dd>
         </dl>
         {o.lienAchat ? (
-          <a class="bouton bouton--plein" href={o.lienAchat}>
+          <a class="bouton bouton--plein" href={o.lienAchat} data-suivi={`debut_paiement debut_paiement_${o.id}`}>
             Acheter — {prixTexte(o.prix)}
           </a>
         ) : (
@@ -52,6 +52,10 @@ const contenu = (o: Offre) => {
   ))}
 </div>
 <p class="registre__meta">
-  Paiement unique. Les simulateurs restent gratuits pour tous, sans inscription :{' '}
+  Paiement unique. Le{' '}
+  <a href={lien('module/1-1/')} data-suivi="debut_contenu_gratuit">
+    module 1.1
+  </a>{' '}
+  est gratuit, et les simulateurs restent gratuits pour tous, sans inscription :{' '}
   <a href={lien('simulateurs/')}>voir les simulateurs</a>.
 </p>

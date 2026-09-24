@@ -3,6 +3,7 @@ import { Font } from 'astro:assets';
 import '../styles/global.css';
 import EnTete from '../components/EnTete.astro';
 import PiedDePage from '../components/PiedDePage.astro';
+import { MESURE_AUDIENCE } from '../lib/entreprise';
 import { lien } from '../lib/navigation';
 import {
   IMAGE_PARTAGE,
@@ -77,11 +78,28 @@ const enJson = (donnees: Record<string, unknown>) => JSON.stringify(donnees).rep
         try {
           const theme = localStorage.getItem('formation-immobilier-locatif-2026:theme');
           if (theme === 'clair' || theme === 'sombre') racine.dataset.theme = theme;
+          // Jauges de progression affichées seulement si un module a été lu ou un quiz fait.
+          const p = JSON.parse(localStorage.getItem('formation-immobilier-locatif-2026:progression') || 'null');
+          if (p && Object.keys(p.lus || {}).length + Object.keys(p.quiz || {}).length > 0) {
+            racine.classList.add('a-progression');
+          }
         } catch {
           /* stockage indisponible : thème du système */
         }
       })();
     </script>
+    {MESURE_AUDIENCE && (
+      <>
+        <script is:inline>
+          window.va =
+            window.va ||
+            function (...args) {
+              (window.vaq = window.vaq || []).push(args);
+            };
+        </script>
+        <script is:inline defer src="/_vercel/insights/script.js"></script>
+      </>
+    )}
   </head>
   <body data-niveau={niveau}>
     <a class="lien-evitement" href="#contenu">

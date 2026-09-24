@@ -1,9 +1,10 @@
 ---
 import Avertissement from '../../components/Avertissement.astro';
+import EncartFormation from '../../components/EncartFormation.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import Lettre from '../../components/Lettre.astro';
 import Base from '../../layouts/Base.astro';
-import { formation } from '../../lib/donnees';
+import { formation, tousLesModules } from '../../lib/donnees';
 import { lien } from '../../lib/navigation';
 import { lettres } from '../../lib/parse-formation';
 import { referencementLettre } from '../../lib/referencement-lettres';
@@ -70,6 +71,14 @@ const donnees = {
           Outil utile avec ce courrier :{' '}
           <a href={lien(`simulateurs/${simulateur.id}/`)}>{referencementSimulateur(simulateur).h1}</a>.
         </p>
+      )}
+      {simulateur ? (
+        <EncartFormation modules={simulateur.modules} intro="Les règles de ce courrier sont expliquées dans" />
+      ) : (
+        <EncartFormation
+          modules={[]}
+          intro={`Ce modèle fait partie de la formation « L'immobilier locatif en France » : ${tousLesModules.length} modules pour louer, gérer et déclarer en connaissant les règles.`}
+        />
       )}
       <section aria-labelledby="autres-lettres-titre" data-pagefind-ignore>
         <h2 id="autres-lettres-titre">Autres modèles de lettres gratuits</h2>

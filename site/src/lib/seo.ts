@@ -61,8 +61,26 @@ export interface EtapeFilAriane {
   href?: string | undefined;
 }
 
-/** « Titre | Formation Locatif ». */
-export const titreDePage = (titre: string): string => `${titre} | ${MARQUE}`;
+/** Longueur au-delà de laquelle Google tronque souvent le titre (audit de conversion, C4). */
+export const LONGUEUR_TITRE = 70;
+
+/** Longueur maximale d'un titre sans suffixe ; au-delà, il est abrégé. */
+export const LONGUEUR_TITRE_MAX = 72;
+
+/**
+ * « Titre | Formation Locatif », ou le titre seul si le suffixe le ferait dépasser 70 caractères.
+ * Un titre trop long (titre de module de la formation) est abrégé dans la balise <title> seulement,
+ * avant son sous-titre (« : » ou parenthèse) : le titre affiché dans la page reste intact.
+ */
+export function titreDePage(titre: string): string {
+  const complet = `${titre} | ${MARQUE}`;
+  if (complet.length <= LONGUEUR_TITRE) return complet;
+  if (titre.length <= LONGUEUR_TITRE_MAX) return titre;
+  const coupe = titre.search(/ : | \(/);
+  return coupe > 20 && coupe <= LONGUEUR_TITRE_MAX
+    ? titreDePage(titre.slice(0, coupe))
+    : raccourcir(titre, LONGUEUR_TITRE_MAX);
+}
 
 /** Raccourcit au dernier mot entier pour tenir en `max` caractères, points de suspension compris. */
 export function raccourcir(texte: string, max = LONGUEUR_DESCRIPTION): string {

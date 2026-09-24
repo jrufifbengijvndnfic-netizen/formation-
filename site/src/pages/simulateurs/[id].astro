@@ -1,12 +1,14 @@
 ---
 import Avertissement from '../../components/Avertissement.astro';
+import EncartFormation from '../../components/EncartFormation.astro';
+import InscriptionEmail from '../../components/InscriptionEmail.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import Simulateur from '../../components/Simulateur.astro';
 import Base from '../../layouts/Base.astro';
 import { COURS_PUBLIC } from '../../lib/edition';
 import { formuleSimulateur, irlPublies, moduleParNumero } from '../../lib/donnees';
-import { cheminModule, lien } from '../../lib/navigation';
-import { referencementSimulateur, simulateurJsonLd } from '../../lib/referencement-simulateurs';
+import { CHEMIN_VENTE, cheminModule, lien } from '../../lib/navigation';
+import { referencementSimulateur, siglesAExpliquer, simulateurJsonLd } from '../../lib/referencement-simulateurs';
 import { SITE_PAR_DEFAUT } from '../../lib/seo';
 import { SIMULATEURS, type Simulateur as TSimulateur } from '../../lib/simulateurs';
 
@@ -28,6 +30,9 @@ const formule = sim.formule ? formuleSimulateur(sim.formule) : undefined;
 const niveauxDuSimulateur = [...new Set(sim.modules.map((n) => n.split('.')[0]))].sort();
 const autres = SIMULATEURS.filter((s) => s !== sim);
 const donnees = simulateurJsonLd(sim, Astro.url.pathname, Astro.site ?? SITE_PAR_DEFAUT);
+const sigles = siglesAExpliquer(`${seo.h1} ${sim.resume}`);
+// Outils dont le résultat conclut (« non décent », « non conforme ») : rappel court près du résultat.
+const resultatQuiConclut = ['dpe-location', 'encadrement-loyers'].includes(sim.id);
 const filAriane = [
   { libelle: 'Accueil', href: lien() },
   { libelle: 'Simulateurs', href: lien('simulateurs/') },
@@ -52,6 +57,16 @@ const filAriane = [
         </p>
         <h1>{seo.h1}</h1>
         <p>{sim.resume}</p>
+        {sigles.length > 0 && (
+          <p class="bandeau__sigles">
+            {sigles.map(([sigle, sens], k) => (
+              <>
+                {k > 0 && ' · '}
+                <abbr title={sens}>{sigle}</abbr> : {sens}
+              </>
+            ))}
+          </p>
+        )}
         <p class="bandeau__meta" data-pagefind-ignore>
           {COURS_PUBLIC ? (
             <>
@@ -76,7 +91,10 @@ const filAriane = [
           ) : (
             <span>
               Expliqué pas à pas dans {niveauxDuSimulateur.length > 1 ? 'les niveaux' : 'le niveau'}{' '}
-              {niveauxDuSimulateur.join(' et ')} de la formation : <a href={lien('tarifs/')}>découvrir la formation</a>
+              {niveauxDuSimulateur.join(' et ')} de la formation :{' '}
+              <a href={lien(CHEMIN_VENTE)} data-suivi="clic_encart_formation">
+                découvrir la formation
+              </a>
             </span>
           )}
         </p>
@@ -84,11 +102,20 @@ const filAriane = [
     </div>
     <div class="conteneur">
       <p class="champ__aide" data-pagefind-ignore>
-        Les valeurs proposées reprennent un exemple de la formation. Modifiez-les : les résultats se mettent à jour et
-        l'adresse de la page garde vos paramètres pour les partager.
+        {sim.exempleIllustratif
+          ? "Les valeurs proposées sont un exemple : remplacez-les par les vôtres. Les résultats se mettent à jour et l'adresse de la page garde vos paramètres pour les partager."
+          : "Les valeurs proposées reprennent un exemple de la formation. Modifiez-les : les résultats se mettent à jour et l'adresse de la page garde vos paramètres pour les partager."}
       </p>
       <Simulateur simulateur={sim} suggestions={suggestions} />
+      {resultatQuiConclut && (
+        <p class="champ__aide" data-pagefind-ignore>
+          Résultat indicatif, établi à partir des seules informations saisies : il ne remplace pas l'avis d'un
+          professionnel (ADIL, avocat, diagnostiqueur).
+        </p>
+      )}
       <div class="prose">
+        <EncartFormation modules={sim.modules} />
+        <InscriptionEmail />
         <section aria-labelledby="methode-titre">
           <h2 id="methode-titre">Comment le calcul est fait</h2>
           {formule ? (

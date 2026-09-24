@@ -72,6 +72,28 @@ function initialiserRaccourci(): void {
   });
 }
 
+// --------------------------------------------------------------- Mesure d'audience (sans cookie)
+// Plan de marquage de l'audit de conversion (§ 10) : un attribut data-suivi="nom_evenement" sur un
+// lien ou un bouton envoie l'événement au clic ; data-suivi-vue l'envoie à l'affichage de la page.
+// Sans Vercel Web Analytics (window.va absent), rien n'est envoyé.
+type FonctionMesure = (type: 'event', donnees: { name: string }) => void;
+function envoyerEvenement(nom: string): void {
+  (window as unknown as { va?: FonctionMesure }).va?.('event', { name: nom });
+}
+function initialiserSuivi(): void {
+  document.addEventListener('click', (e) => {
+    const cible = e.target instanceof Element ? e.target.closest<HTMLElement>('[data-suivi]') : null;
+    (cible?.dataset.suivi ?? '').split(/\s+/).filter(Boolean).forEach(envoyerEvenement);
+  });
+  document.addEventListener('submit', (e) => {
+    const nom = e.target instanceof HTMLFormElement ? e.target.dataset.suiviEnvoi : undefined;
+    if (nom) envoyerEvenement(nom);
+  });
+  document.querySelectorAll<HTMLElement>('[data-suivi-vue]').forEach((el) => {
+    if (el.dataset.suiviVue) envoyerEvenement(el.dataset.suiviVue);
+  });
+}
+
 // --------------------------------------------------------------- Progression affichée
 function majJauge(el: HTMLElement, pourcentage: number): void {
   el.style.setProperty('--valeur', `${pourcentage}%`);
@@ -80,6 +102,10 @@ function majJauge(el: HTMLElement, pourcentage: number): void {
 
 export function afficherProgression(): void {
   const p = progression();
+  document.documentElement.classList.toggle(
+    'a-progression',
+    Object.keys(p.lus).length + Object.keys(p.quiz).length > 0,
+  );
   const globale = document.querySelector<HTMLElement>('[data-jauge-globale]');
   if (globale) {
     const a = avancement(p, (globale.dataset.modules ?? '').split(',').filter(Boolean));
@@ -190,5 +216,6 @@ initialiserMenu();
 initialiserRaccourci();
 initialiserInfobulles();
 initialiserImpression();
+initialiserSuivi();
 afficherProgression();
 document.addEventListener('progression:modifiee', afficherProgression);

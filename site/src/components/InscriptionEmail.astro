@@ -1,0 +1,34 @@
+---
+/**
+ * Inscription par e-mail (audit de conversion, B4 ; aimant : calendrier des échéances du bailleur).
+ * Affichée seulement quand l'adresse d'envoi du service d'e-mailing est renseignée dans
+ * src/lib/entreprise.ts (FORMULAIRE_EMAIL.action). Le service gère le double consentement.
+ */
+import { FORMULAIRE_EMAIL } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+
+interface Props {
+  titre?: string;
+}
+const { titre = 'Recevez le calendrier des échéances du bailleur 2026-2027' } = Astro.props;
+---
+
+{FORMULAIRE_EMAIL.action && (
+  <section class="inscription-email" aria-labelledby="inscription-email-titre" data-pagefind-ignore>
+    <h2 id="inscription-email-titre">{titre}</h2>
+    <p>Les dates à ne pas manquer (DPE, encadrement des loyers, déclarations), par e-mail et gratuitement.</p>
+    <form method="post" action={FORMULAIRE_EMAIL.action} data-suivi-envoi="demande_inscription_email">
+      <label for="inscription-email-champ">Votre adresse e-mail</label>
+      <div class="inscription-email__ligne">
+        <input id="inscription-email-champ" name={FORMULAIRE_EMAIL.champ} type="email" autocomplete="email" required />
+        <button type="submit" class="bouton bouton--plein">
+          Recevoir le calendrier
+        </button>
+      </div>
+      <p class="registre__meta">
+        Vous recevrez un e-mail pour confirmer votre inscription. Désinscription en un clic dans chaque message.{' '}
+        <a href={lien('confidentialite/')}>Confidentialité</a>.
+      </p>
+    </form>
+  </section>
+)}

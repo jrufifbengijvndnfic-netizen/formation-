@@ -1,20 +1,26 @@
 ---
 import Avertissement from '../../components/Avertissement.astro';
 import Checklist from '../../components/Checklist.astro';
+import EncartFormation from '../../components/EncartFormation.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import Base from '../../layouts/Base.astro';
-import { formation } from '../../lib/donnees';
-import { lien, slugChecklist } from '../../lib/navigation';
+import { formation, tousLesModules } from '../../lib/donnees';
+import { CHECKLISTS_GRATUITES, COURS_PUBLIC } from '../../lib/edition';
+import { CHEMIN_VENTE, lien, slugChecklist } from '../../lib/navigation';
 import { checklists, tousLesElements } from '../../lib/parse-formation';
 import type { Checklist as TChecklist, Element, Niveau } from '../../lib/types';
 
 export function getStaticPaths() {
-  return tousLesElements(formation)
-    .filter((e) => e.type === 'checklist')
-    .map((e) => ({
-      params: { id: slugChecklist(e) },
-      props: { element: e, checklist: checklists(formation).find((c) => c.elementId === e.id) as TChecklist },
-    }));
+  return (
+    tousLesElements(formation)
+      .filter((e) => e.type === 'checklist')
+      // Édition « outils » : seules les checklists gratuites sont publiées.
+      .filter((e) => COURS_PUBLIC || CHECKLISTS_GRATUITES.includes(slugChecklist(e)))
+      .map((e) => ({
+        params: { id: slugChecklist(e) },
+        props: { element: e, checklist: checklists(formation).find((c) => c.elementId === e.id) as TChecklist },
+      }))
+  );
 }
 interface Props {
   element: Element;
@@ -24,7 +30,9 @@ const { element, checklist } = Astro.props;
 const n = element.niveau as Niveau;
 const filAriane = [
   { libelle: 'Accueil', href: lien() },
-  { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
+  COURS_PUBLIC
+    ? { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) }
+    : { libelle: 'La formation', href: lien(CHEMIN_VENTE) },
   { libelle: 'Checklist' },
 ];
 ---
@@ -47,9 +55,19 @@ const filAriane = [
     <div class="conteneur">
       <div class="prose">
         <Checklist checklist={checklist} />
-        <p>
-          <a href={lien('annexe/g/')}>Six autres checklists dans l'annexe G</a>
-        </p>
+        {COURS_PUBLIC && (
+          <p>
+            <a href={lien('annexe/g/')}>Six autres checklists dans l'annexe G</a>
+          </p>
+        )}
+        {CHECKLISTS_GRATUITES.includes(slugChecklist(element)) && (
+          <EncartFormation
+            modules={[]}
+            titre="Cette checklist est un extrait gratuit de la formation"
+            intro={`La formation « L'immobilier locatif en France » compte ${checklists(formation).length - 1} autres checklists, ${tousLesModules.length} modules avec leurs quiz et un examen par niveau.`}
+            suivi="clic_fin_extrait"
+          />
+        )}
         <Avertissement />
       </div>
     </div>

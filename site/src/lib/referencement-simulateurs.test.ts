@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { REFERENCEMENT_SIMULATEURS, simulateurJsonLd } from './referencement-simulateurs';
+import { REFERENCEMENT_SIMULATEURS, siglesAExpliquer, simulateurJsonLd } from './referencement-simulateurs';
 import { SIMULATEURS } from './simulateurs';
 
 describe('référencement des simulateurs', () => {
@@ -25,5 +25,16 @@ describe('catégories de la page d’accueil', () => {
     const { CATEGORIES_SIMULATEURS } = await import('./referencement-simulateurs');
     const ids = CATEGORIES_SIMULATEURS.flatMap((c) => c.ids);
     expect([...ids].sort()).toEqual(SIMULATEURS.map((s) => s.id).sort());
+  });
+});
+
+describe('sigles expliqués sous le titre', () => {
+  it('développe les sigles une fois, sauf ceux déjà développés', () => {
+    expect(siglesAExpliquer('Simulateur LMNP : micro-BIC ou régime réel')).toEqual([
+      ['LMNP', 'location meublée non professionnelle'],
+      ['BIC', 'bénéfices industriels et commerciaux'],
+    ]);
+    expect(siglesAExpliquer('Simulateur de l’impôt sur la fortune immobilière (IFI)')).toEqual([]);
+    expect(siglesAExpliquer('Calcul de la révision de loyer avec l’IRL. IRL publié.')).toHaveLength(1);
   });
 });

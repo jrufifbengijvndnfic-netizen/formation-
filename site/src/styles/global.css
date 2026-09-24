@@ -594,6 +594,49 @@ main {
 .bandeau p {
   max-width: var(--largeur-texte);
 }
+.bandeau__sigles {
+  font-size: 0.85rem;
+  opacity: 0.95;
+  margin: 0.3rem 0 0;
+}
+.bandeau__sigles abbr {
+  text-decoration: none;
+  font-weight: 600;
+}
+.bandeau__pour-qui {
+  font-size: 0.95rem;
+  margin: 0.4rem 0 0;
+}
+/* Boutons d'appel à l'action du haut de page (audit de conversion, A1) */
+.bandeau__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.2rem 0 0.4rem;
+}
+.bandeau .bandeau__actions .bouton {
+  background: transparent;
+  border-color: #fff;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.7rem 1.15rem;
+}
+.bandeau .bandeau__actions .bouton--plein {
+  background: #fff;
+  color: #1c2330;
+}
+.bandeau .bandeau__actions .bouton:hover {
+  filter: none;
+  background: rgb(255 255 255 / 0.14);
+}
+.bandeau .bandeau__actions .bouton--plein:hover {
+  background: #e8ecf2;
+}
+/* Progression : masquée tant que le visiteur n'a lu aucun module (classe posée dans <head>, sans décalage) */
+html:not(.a-progression) .progression-globale,
+html:not(.a-progression) [data-progression-seule] {
+  display: none;
+}
 
 /* Numéro de parcelle */
 .parcelle {
@@ -1491,6 +1534,65 @@ details.corrige > p {
 .liste-colonnes li {
   break-inside: avoid;
   margin-bottom: 0.4rem;
+}
+
+/* Encart « Aller plus loin » vers la formation (outils, lettres, extraits gratuits) */
+.encart-formation {
+  margin: 2.5rem 0;
+  padding: 1.2rem 1.3rem;
+  border: 1.5px solid var(--encre);
+  border-left-width: 6px;
+  border-radius: var(--rayon);
+  background: var(--papier);
+}
+.encart-formation h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+.encart-formation p:last-child {
+  margin-bottom: 0;
+}
+
+/* Boutons vers la formation (vitrine des outils) */
+.actions-formation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+}
+
+/* Inscription par e-mail (affichée seulement si le service d'e-mailing est configuré) */
+.inscription-email {
+  margin: 2.5rem 0;
+  padding: 1.2rem 1.3rem;
+  border: 1.5px solid var(--filet-fort);
+  border-radius: var(--rayon);
+}
+.inscription-email h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+.inscription-email__ligne {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.4rem 0 0.6rem;
+}
+.inscription-email__ligne input {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+/* Information légale encore manquante (src/lib/entreprise.ts) */
+.a-completer {
+  font-style: italic;
+  color: var(--texte-doux);
+}
+.a-completer::before {
+  content: '[';
+}
+.a-completer::after {
+  content: ']';
 }
 
 /* ------------------------------------------------------------------ Tarifs */

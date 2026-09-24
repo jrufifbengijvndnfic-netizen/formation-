@@ -52,6 +52,8 @@ for (const fichier of toutes) {
   for (const m of html.matchAll(/\s(?:href|src)="([^"]+)"/g)) {
     const brut = (m[1] as string).replace(/&amp;/g, '&');
     if (/^(https?:|mailto:|tel:|data:|javascript:)/.test(brut)) continue;
+    // Script de mesure d'audience servi par l'hébergeur (Vercel), absent de dist/.
+    if (brut.startsWith('/_vercel/')) continue;
     liens++;
     const [chemin, ancre] = brut.split('#') as [string, string | undefined];
     const sansRequete = chemin.split('?')[0] as string;

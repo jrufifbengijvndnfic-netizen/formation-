@@ -1,0 +1,63 @@
+---
+/**
+ * Encart « Aller plus loin » : relie un outil gratuit ou un extrait à la formation payante
+ * (module qui l'explique, niveau, prix, page de vente). Audit de conversion, actions A4 et B1.
+ */
+import { estPublie, moduleParNumero } from '../lib/donnees';
+import { CHEMIN_VENTE, cheminModule, lien } from '../lib/navigation';
+import { offreNiveau, offrePack, prixTexte } from '../lib/seo';
+import type { Niveau } from '../lib/types';
+
+interface Props {
+  /** Numéros des modules qui expliquent le sujet (liste vide : seule l'introduction est affichée). */
+  modules: string[];
+  titre?: string;
+  /** Phrase d'introduction ; par défaut « Ce calcul est expliqué pas à pas dans… ». */
+  intro?: string;
+  /** Événement de mesure envoyé au clic sur le bouton. */
+  suivi?: string;
+}
+const {
+  modules,
+  titre = 'Aller plus loin',
+  intro = 'Ce calcul est expliqué pas à pas dans',
+  suivi = 'clic_encart_formation',
+} = Astro.props;
+const liste = modules.map((n) => ({ n, m: moduleParNumero(n) })).filter((x) => x.m);
+const niveaux = [...new Set(liste.map((x) => x.m?.niveau as Niveau))].sort();
+---
+
+<aside class="encart-formation" aria-labelledby="encart-formation-titre" data-pagefind-ignore>
+  <h2 id="encart-formation-titre">{titre}</h2>
+  {liste.length > 0 ? (
+    <p>
+      {intro}{' '}
+      {liste.map(({ n, m }, i) => (
+        <>
+          {i > 0 && (i === liste.length - 1 ? ' et ' : ', ')}
+          {estPublie(n) ? (
+            <a href={lien(cheminModule(n))}>
+              le module {n} — {m?.titreCourt}
+            </a>
+          ) : (
+            <span>
+              le module {n} — {m?.titreCourt}
+            </span>
+          )}
+        </>
+      ))}
+      , {niveaux.length > 1 ? 'aux niveaux' : 'au niveau'}{' '}
+      {niveaux.map((v) => `${v} (${prixTexte(offreNiveau(v).prix)})`).join(' et ')} de la formation « L'immobilier
+      locatif en France ».
+    </p>
+  ) : (
+    <p>
+      {intro} Dès {prixTexte(offreNiveau(1).prix)} le niveau, {prixTexte(offrePack().prix)} les trois niveaux.
+    </p>
+  )}
+  <p>
+    <a class="bouton bouton--plein" href={lien(CHEMIN_VENTE)} data-suivi={suivi}>
+      Découvrir la formation
+    </a>
+  </p>
+</aside>

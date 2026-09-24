@@ -1,0 +1,11 @@
+---
+/** Information de l'éditeur ou des conditions de vente : sa valeur, ou « à compléter » si elle manque. */
+import { A_COMPLETER } from '../lib/entreprise';
+
+interface Props {
+  valeur: string;
+}
+const { valeur } = Astro.props;
+---
+
+{valeur.trim() ? valeur : <span class="a-completer">{A_COMPLETER}</span>}

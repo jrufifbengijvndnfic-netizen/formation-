@@ -1,0 +1,134 @@
+[
+ {
+  "page": "/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 132
+ },
+ {
+  "page": "/formation-investissement-locatif/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 135
+ },
+ {
+  "page": "/tarifs/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 131
+ },
+ {
+  "page": "/module/1-1/",
+  "perf": 99,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 140
+ },
+ {
+  "page": "/checklist/mettre-en-location-son-premier-logement/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0.026",
+  "tbt": "0 ms",
+  "poidsKo": 132
+ },
+ {
+  "page": "/outils/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 133
+ },
+ {
+  "page": "/simulateurs/rentabilite/",
+  "perf": 99,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "2.0 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 161
+ },
+ {
+  "page": "/simulateurs/dpe-location/",
+  "perf": 99,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "2.0 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 160
+ },
+ {
+  "page": "/lettres/revision-du-loyer/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 136
+ },
+ {
+  "page": "/mentions-legales/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 130
+ },
+ {
+  "page": "/cgv/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 131
+ },
+ {
+  "page": "/confidentialite/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 130
+ }
+]

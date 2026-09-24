@@ -1,5 +1,5 @@
 ---
-import { lien } from '../lib/navigation';
+import { CHEMIN_VENTE, lien } from '../lib/navigation';
 import { formation, miseAJour, tousLesModules } from '../lib/donnees';
 import { COURS_PUBLIC } from '../lib/edition';
 import { MARQUE } from '../lib/seo';
@@ -13,7 +13,7 @@ const { actif } = Astro.props;
 const entreesOutils = [
   { cle: 'simulateurs', libelle: 'Simulateurs', href: lien('simulateurs/') },
   { cle: 'lettres', libelle: 'Lettres types', href: lien('lettres/') },
-  { cle: 'tarifs', libelle: 'La formation', href: lien('tarifs/') },
+  { cle: 'formation', libelle: 'La formation', href: lien(CHEMIN_VENTE) },
   { cle: 'a-propos', libelle: 'À propos', href: lien('a-propos/') },
 ];
 const entreesCours = [
@@ -23,6 +23,7 @@ const entreesCours = [
   { cle: 'annexes', libelle: 'Annexes', href: lien('annexes/') },
   { cle: 'simulateurs', libelle: 'Outils', href: lien('outils/') },
   { cle: 'glossaire', libelle: 'Glossaire', href: lien('glossaire/') },
+  { cle: 'formation', libelle: 'Tarifs', href: lien(`${CHEMIN_VENTE}#offre`) },
   { cle: 'recherche', libelle: 'Recherche', href: lien('recherche/') },
 ];
 const entrees: { cle: string; libelle: string; href: string; couleur?: string }[] = COURS_PUBLIC

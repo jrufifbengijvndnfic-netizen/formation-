@@ -7,6 +7,9 @@ export function lien(chemin = ''): string {
   return base + chemin.replace(/^\//, '');
 }
 
+/** Page de vente de la formation. */
+export const CHEMIN_VENTE = 'formation-investissement-locatif/';
+
 export const idModule = (numero: string): string => numero.replace('.', '-');
 
 export function slugExamen(e: Element): string {

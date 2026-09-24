@@ -35,6 +35,11 @@ export function verifierDist(): void {
 export async function demarrerServeur(): Promise<{ base: string; serveur: Server }> {
   const serveur = createServer((req, res) => {
     const url = new URL(req.url ?? '/', 'http://localhost');
+    // Mesure d'audience Vercel : servie par l'hébergeur en production ; ici, un script vide.
+    if (url.pathname.startsWith('/_vercel/insights/')) {
+      res.writeHead(200, { 'content-type': TYPES['.js'] as string, 'cache-control': 'no-cache' }).end('');
+      return;
+    }
     let fichier = path.join(DIST, decodeURIComponent(url.pathname));
     if (!fichier.startsWith(DIST)) {
       res.writeHead(403).end();

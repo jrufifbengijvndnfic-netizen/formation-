@@ -52,12 +52,29 @@ branche `claude/admiring-einstein-bp3wj6`.
   examens, checklists, annexes, glossaire, recherche, progression) et les outils gratuits : vitrine sur
   `/outils/`, 24 simulateurs, 10 modèles de lettres (`/lettres/…`). Les outils servent à attirer du
   trafic et de la visibilité vers la formation.
-- **« outils »** (`EDITION=outils npm run build`) : seulement les outils gratuits, les tarifs et les
-  informations (vitrine en page d'accueil), pour le jour où le cours sera réservé aux acheteurs.
+- **« outils »** (`EDITION=outils npm run build`) : seulement les outils gratuits, la page de vente,
+  les tarifs, les pages légales et les **extraits gratuits** (module 1.1 et checklist « Mettre en
+  location son premier logement », `MODULES_GRATUITS` et `CHECKLISTS_GRATUITES` dans
+  `site/src/lib/edition.ts`), pour le jour où le cours sera réservé aux acheteurs.
 `npm run test:site` teste l'édition construite (les deux passent).
 
+**Vente et conversion** (audit `audit/AUDIT-conversion.md`, mis en œuvre en version 009, compte
+rendu dans `audit/MISE-EN-OEUVRE.md`) :
+- page de vente `/formation-investissement-locatif/` (problème, méthode, programme, extraits
+  gratuits, pour qui, offre, 16 questions fréquentes) ; boutons « Commencer gratuitement le
+  niveau 1 » et « Voir le programme et les prix » en haut de l'accueil, des Tarifs et de la vitrine ;
+- encart « Aller plus loin » (module qui explique l'outil + prix du niveau) sur chaque simulateur,
+  chaque lettre et à la fin des extraits gratuits (`site/src/components/EncartFormation.astro`) ;
+- pages `/mentions-legales/`, `/cgv/`, `/confidentialite/` ; **informations du vendeur à renseigner
+  dans `site/src/lib/entreprise.ts`** (le build liste les champs encore vides ; les pages affichent
+  « à compléter ») ;
+- mesure d'audience sans cookie (Vercel Web Analytics, `MESURE_AUDIENCE`) et événements
+  `data-suivi` (clic_cta_principal, debut_contenu_gratuit, clic_encart_formation, clic_fin_extrait,
+  vue_page_vente, debut_paiement…) ; à activer dans Vercel → projet → Analytics ;
+- formulaire d'inscription par e-mail prêt, affiché dès que `FORMULAIRE_EMAIL.action` est renseigné.
+
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **008**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **009**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)
@@ -102,8 +119,11 @@ Congé, Zonage A, B, C.
   reprise), durée de 45 h (minimums du tableau 0.2) ; offres des niveaux et de la formation
   complète (page Tarifs) ; `WebApplication` gratuite sur chaque simulateur ;
 - `BreadcrumbList` sur toutes les pages sauf l'accueil, généré à partir du fil d'Ariane affiché ;
-- `FAQPage` non appliqué : le site n'a ni blog ni FAQ, et écrire des réponses serait réécrire le
-  fond (interdit par le brief) ;
+- `FAQPage` non appliqué : la seule FAQ est celle de la page de vente, et Google n'affiche plus ces
+  extraits que pour quelques sites officiels ;
+- titres de page : marque en suffixe seulement si le total tient en 70 caractères ; un titre de
+  module plus long que 72 caractères est abrégé avant son sous-titre, dans la balise `<title>`
+  seulement (`titreDePage`, `site/src/lib/seo.ts`) ;
 - Tailwind non adopté (le cahier le « recommande ») : la feuille de style, écrite à la main, pèse
   9 Ko compressée sans règle inutilisée d'un framework ; la migrer n'apporterait rien ;
 - `aria-label="Fil d'Ariane"` gardé en français (la page est en français ; le cahier écrit
@@ -219,11 +239,15 @@ Formation-immobilier/          (dépôt GitHub « formation- »)
    `NAVIGATEUR=webkit npm run test:site` sur une machine où `npx playwright install firefox webkit`
    fonctionne (bloqué dans l'environnement de travail, voir § 5).
 4. **Vente** : prix fixés (niveau 1 : 97 €, niveau 2 : 197 €, niveau 3 : 297 €, formation complète :
-   447 €), affichés sur `/tarifs/`, l'accueil et les pages de niveau. Reste à choisir la plateforme de
-   paiement et d'espace membre (Systeme.io, Podia, Teachable…) : le site statique ne peut pas
-   réserver le contenu aux acheteurs. Ensuite, renseigner `lienAchat` dans `OFFRES`
-   (`site/src/lib/seo.ts`) et retirer du site public ce qui devient payant. Prévoir mentions légales,
-   CGV (droit de rétractation), facturation et régime de TVA.
+   447 €) ; page de vente, pages légales et mesure prêtes (version 009). Reste à fournir :
+   - la plateforme de paiement et d'espace membre (Systeme.io, Podia, Teachable…), puis `lienAchat`
+     dans `OFFRES` (`site/src/lib/seo.ts`) : les boutons « Acheter » apparaissent alors ;
+   - l'identité du vendeur, la mention de TVA, l'accès, les mises à jour, la facture, le paiement, le
+     médiateur de la consommation et l'auteur dans `site/src/lib/entreprise.ts` (CGV à faire relire
+     par un juriste) ;
+   - le service d'e-mailing (adresse du formulaire) et l'aimant « calendrier du bailleur 2026-2027 » ;
+   - l'activation de Web Analytics dans Vercel (les événements personnalisés demandent l'offre Pro) ;
+   - le jour venu, publier l'édition « outils » (`EDITION=outils`) pour réserver le cours aux acheteurs.
 5. **Domaine** : `formation-locatif.com` (défaut du build ; le cahier des charges SEO disait `.fr`).
    Une autre adresse se choisit par `SITE_URL=https://… npm run build`.
 6. **PDF** : il n'a pas été fourni à cette session. Le déposer sous

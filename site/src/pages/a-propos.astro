@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import { avertissementHtml, avecPdf, formation, miseAJour, partieModeEmploi } from '../lib/donnees';
 import { lien } from '../lib/navigation';
 import { COURS_PUBLIC } from '../lib/edition';
+import { MESURE_AUDIENCE } from '../lib/entreprise';
 import { nouveauContexte, rendreMarkdown } from '../lib/render';
 
 const s01 = partieModeEmploi.elements.find((e) => e.numero === '0.1');
@@ -54,7 +55,12 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'À propos' 
 
     <h2 id="confidentialite">Confidentialité</h2>
     <ul>
-      <li>Aucun traceur, aucun outil de mesure d'audience, aucun cookie publicitaire.</li>
+      <li>
+        {MESURE_AUDIENCE
+          ? 'Aucun cookie publicitaire, aucun traceur de réseau social ; une mesure d’audience sans cookie compte les visites de façon agrégée.'
+          : 'Aucun traceur, aucun outil de mesure d’audience, aucun cookie publicitaire.'}{' '}
+        Détails : <a href={lien('confidentialite/')}>politique de confidentialité</a>.
+      </li>
       {COURS_PUBLIC ? (
         <li>
           Votre progression (modules lus, scores, cases cochées) et votre choix de thème sont enregistrés uniquement

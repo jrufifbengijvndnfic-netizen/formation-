@@ -1,14 +1,27 @@
 ---
 import Avertissement from '../../components/Avertissement.astro';
+import EncartFormation from '../../components/EncartFormation.astro';
 import ContenuElement from '../../components/ContenuElement.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import Base from '../../layouts/Base.astro';
-import { description, formation, niveauDe, nombreQuestions, tempsDeLecture, tousLesModules } from '../../lib/donnees';
-import { idModule, lien, lienElement, libelleCourt, voisins } from '../../lib/navigation';
+import {
+  description,
+  estPublie,
+  formation,
+  niveauDe,
+  nombreQuestions,
+  tempsDeLecture,
+  tousLesModules,
+} from '../../lib/donnees';
+import { COURS_PUBLIC, MODULES_GRATUITS } from '../../lib/edition';
+import { CHEMIN_VENTE, idModule, lien, lienElement, libelleCourt, voisins } from '../../lib/navigation';
 import type { Element, Niveau } from '../../lib/types';
 
 export function getStaticPaths() {
-  return tousLesModules.map((m) => ({ params: { id: idModule(m.numero ?? '') }, props: { module: m } }));
+  // Édition « outils » : seuls les extraits gratuits sont publiés.
+  return tousLesModules
+    .filter((m) => estPublie(m.numero ?? ''))
+    .map((m) => ({ params: { id: idModule(m.numero ?? '') }, props: { module: m } }));
 }
 
 interface Props {
@@ -17,12 +30,18 @@ interface Props {
 const { module: m } = Astro.props;
 const n = m.niveau as Niveau;
 const partie = niveauDe(n);
-const { precedent, suivant } = voisins(formation, m);
+const voisinsDuModule = voisins(formation, m);
+// Précédent / suivant seulement vers des pages publiées.
+const precedent = COURS_PUBLIC ? voisinsDuModule.precedent : undefined;
+const suivant = COURS_PUBLIC ? voisinsDuModule.suivant : undefined;
+const extraitGratuit = MODULES_GRATUITS.includes(m.numero ?? '');
 const surveiller = m.encadres.filter((e) => e.type === 'A_SURVEILLER');
 const titreVoisin = (e: Element) => (e.type === 'module' ? e.titreCourt : e.titre);
 const filAriane = [
   { libelle: 'Accueil', href: lien() },
-  { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
+  COURS_PUBLIC
+    ? { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) }
+    : { libelle: 'La formation', href: lien(CHEMIN_VENTE) },
   { libelle: `Module ${m.numero}` },
 ];
 ---
@@ -90,6 +109,14 @@ const filAriane = [
           <span class="etat-lecture" data-etat-lecture role="status"></span>
         </div>
 
+        {extraitGratuit && (
+          <EncartFormation
+            modules={[]}
+            titre={`Vous avez lu l'extrait gratuit du niveau ${n}`}
+            intro={`Le niveau ${n} complet compte ${partie.elements.filter((e) => e.type === 'module').length} modules, leurs quiz et un examen.`}
+            suivi="clic_fin_extrait"
+          />
+        )}
         <nav class="precedent-suivant" aria-label="Parcours" data-pagefind-ignore>
           {precedent ? (
             <a href={lienElement(precedent)} rel="prev">

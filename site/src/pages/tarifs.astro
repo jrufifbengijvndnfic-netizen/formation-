@@ -3,30 +3,14 @@ import Avertissement from '../components/Avertissement.astro';
 import FilAriane from '../components/FilAriane.astro';
 import Tarifs from '../components/Tarifs.astro';
 import Base from '../layouts/Base.astro';
-import { titreSite } from '../lib/donnees';
-import { lien } from '../lib/navigation';
-import {
-  MARQUE,
-  OFFRES,
-  SITE_PAR_DEFAUT,
-  adresseAbsolue,
-  offreJsonLd,
-  offreNiveau,
-  offrePack,
-  prixSepares,
-} from '../lib/seo';
+import { coursJsonLd } from '../lib/cours-jsonld';
+import { CONDITIONS } from '../lib/entreprise';
+import { CHEMIN_VENTE, lien } from '../lib/navigation';
+import { SITE_PAR_DEFAUT, offreNiveau, offrePack, prixSepares, prixTexte } from '../lib/seo';
 
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Tarifs' }];
-const url = adresseAbsolue(Astro.url.pathname, Astro.site ?? SITE_PAR_DEFAUT);
-const donnees = {
-  '@context': 'https://schema.org',
-  '@type': 'Course',
-  name: titreSite,
-  inLanguage: 'fr',
-  provider: { '@type': 'Organization', name: MARQUE, sameAs: adresseAbsolue('/', Astro.site ?? SITE_PAR_DEFAUT) },
-  description: `Formation en trois niveaux, vendus séparément ou ensemble.`,
-  offers: OFFRES.map((o) => offreJsonLd(o, url)),
-};
+// Les quatre offres, avec la durée de la formation (hasCourseInstance) : audit de conversion, § 10.
+const donnees = coursJsonLd(Astro.site ?? SITE_PAR_DEFAUT, Astro.url.pathname, true);
 ---
 
 <Base
@@ -41,13 +25,29 @@ const donnees = {
       <FilAriane etapes={filAriane} />
       <p class="bandeau__sur">Paiement unique</p>
       <h1>Tarifs de la formation</h1>
-      <p class="chapeau">Chaque niveau s'achète séparément ; la formation complète réunit les trois à prix réduit.</p>
+      <p class="chapeau">
+        Chaque niveau s'achète séparément ; la formation complète réunit les trois pour {prixTexte(offrePack().prix)} au
+        lieu de {prixTexte(prixSepares())}.
+      </p>
+      <p class="bandeau__actions">
+        <a
+          class="bouton bouton--plein"
+          href={lien('module/1-1/')}
+          data-suivi="clic_cta_principal debut_contenu_gratuit"
+        >
+          Commencer gratuitement le niveau 1
+        </a>
+        <a class="bouton" href={lien(CHEMIN_VENTE)} data-suivi="clic_programme_prix">
+          Programme détaillé et questions fréquentes
+        </a>
+      </p>
     </div>
   </div>
   <div class="conteneur">
     <section aria-labelledby="offres-titre">
       <h2 id="offres-titre">Les offres</h2>
       <Tarifs />
+      {CONDITIONS.mentionPrix && <p class="registre__meta">{CONDITIONS.mentionPrix}.</p>}
     </section>
     <div class="prose">
       <Avertissement />
