@@ -10,10 +10,41 @@ export const MARQUE = 'Formation Locatif';
 export const SITE_PAR_DEFAUT = 'https://formation-locatif.com';
 
 /**
- * Offre commerciale déclarée dans les données structurées `Course` (cahier des charges, § 5.1).
- * Google demande que le prix figure aussi en clair sur la page : à compléter avant la mise en ligne.
+ * Offres commerciales (prix TTC en euros), affichées sur la page Tarifs, l'accueil et les pages de
+ * niveau, et déclarées dans les données structurées. `lienAchat` : adresse de la page de paiement
+ * (plateforme de vente) ; tant qu'elle est absente, le site indique « achat bientôt disponible ».
  */
-export const OFFRE = { prix: '997', devise: 'EUR' } as const;
+export interface Offre {
+  id: 'niveau-1' | 'niveau-2' | 'niveau-3' | 'pack';
+  prix: number;
+  niveaux: (1 | 2 | 3)[];
+  lienAchat?: string | undefined;
+}
+export const DEVISE = 'EUR';
+export const OFFRES: Offre[] = [
+  { id: 'niveau-1', prix: 97, niveaux: [1] },
+  { id: 'niveau-2', prix: 197, niveaux: [2] },
+  { id: 'niveau-3', prix: 297, niveaux: [3] },
+  { id: 'pack', prix: 447, niveaux: [1, 2, 3] },
+];
+export const offreNiveau = (n: 1 | 2 | 3): Offre => OFFRES.find((o) => o.id === `niveau-${n}`) as Offre;
+export const offrePack = (): Offre => OFFRES.find((o) => o.id === 'pack') as Offre;
+/** Prix des niveaux achetés séparément, pour afficher l'économie du pack. */
+export const prixSepares = (): number => OFFRES.filter((o) => o.id !== 'pack').reduce((t, o) => t + o.prix, 0);
+/** « 97 € » avec espace insécable. */
+export const prixTexte = (prix: number): string => `${prix}\u00a0€`;
+
+/** Offre au format schema.org ; « InStock » seulement quand l'achat est réellement possible. */
+export function offreJsonLd(o: Offre, url: string): Record<string, unknown> {
+  return {
+    '@type': 'Offer',
+    category: 'Paid',
+    price: String(o.prix),
+    priceCurrency: DEVISE,
+    url: o.lienAchat ?? url,
+    ...(o.lienAchat ? { availability: 'https://schema.org/InStock' } : {}),
+  };
+}
 
 /** Image de partage (Open Graph, Twitter), 1200 × 630, dans public/images/. */
 export const IMAGE_PARTAGE = {

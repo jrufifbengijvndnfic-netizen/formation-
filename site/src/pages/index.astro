@@ -18,7 +18,16 @@ import {
 import { lien } from '../lib/navigation';
 import { toutesLesQuestions } from '../lib/parse-formation';
 import { texteBrut } from '../lib/render';
-import { MARQUE, OFFRE, SITE_PAR_DEFAUT } from '../lib/seo';
+import {
+  MARQUE,
+  SITE_PAR_DEFAUT,
+  adresseAbsolue,
+  offreJsonLd,
+  offreNiveau,
+  offrePack,
+  prixSepares,
+  prixTexte,
+} from '../lib/seo';
 import { SIMULATEURS } from '../lib/simulateurs';
 
 const accroche = texteBrut(formation.accroche);
@@ -40,20 +49,15 @@ const donnees = {
   dateModified: formation.aJourAu,
   educationalLevel: 'Débutant à confirmé',
   provider: { '@type': 'Organization', name: MARQUE, sameAs: site },
-  offers: {
-    '@type': 'Offer',
-    category: 'Paid',
-    price: OFFRE.prix,
-    priceCurrency: OFFRE.devise,
-    availability: 'https://schema.org/InStock',
-    url: site,
-  },
+  // Formation complète = pack ; chaque niveau porte sa propre offre (prix affichés sur la page).
+  offers: offreJsonLd(offrePack(), adresseAbsolue('tarifs/', site)),
   hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: `PT${heures}H` },
   hasPart: niveaux.map((n) => ({
     '@type': 'Course',
     name: `Niveau ${n.niveau} — ${n.titreCourt}`,
     description: texteBrut(n.intro),
     inLanguage: 'fr',
+    offers: offreJsonLd(offreNiveau(n.niveau), adresseAbsolue('tarifs/', site)),
   })),
 };
 ---
@@ -100,6 +104,8 @@ const donnees = {
                   <dd>{org?.duree}</dd>
                   <dt>Contenu</dt>
                   <dd>{nb} modules et un examen</dd>
+                  <dt>Prix</dt>
+                  <dd>{prixTexte(offreNiveau(n.niveau).prix)}</dd>
                 </dl>
                 <p class="registre__meta" data-avancement-texte>
                   Progression : 0 %
@@ -122,6 +128,10 @@ const donnees = {
           );
         })}
       </div>
+      <p>
+        Formation complète : <strong>{prixTexte(offrePack().prix)}</strong> au lieu de {prixTexte(prixSepares())}.{' '}
+        <a href={lien('tarifs/')}>Voir les tarifs</a>
+      </p>
     </section>
 
     <section aria-labelledby="acces-titre">
@@ -134,7 +144,7 @@ const donnees = {
         </li>
         <li>
           <a href={lien('simulateurs/')}>
-            Simulateurs
+            Simulateurs gratuits
             <small>{SIMULATEURS.length} calculs détaillés : rentabilité, crédit, fiscalité, plus-value…</small>
           </a>
         </li>

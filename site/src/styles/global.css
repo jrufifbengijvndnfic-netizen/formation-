@@ -1479,6 +1479,19 @@ details.corrige > p {
   border-width: 2px;
 }
 
+/* ------------------------------------------------------------------ Tarifs */
+.tarifs__prix {
+  font-family: var(--titre);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem;
+}
+.tarifs__prix small {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--texte-doux);
+}
+
 /* ------------------------------------------------------------------ Simulateurs */
 .simulateur {
   display: grid;

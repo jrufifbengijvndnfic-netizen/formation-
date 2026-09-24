@@ -69,12 +69,22 @@ Chaque build produit aussi dans `dist/` :
 Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`) ; un test vérifie que
 `vercel.json` les reprend.
 
+## Tarifs et vente
+
+Les prix se règlent dans `OFFRES` (`src/lib/seo.ts`) : niveau 1 à 97 €, niveau 2 à 197 €, niveau 3 à
+297 €, formation complète à 447 €. Ils s'affichent sur `/tarifs/`, l'accueil et les pages de niveau.
+Renseigner `lienAchat` (page de paiement de la plateforme de vente) fait apparaître le bouton
+« Acheter » ; sans lui, le site indique « achat en ligne bientôt disponible ». Le site étant statique,
+il ne protège pas le contenu payant : la plateforme de vente s'en charge.
+
+Les simulateurs sont gratuits et référencés comme tels (`src/lib/referencement-simulateurs.ts`).
+
 ## Référencement (cahier des charges SEO)
 
 - Titres « … | Formation Locatif », descriptions de 160 caractères au plus (coupées au mot),
   adresse canonique, Open Graph et carte Twitter `summary_large_image` sur chaque page.
-- Données structurées JSON-LD dans le `<head>` : `Course` sur l'accueil (avec l'offre de `OFFRE`
-  dans `src/lib/seo.ts`), `BreadcrumbList` sur toutes les autres pages, identique au fil d'Ariane affiché.
+- Données structurées JSON-LD dans le `<head>` : `Course` sur l'accueil, la page Tarifs et les pages
+  de niveau (offres de `OFFRES` dans `src/lib/seo.ts`), `WebApplication` gratuite sur chaque simulateur, `BreadcrumbList` sur toutes les autres pages, identique au fil d'Ariane affiché.
 - Polices hébergées avec le site (`fonts` dans `astro.config.mjs`), préchargées, `font-display: swap`,
   avec polices de secours aux métriques ajustées (pour limiter les sauts de mise en page au chargement).
 - Aucun script tiers (ni mesure d'audience ni traceur, conformément au brief du site).

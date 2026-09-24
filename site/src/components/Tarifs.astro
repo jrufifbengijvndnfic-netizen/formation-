@@ -1,0 +1,48 @@
+---
+/** Grille des offres : trois niveaux et la formation complète, avec prix et lien d'achat. */
+import { modulesDuNiveau, niveauDe, organisation } from '../lib/donnees';
+import { lien } from '../lib/navigation';
+import { OFFRES, prixSepares, prixTexte, type Offre } from '../lib/seo';
+import type { Niveau } from '../lib/types';
+
+const titre = (o: Offre) =>
+  o.id === 'pack' ? 'Formation complète' : `Niveau ${o.niveaux[0]} — ${niveauDe(o.niveaux[0] as Niveau).titreCourt}`;
+const contenu = (o: Offre) => {
+  const modules = o.niveaux.reduce((t, n) => t + modulesDuNiveau(n as Niveau).length, 0);
+  return `${modules} modules, ${o.niveaux.length > 1 ? `${o.niveaux.length} examens` : 'un examen'}, quiz et checklists`;
+};
+---
+
+<div class="feuilles tarifs">
+  {OFFRES.map((o) => (
+    <article class="feuille" data-niveau={o.id === 'pack' ? 'annexes' : String(o.niveaux[0])}>
+      <div class="feuille__tete">
+        <span class="parcelle">{o.id === 'pack' ? 'N1–3' : `N${o.niveaux[0]}`}</span>
+        <h3>{o.id === 'pack' ? titre(o) : <a href={lien(`niveau-${o.niveaux[0]}/`)}>{titre(o)}</a>}</h3>
+      </div>
+      <div class="feuille__corps">
+        <p class="tarifs__prix">
+          {prixTexte(o.prix)}
+          {o.id === 'pack' && <small> au lieu de {prixTexte(prixSepares())}</small>}
+        </p>
+        <dl>
+          <dt>Contenu</dt>
+          <dd>{contenu(o)}</dd>
+          <dt>Durée</dt>
+          <dd>{o.id === 'pack' ? 'Les trois niveaux' : organisation[`Niveau ${o.niveaux[0]}`]?.duree}</dd>
+        </dl>
+        {o.lienAchat ? (
+          <a class="bouton bouton--plein" href={o.lienAchat}>
+            Acheter — {prixTexte(o.prix)}
+          </a>
+        ) : (
+          <p class="registre__meta">Achat en ligne bientôt disponible.</p>
+        )}
+      </div>
+    </article>
+  ))}
+</div>
+<p class="registre__meta">
+  Paiement unique. Les simulateurs restent gratuits pour tous, sans inscription :{' '}
+  <a href={lien('simulateurs/')}>voir les simulateurs</a>.
+</p>

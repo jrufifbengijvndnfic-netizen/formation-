@@ -1,0 +1,56 @@
+---
+import Avertissement from '../components/Avertissement.astro';
+import FilAriane from '../components/FilAriane.astro';
+import Tarifs from '../components/Tarifs.astro';
+import Base from '../layouts/Base.astro';
+import { titreSite } from '../lib/donnees';
+import { lien } from '../lib/navigation';
+import {
+  MARQUE,
+  OFFRES,
+  SITE_PAR_DEFAUT,
+  adresseAbsolue,
+  offreJsonLd,
+  offreNiveau,
+  offrePack,
+  prixSepares,
+} from '../lib/seo';
+
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Tarifs' }];
+const url = adresseAbsolue(Astro.url.pathname, Astro.site ?? SITE_PAR_DEFAUT);
+const donnees = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: titreSite,
+  inLanguage: 'fr',
+  provider: { '@type': 'Organization', name: MARQUE, sameAs: adresseAbsolue('/', Astro.site ?? SITE_PAR_DEFAUT) },
+  description: `Formation en trois niveaux, vendus séparément ou ensemble.`,
+  offers: OFFRES.map((o) => offreJsonLd(o, url)),
+};
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Tarifs de la formation à l'immobilier locatif"
+  description={`Niveau 1 à ${offreNiveau(1).prix} €, niveau 2 à ${offreNiveau(2).prix} €, niveau 3 à ${offreNiveau(3).prix} €, ou la formation complète à ${offrePack().prix} € au lieu de ${prixSepares()} €. Simulateurs gratuits.`}
+  niveau="0"
+  donneesStructurees={donnees}
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <p class="bandeau__sur">Paiement unique</p>
+      <h1>Tarifs de la formation</h1>
+      <p class="chapeau">Chaque niveau s'achète séparément ; la formation complète réunit les trois à prix réduit.</p>
+    </div>
+  </div>
+  <div class="conteneur">
+    <section aria-labelledby="offres-titre">
+      <h2 id="offres-titre">Les offres</h2>
+      <Tarifs />
+    </section>
+    <div class="prose">
+      <Avertissement />
+    </div>
+  </div>
+</Base>

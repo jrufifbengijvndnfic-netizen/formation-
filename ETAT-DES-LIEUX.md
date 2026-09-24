@@ -85,8 +85,8 @@ Congé, Zonage A, B, C.
   « Formation Locatif » en suffixe des titres ;
 - JSON-LD `Course` sur l'accueil : nom et description repris de la page (Google exige qu'ils
   reflètent le contenu affiché ; la phrase d'exemple « devenir rentier… » du cahier n'a pas été
-  reprise), durée de 45 h (minimums du tableau 0.2), **offre à 997 € reprise du cahier des charges
-  mais affichée nulle part sur le site** : à trancher (voir §7) ;
+  reprise), durée de 45 h (minimums du tableau 0.2) ; offres des niveaux et de la formation
+  complète (page Tarifs) ; `WebApplication` gratuite sur chaque simulateur ;
 - `BreadcrumbList` sur toutes les pages sauf l'accueil, généré à partir du fil d'Ariane affiché ;
 - `FAQPage` non appliqué : le site n'a ni blog ni FAQ, et écrire des réponses serait réécrire le
   fond (interdit par le brief) ;
@@ -198,12 +198,14 @@ Formation-immobilier/          (dépôt GitHub « formation- »)
 3. **Firefox et Safari automatisés** : `NAVIGATEUR=firefox npm run test:site` et
    `NAVIGATEUR=webkit npm run test:site` sur une machine où `npx playwright install firefox webkit`
    fonctionne (bloqué dans l'environnement de travail, voir § 5).
-4. **Offre commerciale** : les données structurées annoncent 997 € (`OFFRE` dans
-   `site/src/lib/seo.ts`, repris du cahier des charges SEO), mais aucun prix n'est affiché sur le
-   site et tout le contenu y est librement lisible. Google exige que le prix figure en clair sur la
-   page. Soit afficher le prix (page de vente), soit corriger `OFFRE` si la formation est gratuite.
-5. **Domaine** : le cahier des charges SEO fixe `formation-locatif.com` (défaut du build). Une autre
-   adresse se choisit par `SITE_URL=https://… npm run build`.
+4. **Vente** : prix fixés (niveau 1 : 97 €, niveau 2 : 197 €, niveau 3 : 297 €, formation complète :
+   447 €), affichés sur `/tarifs/`, l'accueil et les pages de niveau. Reste à choisir la plateforme de
+   paiement et d'espace membre (Systeme.io, Podia, Teachable…) : le site statique ne peut pas
+   réserver le contenu aux acheteurs. Ensuite, renseigner `lienAchat` dans `OFFRES`
+   (`site/src/lib/seo.ts`) et retirer du site public ce qui devient payant. Prévoir mentions légales,
+   CGV (droit de rétractation), facturation et régime de TVA.
+5. **Domaine** : `formation-locatif.com` (défaut du build ; le cahier des charges SEO disait `.fr`).
+   Une autre adresse se choisit par `SITE_URL=https://… npm run build`.
 6. **PDF** : il n'a pas été fourni à cette session. Le déposer sous
    `files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.pdf` : le build le
    copie dans `dist/` et affiche les liens de téléchargement (masqués tant qu'il est absent).

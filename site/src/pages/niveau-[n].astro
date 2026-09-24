@@ -13,6 +13,7 @@ import {
 } from '../lib/donnees';
 import { lien, lienElement } from '../lib/navigation';
 import { rendreMarkdown, texteBrut } from '../lib/render';
+import { MARQUE, SITE_PAR_DEFAUT, adresseAbsolue, offreJsonLd, offreNiveau, prixTexte } from '../lib/seo';
 import type { Niveau } from '../lib/types';
 
 export function getStaticPaths() {
@@ -27,10 +28,22 @@ const examen = partie.elements.find((e) => e.type === 'examen');
 const checklist = partie.elements.find((e) => e.type === 'checklist');
 const numeros = numerosDuNiveau(n).join(',');
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: `Niveau ${n}` }];
+const offre = offreNiveau(n);
+const site = Astro.site ?? SITE_PAR_DEFAUT;
+const donnees = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: `Niveau ${n} — ${partie.titreCourt}`,
+  description: texteBrut(partie.intro),
+  inLanguage: 'fr',
+  provider: { '@type': 'Organization', name: MARQUE, sameAs: adresseAbsolue('/', site) },
+  offers: offreJsonLd(offre, adresseAbsolue('tarifs/', site)),
+};
 ---
 
 <Base
   filAriane={filAriane}
+  donneesStructurees={donnees}
   titre={`Niveau ${n} — ${partie.titreCourt}`}
   description={resumer(texteBrut(partie.intro))}
   niveau={String(n) as '1' | '2' | '3'}
@@ -47,6 +60,9 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: `Niveau ${n}
           {org && <span>Public : {org.public}</span>}
           {org && <span>Durée indicative : {org.duree}</span>}
           <span>{mods.length} modules et un examen</span>
+          <span>
+            Prix : {prixTexte(offre.prix)} (<a href={lien('tarifs/')}>tarifs</a>)
+          </span>
         </p>
       </div>
     </div>

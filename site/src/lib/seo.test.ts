@@ -59,3 +59,15 @@ describe('redirections 301', () => {
     }
   });
 });
+
+describe('offres', () => {
+  it('niveau 1 sous 100 €, niveau 3 autour de 300 €, pack moins cher que les niveaux séparés', async () => {
+    const { offreNiveau, offrePack, prixSepares, offreJsonLd } = await import('./seo');
+    expect(offreNiveau(1).prix).toBeLessThan(100);
+    expect(offreNiveau(3).prix).toBeGreaterThanOrEqual(280);
+    expect(offreNiveau(3).prix).toBeLessThanOrEqual(320);
+    expect(offrePack().prix).toBeLessThan(prixSepares());
+    // Pas de disponibilité annoncée tant qu'aucun lien d'achat n'existe.
+    expect(offreJsonLd(offreNiveau(1), 'https://x/tarifs/')).not.toHaveProperty('availability');
+  });
+});

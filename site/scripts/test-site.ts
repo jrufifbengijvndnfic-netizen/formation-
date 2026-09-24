@@ -158,8 +158,12 @@ async function referencement(page: Page, chemin: string, titre: string): Promise
   const ariane = h.jsonLd.find((j) => j['@type'] === 'BreadcrumbList') as
     { itemListElement: { name: string; item?: string }[] } | undefined;
   if (chemin === '/') {
-    const cours = h.jsonLd.find((j) => j['@type'] === 'Course') as { offers?: { price?: string } } | undefined;
-    verifier(cours?.offers?.price, 'SEO / : données structurées Course avec offre');
+    const cours = h.jsonLd.find((j) => j['@type'] === 'Course') as
+      { offers?: { price?: string }; hasPart?: { offers?: { price?: string } }[] } | undefined;
+    verifier(
+      cours?.offers?.price && cours.hasPart?.every((p) => p.offers?.price),
+      'SEO / : données structurées Course avec les offres du pack et de chaque niveau',
+    );
   } else {
     verifier(
       ariane && JSON.stringify(ariane.itemListElement.map((e) => e.name)) === JSON.stringify(h.filAriane),
