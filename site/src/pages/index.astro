@@ -18,19 +18,37 @@ import {
 import { lien } from '../lib/navigation';
 import { toutesLesQuestions } from '../lib/parse-formation';
 import { texteBrut } from '../lib/render';
+import { MARQUE, OFFRE, SITE_PAR_DEFAUT } from '../lib/seo';
 import { SIMULATEURS } from '../lib/simulateurs';
 
 const accroche = texteBrut(formation.accroche);
-const description = `${accroche} ${tousLesModules.length} modules, ${toutesLesQuestions(formation).length} questions de quiz, ${SIMULATEURS.length} simulateurs. ${miseAJour}.`;
+const description = `${accroche} ${tousLesModules.length} modules, ${SIMULATEURS.length} simulateurs.`;
+const site = (Astro.site ?? new URL(SITE_PAR_DEFAUT)).href;
+// Durée indicative du tableau 0.2 (« 10 à 12 heures », « 15 à 18 heures », « 20 heures et plus ») :
+// somme des minimums.
+const heures = niveaux.reduce(
+  (s, n) => s + Number(/\d+/.exec(organisation[`Niveau ${n.niveau}`]?.duree ?? '')?.[0] ?? 0),
+  0,
+);
+// Cahier des charges SEO, § 5.1 : formation (Course) avec son offre.
 const donnees = {
   '@context': 'https://schema.org',
   '@type': 'Course',
   name: titreSite,
-  description,
+  description: accroche,
   inLanguage: 'fr',
   dateModified: formation.aJourAu,
   educationalLevel: 'Débutant à confirmé',
-  isAccessibleForFree: true,
+  provider: { '@type': 'Organization', name: MARQUE, sameAs: site },
+  offers: {
+    '@type': 'Offer',
+    category: 'Paid',
+    price: OFFRE.prix,
+    priceCurrency: OFFRE.devise,
+    availability: 'https://schema.org/InStock',
+    url: site,
+  },
+  hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: `PT${heures}H` },
   hasPart: niveaux.map((n) => ({
     '@type': 'Course',
     name: `Niveau ${n.niveau} — ${n.titreCourt}`,
@@ -40,7 +58,7 @@ const donnees = {
 };
 ---
 
-<Base titre={titreSite} description={description} niveau="0" type="website" donneesStructurees={donnees}>
+<Base titre={titreSite} description={description} niveau="0" donneesStructurees={donnees}>
   <div class="bandeau" data-pagefind-body>
     <div class="conteneur">
       <p class="bandeau__sur">Formation complète · édition {formation.edition}</p>

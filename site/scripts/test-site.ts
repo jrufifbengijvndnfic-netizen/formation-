@@ -2,57 +2,27 @@
  * Vérification du site construit (dist/) dans un vrai navigateur :
  * 1. accessibilité : axe-core (WCAG 2.0 à 2.2, niveaux A et AA) sur toutes les pages en thème clair,
  *    et sur un échantillon en thème sombre ;
- * 2. mobile : aucune page ne défile horizontalement à 360 px de large ;
- * 3. parcours fonctionnels : progression, quiz, checklists, simulateurs, lettres, recherche,
+ *    structure de chaque page (un seul h1, niveaux de titres sans saut, régions, titres uniques) et
+ *    référencement (titre, description, canonique, Open Graph, JSON-LD, polices préchargées) ;
+ * 2. mobile : aucune page ne défile horizontalement à 320 px (critère WCAG 1.4.10), émulation
+ *    iPhone et Pixel sur un échantillon ;
+ * 3. clavier : parcours complet à la touche Tab (focus visible, jamais masqué, pas de piège),
+ *    lien d'évitement ;
+ * 4. parcours fonctionnels : progression, quiz, checklists, simulateurs, lettres, recherche,
  *    thème, export / import, stockage indisponible.
  *
  * Usage : npm run build && npm run test:site
  * Chromium : celui de Playwright, ou CHROMIUM_PATH=/chemin/vers/chrome.
  */
 import AxeBuilder from '@axe-core/playwright';
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync, mkdtempSync } from 'node:fs';
-import { createServer } from 'node:http';
-import type { AddressInfo } from 'node:net';
+import { existsSync, readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
+import { chromium, devices, firefox, webkit, type Browser, type BrowserContext, type Page } from 'playwright';
+import { demarrerServeur, toutesLesPages, verifierDist } from './serveur-statique';
 
-const DIST = path.resolve('dist');
-const TYPES: Record<string, string> = {
-  '.html': 'text/html; charset=utf-8',
-  '.js': 'text/javascript',
-  '.mjs': 'text/javascript',
-  '.css': 'text/css',
-  '.json': 'application/json',
-  '.svg': 'image/svg+xml',
-  '.woff2': 'font/woff2',
-  '.pdf': 'application/pdf',
-  '.xml': 'application/xml',
-};
-
-if (!existsSync(path.join(DIST, 'index.html'))) {
-  console.error('dist/ absent : lancez « npm run build » avant « npm run test:site ».');
-  process.exit(1);
-}
-
-// ------------------------------------------------------------------ Serveur statique
-const serveur = createServer((req, res) => {
-  const url = new URL(req.url ?? '/', 'http://localhost');
-  let fichier = path.join(DIST, decodeURIComponent(url.pathname));
-  if (!fichier.startsWith(DIST)) {
-    res.writeHead(403).end();
-    return;
-  }
-  if (existsSync(fichier) && statSync(fichier).isDirectory()) fichier = path.join(fichier, 'index.html');
-  if (!existsSync(fichier)) {
-    res.writeHead(404, { 'content-type': TYPES['.html'] as string }).end(readFileSync(path.join(DIST, '404.html')));
-    return;
-  }
-  res.writeHead(200, { 'content-type': TYPES[path.extname(fichier)] ?? 'application/octet-stream' });
-  res.end(readFileSync(fichier));
-});
-await new Promise<void>((ok) => serveur.listen(0, '127.0.0.1', ok));
-const BASE = `http://127.0.0.1:${(serveur.address() as AddressInfo).port}`;
+verifierDist();
+const { base: BASE, serveur } = await demarrerServeur();
 
 // ------------------------------------------------------------------ Outils
 const echecs: string[] = [];
@@ -62,27 +32,17 @@ function verifier(condition: unknown, message: string): void {
   else echecs.push(message);
 }
 
-function toutesLesPages(dossier = DIST): string[] {
-  return readdirSync(dossier).flatMap((nom) => {
-    const chemin = path.join(dossier, nom);
-    if (statSync(chemin).isDirectory()) return nom === 'pagefind' || nom === '_astro' ? [] : toutesLesPages(chemin);
-    if (!nom.endsWith('.html') || nom === '404.html') return [];
-    const html = readFileSync(chemin, 'utf8');
-    if (html.includes('http-equiv="refresh"')) return [];
-    return [
-      '/' +
-        path
-          .relative(DIST, chemin)
-          .replace(/index\.html$/, '')
-          .split(path.sep)
-          .join('/'),
-    ];
-  });
-}
-
+// NAVIGATEUR=chromium (défaut), firefox ou webkit (moteur de Safari) ; Firefox et WebKit :
+// « npx playwright install firefox webkit ».
+const nomNavigateur = (process.env.NAVIGATEUR ?? 'chromium') as 'chromium' | 'firefox' | 'webkit';
+const moteur = { chromium, firefox, webkit }[nomNavigateur];
+if (!moteur) throw new Error(`NAVIGATEUR inconnu : ${nomNavigateur}`);
 const executablePath =
-  process.env.CHROMIUM_PATH ?? (existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
-const navigateur: Browser = await chromium.launch(executablePath ? { executablePath } : {});
+  nomNavigateur === 'chromium'
+    ? (process.env.CHROMIUM_PATH ?? (existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined))
+    : undefined;
+const navigateur: Browser = await moteur.launch(executablePath ? { executablePath } : {});
+console.log(`Navigateur : ${nomNavigateur} ${navigateur.version()}`);
 
 async function nouvellePage(
   options: Parameters<Browser['newContext']>[0] = {},
@@ -111,6 +71,107 @@ const echantillonSombre = [
 ];
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
+// Ce qu'un lecteur d'écran expose pour naviguer : titres, régions, titre de la page.
+const titresDePage = new Map<string, string>();
+async function structure(page: Page, chemin: string): Promise<void> {
+  const s = await page.evaluate(() => {
+    const titres = [...document.querySelectorAll('h1, h2, h3, h4, h5, h6')]
+      .filter((h) => !h.closest('[hidden]'))
+      .map((h) => Number(h.tagName[1]));
+    const sauts = titres.flatMap((n, i) =>
+      i > 0 && n > (titres[i - 1] as number) + 1 ? [`h${titres[i - 1]}→h${n}`] : [],
+    );
+    const navs = [...document.querySelectorAll('nav')];
+    return {
+      langue: document.documentElement.lang,
+      titre: document.title,
+      h1: titres.filter((n) => n === 1).length,
+      premier: titres[0],
+      sauts,
+      banniere: document.querySelectorAll('body > header, [role="banner"]').length,
+      principal: document.querySelectorAll('main').length,
+      pied: document.querySelectorAll('body > footer, [role="contentinfo"]').length,
+      h1DansMain: Boolean(document.querySelector('main h1')),
+      navsSansNom:
+        navs.length > 1
+          ? navs.filter((n) => !n.getAttribute('aria-label') && !n.getAttribute('aria-labelledby')).length
+          : 0,
+    };
+  });
+  verifier(s.langue === 'fr', `${chemin} : langue ${s.langue}`);
+  verifier(s.h1 === 1 && s.premier === 1, `${chemin} : ${s.h1} titre(s) h1, premier titre h${s.premier}`);
+  verifier(s.sauts.length === 0, `${chemin} : niveaux de titres sautés ${s.sauts.slice(0, 3).join(', ')}`);
+  verifier(s.banniere === 1 && s.principal === 1 && s.pied === 1, `${chemin} : régions ${JSON.stringify(s)}`);
+  verifier(s.navsSansNom === 0, `${chemin} : ${s.navsSansNom} navigation(s) sans nom`);
+  verifier(s.h1DansMain, `${chemin} : le titre h1 n'est pas dans <main>`);
+  await referencement(page, chemin, s.titre);
+  const doublon = titresDePage.get(s.titre);
+  verifier(!doublon, `${chemin} : même titre de page que ${doublon} (« ${s.titre} »)`);
+  titresDePage.set(s.titre, chemin);
+}
+
+// Cahier des charges SEO : balises du <head>, données structurées, préchargement des polices.
+async function referencement(page: Page, chemin: string, titre: string): Promise<void> {
+  const h = await page.evaluate(() => {
+    // Pas de fonction nommée ici : tsx ajouterait un appel à __name, inconnu dans la page.
+    const [description, ogUrl, ogImage, ogTitre, ogDescription, twitter] = [
+      'meta[name="description"]',
+      'meta[property="og:url"]',
+      'meta[property="og:image"]',
+      'meta[property="og:title"]',
+      'meta[property="og:description"]',
+      'meta[name="twitter:card"]',
+    ].map((sel) => document.querySelector(sel)?.getAttribute('content') ?? null);
+    const jsonLd = [...document.querySelectorAll('head script[type="application/ld+json"]')].map((e) => {
+      try {
+        return JSON.parse(e.textContent ?? '') as Record<string, unknown>;
+      } catch {
+        return { erreur: true };
+      }
+    });
+    return {
+      description: description ?? '',
+      canonique: document.querySelector('link[rel="canonical"]')?.getAttribute('href') ?? null,
+      ogUrl,
+      ogImage,
+      ogTitre,
+      ogDescription,
+      twitter,
+      polices: document.querySelectorAll('link[rel="preload"][as="font"]').length,
+      jsonLd,
+      filAriane: [...document.querySelectorAll('.fil-ariane li')].map((li) => li.textContent?.trim()),
+    };
+  });
+  const attendue = new URL(chemin, 'https://formation-locatif.fr').href;
+  verifier(titre.endsWith(' | Formation Locatif'), `SEO ${chemin} : titre « ${titre} »`);
+  verifier(
+    h.description.length >= 50 && h.description.length <= 160,
+    `SEO ${chemin} : description de ${h.description.length} caractères`,
+  );
+  verifier(h.canonique === attendue && h.ogUrl === attendue, `SEO ${chemin} : canonique ${h.canonique}`);
+  verifier(
+    h.ogImage?.endsWith('/images/og-image.webp') && h.ogTitre && h.ogDescription && h.twitter === 'summary_large_image',
+    `SEO ${chemin} : Open Graph ou Twitter incomplet`,
+  );
+  verifier(h.polices >= 3, `SEO ${chemin} : ${h.polices} police(s) préchargée(s)`);
+  verifier(!h.jsonLd.some((j) => j.erreur), `SEO ${chemin} : JSON-LD illisible`);
+  const ariane = h.jsonLd.find((j) => j['@type'] === 'BreadcrumbList') as
+    { itemListElement: { name: string; item?: string }[] } | undefined;
+  if (chemin === '/') {
+    const cours = h.jsonLd.find((j) => j['@type'] === 'Course') as { offers?: { price?: string } } | undefined;
+    verifier(cours?.offers?.price, 'SEO / : données structurées Course avec offre');
+  } else {
+    verifier(
+      ariane && JSON.stringify(ariane.itemListElement.map((e) => e.name)) === JSON.stringify(h.filAriane),
+      `SEO ${chemin} : BreadcrumbList absent ou différent du fil d'Ariane affiché`,
+    );
+    verifier(
+      ariane?.itemListElement.slice(0, -1).every((e) => e.item?.startsWith('https://formation-locatif.fr/')),
+      `SEO ${chemin} : BreadcrumbList sans adresses absolues`,
+    );
+  }
+}
+
 async function auditer(chemins: string[], theme: 'light' | 'dark'): Promise<void> {
   const { ctx, page, erreurs } = await nouvellePage({ colorScheme: theme, viewport: { width: 1280, height: 900 } });
   for (const chemin of chemins) {
@@ -125,28 +186,130 @@ async function auditer(chemins: string[], theme: 'light' | 'dark'): Promise<void
       );
     }
     if (!r.violations.length) reussis++;
+    if (theme === 'light') await structure(page, chemin);
   }
   verifier(erreurs.length === 0, `erreurs JavaScript (${theme}) : ${erreurs.join(' | ')}`);
   await ctx.close();
 }
 
-async function mobile(chemins: string[]): Promise<void> {
-  const { ctx, page } = await nouvellePage({ viewport: { width: 360, height: 740 }, hasTouch: true, isMobile: true });
+async function mobile(chemins: string[], nom: string, options: Parameters<Browser['newContext']>[0]): Promise<void> {
+  const { isMobile, ...reste } = options ?? {};
+  // Firefox n'émule pas isMobile.
+  const { ctx, page, erreurs } = await nouvellePage(nomNavigateur === 'firefox' ? reste : { ...reste, isMobile });
   for (const chemin of chemins) {
     await page.goto(BASE + chemin, { waitUntil: 'load' });
-    const debord = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-    verifier(debord <= 0, `mobile 360 px ${chemin} : défilement horizontal de ${debord} px`);
+    const m = await page.evaluate(() => ({
+      debord: document.documentElement.scrollWidth - window.innerWidth,
+      police: parseFloat(getComputedStyle(document.body).fontSize),
+    }));
+    verifier(m.debord <= 0, `${nom} ${chemin} : défilement horizontal de ${m.debord} px`);
+    verifier(m.police >= 16, `${nom} ${chemin} : texte courant en ${m.police} px`);
   }
+  verifier(erreurs.length === 0, `${nom} : erreurs JavaScript ${erreurs.join(' | ')}`);
+  await ctx.close();
+}
+
+// ------------------------------------------------------------------ 3. Clavier
+// Parcourt la page à la touche Tab jusqu'à revenir au début : chaque arrêt doit avoir un contour de
+// focus visible et ne pas être entièrement masqué (en-tête collant, etc.).
+async function clavier(chemin: string): Promise<void> {
+  const { ctx, page, erreurs } = await nouvellePage({ viewport: { width: 1280, height: 800 } });
+  await page.goto(BASE + chemin, { waitUntil: 'load' });
+  // Page qui place d'elle-même le focus (recherche) : il doit être dans le contenu principal.
+  const autofocus = await page.evaluate(() =>
+    document.activeElement && document.activeElement !== document.body
+      ? Boolean(document.querySelector('main')?.contains(document.activeElement))
+      : null,
+  );
+  if (autofocus !== null) verifier(autofocus, `clavier ${chemin} : focus initial hors du contenu principal`);
+  const vus = new Set<string>();
+  let arrets = 0;
+  for (let i = 0; i < 2000; i++) {
+    await page.keyboard.press('Tab');
+    const f = await page.evaluate((rang) => {
+      const el = document.activeElement as HTMLElement | null;
+      if (!el || el === document.body) return null;
+      if (!el.dataset.rangFocus) el.dataset.rangFocus = String(rang);
+      // Champ visuellement masqué (fichier, etc.) : c'est son libellé qui doit montrer le focus.
+      const brut = el.getBoundingClientRect();
+      const libelle =
+        el instanceof HTMLInputElement && brut.width <= 1 && brut.height <= 1 ? el.labels?.[0] : undefined;
+      const cible = libelle ?? el;
+      const r = cible.getBoundingClientRect();
+      const s = getComputedStyle(cible);
+      const points = [
+        [r.left + r.width / 2, r.top + r.height / 2],
+        [r.left + 2, r.top + 2],
+        [r.right - 2, r.top + 2],
+        [r.left + 2, r.bottom - 2],
+        [r.right - 2, r.bottom - 2],
+      ] as const;
+      const atteint = points.some(([x, y]) => {
+        const d = document.elementFromPoint(x, y);
+        return (
+          d !== null && (d === el || el.contains(d) || (el instanceof HTMLInputElement && el.labels?.[0]?.contains(d)))
+        );
+      });
+      return {
+        cle: el.dataset.rangFocus,
+        nom: `${el.tagName.toLowerCase()}${el.id ? `#${el.id}` : ''}${el.classList[0] ? `.${el.classList[0]}` : ''} « ${(el.textContent ?? '').trim().slice(0, 30)} »`,
+        contour: s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) >= 2,
+        visible: r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight,
+        atteint,
+      };
+    }, i);
+    if (!f) {
+      if (arrets > 0) break;
+      continue;
+    }
+    if (vus.has(f.cle)) break;
+    vus.add(f.cle);
+    arrets++;
+    if (arrets === 1 && autofocus === null) {
+      verifier(f.nom.includes('lien-evitement'), `clavier ${chemin} : premier arrêt ${f.nom}`);
+    }
+    verifier(f.contour, `clavier ${chemin} : focus sans contour visible sur ${f.nom}`);
+    verifier(f.visible && f.atteint, `clavier ${chemin} : focus masqué ou hors écran sur ${f.nom}`);
+  }
+  verifier(arrets > 3 && arrets < 2000, `clavier ${chemin} : ${arrets} arrêts (piège ou page vide ?)`);
+  // Lien d'évitement : Entrée amène au contenu principal.
+  if (autofocus === null) {
+    await page.goto(BASE + chemin, { waitUntil: 'load' });
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Tab');
+    verifier(
+      await page.evaluate(() => document.querySelector('main')?.contains(document.activeElement)),
+      `clavier ${chemin} : le lien d'évitement ne mène pas au contenu`,
+    );
+  }
+  verifier(erreurs.length === 0, `clavier ${chemin} : erreurs JavaScript ${erreurs.join(' | ')}`);
   await ctx.close();
 }
 
 console.log(`Audit axe de ${pages.length} pages (thème clair) et ${echantillonSombre.length} pages (thème sombre)…`);
 await auditer(pages, 'light');
 await auditer(echantillonSombre, 'dark');
-console.log('Contrôle du défilement horizontal à 360 px…');
-await mobile(pages);
+console.log('Contrôle du défilement horizontal à 320 px et sur appareils émulés…');
+await mobile(pages, '320 px', { viewport: { width: 320, height: 640 }, hasTouch: true, isMobile: true });
+for (const appareil of ['iPhone 13', 'Pixel 7'] as const) {
+  await mobile(echantillonSombre, appareil, devices[appareil]);
+}
+const echantillonClavier = [
+  '/',
+  '/module/2-1/',
+  '/examen/niveau-1/',
+  '/checklist/mettre-en-location-son-premier-logement/',
+  '/annexe/f/',
+  '/glossaire/',
+  '/simulateurs/tri/',
+  '/recherche/',
+  '/progression/',
+];
+console.log(`Parcours au clavier de ${echantillonClavier.length} pages…`);
+for (const chemin of echantillonClavier) await clavier(chemin);
 
-// ------------------------------------------------------------------ 3. Parcours fonctionnels
+// ------------------------------------------------------------------ 4. Parcours fonctionnels
 console.log('Parcours fonctionnels…');
 {
   const { ctx, page, erreurs } = await nouvellePage({ viewport: { width: 1280, height: 900 } });
@@ -270,6 +433,18 @@ console.log('Parcours fonctionnels…');
   await page.goto(`${BASE}/recherche/?q=d%C3%A9p%C3%B4t%20de%20garantie`);
   await page.waitForSelector('[data-resultats] li', { timeout: 10_000 }).catch(() => undefined);
   verifier((await page.locator('[data-resultats] li').count()) > 3, 'recherche : résultats pour « dépôt de garantie »');
+
+  // Impression : la date de mise à jour et l'avertissement restent imprimés.
+  await page.goto(`${BASE}/module/1-1/`);
+  await page.emulateMedia({ media: 'print' });
+  verifier(
+    (await page.locator('.mention-maj').isVisible()) &&
+      (await page.textContent('.mention-maj'))?.includes('Contenu à jour au'),
+    'impression : date de mise à jour imprimée',
+  );
+  verifier(await page.locator('.avertissement').first().isVisible(), 'impression : avertissement imprimé');
+  verifier(!(await page.locator('.entete').isVisible()), 'impression : en-tête masqué');
+  await page.emulateMedia({ media: 'screen' });
 
   // Frise de l'annexe B.
   await page.goto(`${BASE}/annexe/b/`);

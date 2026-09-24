@@ -20,9 +20,15 @@ const partie = niveauDe(n);
 const { precedent, suivant } = voisins(formation, m);
 const surveiller = m.encadres.filter((e) => e.type === 'A_SURVEILLER');
 const titreVoisin = (e: Element) => (e.type === 'module' ? e.titreCourt : e.titre);
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
+  { libelle: `Module ${m.numero}` },
+];
 ---
 
 <Base
+  filAriane={filAriane}
   titre={`Module ${m.numero} — ${m.titreCourt}`}
   description={description(m)}
   niveau={String(n) as '1' | '2' | '3'}
@@ -31,13 +37,7 @@ const titreVoisin = (e: Element) => (e.type === 'module' ? e.titreCourt : e.titr
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane
-          etapes={[
-            { libelle: 'Accueil', href: lien() },
-            { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
-            { libelle: `Module ${m.numero}` },
-          ]}
-        />
+        <FilAriane etapes={filAriane} />
         <p class="bandeau__sur">
           Niveau {n} · {partie.titreCourt}
         </p>

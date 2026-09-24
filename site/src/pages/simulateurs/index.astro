@@ -3,9 +3,11 @@ import FilAriane from '../../components/FilAriane.astro';
 import Base from '../../layouts/Base.astro';
 import { lien } from '../../lib/navigation';
 import { SIMULATEURS } from '../../lib/simulateurs';
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs' }];
 ---
 
 <Base
+  filAriane={filAriane}
   titre="Simulateurs"
   description={`${SIMULATEURS.length} simulateurs issus de l'annexe E : rentabilité, crédit, capacité d'emprunt, révision de loyer, fiscalité, plus-value, IFI, TRI, donation…`}
   niveau="annexes"
@@ -13,7 +15,7 @@ import { SIMULATEURS } from '../../lib/simulateurs';
 >
   <div class="bandeau">
     <div class="conteneur">
-      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs' }]} />
+      <FilAriane etapes={filAriane} />
       <p class="bandeau__sur">Annexe E en pratique</p>
       <h1>Simulateurs</h1>
       <p>

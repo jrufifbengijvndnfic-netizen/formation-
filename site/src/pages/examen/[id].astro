@@ -19,9 +19,15 @@ interface Props {
 const { examen } = Astro.props;
 const n = examen.niveau as Niveau;
 const nbCas = (examen.markdown.match(/^\*\*Cas \d+ — /gm) ?? []).length;
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
+  { libelle: 'Examen' },
+];
 ---
 
 <Base
+  filAriane={filAriane}
   titre={examen.titre}
   description={resumer(`${nbCas} cas pratiques corrigés. ${texteBrut(examen.markdown)}`)}
   niveau={String(n) as '1' | '2' | '3'}
@@ -30,13 +36,7 @@ const nbCas = (examen.markdown.match(/^\*\*Cas \d+ — /gm) ?? []).length;
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane
-          etapes={[
-            { libelle: 'Accueil', href: lien() },
-            { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
-            { libelle: 'Examen' },
-          ]}
-        />
+        <FilAriane etapes={filAriane} />
         <p class="bandeau__sur">
           Niveau {n} · {nbCas} cas pratiques
         </p>

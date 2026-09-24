@@ -8,9 +8,11 @@ import type { Element } from '../lib/types';
 
 const annexeI = annexes.find((a) => a.numero === 'I') as Element;
 const titreSource = (e: Element) => (e.type === 'module' ? `${libelleCourt(e)} — ${e.titreCourt}` : e.titre);
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'À surveiller' }];
 ---
 
 <Base
+  filAriane={filAriane}
   titre="À surveiller"
   description={`Textes non encore adoptés et échéances proches (annexe I) et les ${aSurveiller.length} encadrés « À surveiller » de la formation.`}
   niveau="annexes"
@@ -19,7 +21,7 @@ const titreSource = (e: Element) => (e.type === 'module' ? `${libelleCourt(e)} �
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'À surveiller' }]} />
+        <FilAriane etapes={filAriane} />
         <p class="bandeau__sur">Contenu à jour au {formation.aJourAuTexte}</p>
         <h1>À surveiller</h1>
         <p>

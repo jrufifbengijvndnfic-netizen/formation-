@@ -2,9 +2,11 @@
 import FilAriane from '../components/FilAriane.astro';
 import Base from '../layouts/Base.astro';
 import { lien } from '../lib/navigation';
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Recherche' }];
 ---
 
 <Base
+  filAriane={filAriane}
   titre="Recherche"
   description="Recherche plein texte dans les modules, examens, annexes, glossaire et simulateurs de la formation."
   niveau="0"
@@ -12,7 +14,7 @@ import { lien } from '../lib/navigation';
 >
   <div class="bandeau">
     <div class="conteneur">
-      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Recherche' }]} />
+      <FilAriane etapes={filAriane} />
       <h1>Recherche</h1>
       <p>
         Raccourci clavier : <kbd style="color:#fff;border-color:#fff">/</kbd> depuis n'importe quelle page.

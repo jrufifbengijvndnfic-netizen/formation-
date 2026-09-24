@@ -22,9 +22,15 @@ interface Props {
 }
 const { element, checklist } = Astro.props;
 const n = element.niveau as Niveau;
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
+  { libelle: 'Checklist' },
+];
 ---
 
 <Base
+  filAriane={filAriane}
   titre={element.titre}
   description={`${checklist.items.length} étapes à cocher : ${checklist.titre.toLowerCase()}.`}
   niveau={String(n) as '1' | '2' | '3'}
@@ -33,13 +39,7 @@ const n = element.niveau as Niveau;
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane
-          etapes={[
-            { libelle: 'Accueil', href: lien() },
-            { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
-            { libelle: 'Checklist' },
-          ]}
-        />
+        <FilAriane etapes={filAriane} />
         <p class="bandeau__sur">Niveau {n} · Checklist</p>
         <h1>{checklist.titre}</h1>
       </div>

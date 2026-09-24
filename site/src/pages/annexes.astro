@@ -17,9 +17,11 @@ const resumes: Record<string, string> = Object.fromEntries(
     return [a.id, detail];
   }),
 );
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Annexes' }];
 ---
 
 <Base
+  filAriane={filAriane}
   titre="Annexes"
   description={`${partieAnnexes.titreCourt} : chiffres clés, calendrier, glossaire, textes, formules, lettres, checklists, sources et points à surveiller.`}
   niveau="annexes"
@@ -27,7 +29,7 @@ const resumes: Record<string, string> = Object.fromEntries(
 >
   <div class="bandeau">
     <div class="conteneur">
-      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Annexes' }]} />
+      <FilAriane etapes={filAriane} />
       <p class="bandeau__sur">Annexes</p>
       <h1>{partieAnnexes.titreCourt}</h1>
     </div>

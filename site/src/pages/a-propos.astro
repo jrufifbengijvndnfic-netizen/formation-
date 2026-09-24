@@ -6,9 +6,11 @@ import { lien } from '../lib/navigation';
 import { rendreMarkdown } from '../lib/render';
 
 const s01 = partieModeEmploi.elements.find((e) => e.numero === '0.1');
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'À propos' }];
 ---
 
 <Base
+  filAriane={filAriane}
   titre="À propos"
   description={`Objectif de la formation, avertissement, confidentialité et mise à jour. ${miseAJour}.`}
   niveau="0"
@@ -16,7 +18,7 @@ const s01 = partieModeEmploi.elements.find((e) => e.numero === '0.1');
 >
   <div class="bandeau">
     <div class="conteneur">
-      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'À propos' }]} />
+      <FilAriane etapes={filAriane} />
       <h1>À propos</h1>
       <p>{formation.mentionEdition}</p>
     </div>

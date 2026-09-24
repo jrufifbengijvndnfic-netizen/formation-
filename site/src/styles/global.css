@@ -41,9 +41,10 @@
   --succes: #276b43;
   --erreur: #b3261e;
 
-  --titre: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-  --texte: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  /* Polices déclarées dans astro.config.mjs (hébergées avec le site, préchargées, secours ajusté). */
+  --titre: var(--police-titre);
+  --texte: var(--police-texte);
+  --mono: var(--police-mono);
 
   --largeur-texte: 44rem;
   --largeur-page: 78rem;
@@ -248,6 +249,11 @@ svg {
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+/* Champ masqué (fichier) : le contour de focus s'affiche sur le libellé qui le suit. */
+.visuellement-cache:focus-visible + label {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
 }
 .lien-evitement {
   position: absolute;
@@ -1364,6 +1370,7 @@ details.corrige > p {
 /* ------------------------------------------------------------------ Formulaires (simulateurs, lettres) */
 .formulaire {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.2rem;
 }
 .formulaire fieldset {
@@ -1387,6 +1394,7 @@ details.corrige > p {
 .champ {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   gap: 0.25rem;
 }
 .champ--case {
@@ -1410,6 +1418,8 @@ details.corrige > p {
 .champ select,
 .champ textarea {
   width: 100%;
+  /* Éléments flexibles : sans min-width, WebKit élargit une liste aux options les plus longues. */
+  min-width: 0;
   font: inherit;
   font-family: var(--titre);
   font-size: 0.95rem;
@@ -1420,6 +1430,10 @@ details.corrige > p {
   background: var(--papier);
   color: var(--encre);
   min-height: 2.75rem;
+}
+/* Option longue : WebKit dessine sinon la liste hors de son cadre (défilement horizontal sur mobile). */
+.champ select {
+  contain: paint;
 }
 .champ textarea {
   min-height: 5rem;
@@ -1468,6 +1482,8 @@ details.corrige > p {
 /* ------------------------------------------------------------------ Simulateurs */
 .simulateur {
   display: grid;
+  /* Colonne explicite : sans elle, WebKit (Safari) élargit la grille aux grands tableaux. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 2rem;
   align-items: start;
 }
@@ -2017,7 +2033,6 @@ details.corrige > p {
     line-height: 1.5;
     background: #fff;
   }
-  .mention-maj,
   .entete,
   .pied,
   .sommaire,
@@ -2032,6 +2047,15 @@ details.corrige > p {
   .index-lettres,
   .no-print {
     display: none !important;
+  }
+  /* La date de mise à jour reste imprimée (brief : toujours affichée). */
+  .mention-maj {
+    background: none;
+    color: #000;
+    font-size: 8.5pt;
+    padding: 0 0 0.3rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid #000;
   }
   .bandeau {
     background: none !important;

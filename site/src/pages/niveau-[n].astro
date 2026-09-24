@@ -26,9 +26,11 @@ const mods = modulesDuNiveau(n);
 const examen = partie.elements.find((e) => e.type === 'examen');
 const checklist = partie.elements.find((e) => e.type === 'checklist');
 const numeros = numerosDuNiveau(n).join(',');
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: `Niveau ${n}` }];
 ---
 
 <Base
+  filAriane={filAriane}
   titre={`Niveau ${n} — ${partie.titreCourt}`}
   description={resumer(texteBrut(partie.intro))}
   niveau={String(n) as '1' | '2' | '3'}
@@ -37,7 +39,7 @@ const numeros = numerosDuNiveau(n).join(',');
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: `Niveau ${n}` }]} />
+        <FilAriane etapes={filAriane} />
         <p class="bandeau__sur">Niveau {n}</p>
         <h1>{partie.titreCourt}</h1>
         <Fragment set:html={rendreMarkdown(partie.intro)} />

@@ -3,9 +3,11 @@ import FilAriane from '../components/FilAriane.astro';
 import Base from '../layouts/Base.astro';
 import { modulesDuNiveau, niveaux, numerosDuNiveau, tousLesModules } from '../lib/donnees';
 import { lien, lienElement } from '../lib/navigation';
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progression' }];
 ---
 
 <Base
+  filAriane={filAriane}
   titre="Ma progression"
   description="Suivi de vos modules lus et quiz réussis, export et import de votre progression, remise à zéro."
   niveau="0"
@@ -13,7 +15,7 @@ import { lien, lienElement } from '../lib/navigation';
 >
   <div class="bandeau">
     <div class="conteneur">
-      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progression' }]} />
+      <FilAriane etapes={filAriane} />
       <h1>Ma progression</h1>
       <p>
         Votre progression est enregistrée uniquement dans ce navigateur. Exportez-la pour la sauvegarder ou la reprendre
@@ -103,9 +105,7 @@ import { lien, lienElement } from '../lib/navigation';
         <button type="button" class="bouton bouton--plein" data-exporter>
           Exporter ma progression (JSON)
         </button>
-        <label class="bouton" for="importer-fichier">
-          Importer un fichier
-        </label>
+        <!-- Le champ précède son libellé : le contour de focus s'affiche sur le libellé (CSS). -->
         <input
           type="file"
           id="importer-fichier"
@@ -113,6 +113,9 @@ import { lien, lienElement } from '../lib/navigation';
           class="visuellement-cache"
           data-importer
         />
+        <label class="bouton" for="importer-fichier">
+          Importer un fichier
+        </label>
         <button type="button" class="bouton bouton--discret" data-reinitialiser>
           Réinitialiser ma progression
         </button>

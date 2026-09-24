@@ -7,9 +7,15 @@ import { lien, lienElement } from '../lib/navigation';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const presentes = new Set(termesParLettre.map(([l]) => l));
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: 'Annexes', href: lien('annexes/') },
+  { libelle: 'Glossaire' },
+];
 ---
 
 <Base
+  filAriane={filAriane}
   titre="Glossaire de A à Z"
   description={`Les ${termes.length} termes de l'immobilier locatif (annexe C) : définitions, filtre instantané et renvois vers les modules.`}
   niveau="annexes"
@@ -17,13 +23,7 @@ const presentes = new Set(termesParLettre.map(([l]) => l));
 >
   <div class="bandeau">
     <div class="conteneur">
-      <FilAriane
-        etapes={[
-          { libelle: 'Accueil', href: lien() },
-          { libelle: 'Annexes', href: lien('annexes/') },
-          { libelle: 'Glossaire' },
-        ]}
-      />
+      <FilAriane etapes={filAriane} />
       <p class="bandeau__sur">Annexe C</p>
       <h1>Glossaire de A à Z</h1>
       <p>

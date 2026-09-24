@@ -1,14 +1,18 @@
 ---
-import '@fontsource/poppins/500.css';
-import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css';
-import '@fontsource-variable/source-serif-4';
-import '@fontsource-variable/jetbrains-mono';
+import { Font } from 'astro:assets';
 import '../styles/global.css';
 import EnTete from '../components/EnTete.astro';
 import PiedDePage from '../components/PiedDePage.astro';
-import { titreSite } from '../lib/donnees';
 import { lien } from '../lib/navigation';
+import {
+  IMAGE_PARTAGE,
+  MARQUE,
+  adresseAbsolue,
+  filArianeJsonLd,
+  raccourcir,
+  titreDePage,
+  type EtapeFilAriane,
+} from '../lib/seo';
 
 interface Props {
   titre: string;
@@ -16,34 +20,56 @@ interface Props {
   /** Couleur de niveau de la page : 0 (mode d'emploi), 1, 2, 3 ou annexes. */
   niveau?: '0' | '1' | '2' | '3' | 'annexes' | undefined;
   actif?: string | undefined;
-  /** Données structurées (JSON-LD). */
+  /** Données structurées (JSON-LD) propres à la page. */
   donneesStructurees?: Record<string, unknown> | undefined;
-  type?: 'website' | 'article';
+  /** Fil d'Ariane de la page : repris en données structurées BreadcrumbList. */
+  filAriane?: EtapeFilAriane[] | undefined;
+  /** Faux pour la page 404 : ni adresse canonique ni indexation. */
+  indexable?: boolean;
 }
-const { titre, description, niveau, actif, donneesStructurees, type = 'article' } = Astro.props;
-const titreComplet = titre === titreSite ? titreSite : `${titre} · ${titreSite}`;
-const canonique = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const { titre, description, niveau, actif, donneesStructurees, filAriane, indexable = true } = Astro.props;
+const site = Astro.site ?? new URL('http://localhost/');
+const titreComplet = titreDePage(titre);
+const resume = raccourcir(description);
+const canonique = adresseAbsolue(Astro.url.pathname, site);
+const image = adresseAbsolue(lien(IMAGE_PARTAGE.chemin), site);
+const jsonLd = [
+  ...(donneesStructurees ? [donneesStructurees] : []),
+  ...(filAriane ? [filArianeJsonLd(filAriane, site)] : []),
+];
+// « </ » échappé : un texte ne peut pas refermer la balise script.
+const enJson = (donnees: Record<string, unknown>) => JSON.stringify(donnees).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{titreComplet}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={resume} />
+    {indexable ? <link rel="canonical" href={canonique} /> : <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={MARQUE} />
+    <meta property="og:title" content={titre} />
+    <meta property="og:description" content={resume} />
+    {indexable && <meta property="og:url" content={canonique} />}
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content={IMAGE_PARTAGE.type} />
+    <meta property="og:image:width" content={String(IMAGE_PARTAGE.largeur)} />
+    <meta property="og:image:height" content={String(IMAGE_PARTAGE.hauteur)} />
+    <meta property="og:image:alt" content={`${MARQUE} — L'immobilier locatif en France`} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#1C2330" />
     <link rel="icon" href={lien('favicon.svg')} type="image/svg+xml" />
-    {canonique && <link rel="canonical" href={canonique} />}
-    <meta property="og:type" content={type} />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:site_name" content={titreSite} />
-    <meta property="og:title" content={titreComplet} />
-    <meta property="og:description" content={description} />
-    {canonique && <meta property="og:url" content={canonique} />}
-    <meta name="twitter:card" content="summary" />
-    {Astro.site && <link rel="sitemap" href={new URL(lien('sitemap-index.xml'), Astro.site).href} />}
-    {donneesStructurees && <script type="application/ld+json" set:html={JSON.stringify(donneesStructurees)}></script>}
+    <link rel="sitemap" type="application/xml" href={adresseAbsolue(lien('sitemap.xml'), site)} />
+    <Font cssVariable="--police-titre" preload />
+    <Font cssVariable="--police-texte" preload />
+    <Font cssVariable="--police-mono" preload />
+    {jsonLd.map((d) => (
+      <script type="application/ld+json" set:html={enJson(d)}></script>
+    ))}
     <script is:inline>
       (() => {
         const racine = document.documentElement;

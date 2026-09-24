@@ -18,10 +18,11 @@
     "lint": "node ./node_modules/eslint/bin/eslint.js .",
     "format": "node ./node_modules/prettier/bin/prettier.cjs --write .",
     "format:check": "node ./node_modules/prettier/bin/prettier.cjs --check .",
-    "test:site": "node ./node_modules/tsx/dist/cli.mjs scripts/test-site.ts"
+    "test:site": "node ./node_modules/tsx/dist/cli.mjs scripts/test-site.ts",
+    "lighthouse": "node ./node_modules/tsx/dist/cli.mjs scripts/lighthouse.ts",
+    "image-partage": "node ./node_modules/tsx/dist/cli.mjs scripts/image-partage.ts"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/source-serif-4": "^5.3.0",
     "@fontsource/poppins": "^5.3.0",

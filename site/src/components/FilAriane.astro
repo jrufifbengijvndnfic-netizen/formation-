@@ -1,6 +1,8 @@
 ---
+import type { EtapeFilAriane } from '../lib/seo';
+
 interface Props {
-  etapes: { libelle: string; href?: string | undefined }[];
+  etapes: EtapeFilAriane[];
 }
 const { etapes } = Astro.props;
 ---

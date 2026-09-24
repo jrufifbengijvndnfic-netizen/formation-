@@ -19,19 +19,24 @@ const suggestions: Record<string, typeof irlPublies> =
 const i = SIMULATEURS.indexOf(sim);
 const precedent = SIMULATEURS[i - 1];
 const suivant = SIMULATEURS[i + 1];
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: 'Simulateurs', href: lien('simulateurs/') },
+  { libelle: sim.titre },
+];
 ---
 
-<Base titre={`Simulateur : ${sim.titre}`} description={sim.resume} niveau="annexes" actif="simulateurs">
+<Base
+  filAriane={filAriane}
+  titre={`Simulateur : ${sim.titre}`}
+  description={sim.resume}
+  niveau="annexes"
+  actif="simulateurs"
+>
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane
-          etapes={[
-            { libelle: 'Accueil', href: lien() },
-            { libelle: 'Simulateurs', href: lien('simulateurs/') },
-            { libelle: sim.titre },
-          ]}
-        />
+        <FilAriane etapes={filAriane} />
         <p class="bandeau__sur">Simulateur · formule {sim.formule.toUpperCase()} de l'annexe E</p>
         <h1>{sim.titre}</h1>
         <p>{sim.resume}</p>

@@ -26,9 +26,15 @@ const suivante = annexes[i + 1];
 const lienAnnexe = (a: Element) =>
   a.numero === 'C' ? lien('glossaire/') : lien(`annexe/${(a.numero ?? '').toLowerCase()}/`);
 const avecSommaire = annexe.rubriques.length > 1;
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: 'Annexes', href: lien('annexes/') },
+  { libelle: `Annexe ${lettre}` },
+];
 ---
 
 <Base
+  filAriane={filAriane}
   titre={annexe.titre}
   description={resumer(`${annexe.titreCourt}. ${texteBrut(annexe.intro || annexe.markdown)}`)}
   niveau="annexes"
@@ -37,13 +43,7 @@ const avecSommaire = annexe.rubriques.length > 1;
   <div data-pagefind-body>
     <div class="bandeau">
       <div class="conteneur">
-        <FilAriane
-          etapes={[
-            { libelle: 'Accueil', href: lien() },
-            { libelle: 'Annexes', href: lien('annexes/') },
-            { libelle: `Annexe ${lettre}` },
-          ]}
-        />
+        <FilAriane etapes={filAriane} />
         <p class="bandeau__sur">Boîte à outils permanente</p>
         <h1>
           <span class="parcelle">

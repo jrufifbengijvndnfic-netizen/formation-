@@ -10,24 +10,27 @@ Site statique (Astro 7 + TypeScript) généré à partir d'un **seul fichier Mar
 
 À lancer depuis ce dossier `site/` (Node 22.12 ou plus récent).
 
-| Commande                          | Rôle                                                                                                           |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `npm install`                     | Installe les dépendances                                                                                       |
-| `npm run dev`                     | Serveur de développement ; modifier le Markdown recharge la page                                               |
-| `npm test`                        | Tests unitaires (parseur, parité JSON, calculs, rendu, simulateurs…)                                           |
-| `npm run build`                   | Vérification des types, build, index de recherche Pagefind, contrôle des liens internes → `dist/`              |
-| `npm run preview`                 | Sert `dist/` en local                                                                                          |
-| `npm run test:site`               | Après un build : accessibilité (axe) de toutes les pages, affichage à 360 px, parcours dans un vrai navigateur |
-| `npm run build-json`              | Vérifie que `structure.json`, `quiz.json` et `glossaire.json` correspondent au Markdown                        |
-| `npm run build-json -- --write`   | Régénère ces trois fichiers dans le pack                                                                       |
-| `npm run lint` / `npm run format` | ESLint / Prettier                                                                                              |
+| Commande                          | Rôle                                                                                                          |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `npm install`                     | Installe les dépendances                                                                                      |
+| `npm run dev`                     | Serveur de développement ; modifier le Markdown recharge la page                                              |
+| `npm test`                        | Tests unitaires (parseur, parité JSON, calculs, rendu, simulateurs…)                                          |
+| `npm run build`                   | Vérification des types, build, index de recherche Pagefind, contrôle des liens internes → `dist/`             |
+| `npm run preview`                 | Sert `dist/` en local                                                                                         |
+| `npm run test:site`               | Après un build : axe, structure et SEO de toutes les pages, 320 px, iPhone et Pixel émulés, clavier, parcours |
+| `npm run lighthouse`              | Après un build : Lighthouse mobile sur toutes les pages (`-- --desktop` pour le profil ordinateur)            |
+| `npm run image-partage`           | Régénère l'image de partage `public/images/og-image.webp` (titre et accroche de la formation)                 |
+| `npm run build-json`              | Vérifie que `structure.json`, `quiz.json` et `glossaire.json` correspondent au Markdown                       |
+| `npm run build-json -- --write`   | Régénère ces trois fichiers dans le pack                                                                      |
+| `npm run lint` / `npm run format` | ESLint / Prettier                                                                                             |
 
 Les scripts appellent les binaires par `node ./node_modules/…` et non par leur nom : le dossier
 d'origine du projet contient un « : » (`Schöpli:cloud`) qui casse le `PATH` construit par npm.
 Ne pas les « simplifier ».
 
 `npm run test:site` utilise le Chromium de Playwright (`npx playwright install chromium` une fois)
-ou celui indiqué par `CHROMIUM_PATH`.
+ou celui indiqué par `CHROMIUM_PATH`. `NAVIGATEUR=firefox` ou `NAVIGATEUR=webkit` (moteur de Safari)
+lance les mêmes tests dans ces navigateurs (`npx playwright install firefox webkit`).
 
 ## Mettre à jour le contenu (section 12 du brief)
 
@@ -52,12 +55,30 @@ liens de téléchargement (accueil, pied de page, à propos). Sans ce fichier, l
 
 Le dossier `dist/` est autonome : il se dépose tel quel sur n'importe quel hébergement statique.
 
-| Variable                  | Effet                                                                             |
-| ------------------------- | --------------------------------------------------------------------------------- |
-| `SITE_URL=https://…`      | Active les adresses canoniques, `og:url` et le plan du site (`sitemap-index.xml`) |
-| `BASE_PATH=/sous-dossier` | Site servi dans un sous-dossier (GitHub Pages : `/nom-du-depot`)                  |
+| Variable                  | Effet                                                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `SITE_URL=https://…`      | Domaine des adresses canoniques, d'Open Graph et du plan du site (défaut : `https://formation-locatif.fr`) |
+| `BASE_PATH=/sous-dossier` | Site servi dans un sous-dossier (GitHub Pages : `/nom-du-depot`)                                           |
 
-Exemple : `SITE_URL=https://formation.example.fr npm run build`.
+Chaque build produit aussi dans `dist/` :
+
+- `sitemap.xml` (adresses canoniques indexables uniquement) et `robots.txt` ;
+- `_redirects` (redirections 301) et `_headers` (HTTPS strict, sécurité, cache), lus par Netlify et
+  Cloudflare Pages. Vercel lit l'équivalent dans `vercel.json` ; Netlify, `../netlify.toml`.
+
+Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`) ; un test vérifie que
+`vercel.json` les reprend.
+
+## Référencement (cahier des charges SEO)
+
+- Titres « … | Formation Locatif », descriptions de 160 caractères au plus (coupées au mot),
+  adresse canonique, Open Graph et carte Twitter `summary_large_image` sur chaque page.
+- Données structurées JSON-LD dans le `<head>` : `Course` sur l'accueil (avec l'offre de `OFFRE`
+  dans `src/lib/seo.ts`), `BreadcrumbList` sur toutes les autres pages, identique au fil d'Ariane affiché.
+- Polices hébergées avec le site (`fonts` dans `astro.config.mjs`), préchargées, `font-display: swap`,
+  avec polices de secours aux métriques ajustées (pas de saut de mise en page au chargement).
+- Aucun script tiers (ni mesure d'audience ni traceur, conformément au brief du site).
+- `npm run test:site` vérifie tout cela sur chaque page.
 
 ## Architecture
 
@@ -73,6 +94,7 @@ src/
     glossaire-match.ts      repérage des termes (sigles sensibles à la casse)
     lettres.ts              champs à compléter des modèles de lettres
     progression.ts          progression, validation des imports
+    seo.ts                  marque, titres, descriptions, fil d'Ariane JSON-LD, offre, redirections
     donnees.ts              données prêtes pour les pages (build uniquement)
   components/               Quiz, Lettre, Checklist, Frise, Simulateur, ContenuElement…
   scripts/                  îlots côté navigateur (quiz, simulateurs, lettres, progression…)
@@ -80,7 +102,8 @@ src/
                             glossaire, simulateurs, à surveiller, recherche, progression, à propos
   styles/global.css         direction artistique, thème sombre, impression
 scripts/
-  build-json.ts, check-links.ts, test-site.ts, pont-reference.py
+  build-json.ts, check-links.ts, test-site.ts, lighthouse.ts, image-partage.ts,
+  serveur-statique.ts (serveur de dist/ avec compression, pour les tests), pont-reference.py
 ```
 
 ## Choix notables
