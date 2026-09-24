@@ -1,0 +1,90 @@
+[
+ {
+  "page": "/",
+  "perf": 99,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 130
+ },
+ {
+  "page": "/tarifs/",
+  "perf": 99,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 130
+ },
+ {
+  "page": "/niveau-1/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 131
+ },
+ {
+  "page": "/module/1-1/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 139
+ },
+ {
+  "page": "/outils/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.7 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 132
+ },
+ {
+  "page": "/simulateurs/rentabilite/",
+  "perf": 99,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "2.0 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 160
+ },
+ {
+  "page": "/lettres/revision-du-loyer/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 134
+ },
+ {
+  "page": "/mode-d-emploi/",
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "lcp": "1.8 s",
+  "cls": "0",
+  "tbt": "0 ms",
+  "poidsKo": 133
+ }
+]
