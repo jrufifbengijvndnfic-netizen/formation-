@@ -1,0 +1,113 @@
+---
+import FilAriane from '../components/FilAriane.astro';
+import Base from '../layouts/Base.astro';
+import {
+  modulesDuNiveau,
+  niveauDe,
+  nombreQuestions,
+  numerosDuNiveau,
+  objectifs,
+  organisation,
+  resumer,
+  tempsDeLecture,
+} from '../lib/donnees';
+import { lien, lienElement } from '../lib/navigation';
+import { rendreMarkdown, texteBrut } from '../lib/render';
+import type { Niveau } from '../lib/types';
+
+export function getStaticPaths() {
+  return [1, 2, 3].map((n) => ({ params: { n: String(n) } }));
+}
+
+const n = Number(Astro.params.n) as Niveau;
+const partie = niveauDe(n);
+const org = organisation[`Niveau ${n}`];
+const mods = modulesDuNiveau(n);
+const examen = partie.elements.find((e) => e.type === 'examen');
+const checklist = partie.elements.find((e) => e.type === 'checklist');
+const numeros = numerosDuNiveau(n).join(',');
+---
+<Base titre={`Niveau ${n} — ${partie.titreCourt}`} description={resumer(texteBrut(partie.intro))} niveau={String(n) as '1' | '2' | '3'} actif={`niveau-${n}`}>
+  <div data-pagefind-body>
+    <div class="bandeau">
+      <div class="conteneur">
+        <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: `Niveau ${n}` }]} />
+        <p class="bandeau__sur">Niveau {n}</p>
+        <h1>{partie.titreCourt}</h1>
+        <Fragment set:html={rendreMarkdown(partie.intro)} />
+        <p class="bandeau__meta">
+          {org && <span>Public : {org.public}</span>}
+          {org && <span>Durée indicative : {org.duree}</span>}
+          <span>{mods.length} modules et un examen</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="conteneur">
+      <section class="encart" data-avancement={numeros} aria-labelledby="avancement-titre" data-pagefind-ignore>
+        <h2 id="avancement-titre" style="margin-top:0">Votre avancement</h2>
+        <p data-avancement-texte>0 %</p>
+        <div class="jauge" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label={`Progression du niveau ${n}`}>
+          <span class="jauge__remplissage"></span>
+        </div>
+        <p hidden data-si-termine style="margin-top:1rem">
+          <span class="badge-niveau">Niveau {n} terminé</span> Tous les modules sont lus et tous les quiz réussis : l'examen est débloqué.
+        </p>
+        <p class="examen-verrou" data-si-en-cours style="margin-top:1rem">
+          Lisez chaque module et réussissez son quiz (70 %) pour débloquer l'examen. Tout le contenu reste librement accessible.
+        </p>
+      </section>
+
+      <h2>Modules</h2>
+      <ol class="registre">
+        {
+          mods.map((m) => (
+            <li class="registre__ligne">
+              <span class="registre__numero">
+                <span class="parcelle">{m.numero}</span>
+              </span>
+              <div>
+                <h3 class="registre__titre">
+                  <a href={lienElement(m)}>{m.titreCourt}</a>
+                </h3>
+                <p class="registre__resume">{objectifs(m)}</p>
+                <p class="registre__meta">
+                  Lecture : environ {tempsDeLecture(m)} min · {nombreQuestions(m)} questions
+                </p>
+              </div>
+              <span class="registre__etat" data-pagefind-ignore>
+                <span class="statut" data-statut-module={m.numero} data-statut="non-commence">
+                  Non commencé
+                </span>
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <h2>Pour valider le niveau</h2>
+      <ul class="acces">
+        {
+          examen && (
+            <li>
+              <a href={lienElement(examen)}>
+                {examen.titre}
+                <small>Cas pratiques avec corrigés repliables</small>
+              </a>
+            </li>
+          )
+        }
+        {
+          checklist && (
+            <li>
+              <a href={lienElement(checklist)}>
+                {checklist.titre}
+                <small>Cases à cocher, mémorisées dans votre navigateur</small>
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </div>
+  </div>
+</Base>

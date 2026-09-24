@@ -1,0 +1,79 @@
+---
+import { espacesInsecables as ty } from '../lib/format';
+import type { QuizQuestion } from '../lib/types';
+
+interface Props {
+  module: string;
+  questions: QuizQuestion[];
+}
+const { module, questions } = Astro.props;
+const idQuiz = `quiz-${module.replace('.', '-')}`;
+const LETTRES = ['A', 'B', 'C', 'D'] as const;
+---
+<div class="quiz" id={idQuiz} data-quiz={module}>
+  <div class="quiz__outils no-print" data-quiz-outils hidden data-pagefind-ignore>
+    <fieldset>
+      <legend>Affichage</legend>
+      <label><input type="radio" name={`${idQuiz}-mode`} value="toutes" checked /> Toutes les questions</label>
+      <label><input type="radio" name={`${idQuiz}-mode`} value="une" /> Une question à la fois</label>
+    </fieldset>
+    <label><input type="checkbox" data-quiz-melanger /> Mélanger les propositions</label>
+    <span data-quiz-meilleur></span>
+  </div>
+  <ol class="quiz__questions">
+    {
+      questions.map((q, i) => (
+        <li class="quiz__question" data-question={q.id} data-reponse={q.reponse}>
+          <form method="dialog">
+            <fieldset>
+              <legend>
+                <span class="quiz__rang">
+                  Question {i + 1} sur {questions.length}
+                </span>
+                {ty(q.question)}
+              </legend>
+              <div class="quiz__options">
+                {LETTRES.map((l) => (
+                  <label class="quiz__option">
+                    <input type="radio" name={q.id} value={l} />
+                    <span class="quiz__lettre" data-lettre-affichee>
+                      {l}
+                    </span>
+                    <span class="quiz__texte">{ty(q.options[l])}</span>
+                  </label>
+                ))}
+              </div>
+              <div class="groupe-boutons no-print" data-quiz-boutons hidden>
+                <button type="submit" class="bouton bouton--plein" data-quiz-valider>
+                  Valider
+                </button>
+                <button type="button" class="bouton bouton--discret" data-quiz-suivante hidden>
+                  Question suivante
+                </button>
+              </div>
+              <div class="quiz__retour" data-quiz-retour aria-live="polite" />
+              <details class="quiz__solution" data-quiz-solution data-pagefind-ignore>
+                <summary>Voir la réponse</summary>
+                <p>
+                  <strong>Réponse {q.reponse}</strong>{'\u202f'}: {ty(q.options[q.reponse])}
+                </p>
+                <p data-explication>{ty(q.explication)}</p>
+              </details>
+            </fieldset>
+          </form>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="quiz__bilan" data-quiz-bilan hidden tabindex="-1" data-pagefind-ignore>
+    <p class="quiz__score" data-quiz-score></p>
+    <p data-quiz-commentaire></p>
+    <div class="groupe-boutons">
+      <button type="button" class="bouton bouton--plein" data-quiz-recommencer>Recommencer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/quiz';
+</script>

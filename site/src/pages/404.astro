@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { lien } from '../lib/navigation';
+---
+<Base titre="Page introuvable" description="Cette page n'existe pas ou a été déplacée." niveau="0">
+  <div class="bandeau">
+    <div class="conteneur">
+      <p class="bandeau__sur">Erreur 404</p>
+      <h1>Page introuvable</h1>
+    </div>
+  </div>
+  <div class="conteneur prose">
+    <p>Cette page n'existe pas ou a été déplacée. Essayez la <a href={lien('recherche/')}>recherche</a>, le <a href={lien('glossaire/')}>glossaire</a> ou revenez à l'<a href={lien()}>accueil</a>.</p>
+  </div>
+</Base>

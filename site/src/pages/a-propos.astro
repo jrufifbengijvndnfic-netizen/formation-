@@ -1,0 +1,46 @@
+---
+import FilAriane from '../components/FilAriane.astro';
+import Base from '../layouts/Base.astro';
+import { avertissementHtml, avecPdf, formation, miseAJour, partieModeEmploi } from '../lib/donnees';
+import { lien } from '../lib/navigation';
+import { rendreMarkdown } from '../lib/render';
+
+const s01 = partieModeEmploi.elements.find((e) => e.numero === '0.1');
+---
+<Base titre="À propos" description={`Objectif de la formation, avertissement, confidentialité et mise à jour. ${miseAJour}.`} niveau="0" actif="a-propos">
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'À propos' }]} />
+      <h1>À propos</h1>
+      <p>{formation.mentionEdition}</p>
+    </div>
+  </div>
+  <div class="conteneur prose contenu">
+    <h2 id="objectif">L'objectif</h2>
+    {s01 && <Fragment set:html={rendreMarkdown(s01.markdown)} />}
+
+    <h2 id="avertissement">Avertissement</h2>
+    <Fragment set:html={avertissementHtml} />
+    <p>Les encadrés « À surveiller » signalent les textes non encore adoptés et les échéances proches ; ils sont regroupés sur la page <a href={lien('a-surveiller/')}>À surveiller</a>.</p>
+
+    <h2 id="mise-a-jour">Mise à jour</h2>
+    <p>{miseAJour}. Le site est entièrement généré à partir d'un seul fichier Markdown : lorsque le droit évolue (voir l'<a href={lien('annexe/i/')}>annexe I</a>), le texte est mis à jour puis le site reconstruit.</p>
+
+    <h2 id="confidentialite">Confidentialité</h2>
+    <ul>
+      <li>Aucun traceur, aucun outil de mesure d'audience, aucun cookie publicitaire.</li>
+      <li>Votre progression (modules lus, scores, cases cochées) et votre choix de thème sont enregistrés uniquement dans le stockage local de votre navigateur. Vous pouvez les exporter, les importer ou les effacer depuis <a href={lien('progression/')}>Ma progression</a>.</li>
+      <li>Les simulateurs et les modèles de lettres calculent et remplissent tout dans votre navigateur : rien n'est envoyé à un serveur. Les paramètres d'un simulateur ne figurent dans l'adresse de la page que si vous la copiez pour la partager.</li>
+    </ul>
+
+    <h2 id="accessibilite">Accessibilité</h2>
+    <p>Le site vise le niveau AA des WCAG 2.2 : navigation complète au clavier, contrastes vérifiés en thème clair et sombre, infobulles activables au clavier et au toucher, tableaux défilants dans leur conteneur, respect de la réduction des animations.</p>
+
+    {avecPdf && (
+      <>
+        <h2 id="pdf">Version imprimable</h2>
+        <p><a href={lien('formation-immobilier-locatif-2026.pdf')} download>Télécharger la formation complète au format PDF</a>.</p>
+      </>
+    )}
+  </div>
+</Base>

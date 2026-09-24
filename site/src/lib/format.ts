@@ -53,3 +53,17 @@ export function echapper(texte: string): string {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
+
+/**
+ * Espaces insécables de la typographie française, appliquées à l'affichage uniquement
+ * (le texte source n'est pas modifié) : séparateur de milliers (espace fine), espace avant
+ * une unité (€, %, m²…), dans les guillemets « » et avant « : ; ? ! ».
+ */
+export function espacesInsecables(texte: string): string {
+  return texte
+    .replace(/(\d) (?=\d{3}(?!\d))/g, '$1\u202f')
+    .replace(/(\d) (?=(?:€|%|m²|m³|ans?\b|mois\b|jours?\b|heures?\b|semaines?\b|HC\b|CC\b|kWh\b))/g, '$1\u00a0')
+    .replace(/« /g, '«\u00a0')
+    .replace(/ »/g, '\u00a0»')
+    .replace(/ ([:;?!])(?=\s|$)/g, '\u202f$1');
+}

@@ -32,7 +32,7 @@ describe('rendu du Markdown', () => {
   it('conserve les retours à la ligne des exemples chiffrés', () => {
     const m = modules(f).find((x) => x.numero === '1.12') as Element;
     const { html } = rendreElement(m);
-    expect(html).toContain('Rentabilité brute : 6 240 / 118 000 = 5,29 %.<br>');
+    expect(html).toContain('Rentabilité brute\u202f: 6\u202f240 / 118\u202f000 = 5,29\u00a0%.<br>');
     expect(html).toContain('<p class="encadre__etiquette" id="encadre-1-etiquette">Exemple chiffré</p>');
   });
 
@@ -55,6 +55,7 @@ describe('rendu du Markdown', () => {
     const { html } = rendreElement(m);
     expect(html).toContain('<a href="/module/3-4/">3.4</a>');
     const soi = rendreMarkdown('Voir le module 2.8 et le module 2.6.', nouveauContexte({ modulesExistants: existants, moduleCourant: '2.8' }));
+    // (aucune espace insécable dans cette phrase)
     expect(soi).toBe('<p>Voir le module 2.8 et le module <a href="/module/2-6/">2.6</a>.</p>');
     const liste = rendreMarkdown('Voir modules 2.6, 2.7, 3.4 et 3.5.', nouveauContexte({ modulesExistants: existants }));
     expect(liste.match(/<a href="\/module\//g)).toHaveLength(4);
@@ -95,6 +96,13 @@ describe('rendu du Markdown', () => {
     expect(new Set(ids).size).toBe(ids.length);
     expect(html).toContain('id="def-cash-flow"');
     expect(html).not.toMatch(/<(h2|th|strong)[^>]*>[^<]*<span class="terme">/);
+    expect(html).toContain('<a href="/glossaire/#cash-flow" class="terme__declencheur" aria-describedby="def-cash-flow" data-terme="cash-flow">');
+  });
+
+  it('applique les espaces insécables à l’affichage sans toucher aux formules', () => {
+    const html = rendreMarkdown('Prix « 8 000 € » : soit 2,5 % par an.\n\n```\nx = 8 000 €\n```');
+    expect(html).toContain('Prix «\u00a08\u202f000\u00a0€\u00a0»\u202f: soit 2,5\u00a0% par an.');
+    expect(html).toContain('<code>x = 8 000 €\n</code>');
   });
 
   it('ne place aucune infobulle dans les tableaux, titres, formules et liens', () => {

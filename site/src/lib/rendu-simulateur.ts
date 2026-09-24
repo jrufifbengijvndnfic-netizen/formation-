@@ -1,8 +1,9 @@
 /** Rendu HTML (chaîne) d'un résultat de simulateur, identique au build et dans le navigateur. */
-import { echapper } from './format';
+import { echapper, espacesInsecables } from './format';
 import type { BlocResultat, Resultat, TableauResultat } from './simulateurs';
 
-const e = echapper;
+/** Échappe et applique les espaces insécables françaises. */
+const e = (texte: string): string => echapper(espacesInsecables(texte));
 
 function tableau(t: TableauResultat): string {
   const num = (i: number) => (t.numeriques?.[i] ? ' class="num"' : '');

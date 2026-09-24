@@ -1,0 +1,43 @@
+---
+import Avertissement from '../../components/Avertissement.astro';
+import Checklist from '../../components/Checklist.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Base from '../../layouts/Base.astro';
+import { formation } from '../../lib/donnees';
+import { lien, slugChecklist } from '../../lib/navigation';
+import { checklists, tousLesElements } from '../../lib/parse-formation';
+import type { Checklist as TChecklist, Element, Niveau } from '../../lib/types';
+
+export function getStaticPaths() {
+  return tousLesElements(formation)
+    .filter((e) => e.type === 'checklist')
+    .map((e) => ({
+      params: { id: slugChecklist(e) },
+      props: { element: e, checklist: checklists(formation).find((c) => c.elementId === e.id) as TChecklist },
+    }));
+}
+interface Props {
+  element: Element;
+  checklist: TChecklist;
+}
+const { element, checklist } = Astro.props;
+const n = element.niveau as Niveau;
+---
+<Base titre={element.titre} description={`${checklist.items.length} étapes à cocher : ${checklist.titre.toLowerCase()}.`} niveau={String(n) as '1' | '2' | '3'} actif={`niveau-${n}`}>
+  <div data-pagefind-body>
+    <div class="bandeau">
+      <div class="conteneur">
+        <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) }, { libelle: 'Checklist' }]} />
+        <p class="bandeau__sur">Niveau {n} · Checklist</p>
+        <h1>{checklist.titre}</h1>
+      </div>
+    </div>
+    <div class="conteneur">
+      <div class="prose">
+        <Checklist checklist={checklist} />
+        <p><a href={lien('annexe/g/')}>Six autres checklists dans l'annexe G</a></p>
+        <Avertissement />
+      </div>
+    </div>
+  </div>
+</Base>

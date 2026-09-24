@@ -1,0 +1,48 @@
+---
+import Avertissement from '../../components/Avertissement.astro';
+import ContenuElement from '../../components/ContenuElement.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Base from '../../layouts/Base.astro';
+import { elements, numerosDuNiveau, resumer } from '../../lib/donnees';
+import { lien, slugExamen } from '../../lib/navigation';
+import { texteBrut } from '../../lib/render';
+import type { Element, Niveau } from '../../lib/types';
+
+export function getStaticPaths() {
+  return elements.filter((e) => e.type === 'examen').map((e) => ({ params: { id: slugExamen(e) }, props: { examen: e } }));
+}
+interface Props {
+  examen: Element;
+}
+const { examen } = Astro.props;
+const n = examen.niveau as Niveau;
+const nbCas = (examen.markdown.match(/^\*\*Cas \d+ — /gm) ?? []).length;
+---
+<Base titre={examen.titre} description={resumer(`${nbCas} cas pratiques corrigés. ${texteBrut(examen.markdown)}`)} niveau={String(n) as '1' | '2' | '3'} actif={`niveau-${n}`}>
+  <div data-pagefind-body>
+    <div class="bandeau">
+      <div class="conteneur">
+        <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) }, { libelle: 'Examen' }]} />
+        <p class="bandeau__sur">Niveau {n} · {nbCas} cas pratiques</p>
+        <h1>{examen.titre}</h1>
+      </div>
+    </div>
+    <div class="conteneur">
+      <div class="prose">
+        <div class="encart" data-avancement={numerosDuNiveau(n).join(',')} data-pagefind-ignore>
+          <p>Lisez chaque cas, réfléchissez à votre réponse, puis ouvrez le corrigé.</p>
+          <p hidden data-si-termine><span class="badge-niveau">Examen débloqué</span> Vous avez lu tous les modules du niveau et réussi leurs quiz.</p>
+          <p class="examen-verrou" data-si-en-cours>
+            Conseillé après les modules du niveau {n} (<span data-avancement-texte>0 %</span>). L'accès reste libre.
+          </p>
+        </div>
+        <ContenuElement element={examen} />
+        <p class="groupe-boutons no-print" data-pagefind-ignore>
+          <a class="bouton" href={lien(`niveau-${n}/`)}>Retour au niveau {n}</a>
+          <button type="button" class="bouton bouton--discret" data-imprimer>Imprimer (corrigés ouverts)</button>
+        </p>
+        <Avertissement />
+      </div>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,123 @@
+---
+/**
+ * Formulaire d'un simulateur. Le résultat de l'exemple par défaut est calculé au build :
+ * la page est utile même sans JavaScript ; le script recalcule à chaque saisie.
+ */
+import { espacesInsecables as ty, nombre } from '../lib/format';
+import { rendreResultat } from '../lib/rendu-simulateur';
+import { executer, valeursParDefaut, type Champ, type Simulateur } from '../lib/simulateurs';
+
+interface Props {
+  simulateur: Simulateur;
+  /** Suggestions ajoutées à certains champs (ex. IRL publiés). */
+  suggestions?: Record<string, { valeur: number; libelle: string }[]>;
+}
+const { simulateur: sim, suggestions = {} } = Astro.props;
+const { resultat } = executer(sim, valeursParDefaut(sim));
+const id = (c: Champ) => `${sim.id}-${c.id}`;
+const decris = (c: Champ) => [c.aide ? `${id(c)}-aide` : '', `${id(c)}-erreur`].filter(Boolean).join(' ');
+const valeurTexte = (x: number) => nombre(x, 0, 4).replace(/ /g, ' ');
+---
+<div class="simulateur" data-simulateur={sim.id}>
+  <form class="formulaire" novalidate data-sim-formulaire aria-label={`Paramètres du simulateur « ${sim.titre} »`}>
+    {
+      sim.groupes.map((g) => (
+        <fieldset>
+          <legend>{g.titre}</legend>
+          <div class="champs">
+            {sim.champs
+              .filter((c) => c.groupe === g.id)
+              .map((c) => (
+                <div class={`champ${c.type === 'case' ? ' champ--case' : ''}`}>
+                  {c.type === 'case' ? (
+                    <>
+                      <input type="checkbox" id={id(c)} name={c.id} checked={c.defaut} aria-describedby={decris(c)} />
+                      <div>
+                        <label for={id(c)}>{ty(c.libelle)}</label>
+                        {c.aide && (
+                          <p class="champ__aide" id={`${id(c)}-aide`}>
+                            {ty(c.aide)}
+                          </p>
+                        )}
+                        <p class="champ__erreur" id={`${id(c)}-erreur`} hidden />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <label for={id(c)}>
+                        {ty(c.libelle)}
+                        {c.type === 'nombre' && c.unite && <span class="visuellement-cache"> (en {c.unite})</span>}
+                      </label>
+                      <div class="champ__saisie">
+                        {c.type === 'nombre' && (
+                          <input
+                            type="text"
+                            inputmode="decimal"
+                            id={id(c)}
+                            name={c.id}
+                            value={valeurTexte(c.defaut)}
+                            autocomplete="off"
+                            spellcheck="false"
+                            aria-describedby={decris(c)}
+                            list={suggestions[c.id] ? `${id(c)}-liste` : undefined}
+                          />
+                        )}
+                        {c.type === 'date' && (
+                          <input type="date" id={id(c)} name={c.id} value={c.defaut} aria-describedby={decris(c)} />
+                        )}
+                        {c.type === 'choix' && (
+                          <select id={id(c)} name={c.id} aria-describedby={decris(c)}>
+                            {c.options.map((o) => (
+                              <option value={o.valeur} selected={o.valeur === c.defaut}>
+                                {ty(o.libelle)}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                        {c.type === 'nombre' && c.unite && (
+                          <span class="champ__unite" aria-hidden="true">
+                            {c.unite}
+                          </span>
+                        )}
+                      </div>
+                      {c.type === 'nombre' && suggestions[c.id] && (
+                        <datalist id={`${id(c)}-liste`}>
+                          {suggestions[c.id]?.map((s) => (
+                            <option value={valeurTexte(s.valeur)} label={s.libelle} />
+                          ))}
+                        </datalist>
+                      )}
+                      {c.aide && (
+                        <p class="champ__aide" id={`${id(c)}-aide`}>
+                          {ty(c.aide)}
+                        </p>
+                      )}
+                      <p class="champ__erreur" id={`${id(c)}-erreur`} hidden />
+                    </>
+                  )}
+                </div>
+              ))}
+          </div>
+        </fieldset>
+      ))
+    }
+    <div class="sim-actions no-print">
+      <button type="button" class="bouton" data-sim-partager>Copier le lien de ce calcul</button>
+      <button type="button" class="bouton bouton--discret" data-sim-defaut>Revenir à l'exemple de la formation</button>
+      <span role="status" data-sim-statut></span>
+    </div>
+  </form>
+  <section class="simulateur__resultats" aria-labelledby={`${sim.id}-resultats`} tabindex="-1">
+    <h2 id={`${sim.id}-resultats`}>Résultats</h2>
+    <div class="sim-erreurs" data-sim-erreurs hidden>
+      <p>Le calcul est suspendu : corrigez les champs signalés.</p>
+      <ul data-sim-liste-erreurs></ul>
+    </div>
+    <div data-sim-resultat set:html={resultat ? rendreResultat(resultat) : ''} />
+    <p class="visuellement-cache" aria-live="polite" data-sim-annonce></p>
+  </section>
+</div>
+
+<script>
+  import '../scripts/simulateur';
+</script>

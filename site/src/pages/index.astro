@@ -1,0 +1,117 @@
+---
+import Avertissement from '../components/Avertissement.astro';
+import Base from '../layouts/Base.astro';
+import {
+  annexes,
+  aSurveiller,
+  avecPdf,
+  formation,
+  miseAJour,
+  modulesDuNiveau,
+  niveaux,
+  numerosDuNiveau,
+  organisation,
+  termes,
+  titreSite,
+  tousLesModules,
+} from '../lib/donnees';
+import { lien } from '../lib/navigation';
+import { toutesLesQuestions } from '../lib/parse-formation';
+import { texteBrut } from '../lib/render';
+import { SIMULATEURS } from '../lib/simulateurs';
+
+const accroche = texteBrut(formation.accroche);
+const description = `${accroche} ${tousLesModules.length} modules, ${toutesLesQuestions(formation).length} questions de quiz, ${SIMULATEURS.length} simulateurs. ${miseAJour}.`;
+const donnees = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: titreSite,
+  description,
+  inLanguage: 'fr',
+  dateModified: formation.aJourAu,
+  educationalLevel: 'Débutant à confirmé',
+  isAccessibleForFree: true,
+  hasPart: niveaux.map((n) => ({
+    '@type': 'Course',
+    name: `Niveau ${n.niveau} — ${n.titreCourt}`,
+    description: texteBrut(n.intro),
+    inLanguage: 'fr',
+  })),
+};
+---
+<Base titre={titreSite} description={description} niveau="0" type="website" donneesStructurees={donnees}>
+  <div class="bandeau" data-pagefind-body>
+    <div class="conteneur">
+      <p class="bandeau__sur">Formation complète · édition {formation.edition}</p>
+      <h1>{titreSite}</h1>
+      <p class="chapeau">{accroche}</p>
+      <p class="bandeau__meta">
+        <span>{miseAJour}</span>
+        <span>{tousLesModules.length} modules</span>
+        <span>{toutesLesQuestions(formation).length} questions de quiz</span>
+        <span>{SIMULATEURS.length} simulateurs</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="conteneur">
+    <section aria-labelledby="niveaux-titre">
+      <h2 id="niveaux-titre">Trois niveaux progressifs</h2>
+      <div class="feuilles">
+        {
+          niveaux.map((n) => {
+            const org = organisation[`Niveau ${n.niveau}`];
+            const nb = modulesDuNiveau(n.niveau).length;
+            return (
+              <article class="feuille" data-niveau={String(n.niveau)} data-avancement={numerosDuNiveau(n.niveau).join(',')}>
+                <div class="feuille__tete">
+                  <span class="parcelle">N{n.niveau}</span>
+                  <h3>
+                    <a href={lien(`niveau-${n.niveau}/`)}>{n.titreCourt}</a>
+                  </h3>
+                </div>
+                <div class="feuille__corps">
+                  <dl>
+                    <dt>Public</dt>
+                    <dd>{org?.public}</dd>
+                    <dt>Durée</dt>
+                    <dd>{org?.duree}</dd>
+                    <dt>Contenu</dt>
+                    <dd>{nb} modules et un examen</dd>
+                  </dl>
+                  <p class="registre__meta" data-avancement-texte>
+                    Progression : 0 %
+                  </p>
+                  <div class="jauge" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label={`Progression du niveau ${n.niveau}`}>
+                    <span class="jauge__remplissage" />
+                  </div>
+                  <p hidden data-si-termine>
+                    <span class="badge-niveau">Niveau terminé</span>
+                  </p>
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="acces-titre">
+      <h2 id="acces-titre">Accès rapides</h2>
+      <ul class="acces">
+        <li><a href={lien('mode-d-emploi/')}>Mode d'emploi<small>Organisation, conventions et les 20 nouveautés 2025-2026</small></a></li>
+        <li><a href={lien('simulateurs/')}>Simulateurs<small>{SIMULATEURS.length} calculs détaillés : rentabilité, crédit, fiscalité, plus-value…</small></a></li>
+        <li><a href={lien('glossaire/')}>Glossaire<small>{termes.length} termes de A à Z</small></a></li>
+        <li><a href={lien('a-surveiller/')}>À surveiller<small>{aSurveiller.length} textes en cours d'adoption et échéances</small></a></li>
+        <li><a href={lien('annexe/f/')}>Modèles de lettres<small>Dix courriers à compléter, copier ou imprimer</small></a></li>
+        <li><a href={lien('annexes/')}>Annexes<small>{annexes.length} outils : chiffres clés, calendrier, textes, formules, checklists</small></a></li>
+        <li><a href={lien('progression/')}>Ma progression<small>Suivi, export et remise à zéro</small></a></li>
+        {avecPdf && <li><a href={lien('formation-immobilier-locatif-2026.pdf')} download>Version PDF<small>La formation complète à imprimer</small></a></li>}
+      </ul>
+    </section>
+
+    <div class="prose">
+      <Avertissement />
+    </div>
+  </div>
+</Base>

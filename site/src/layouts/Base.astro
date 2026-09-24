@@ -1,0 +1,68 @@
+---
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource-variable/source-serif-4';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import EnTete from '../components/EnTete.astro';
+import PiedDePage from '../components/PiedDePage.astro';
+import { titreSite } from '../lib/donnees';
+import { lien } from '../lib/navigation';
+
+interface Props {
+  titre: string;
+  description: string;
+  /** Couleur de niveau de la page : 0 (mode d'emploi), 1, 2, 3 ou annexes. */
+  niveau?: '0' | '1' | '2' | '3' | 'annexes' | undefined;
+  actif?: string | undefined;
+  /** Données structurées (JSON-LD). */
+  donneesStructurees?: Record<string, unknown> | undefined;
+  type?: 'website' | 'article';
+}
+const { titre, description, niveau, actif, donneesStructurees, type = 'article' } = Astro.props;
+const titreComplet = titre === titreSite ? titreSite : `${titre} · ${titreSite}`;
+const canonique = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titreComplet}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1C2330" />
+    <link rel="icon" href={lien('favicon.svg')} type="image/svg+xml" />
+    {canonique && <link rel="canonical" href={canonique} />}
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={titreSite} />
+    <meta property="og:title" content={titreComplet} />
+    <meta property="og:description" content={description} />
+    {canonique && <meta property="og:url" content={canonique} />}
+    <meta name="twitter:card" content="summary" />
+    {Astro.site && <link rel="sitemap" href={new URL(lien('sitemap-index.xml'), Astro.site).href} />}
+    {donneesStructurees && <script type="application/ld+json" set:html={JSON.stringify(donneesStructurees)} />}
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          var t = localStorage.getItem('formation-immobilier-locatif-2026:theme');
+          if (t === 'clair' || t === 'sombre') d.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body data-niveau={niveau}>
+    <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+    <EnTete actif={actif} />
+    <main id="contenu" tabindex="-1">
+      <slot />
+    </main>
+    <PiedDePage />
+    <script>
+      import '../scripts/global';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,140 @@
+---
+import FilAriane from '../components/FilAriane.astro';
+import Base from '../layouts/Base.astro';
+import { modulesDuNiveau, niveaux, numerosDuNiveau, tousLesModules } from '../lib/donnees';
+import { lien, lienElement } from '../lib/navigation';
+---
+<Base titre="Ma progression" description="Suivi de vos modules lus et quiz réussis, export et import de votre progression, remise à zéro." niveau="0" actif="progression">
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progression' }]} />
+      <h1>Ma progression</h1>
+      <p>Votre progression est enregistrée uniquement dans ce navigateur. Exportez-la pour la sauvegarder ou la reprendre sur un autre appareil.</p>
+    </div>
+  </div>
+  <div class="conteneur">
+    <p class="message-stockage" data-stockage-indisponible hidden>
+      Le stockage de votre navigateur est indisponible (navigation privée ou cookies bloqués) : la progression ne sera pas conservée après la visite. Pensez à l'exporter.
+    </p>
+    <section class="encart" data-avancement={tousLesModules.map((m) => m.numero).join(',')} aria-labelledby="global-titre">
+      <h2 id="global-titre" style="margin-top:0">Ensemble de la formation</h2>
+      <p data-avancement-texte>0 %</p>
+      <div class="jauge" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progression globale">
+        <span class="jauge__remplissage"></span>
+      </div>
+    </section>
+
+    {
+      niveaux.map((n) => (
+        <section data-niveau={String(n.niveau)} data-avancement={numerosDuNiveau(n.niveau).join(',')} aria-labelledby={`niveau-${n.niveau}-titre`}>
+          <h2 id={`niveau-${n.niveau}-titre`}>
+            <a href={lien(`niveau-${n.niveau}/`)}>Niveau {n.niveau} — {n.titreCourt}</a>
+          </h2>
+          <p data-avancement-texte>0 %</p>
+          <div class={`jauge jauge--n${n.niveau}`} role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label={`Progression du niveau ${n.niveau}`}>
+            <span class="jauge__remplissage" />
+          </div>
+          <p hidden data-si-termine style="margin-top:.8rem">
+            <span class="badge-niveau">Niveau {n.niveau} terminé</span>
+          </p>
+          <ol class="registre" style="margin-top:1rem">
+            {modulesDuNiveau(n.niveau).map((m) => (
+              <li class="registre__ligne">
+                <span class="registre__numero">
+                  <span class="parcelle">{m.numero}</span>
+                </span>
+                <div>
+                  <p class="registre__titre">
+                    <a href={lienElement(m)}>{m.titreCourt}</a>
+                  </p>
+                  <p class="registre__meta" data-meilleur-score={m.numero} />
+                </div>
+                <span class="registre__etat">
+                  <span class="statut" data-statut-module={m.numero} data-statut="non-commence">
+                    Non commencé
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))
+    }
+
+    <section class="encart" aria-labelledby="sauvegarde-titre">
+      <h2 id="sauvegarde-titre" style="margin-top:0">Sauvegarder, reprendre, recommencer</h2>
+      <div class="groupe-boutons">
+        <button type="button" class="bouton bouton--plein" data-exporter>Exporter ma progression (JSON)</button>
+        <label class="bouton" for="importer-fichier">Importer un fichier</label>
+        <input type="file" id="importer-fichier" accept="application/json,.json" class="visuellement-cache" data-importer />
+        <button type="button" class="bouton bouton--discret" data-reinitialiser>Réinitialiser ma progression</button>
+      </div>
+      <p role="status" class="checklist-etat" data-progression-statut></p>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import { SEUIL_REUSSITE, validerProgression } from '../lib/progression';
+  import { progression, reinitialiser, remplacer, stockageLocal } from '../scripts/stockage';
+
+  const statut = document.querySelector<HTMLElement>('[data-progression-statut]');
+  const dire = (m: string) => {
+    if (statut) statut.textContent = m;
+  };
+  if (!stockageLocal()) document.querySelector<HTMLElement>('[data-stockage-indisponible]')?.removeAttribute('hidden');
+
+  const scores = () => {
+    const p = progression();
+    document.querySelectorAll<HTMLElement>('[data-meilleur-score]').forEach((el) => {
+      const q = p.quiz[el.dataset.meilleurScore ?? ''];
+      el.textContent = q
+        ? `Meilleur score au quiz : ${Math.round(q.meilleur * 100)} %${q.meilleur >= SEUIL_REUSSITE ? ' (réussi)' : ''} · ${q.tentatives} tentative${q.tentatives > 1 ? 's' : ''}`
+        : 'Quiz non tenté';
+    });
+  };
+  scores();
+  document.addEventListener('progression:modifiee', scores);
+
+  document.querySelector('[data-exporter]')?.addEventListener('click', () => {
+    const contenu = JSON.stringify(progression(), null, 2);
+    const url = URL.createObjectURL(new Blob([contenu], { type: 'application/json' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `progression-immobilier-locatif-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    dire('Fichier de progression téléchargé.');
+  });
+
+  document.querySelector<HTMLInputElement>('[data-importer]')?.addEventListener('change', async (e) => {
+    const input = e.currentTarget as HTMLInputElement;
+    const fichier = input.files?.[0];
+    input.value = '';
+    if (!fichier) return;
+    if (fichier.size > 1_000_000) {
+      dire('Fichier trop volumineux pour être une progression.');
+      return;
+    }
+    try {
+      const donnees = validerProgression(JSON.parse(await fichier.text()));
+      if (!donnees) {
+        dire('Ce fichier n’est pas une progression valide de cette formation.');
+        return;
+      }
+      if (!window.confirm('Remplacer votre progression actuelle par celle du fichier ?')) return;
+      const ok = remplacer(donnees);
+      dire(ok ? 'Progression importée.' : 'Progression importée pour cette visite seulement (stockage indisponible).');
+    } catch {
+      dire('Lecture impossible : le fichier n’est pas un JSON valide.');
+    }
+  });
+
+  document.querySelector('[data-reinitialiser]')?.addEventListener('click', () => {
+    if (!window.confirm('Effacer toute votre progression (modules lus, scores, checklists) ? Cette action est définitive.')) return;
+    reinitialiser();
+    dire('Progression réinitialisée.');
+  });
+</script>

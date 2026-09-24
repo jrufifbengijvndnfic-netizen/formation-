@@ -20,6 +20,7 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { SKIP, visit } from 'unist-util-visit';
 import { visitParents } from 'unist-util-visit-parents';
+import { espacesInsecables } from './format';
 import type { ChercheurGlossaire } from './glossaire-match';
 import { cheminAnnexe, cheminModule, lien } from './navigation';
 import { slugify } from './slug';
@@ -29,6 +30,8 @@ import { LIBELLES_ENCADRE, TYPES_ENCADRE, type TypeEncadre } from './types';
 export interface ContexteRendu {
   /** Numérotation des encadrés, identique au rang calculé par le parseur. */
   encadres: number;
+  /** Préfixe des ancres d'encadrés quand plusieurs éléments partagent une page (section 0). */
+  prefixeEncadres?: string;
   /** Libellés des tableaux déjà utilisés (pour des régions aux noms uniques). */
   tableaux: Map<string, number>;
   /** Termes du glossaire déjà signalés sur la page (seule la première occurrence l'est). */
@@ -106,7 +109,7 @@ function remarkEncadres(ctx: ContexteRendu) {
       if (!premier.children.length) noeud.children.shift();
       conserverRetours(noeud);
       ctx.encadres += 1;
-      const id = `encadre-${ctx.encadres}`;
+      const id = `${ctx.prefixeEncadres ?? ''}encadre-${ctx.encadres}`;
       noeud.data = {
         hName: 'div',
         hProperties: {
@@ -357,9 +360,9 @@ function rehypeInfobulles(ctx: ContexteRendu) {
         nouveaux.push(
           h('span', { className: ['terme'] }, [
             h(
-              'button',
+              'a',
               {
-                type: 'button',
+                href: lien(`glossaire/#${o.id}`),
                 className: ['terme__declencheur'],
                 ariaDescribedBy: idBulle,
                 dataTerme: o.id,
@@ -379,6 +382,16 @@ function rehypeInfobulles(ctx: ContexteRendu) {
       const index = parent.children.indexOf(t);
       parent.children.splice(index, 1, ...nouveaux);
       return [SKIP, index + nouveaux.length];
+    });
+  };
+}
+
+/** Espaces insécables françaises dans tous les textes (hors formules et code). */
+function rehypeTypographie() {
+  return (arbre: HRoot) => {
+    visitParents(arbre, 'text', (t: HText, ancetres) => {
+      if (ancetres.some((a) => a.type === 'element' && (a.tagName === 'pre' || a.tagName === 'code'))) return;
+      t.value = espacesInsecables(t.value);
     });
   };
 }
@@ -412,6 +425,7 @@ export function rendreMarkdown(md: string, ctx: ContexteRendu = nouveauContexte(
     .use(rehypeTableaux, ctx)
     .use(rehypeFormules)
     .use(rehypeInfobulles, ctx)
+    .use(rehypeTypographie)
     .use(rehypeLiensExternes)
     .use(rehypeStringify);
   return String(processeur.processSync(md));

@@ -1,0 +1,38 @@
+---
+import FilAriane from '../../components/FilAriane.astro';
+import Base from '../../layouts/Base.astro';
+import { lien } from '../../lib/navigation';
+import { SIMULATEURS } from '../../lib/simulateurs';
+---
+<Base titre="Simulateurs" description={`${SIMULATEURS.length} simulateurs issus de l'annexe E : rentabilité, crédit, capacité d'emprunt, révision de loyer, fiscalité, plus-value, IFI, TRI, donation…`} niveau="annexes" actif="simulateurs">
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs' }]} />
+      <p class="bandeau__sur">Annexe E en pratique</p>
+      <h1>Simulateurs</h1>
+      <p>Chaque simulateur reprend une formule de l'annexe E, détaille les étapes du calcul et s'ouvre sur un exemple de la formation. Rien n'est envoyé : les calculs se font dans votre navigateur.</p>
+    </div>
+  </div>
+  <div class="conteneur" data-pagefind-body>
+    <ol class="registre">
+      {
+        SIMULATEURS.map((s, i) => (
+          <li class="registre__ligne">
+            <span class="registre__numero">
+              <span class="parcelle">{s.formule.toUpperCase()}</span>
+            </span>
+            <div>
+              <h2 class="registre__titre">
+                <a href={lien(`simulateurs/${s.id}/`)}>{s.titre}</a>
+              </h2>
+              <p class="registre__resume">{s.resume}</p>
+              <p class="registre__meta">
+                {s.modules.length > 1 ? 'Modules' : 'Module'} {s.modules.join(', ')} · simulateur {i + 1} sur {SIMULATEURS.length}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</Base>

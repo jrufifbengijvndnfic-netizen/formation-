@@ -1,0 +1,59 @@
+---
+import Avertissement from '../../components/Avertissement.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Simulateur from '../../components/Simulateur.astro';
+import Base from '../../layouts/Base.astro';
+import { irlPublies, moduleParNumero } from '../../lib/donnees';
+import { cheminModule, lien } from '../../lib/navigation';
+import { SIMULATEURS, type Simulateur as TSimulateur } from '../../lib/simulateurs';
+
+export function getStaticPaths() {
+  return SIMULATEURS.map((s) => ({ params: { id: s.id }, props: { simulateur: s } }));
+}
+interface Props {
+  simulateur: TSimulateur;
+}
+const { simulateur: sim } = Astro.props;
+const suggestions: Record<string, typeof irlPublies> =
+  sim.id === 'revision-loyer' ? { irlAncien: irlPublies, irlNouveau: irlPublies } : {};
+const i = SIMULATEURS.indexOf(sim);
+const precedent = SIMULATEURS[i - 1];
+const suivant = SIMULATEURS[i + 1];
+---
+<Base titre={`Simulateur : ${sim.titre}`} description={sim.resume} niveau="annexes" actif="simulateurs">
+  <div data-pagefind-body>
+    <div class="bandeau">
+      <div class="conteneur">
+        <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs', href: lien('simulateurs/') }, { libelle: sim.titre }]} />
+        <p class="bandeau__sur">Simulateur · formule {sim.formule.toUpperCase()} de l'annexe E</p>
+        <h1>{sim.titre}</h1>
+        <p>{sim.resume}</p>
+        <p class="bandeau__meta" data-pagefind-ignore>
+          <span>
+            Comprendre le calcul :{' '}
+            {sim.modules.map((n, k) => (
+              <>
+                {k > 0 && ', '}
+                <a href={lien(cheminModule(n))}>module {n}{moduleParNumero(n) ? ` — ${moduleParNumero(n)?.titreCourt}` : ''}</a>
+              </>
+            ))}
+          </span>
+          <span><a href={lien(`annexe/e/#${sim.formule}`)}>Formule {sim.formule.toUpperCase()}</a></span>
+        </p>
+      </div>
+    </div>
+    <div class="conteneur">
+      <p class="champ__aide" data-pagefind-ignore>
+        Les valeurs proposées reprennent un exemple de la formation. Modifiez-les : les résultats se mettent à jour et l'adresse de la page garde vos paramètres pour les partager.
+      </p>
+      <Simulateur simulateur={sim} suggestions={suggestions} />
+      <div class="prose">
+        <Avertissement />
+      </div>
+      <nav class="precedent-suivant" aria-label="Autres simulateurs" data-pagefind-ignore>
+        {precedent ? <a href={lien(`simulateurs/${precedent.id}/`)} rel="prev"><small>Simulateur précédent</small>{precedent.titre}</a> : <span />}
+        {suivant && <a class="suivant" href={lien(`simulateurs/${suivant.id}/`)} rel="next"><small>Simulateur suivant</small>{suivant.titre}</a>}
+      </nav>
+    </div>
+  </div>
+</Base>

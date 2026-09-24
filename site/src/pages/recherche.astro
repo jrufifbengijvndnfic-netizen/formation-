@@ -1,0 +1,30 @@
+---
+import FilAriane from '../components/FilAriane.astro';
+import Base from '../layouts/Base.astro';
+import { lien } from '../lib/navigation';
+---
+<Base titre="Recherche" description="Recherche plein texte dans les modules, examens, annexes, glossaire et simulateurs de la formation." niveau="0" actif="recherche">
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={[{ libelle: 'Accueil', href: lien() }, { libelle: 'Recherche' }]} />
+      <h1>Recherche</h1>
+      <p>Raccourci clavier : <kbd style="color:#fff;border-color:#fff">/</kbd> depuis n'importe quelle page.</p>
+    </div>
+  </div>
+  <div class="conteneur prose">
+    <form role="search" class="filtre" data-recherche action={lien('recherche/')} method="get">
+      <div class="champ" style="flex:1;min-width:14rem">
+        <label for="recherche-page">Mots recherchés</label>
+        <input type="search" id="recherche-page" name="q" autocomplete="off" aria-describedby="recherche-etat" />
+      </div>
+      <button type="submit" class="bouton bouton--plein">Rechercher</button>
+    </form>
+    <p id="recherche-etat" class="checklist-etat" role="status"></p>
+    <ol class="resultats-recherche" data-resultats></ol>
+    <noscript><p>La recherche nécessite JavaScript. Utilisez le <a href={lien('glossaire/')}>glossaire</a> et les pages de niveau pour naviguer.</p></noscript>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/recherche';
+</script>

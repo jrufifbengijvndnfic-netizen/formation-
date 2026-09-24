@@ -1,0 +1,93 @@
+---
+import Avertissement from '../../components/Avertissement.astro';
+import ContenuElement from '../../components/ContenuElement.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Base from '../../layouts/Base.astro';
+import { description, formation, niveauDe, nombreQuestions, tempsDeLecture, tousLesModules } from '../../lib/donnees';
+import { idModule, lien, lienElement, libelleCourt, voisins } from '../../lib/navigation';
+import type { Element, Niveau } from '../../lib/types';
+
+export function getStaticPaths() {
+  return tousLesModules.map((m) => ({ params: { id: idModule(m.numero ?? '') }, props: { module: m } }));
+}
+
+interface Props {
+  module: Element;
+}
+const { module: m } = Astro.props;
+const n = m.niveau as Niveau;
+const partie = niveauDe(n);
+const { precedent, suivant } = voisins(formation, m);
+const surveiller = m.encadres.filter((e) => e.type === 'A_SURVEILLER');
+const titreVoisin = (e: Element) => (e.type === 'module' ? e.titreCourt : e.titre);
+---
+<Base titre={`Module ${m.numero} — ${m.titreCourt}`} description={description(m)} niveau={String(n) as '1' | '2' | '3'} actif={`niveau-${n}`}>
+  <div data-pagefind-body>
+    <div class="bandeau">
+      <div class="conteneur">
+        <FilAriane
+          etapes={[
+            { libelle: 'Accueil', href: lien() },
+            { libelle: `Niveau ${n}`, href: lien(`niveau-${n}/`) },
+            { libelle: `Module ${m.numero}` },
+          ]}
+        />
+        <p class="bandeau__sur">Niveau {n} · {partie.titreCourt}</p>
+        <h1><span class="parcelle"><span class="visuellement-cache">Module </span>{m.numero}</span> {m.titreCourt}</h1>
+        <p class="bandeau__meta" data-pagefind-ignore>
+          <span>Lecture : environ {tempsDeLecture(m)} min</span>
+          <span>Quiz : {nombreQuestions(m)} questions</span>
+          <span class="statut statut--bandeau" data-statut-module={m.numero} data-statut="non-commence">Non commencé</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="conteneur page-element page-element--sommaire">
+      <nav class="sommaire" aria-label="Sommaire du module" data-pagefind-ignore>
+        <div class="sommaire__corps">
+          <h2>Dans ce module</h2>
+          <ol>
+            {m.rubriques.map((r) => <li><a href={`#${r.id}`}>{r.titre}</a></li>)}
+            {surveiller.map((e) => <li class="sommaire__surveiller"><a href={`#encadre-${e.rang}`}>À surveiller</a></li>)}
+          </ol>
+        </div>
+      </nav>
+
+      <article class="prose">
+        <ContenuElement element={m} />
+
+        <div class="actions-module" data-pagefind-ignore>
+          <button type="button" class="bouton bouton--plein" data-marquer-lu={m.numero} aria-pressed="false">Marquer comme lu</button>
+          <button type="button" class="bouton bouton--discret" data-imprimer>Imprimer le module</button>
+          <span class="etat-lecture" data-etat-lecture role="status"></span>
+        </div>
+
+        <nav class="precedent-suivant" aria-label="Parcours" data-pagefind-ignore>
+          {
+            precedent ? (
+              <a href={lienElement(precedent)} rel="prev">
+                <small>Précédent · {libelleCourt(precedent)}</small>
+                {titreVoisin(precedent)}
+              </a>
+            ) : (
+              <span />
+            )
+          }
+          {
+            suivant && (
+              <a class="suivant" href={lienElement(suivant)} rel="next">
+                <small>Suivant · {libelleCourt(suivant)}</small>
+                {titreVoisin(suivant)}
+              </a>
+            )
+          }
+        </nav>
+        <Avertissement />
+      </article>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import '../../scripts/module';
+</script>

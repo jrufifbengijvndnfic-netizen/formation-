@@ -1,0 +1,19 @@
+---
+/** L'annexe C est présentée par la page Glossaire (index, filtre, renvois) : simple redirection. */
+import { lien } from '../../lib/navigation';
+const cible = lien('glossaire/');
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Annexe C — Glossaire de A à Z</title>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${cible}`} />
+    <link rel="canonical" href={cible} />
+  </head>
+  <body>
+    <p>L'annexe C se trouve sur la page <a href={cible}>Glossaire</a>.</p>
+  </body>
+</html>
