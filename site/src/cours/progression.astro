@@ -3,13 +3,14 @@ import FilAriane from '../components/FilAriane.astro';
 import Base from '../layouts/Base.astro';
 import { modulesDuNiveau, niveaux, numerosDuNiveau, tousLesModules } from '../lib/donnees';
 import { lien, lienElement } from '../lib/navigation';
+import { texteAvancementInitial } from '../lib/progression';
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progression' }];
 ---
 
 <Base
   filAriane={filAriane}
   titre="Ma progression"
-  description="Suivi de vos modules lus et quiz réussis, export et import de votre progression, remise à zéro."
+  description="Suivi de vos modules lus, quiz et exercices réussis, examens, export et import de votre progression, remise à zéro."
   niveau="0"
   actif="progression"
 >
@@ -36,7 +37,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progress
       <h2 id="global-titre" style="margin-top:0">
         Ensemble de la formation
       </h2>
-      <p data-avancement-texte>0 %</p>
+      <p data-avancement-texte>{texteAvancementInitial(tousLesModules.map((m) => m.numero ?? ''))}</p>
       <div
         class="jauge"
         role="progressbar"
@@ -60,7 +61,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progress
             Niveau {n.niveau} — {n.titreCourt}
           </a>
         </h2>
-        <p data-avancement-texte>0 %</p>
+        <p data-avancement-texte>{texteAvancementInitial(numerosDuNiveau(n.niveau))}</p>
         <div
           class={`jauge jauge--n${n.niveau}`}
           role="progressbar"
@@ -96,6 +97,48 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progress
         </ol>
       </section>
     ))}
+
+    <section aria-labelledby="examens-titre">
+      <h2 id="examens-titre">Examens</h2>
+      <ol class="registre">
+        {[
+          {
+            cle: 'niveau-1',
+            code: 'N1',
+            titre: 'Examen de fin de niveau 1 (cas pratiques)',
+            href: lien('examen/niveau-1/'),
+          },
+          {
+            cle: 'niveau-2',
+            code: 'N2',
+            titre: 'Examen de fin de niveau 2 (cas pratiques)',
+            href: lien('examen/niveau-2/'),
+          },
+          { cle: 'final', code: 'N3', titre: 'Examen final : cas pratiques de synthèse', href: lien('examen/final/') },
+          {
+            cle: 'test-final',
+            code: 'N3',
+            titre: 'Examen final : test de 50 questions',
+            href: lien('examen/test-final/'),
+          },
+        ].map((x) => (
+          <li class="registre__ligne">
+            <span class="registre__numero">
+              <span class="parcelle">{x.code}</span>
+            </span>
+            <div>
+              <p class="registre__titre">
+                <a href={x.href}>{x.titre}</a>
+              </p>
+              <p class="registre__meta" data-score-examen={x.cle}>
+                Non tenté
+              </p>
+            </div>
+            <span class="registre__etat" />
+          </li>
+        ))}
+      </ol>
+    </section>
 
     <section class="encart" aria-labelledby="sauvegarde-titre">
       <h2 id="sauvegarde-titre" style="margin-top:0">
@@ -138,10 +181,18 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Ma progress
   const scores = () => {
     const p = progression();
     document.querySelectorAll<HTMLElement>('[data-meilleur-score]').forEach((el) => {
-      const q = p.quiz[el.dataset.meilleurScore ?? ''];
-      el.textContent = q
-        ? `Meilleur score au quiz : ${Math.round(q.meilleur * 100)} %${q.meilleur >= SEUIL_REUSSITE ? ' (réussi)' : ''} · ${q.tentatives} tentative${q.tentatives > 1 ? 's' : ''}`
-        : 'Quiz non tenté';
+      const cle = el.dataset.meilleurScore ?? '';
+      const texte = (nom: string, e: { meilleur: number; tentatives: number } | undefined) =>
+        e
+          ? `${nom} : ${Math.round(e.meilleur * 100)} %${e.meilleur >= SEUIL_REUSSITE ? ' (réussi)' : ''}, ${e.tentatives} essai${e.tentatives > 1 ? 's' : ''}`
+          : `${nom} : non tenté`;
+      el.textContent = `${texte('Quiz', p.quiz[cle])} · ${texte('Exercices', p.exercices[cle])}`;
+    });
+    document.querySelectorAll<HTMLElement>('[data-score-examen]').forEach((el) => {
+      const e = p.examens[el.dataset.scoreExamen ?? ''];
+      el.textContent = e
+        ? `Meilleur score : ${Math.round(e.meilleur * 100)} %${e.meilleur >= SEUIL_REUSSITE ? ' (réussi)' : ''}, ${e.tentatives} essai${e.tentatives > 1 ? 's' : ''}`
+        : 'Non tenté';
     });
   };
   scores();

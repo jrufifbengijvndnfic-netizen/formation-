@@ -1413,6 +1413,170 @@ details.corrige > p {
   margin: 0 0 0.3rem;
 }
 
+/* ------------------------------------------------------------------ Exercices notés (modules, examens) */
+.exercices {
+  margin: 0.5rem 0 1.5rem;
+}
+.exercices__consigne {
+  font-size: 0.95rem;
+}
+.exercices__meilleur {
+  font-weight: 600;
+}
+.exercices__liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.exercice {
+  margin: 0 0 1.2rem;
+}
+.exercice fieldset {
+  margin: 0;
+  padding: 1rem 1.1rem 0.8rem;
+  border: 1px solid var(--filet);
+  border-left: 4px solid var(--filet);
+  border-radius: var(--rayon);
+  background: var(--papier);
+}
+.exercice legend {
+  font-family: var(--titre);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4;
+  padding: 0 0.3rem;
+  max-width: 100%;
+}
+.exercice__rang {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--texte-doux);
+}
+.exercice__options {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0.8rem;
+}
+.exercice__options--vf {
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+}
+.exercice__option {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 0.55rem 0.7rem;
+  border: 1.5px solid var(--filet);
+  border-radius: var(--rayon);
+  cursor: pointer;
+  line-height: 1.45;
+}
+.exercice__option:hover {
+  border-color: var(--filet-fort);
+}
+.exercice__option input {
+  margin: 0.25rem 0 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--accent);
+  flex: none;
+}
+.exercice__option:has(input:checked) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--papier));
+}
+.exercice__saisie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+  margin: 0.6rem 0 0.8rem;
+}
+.exercice__saisie label {
+  font-family: var(--titre);
+  font-size: 0.9rem;
+}
+.exercice__champ {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.exercice__champ input {
+  width: 10rem;
+  max-width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+.exercice__unite {
+  font-family: var(--titre);
+  color: var(--texte-doux);
+}
+.exercice__correction {
+  margin-top: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  border-left: 4px solid var(--filet-fort);
+  background: var(--papier-2);
+  border-radius: 0 var(--rayon) var(--rayon) 0;
+  font-size: 0.95rem;
+}
+.exercice__correction p {
+  margin: 0 0 0.4rem;
+}
+/* Avec JavaScript, la correction n'apparaît qu'après « Corriger ». */
+html.js .exercices:not([data-corrige]) .exercice__correction {
+  display: none;
+}
+.exercice__verdict {
+  font-family: var(--titre);
+  font-weight: 600;
+}
+.exercice__verdict:empty {
+  display: none;
+}
+.exercice[data-resultat='juste'] fieldset {
+  border-left-color: var(--succes);
+}
+.exercice[data-resultat='juste'] .exercice__verdict {
+  color: var(--succes);
+}
+.exercice[data-resultat='faux'] fieldset {
+  border-left-color: var(--erreur);
+}
+.exercice[data-resultat='faux'] .exercice__verdict {
+  color: var(--erreur);
+}
+.exercices__bilan:not(:empty) {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--rayon);
+  font-family: var(--titre);
+  font-weight: 600;
+}
+.exercices__note {
+  font-size: 0.9rem;
+  color: var(--texte-doux);
+  font-style: italic;
+}
+/* Examens : corrigé masqué dès l'affichage (JavaScript actif) jusqu'à la correction du cas. */
+html.js details.corrige:not(.est-debloque) {
+  display: none;
+}
+html:not(.js) .exercices__note {
+  display: none;
+}
+.bilan-examen {
+  font-family: var(--titre);
+  font-weight: 600;
+}
+@media print {
+  html.js .exercices:not([data-corrige]) .exercice__correction {
+    display: block;
+  }
+  html.js details.corrige:not(.est-debloque) {
+    display: block;
+  }
+}
+
 /* ------------------------------------------------------------------ Formulaires (simulateurs, lettres) */
 .formulaire {
   display: grid;

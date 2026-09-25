@@ -1,8 +1,9 @@
 ---
 /** Corps d'un élément : introduction puis rubriques, avec les composants interactifs à leur place. */
-import { rendreElement } from '../lib/donnees';
+import { exercicesDuModule, rendreElement } from '../lib/donnees';
 import type { Element } from '../lib/types';
 import Checklist from './Checklist.astro';
+import Exercices from './Exercices.astro';
 import Lettre from './Lettre.astro';
 import Quiz from './Quiz.astro';
 
@@ -11,6 +12,9 @@ interface Props {
 }
 const { element } = Astro.props;
 const { intro, rubriques } = rendreElement(element);
+// Exercices d'entraînement : juste après le quiz du module.
+const exercices = element.type === 'module' ? exercicesDuModule(element.numero ?? '') : [];
+const idExercices = `exercices-${(element.numero ?? '').replace('.', '-')}`;
 ---
 
 <div class="contenu">
@@ -30,5 +34,11 @@ const { intro, rubriques } = rendreElement(element);
         )}
       </section>
     ) : null,
+  )}
+  {exercices.length > 0 && (
+    <section class="rubrique" id={idExercices} aria-labelledby={`${idExercices}-titre`}>
+      <h2 id={`${idExercices}-titre`}>Exercices d'entraînement {element.numero}</h2>
+      <Exercices exercices={exercices} cle={element.numero ?? ''} portee="module" />
+    </section>
   )}
 </div>

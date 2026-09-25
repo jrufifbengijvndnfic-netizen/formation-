@@ -1,0 +1,120 @@
+---
+/**
+ * Examen final, deuxième partie : 50 questions tirées au hasard dans les quiz et les exercices des
+ * 38 modules (au moins une par module, nouveau tirage à chaque essai), réponses cachées jusqu'à la
+ * correction, bilan par module. Réussite à 70 %.
+ */
+import Avertissement from '../../components/Avertissement.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Base from '../../layouts/Base.astro';
+import { exercicesDuModule, tousLesModules } from '../../lib/donnees';
+import { lien } from '../../lib/navigation';
+import { quizDuModule } from '../../lib/parse-formation';
+
+// Banque du tirage : questions des quiz et exercices autonomes (hors exercices « suite »).
+const nbQuestions = tousLesModules.reduce(
+  (t, m) => t + quizDuModule(m).length + exercicesDuModule(m.numero ?? '').filter((x) => !x.suite).length,
+  0,
+);
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: 'Niveau 3', href: lien('niveau-3/') },
+  { libelle: 'Examen final', href: lien('examen/final/') },
+  { libelle: 'Test de 50 questions' },
+];
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Examen final : test de 50 questions sur toute la formation"
+  description={`Test final de la formation : 50 questions tirées au hasard parmi ${nbQuestions} (au moins une par module), corrigées à la fin, avec le bilan des modules à revoir. Réussite à 70 %.`}
+  niveau="3"
+  actif="niveau-3"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <p class="bandeau__sur">Examen final · deuxième partie</p>
+      <h1>Test de 50 questions sur toute la formation</h1>
+      <p>
+        Chaque essai tire 50 nouvelles questions parmi {nbQuestions} : au moins une par module, des trois niveaux.
+        Calculs, choix multiples, vrai ou faux. Les réponses ne s'affichent qu'à la fin.
+      </p>
+    </div>
+  </div>
+  <div class="conteneur">
+    <div class="prose" data-test-final data-banque={lien('examen/test-final/questions.json')}>
+      <section class="encart" aria-labelledby="consignes-titre">
+        <h2 id="consignes-titre" style="margin-top:0">
+          Consignes
+        </h2>
+        <ul>
+          <li>
+            50 questions, sans limite de temps (comptez environ une heure) ; formule de calcul et calculatrice
+            autorisées.
+          </li>
+          <li>Réussite à 70 %, soit 35 bonnes réponses.</li>
+          <li>Le bilan indique, module par module, ce qui est à revoir, avec un lien vers le module.</li>
+          <li>Faites d'abord les examens de fin de niveau et la première partie de l'examen final (cas pratiques).</li>
+        </ul>
+        <p class="exercices__meilleur" data-test-meilleur></p>
+        <p class="no-print">
+          <button type="button" class="bouton bouton--plein" data-test-commencer>
+            Commencer le test
+          </button>
+        </p>
+        <noscript>
+          <p>Le test tire les questions au hasard et les corrige dans votre navigateur : activez JavaScript.</p>
+        </noscript>
+        <p role="status" data-test-etat></p>
+      </section>
+      <div class="exercices" data-test-zone hidden>
+        <form class="exercices__formulaire" novalidate>
+          <ol class="exercices__liste" data-test-liste></ol>
+          <div class="groupe-boutons no-print">
+            <button type="submit" class="bouton bouton--plein" data-test-corriger>
+              Corriger le test
+            </button>
+            <button type="button" class="bouton" data-test-nouveau hidden>
+              Nouveau tirage
+            </button>
+          </div>
+        </form>
+      </div>
+      <section class="exercices__bilan-test" data-test-bilan hidden tabindex="-1" aria-labelledby="bilan-test-titre">
+        <h2 id="bilan-test-titre">Votre bilan</h2>
+        <p class="bilan-examen" data-test-score></p>
+        <div class="tableau" role="region" tabindex="0" aria-labelledby="bilan-test-legende">
+          <table>
+            <caption id="bilan-test-legende" class="visuellement-cache">
+              Résultats par module (modules tirés dans cet essai)
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Module</th>
+                <th scope="col" class="num">
+                  Bonnes réponses
+                </th>
+                <th scope="col">À faire</th>
+              </tr>
+            </thead>
+            <tbody data-test-modules></tbody>
+          </table>
+        </div>
+      </section>
+      <p class="groupe-boutons no-print">
+        <a class="bouton" href={lien('examen/final/')}>
+          Retour à l'examen final
+        </a>
+        <a class="bouton bouton--discret" href={lien('progression/')}>
+          Ma progression
+        </a>
+      </p>
+      <Avertissement />
+    </div>
+  </div>
+</Base>
+
+<script>
+  import '../../scripts/test-final';
+</script>

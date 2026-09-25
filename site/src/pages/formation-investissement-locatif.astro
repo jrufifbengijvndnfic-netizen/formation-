@@ -18,6 +18,7 @@ import {
   modulesDuNiveau,
   niveaux,
   organisation,
+  sectionsExercices,
   termes,
   titreSite,
   tousLesModules,
@@ -30,6 +31,7 @@ import { SITE_PAR_DEFAUT, offreNiveau, offrePack, prixSepares, prixTexte } from 
 import { SIMULATEURS } from '../lib/simulateurs';
 
 const nbQuestions = toutesLesQuestions(formation).length;
+const nbExercices = sectionsExercices.filter((x) => x.portee === 'module').reduce((t, x) => t + x.exercices.length, 0);
 const nbLettres = lettres(formation).length;
 const nbChecklists = checklists(formation).length;
 const publicNiveau = (n: number) => organisation[`Niveau ${n}`]?.public ?? '';
@@ -66,7 +68,7 @@ const faq: [string, string][] = [
   ],
   [
     'C’est trop technique pour moi ?',
-    `Chaque niveau part des bases ; ${termes.length} termes sont expliqués dans le glossaire et chaque module se termine par un quiz.`,
+    `Chaque niveau part des bases ; ${termes.length} termes sont expliqués dans le glossaire et chaque module se termine par un quiz et dix exercices corrigés.`,
   ],
   [
     'Combien de temps faut-il ?',
@@ -172,7 +174,11 @@ const faq: [string, string][] = [
           <strong>Trois niveaux progressifs</strong>, du premier bail à la transmission.
         </li>
         <li>
-          <strong>{nbQuestions} questions de quiz</strong> pour valider chaque module, et un examen par niveau.
+          <strong>
+            {nbQuestions} questions de quiz et {nbExercices} exercices corrigés
+          </strong>{' '}
+          (calculs, cas, vrai ou faux) pour valider chaque module, un examen noté par niveau et un test final de 50
+          questions tirées au hasard.
         </li>
         <li>
           <strong>{SIMULATEURS.length} simulateurs</strong>, <strong>{nbLettres} modèles de lettres</strong> et{' '}

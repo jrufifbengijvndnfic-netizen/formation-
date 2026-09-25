@@ -46,3 +46,8 @@ export function lireSource(): string {
 export function pdfDisponible(): boolean {
   return existsSync(CHEMIN_PDF);
 }
+
+/** Exercices d'entraînement et questions notées des examens (complément de la formation). */
+export const NOM_EXERCICES = 'exercices.md';
+export const CHEMIN_EXERCICES = path.join(DOSSIER_PACK, NOM_EXERCICES);
+export const lireExercicesSource = (): string => readFileSync(CHEMIN_EXERCICES, 'utf8');

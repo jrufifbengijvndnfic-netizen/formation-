@@ -12,6 +12,7 @@ import {
   tempsDeLecture,
 } from '../lib/donnees';
 import { lien, lienElement } from '../lib/navigation';
+import { texteAvancementInitial } from '../lib/progression';
 import { rendreMarkdown, texteBrut } from '../lib/render';
 import { MARQUE, SITE_PAR_DEFAUT, adresseAbsolue, offreJsonLd, offreNiveau, prixTexte } from '../lib/seo';
 import type { Niveau } from '../lib/types';
@@ -72,7 +73,7 @@ const donnees = {
         <h2 id="avancement-titre" style="margin-top:0">
           Votre avancement
         </h2>
-        <p data-avancement-texte>0 %</p>
+        <p data-avancement-texte>{texteAvancementInitial(numerosDuNiveau(n))}</p>
         <div
           class="jauge"
           role="progressbar"
@@ -84,12 +85,12 @@ const donnees = {
           <span class="jauge__remplissage"></span>
         </div>
         <p hidden data-si-termine style="margin-top:1rem">
-          <span class="badge-niveau">Niveau {n} terminé</span> Tous les modules sont lus et tous les quiz réussis :
-          l'examen est débloqué.
+          <span class="badge-niveau">Niveau {n} terminé</span> Tous les modules sont lus, leurs quiz et leurs exercices
+          réussis : l'examen est débloqué.
         </p>
         <p class="examen-verrou" data-si-en-cours style="margin-top:1rem">
-          Lisez chaque module et réussissez son quiz (70 %) pour débloquer l'examen. Tout le contenu reste librement
-          accessible.
+          Lisez chaque module et réussissez son quiz et ses dix exercices (70 %) pour débloquer l'examen. Tout le
+          contenu reste librement accessible.
         </p>
       </section>
 
@@ -124,7 +125,15 @@ const donnees = {
           <li>
             <a href={lienElement(examen)}>
               {examen.titre}
-              <small>Cas pratiques avec corrigés repliables</small>
+              <small>Cas pratiques notés : répondez, corrigez, puis lisez le corrigé détaillé</small>
+            </a>
+          </li>
+        )}
+        {n === 3 && (
+          <li>
+            <a href={lien('examen/test-final/')}>
+              Examen final : test de 50 questions
+              <small>Tirées au hasard dans les 38 modules, avec le bilan des modules à revoir</small>
             </a>
           </li>
         )}

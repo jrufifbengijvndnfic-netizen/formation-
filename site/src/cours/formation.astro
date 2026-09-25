@@ -11,6 +11,7 @@ import {
   niveaux,
   numerosDuNiveau,
   organisation,
+  sectionsExercices,
   termes,
   titreSite,
   tousLesModules,
@@ -63,7 +64,10 @@ const donnees = coursJsonLd(site, lien('tarifs/'));
         <span>Dès {prixTexte(offreNiveau(1).prix)} le niveau</span>
         <span>{prixTexte(offrePack().prix)} les trois niveaux</span>
         <span>{miseAJour}</span>
-        <span>{toutesLesQuestions(formation).length} questions de quiz</span>
+        <span>
+          {toutesLesQuestions(formation).length} questions de quiz et{' '}
+          {sectionsExercices.filter((x) => x.portee === 'module').reduce((t, x) => t + x.exercices.length, 0)} exercices
+        </span>
       </p>
     </div>
   </div>

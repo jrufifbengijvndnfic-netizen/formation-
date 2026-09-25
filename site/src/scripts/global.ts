@@ -1,12 +1,12 @@
 /** Comportements communs à toutes les pages. */
-import { avancement, statutModule } from '../lib/progression';
+import { avancement, statutModule, texteAvancement } from '../lib/progression';
 import { ecrireTheme, lireTheme, progression } from './stockage';
 
 const LIBELLES_STATUT: Record<string, string> = {
   'non-commence': 'Non commencé',
   lu: 'Lu',
-  'quiz-reussi': 'Quiz réussi',
-  termine: 'Lu et quiz réussi',
+  'quiz-reussi': 'Quiz et exercices réussis',
+  termine: 'Validé : lu, quiz et exercices réussis',
 };
 
 // --------------------------------------------------------------- Thème
@@ -122,7 +122,7 @@ export function afficherProgression(): void {
     const a = avancement(p, (el.dataset.avancement ?? '').split(',').filter(Boolean));
     el.querySelectorAll<HTMLElement>('.jauge').forEach((j) => majJauge(j, a.pourcentage));
     el.querySelectorAll('[data-avancement-texte]').forEach((t) => {
-      t.textContent = `${a.pourcentage} % — ${a.lus} module${a.lus > 1 ? 's' : ''} lu${a.lus > 1 ? 's' : ''} sur ${a.total}, ${a.reussis} quiz réussi${a.reussis > 1 ? 's' : ''}`;
+      t.textContent = texteAvancement(a);
     });
     el.querySelectorAll<HTMLElement>('[data-si-termine]').forEach((b) => (b.hidden = !a.termine));
     el.querySelectorAll<HTMLElement>('[data-si-en-cours]').forEach((b) => (b.hidden = a.termine));

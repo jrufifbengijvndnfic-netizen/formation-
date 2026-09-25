@@ -3,12 +3,13 @@
  * formation chargée et vérifiée, index, rendu HTML des éléments, repères du glossaire.
  */
 import { COURS_PUBLIC, MODULES_GRATUITS } from './edition';
+import { lireExercices, type Exercice } from './exercices';
 import { ChercheurGlossaire } from './glossaire-match';
 import { chargerFormation } from './formation';
 import { cheminElement, lien } from './navigation';
 import { encadres, glossaire, modules, quizDuModule, tousLesElements } from './parse-formation';
 import { nouveauContexte, rendreMarkdown, texteBrut, type ContexteRendu } from './render';
-import { pdfDisponible } from './source';
+import { lireExercicesSource, pdfDisponible } from './source';
 import type { Element, Encadre, Niveau, Partie, Rubrique, TermeGlossaire } from './types';
 
 export const formation = chargerFormation();
@@ -25,6 +26,13 @@ export const modulesExistants = new Set(
 );
 export const estPublie = (numeroModule: string): boolean => modulesExistants.has(numeroModule);
 export const chercheur = new ChercheurGlossaire(termes);
+
+/** Exercices de fin de module et questions notées des examens (exercices.md). */
+export const sectionsExercices = lireExercices(lireExercicesSource());
+export const exercicesDuModule = (numero: string): Exercice[] =>
+  sectionsExercices.find((s) => s.portee === 'module' && s.cle === numero)?.exercices ?? [];
+export const exercicesDExamen = (cle: string): Exercice[] =>
+  sectionsExercices.find((s) => s.portee === 'examen' && s.cle === cle)?.exercices ?? [];
 export const avecPdf = pdfDisponible();
 
 /** Titre du site : partie du titre du document après « — ». */

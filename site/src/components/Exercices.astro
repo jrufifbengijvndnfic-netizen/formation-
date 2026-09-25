@@ -1,0 +1,121 @@
+---
+/**
+ * Série d'exercices notés (fin de module ou cas d'examen). On répond à tout, puis « Corriger » :
+ * les réponses et explications n'apparaissent qu'après la correction (sans JavaScript, elles restent
+ * visibles, comme sur une feuille d'exercices corrigée). Score enregistré dans la progression.
+ */
+import { espacesInsecables as ty } from '../lib/format';
+import { reponseAttendue, type Exercice } from '../lib/exercices';
+
+interface Props {
+  exercices: Exercice[];
+  /** Clé de progression : « 1.1 » (module) ou « niveau-1:cas-2 » (cas d'examen). */
+  cle: string;
+  portee: 'module' | 'examen';
+}
+const { exercices, cle, portee } = Astro.props;
+const idBloc = `ex-${cle.replace(/[.:]/g, '-')}`;
+const LIBELLES: Record<Exercice['type'], string> = {
+  qcm: 'Une seule bonne réponse',
+  multi: 'Plusieurs bonnes réponses : cochez-les toutes',
+  nombre: 'Calcul : saisissez le résultat',
+  vf: 'Vrai ou faux',
+};
+---
+
+<div class="exercices" id={idBloc} data-exercices={cle} data-portee={portee} data-pagefind-ignore>
+  <p class="exercices__consigne">
+    {exercices.length} question{exercices.length > 1 ? 's' : ''}. Répondez à tout, puis cliquez sur « Corriger » : les
+    réponses et les explications s'affichent après la correction. Réussite à 70 %.
+    <span class="exercices__meilleur" data-ex-meilleur></span>
+  </p>
+  <form class="exercices__formulaire" novalidate>
+    <ol class="exercices__liste">
+      {exercices.map((x, i) => (
+        <li
+          class="exercice"
+          data-exercice={x.id}
+          data-type={x.type}
+          data-lettres={x.lettres.join(',')}
+          data-valeur={x.valeur}
+          data-tolerance={x.tolerance}
+          data-vrai={x.vrai === undefined ? undefined : String(x.vrai)}
+          data-suite={x.suite ? '' : undefined}
+        >
+          <fieldset>
+            <legend>
+              <span class="exercice__rang">
+                Question {i + 1} · {LIBELLES[x.type]}
+              </span>
+              {ty(x.question)}
+            </legend>
+            {(x.type === 'qcm' || x.type === 'multi') && (
+              <div class="exercice__options">
+                {Object.entries(x.options).map(([l, texte]) => (
+                  <label class="exercice__option">
+                    <input type={x.type === 'qcm' ? 'radio' : 'checkbox'} name={`${idBloc}-${x.id}`} value={l} />
+                    <span class="quiz__lettre">{l}</span>
+                    <span>{ty(texte ?? '')}</span>
+                  </label>
+                ))}
+              </div>
+            )}
+            {x.type === 'vf' && (
+              <div class="exercice__options exercice__options--vf">
+                <label class="exercice__option">
+                  <input type="radio" name={`${idBloc}-${x.id}`} value="V" />
+                  <span>Vrai</span>
+                </label>
+                <label class="exercice__option">
+                  <input type="radio" name={`${idBloc}-${x.id}`} value="F" />
+                  <span>Faux</span>
+                </label>
+              </div>
+            )}
+            {x.type === 'nombre' && (
+              <div class="exercice__saisie">
+                <label for={`${idBloc}-${x.id}`}>Votre réponse</label>
+                <span class="exercice__champ">
+                  <input
+                    id={`${idBloc}-${x.id}`}
+                    name={`${idBloc}-${x.id}`}
+                    type="text"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    spellcheck="false"
+                  />
+                  {x.unite && <span class="exercice__unite">{x.unite}</span>}
+                </span>
+              </div>
+            )}
+            <div class="exercice__correction" data-correction>
+              <p class="exercice__verdict" data-verdict></p>
+              <p>
+                <strong>Réponse attendue{'\u00a0'}:</strong> {ty(reponseAttendue(x))}
+              </p>
+              <p>{ty(x.explication)}</p>
+            </div>
+          </fieldset>
+        </li>
+      ))}
+    </ol>
+    <div class="groupe-boutons no-print">
+      <button type="submit" class="bouton bouton--plein" data-ex-corriger>
+        Corriger
+      </button>
+      <button type="button" class="bouton" data-ex-recommencer hidden>
+        Recommencer (questions dans un autre ordre)
+      </button>
+    </div>
+    <div class="exercices__bilan" data-ex-bilan role="status" tabindex="-1"></div>
+  </form>
+  {portee === 'examen' && (
+    <p class="exercices__note" data-note-corrige>
+      Le corrigé détaillé du cas s'affiche après la correction de vos réponses.
+    </p>
+  )}
+</div>
+
+<script>
+  import '../scripts/exercices';
+</script>

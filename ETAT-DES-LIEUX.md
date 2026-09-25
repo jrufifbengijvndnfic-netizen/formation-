@@ -58,6 +58,16 @@ branche `claude/admiring-einstein-bp3wj6`.
   `site/src/lib/edition.ts`), pour le jour où le cours sera réservé aux acheteurs.
 `npm run test:site` teste l'édition construite (les deux passent).
 
+**Exercices et examens notés** (version 010, à la demande de l'auteur) :
+`files/formation-immobilier-locatif-2026/exercices.md`, à côté du Markdown de la formation, qu'il ne
+modifie pas. 10 exercices par module (380), tirés uniquement du texte du module, calculs détaillés dans
+l'explication ; 43 questions notées pour les cas des trois examens. Le build vérifie le fichier
+(`site/src/lib/exercices.ts`, tests dans `exercices.test.ts`) : dix exercices par module, une question
+au moins par cas, réponses cohérentes. Un module est validé quand son quiz ET ses exercices sont réussis
+à 70 %. Test final de 50 questions (`/examen/test-final/`) tiré dans les quiz et les exercices autonomes
+(`L: suite` exclut les exercices qui prolongent le précédent). **À relire par l'auteur** : ce sont de
+nouveaux contenus pédagogiques.
+
 **Vente et conversion** (audit `audit/AUDIT-conversion.md`, mis en œuvre en version 009, compte
 rendu dans `audit/MISE-EN-OEUVRE.md`) :
 - page de vente `/formation-investissement-locatif/` (problème, méthode, programme, extraits
@@ -74,7 +84,7 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
 - formulaire d'inscription par e-mail prêt, affiché dès que `FORMULAIRE_EMAIL.action` est renseigné.
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **009**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **010**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)

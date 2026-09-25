@@ -398,11 +398,34 @@ console.log('Parcours fonctionnels…');
     await page.check('#quiz-1-1 input[value="une"]');
     verifier((await page.locator('#quiz-1-1 .quiz__question:visible').count()) === 1, 'quiz : une question à la fois');
 
-    // Statut après rechargement.
+    // Exercices d'entraînement : correction cachée avant « Corriger », score, module validé.
+    const ex = page.locator('[data-exercices="1.1"]');
+    verifier((await ex.locator('[data-exercice]').count()) === 10, 'exercices : dix par module');
+    verifier(!(await ex.locator('.exercice__correction').first().isVisible()), 'exercices : correction cachée avant');
+    const items = ex.locator('[data-exercice]');
+    for (let i = 0; i < 10; i++) {
+      const li = items.nth(i);
+      const d = await li.evaluate((e) => ({ ...(e as HTMLElement).dataset }));
+      if (d.type === 'nombre') await li.locator('input').fill(String(d.valeur).replace('.', ','));
+      else if (d.type === 'vf') await li.locator(`input[value="${d.vrai === 'true' ? 'V' : 'F'}"]`).check();
+      else for (const l of (d.lettres ?? '').split(',')) await li.locator(`input[value="${l}"]`).check();
+    }
+    await ex.locator('[data-ex-corriger]').click();
+    verifier(
+      (await ex.locator('[data-ex-bilan]').textContent())?.includes('10 / 10'),
+      'exercices : toutes les réponses attendues acceptées',
+    );
+    verifier(await ex.locator('.exercice__correction').first().isVisible(), 'exercices : correction affichée après');
+
+    // Statut après rechargement : lu, quiz et exercices réussis.
     await page.reload();
     verifier(
-      (await page.textContent('.bandeau [data-statut-module]'))?.includes('quiz réussi'),
+      (await page.textContent('.bandeau [data-statut-module]'))?.includes('exercices réussis'),
       'statut du module après rechargement',
+    );
+    verifier(
+      /100\s%/.test((await page.textContent('[data-exercices="1.1"] [data-ex-meilleur]')) ?? ''),
+      'exercices : meilleur score mémorisé',
     );
     verifier((await page.textContent('#quiz-1-1 [data-quiz-meilleur]'))?.includes('100 %'), 'meilleur score mémorisé');
 
@@ -493,6 +516,21 @@ console.log('Parcours fonctionnels…');
     // Frise de l'annexe B.
     await page.goto(`${BASE}/annexe/b/`);
     verifier((await page.locator('.frise__aujourdhui').count()) === 1, 'frise : repère « Aujourd’hui »');
+
+    // Examen noté : le corrigé d'un cas reste caché jusqu'à la correction de ses questions.
+    await page.goto(`${BASE}/examen/niveau-2/`);
+    const corrige = page.locator('details.corrige').first();
+    verifier(!(await corrige.isVisible()), 'examen : corrigé caché avant la correction');
+    await page.locator('[data-exercices="niveau-2:cas-1"] [data-ex-corriger]').click();
+    verifier(await corrige.isVisible(), 'examen : corrigé visible après la correction');
+
+    // Test final : 50 questions tirées, au moins une par module, bilan par module.
+    await page.goto(`${BASE}/examen/test-final/`);
+    await page.click('[data-test-commencer]');
+    await page.locator('[data-test-liste] li').first().waitFor();
+    verifier((await page.locator('[data-test-liste] li').count()) === 50, 'test final : 50 questions');
+    await page.click('[data-test-corriger]');
+    verifier((await page.locator('[data-test-modules] tr').count()) === 38, 'test final : bilan des 38 modules');
   }
 
   // Thème sombre mémorisé.

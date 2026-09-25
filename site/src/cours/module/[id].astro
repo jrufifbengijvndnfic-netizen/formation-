@@ -87,6 +87,9 @@ const filAriane = [
                 <a href={`#${r.id}`}>{r.titre}</a>
               </li>
             ))}
+            <li>
+              <a href={`#exercices-${idModule(m.numero ?? '')}`}>Exercices d'entraînement</a>
+            </li>
             {surveiller.map((e) => (
               <li class="sommaire__surveiller">
                 <a href={`#encadre-${e.rang}`}>À surveiller</a>

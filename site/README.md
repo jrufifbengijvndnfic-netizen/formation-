@@ -81,6 +81,17 @@ checklist : `MODULES_GRATUITS`, `CHECKLISTS_GRATUITES`), pour le jour où le cou
 `src/cours/` ; vitrine des outils : `src/outils/` ; routes injectées par `astro.config.mjs`. Voir
 `src/lib/edition.ts`.
 
+## Exercices et examens notés
+
+`files/formation-immobilier-locatif-2026/exercices.md` (format décrit en tête du fichier) est lu par
+`src/lib/exercices.ts` ; toute erreur arrête le build en citant la ligne. Composant
+`src/components/Exercices.astro` et script `src/scripts/exercices.ts` : fin de chaque module (après le
+quiz) et questions de chaque cas d'examen (le corrigé du cas s'affiche après la correction). Test final :
+`src/cours/examen/test-final.astro`, banque servie en JSON (`/examen/test-final/questions.json`, chargée
+au démarrage) et tirage de 50 questions au moins une par module (`tirer`, `src/scripts/test-final.ts`).
+Scores dans la progression (`exercices`, `examens`) ; un module est validé quand quiz et exercices sont
+réussis à 70 %.
+
 ## Tarifs et vente
 
 Les prix se règlent dans `OFFRES` (`src/lib/seo.ts`) : niveau 1 à 97 €, niveau 2 à 197 €, niveau 3 à

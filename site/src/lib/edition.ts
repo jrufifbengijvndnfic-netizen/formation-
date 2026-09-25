@@ -32,6 +32,8 @@ export const ROUTES_COURS: { pattern: string; entrypoint: string }[] = [
   ['/mode-d-emploi', 'mode-d-emploi.astro'],
   ['/niveau-[n]', 'niveau-[n].astro'],
   ['/examen/[id]', 'examen/[id].astro'],
+  ['/examen/test-final', 'examen/test-final.astro'],
+  ['/examen/test-final/questions.json', 'examen/questions-test-final.json.ts'],
   ['/annexe/[id]', 'annexe/[id].astro'],
   ['/annexe/c', 'annexe/c.astro'],
   ['/annexes', 'annexes.astro'],

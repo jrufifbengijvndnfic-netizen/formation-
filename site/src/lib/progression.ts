@@ -24,6 +24,10 @@ export interface Progression {
   quiz: Record<string, EtatQuiz>;
   /** Identifiant de checklist → cases cochées. */
   checklists: Record<string, boolean[]>;
+  /** Numéro de module → meilleurs scores des dix exercices d'entraînement. */
+  exercices: Record<string, EtatQuiz>;
+  /** Examens notés : « niveau-1:cas-2 », « final:cas-1 », « test-final »… */
+  examens: Record<string, EtatQuiz>;
 }
 
 export interface StockageSimple {
@@ -32,10 +36,34 @@ export interface StockageSimple {
   removeItem(cle: string): void;
 }
 
-export const progressionVide = (): Progression => ({ version: VERSION_PROGRESSION, lus: {}, quiz: {}, checklists: {} });
+export const progressionVide = (): Progression => ({
+  version: VERSION_PROGRESSION,
+  lus: {},
+  quiz: {},
+  checklists: {},
+  exercices: {},
+  examens: {},
+});
 
 const estObjet = (x: unknown): x is Record<string, unknown> => typeof x === 'object' && x !== null && !Array.isArray(x);
 const RE_MODULE = /^\d\.\d{1,2}$/;
+
+const RE_EXAMEN = /^[a-z0-9:-]{1,40}$/;
+
+function lireScores(source: unknown, cles: RegExp, cible: Record<string, EtatQuiz>): void {
+  if (!estObjet(source)) return;
+  for (const [k, v] of Object.entries(source)) {
+    if (!cles.test(k) || !estObjet(v)) continue;
+    const { meilleur, dernier, tentatives, le } = v;
+    if (typeof meilleur !== 'number' || meilleur < 0 || meilleur > 1) continue;
+    cible[k] = {
+      meilleur,
+      dernier: typeof dernier === 'number' && dernier >= 0 && dernier <= 1 ? dernier : meilleur,
+      tentatives: typeof tentatives === 'number' && tentatives >= 1 ? Math.floor(tentatives) : 1,
+      le: typeof le === 'string' ? le.slice(0, 40) : '',
+    };
+  }
+}
 
 /** Valide et nettoie une progression (lecture du stockage ou import d'un fichier). */
 export function validerProgression(donnees: unknown): Progression | null {
@@ -46,19 +74,9 @@ export function validerProgression(donnees: unknown): Progression | null {
       if (RE_MODULE.test(k) && typeof v === 'string') p.lus[k] = v.slice(0, 40);
     }
   }
-  if (estObjet(donnees.quiz)) {
-    for (const [k, v] of Object.entries(donnees.quiz)) {
-      if (!RE_MODULE.test(k) || !estObjet(v)) continue;
-      const { meilleur, dernier, tentatives, le } = v;
-      if (typeof meilleur !== 'number' || meilleur < 0 || meilleur > 1) continue;
-      p.quiz[k] = {
-        meilleur,
-        dernier: typeof dernier === 'number' && dernier >= 0 && dernier <= 1 ? dernier : meilleur,
-        tentatives: typeof tentatives === 'number' && tentatives >= 1 ? Math.floor(tentatives) : 1,
-        le: typeof le === 'string' ? le.slice(0, 40) : '',
-      };
-    }
-  }
+  lireScores(donnees.quiz, RE_MODULE, p.quiz);
+  lireScores(donnees.exercices, RE_MODULE, p.exercices);
+  lireScores(donnees.examens, RE_EXAMEN, p.examens);
   if (estObjet(donnees.checklists)) {
     for (const [k, v] of Object.entries(donnees.checklists)) {
       if (/^[a-z0-9-]{1,80}$/.test(k) && Array.isArray(v) && v.length <= 200) {
@@ -90,20 +108,23 @@ export function ecrireProgression(stockage: StockageSimple | null, p: Progressio
   }
 }
 
+const nouveauScore = (avant: EtatQuiz | undefined, score: number, maintenant: string): EtatQuiz => ({
+  meilleur: Math.max(score, avant?.meilleur ?? 0),
+  dernier: score,
+  tentatives: (avant?.tentatives ?? 0) + 1,
+  le: maintenant,
+});
+
 export function enregistrerQuiz(p: Progression, module: string, score: number, maintenant: string): Progression {
-  const avant = p.quiz[module];
-  return {
-    ...p,
-    quiz: {
-      ...p.quiz,
-      [module]: {
-        meilleur: Math.max(score, avant?.meilleur ?? 0),
-        dernier: score,
-        tentatives: (avant?.tentatives ?? 0) + 1,
-        le: maintenant,
-      },
-    },
-  };
+  return { ...p, quiz: { ...p.quiz, [module]: nouveauScore(p.quiz[module], score, maintenant) } };
+}
+
+export function enregistrerExercices(p: Progression, module: string, score: number, maintenant: string): Progression {
+  return { ...p, exercices: { ...p.exercices, [module]: nouveauScore(p.exercices[module], score, maintenant) } };
+}
+
+export function enregistrerExamen(p: Progression, cle: string, score: number, maintenant: string): Progression {
+  return { ...p, examens: { ...p.examens, [cle]: nouveauScore(p.examens[cle], score, maintenant) } };
 }
 
 export function marquerLu(p: Progression, module: string, lu: boolean, maintenant: string): Progression {
@@ -116,21 +137,28 @@ export function marquerLu(p: Progression, module: string, lu: boolean, maintenan
 export const quizReussi = (p: Progression, module: string): boolean =>
   (p.quiz[module]?.meilleur ?? 0) >= SEUIL_REUSSITE;
 
+export const exercicesReussis = (p: Progression, module: string): boolean =>
+  (p.exercices[module]?.meilleur ?? 0) >= SEUIL_REUSSITE;
+
+/** Module validé : quiz ET exercices réussis à 70 % au moins. */
+export const moduleValide = (p: Progression, module: string): boolean =>
+  quizReussi(p, module) && exercicesReussis(p, module);
+
 export type StatutModule = 'non-commence' | 'lu' | 'quiz-reussi' | 'termine';
 
 export function statutModule(p: Progression, module: string): StatutModule {
   const lu = Boolean(p.lus[module]);
-  const reussi = quizReussi(p, module);
+  const reussi = moduleValide(p, module);
   if (lu && reussi) return 'termine';
   if (reussi) return 'quiz-reussi';
   if (lu) return 'lu';
   return 'non-commence';
 }
 
-/** Avancement d'un ensemble de modules : moitié pour la lecture, moitié pour le quiz réussi. */
+/** Avancement d'un ensemble de modules : moitié pour la lecture, moitié pour la validation (quiz et exercices). */
 export function avancement(p: Progression, modules: string[]) {
   const lus = modules.filter((m) => p.lus[m]).length;
-  const reussis = modules.filter((m) => quizReussi(p, m)).length;
+  const reussis = modules.filter((m) => moduleValide(p, m)).length;
   const total = modules.length;
   return {
     total,
@@ -140,3 +168,13 @@ export function avancement(p: Progression, modules: string[]) {
     termine: total > 0 && lus === total && reussis === total,
   };
 }
+
+/** Texte d'avancement affiché (identique au rendu serveur pour un nouveau visiteur : pas de décalage). */
+export function texteAvancement(a: ReturnType<typeof avancement>): string {
+  const pl = (n: number) => (n > 1 ? 's' : '');
+  return `${a.pourcentage} % — ${a.lus} module${pl(a.lus)} lu${pl(a.lus)} sur ${a.total}, ${a.reussis} validé${pl(a.reussis)} (quiz et exercices)`;
+}
+
+/** Texte d'avancement pour une progression vide. */
+export const texteAvancementInitial = (modules: string[]): string =>
+  texteAvancement(avancement(progressionVide(), modules));
