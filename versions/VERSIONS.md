@@ -5,6 +5,14 @@ Chaque nouveauté mise en ligne augmente le numéro de 1. Le fichier
 pages, la recherche, `sitemap.xml`, `robots.txt` et un `vercel.json` (redirections 301, en-têtes
 HTTPS). Aucune installation n'est nécessaire.
 
+## Mettre une version en ligne sur Hostinger (hébergement actuel du domaine)
+
+Depuis la version 012, le ZIP contient les fichiers du site **à sa racine** (pas de dossier
+intermédiaire) et un fichier `.htaccess` (HTTPS, adresse sans « www », page 404, cache).
+hPanel → Gestionnaire de fichiers → `public_html` : supprimer l'ancien contenu, envoyer le ZIP,
+**Extraire** dans `public_html`, supprimer le ZIP. Guide complet, avec Google Search Console :
+`REFERENCEMENT-GOOGLE.md`.
+
 ## Mettre une version en ligne sur Vercel
 
 - **Recommandé : depuis GitHub.** Vercel → Add New → Project → importer le dépôt `formation-`,
@@ -30,3 +38,4 @@ HTTPS). Aucune installation n'est nécessaire.
 | 009 | 24 septembre 2026 | Audit de conversion appliqué : haut de l'accueil orienté résultat avec 2 boutons (« Commencer gratuitement le niveau 1 », « Voir le programme et les prix ») et prix visibles ; page de vente `/formation-investissement-locatif/` avec FAQ ; encart « Aller plus loin » sur les simulateurs, les lettres et les extraits gratuits ; jauges de progression masquées pour un nouveau visiteur ; phrase « exemple de la formation » corrigée sur 6 outils ; sigles expliqués ; mentions légales, CGV et confidentialité (informations du vendeur à compléter) ; mesure d'audience sans cookie ; titres de page raccourcis |
 | 010 | 25 septembre 2026 | Exercices et examens notés : 10 exercices corrigés à la fin de chaque module (380 au total : calculs à saisir, choix multiples, vrai ou faux), réponses visibles seulement après « Corriger », module validé à 70 % au quiz ET aux exercices ; examens de fin de niveau et examen final notés (43 questions sur les cas, corrigé débloqué après correction, score de l'examen) ; nouveau test final de 50 questions tirées au hasard parmi 477 (au moins une par module) avec bilan des modules à revoir ; scores dans « Ma progression » |
 | 011 | 25 septembre 2026 | Feuille de route, phases 0, 1 et 3 : nouvelle promesse centrée sur le DPE (« Gardez votre logement louable et votre location en règle, du DPE à la déclaration »), page de vente enrichie (comparatif « chercher seul / suivre la formation », profils, bonus, questions par e-mail sous 72 h, FAQ élargie) ; action « À faire maintenant » à la fin des 38 modules ; nouvelles pages « Commencer ici » (première heure), « Méthode et sources » et « Mises à jour » (politique et journal) ; dossier `offre/` et plan du paiement Stripe à valider |
+| 012 | 25 septembre 2026 | Référencement et hébergement Hostinger : fichier `.htaccess` (HTTPS et adresse sans « www » imposés, page 404, en-têtes, cache), ZIP à extraire directement dans `public_html`, dates de mise à jour dans le plan du site, nom du site « Formation Locatif » déclaré à Google (WebSite), emplacement prévu pour les codes de vérification Google et Bing ; guide `REFERENCEMENT-GOOGLE.md` (Hostinger, Search Console, indexation, liens) |

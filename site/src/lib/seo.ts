@@ -113,3 +113,90 @@ export function filArianeJsonLd(etapes: EtapeFilAriane[], site: URL | string): R
  * (Netlify, Cloudflare Pages) et vercel.json ; une page de repli (meta refresh) existe aussi.
  */
 export const REDIRECTIONS: Record<string, string> = {};
+
+/**
+ * Codes de vérification des outils pour webmasters (balise meta). À copier depuis Google Search
+ * Console (propriété « préfixe d'URL », méthode « balise HTML ») et Bing Webmaster Tools. Vide = pas
+ * de balise. La vérification par enregistrement DNS (propriété « domaine ») n'a pas besoin de code ici.
+ */
+export const VERIFICATIONS = {
+  google: '',
+  bing: '',
+};
+
+/**
+ * Site web et éditeur (schema.org `WebSite` et `Organization`) : aident Google à afficher le nom du
+ * site (« Formation Locatif ») au-dessus du lien dans les résultats.
+ */
+export function siteWebJsonLd(site: URL | string): Record<string, unknown> {
+  const url = adresseAbsolue('/', site);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${url}#site`,
+        name: MARQUE,
+        alternateName: [new URL(url).hostname, 'L’immobilier locatif en France'],
+        url,
+        inLanguage: 'fr',
+        publisher: { '@id': `${url}#editeur` },
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${url}#editeur`,
+        name: MARQUE,
+        url,
+        logo: adresseAbsolue('favicon.svg', site),
+      },
+    ],
+  };
+}
+
+/**
+ * Fichier .htaccess pour un hébergement Apache ou LiteSpeed (Hostinger, OVH, o2switch…) : HTTPS et
+ * domaine sans « www » imposés (301), page 404, redirections, en-têtes de sécurité et cache. Vercel,
+ * Netlify et Cloudflare Pages l'ignorent (ils lisent vercel.json, _redirects et _headers).
+ */
+export function htaccess(domaine: string, prefixe: string, redirections: Record<string, string>): string {
+  const echapper = (t: string) => t.replace(/[.]/g, '\\.');
+  return [
+    '# Généré au build (site/src/lib/seo.ts) : ne pas modifier à la main.',
+    'Options -Indexes',
+    '# La page du site passe avant les fichiers par défaut de l’hébergeur (default.php, index.php).',
+    'DirectoryIndex index.html',
+    `ErrorDocument 404 ${prefixe}404.html`,
+    '',
+    'RewriteEngine On',
+    '# HTTPS imposé (sans boucle derrière un CDN qui transmet X-Forwarded-Proto)',
+    'RewriteCond %{HTTPS} off',
+    'RewriteCond %{HTTP:X-Forwarded-Proto} !https',
+    `RewriteRule ^(.*)$ https://${domaine}/$1 [R=301,L]`,
+    '# Domaine principal sans « www » : une seule adresse pour Google',
+    `RewriteCond %{HTTP_HOST} ^www\\.${echapper(domaine)}$ [NC]`,
+    `RewriteRule ^(.*)$ https://${domaine}/$1 [R=301,L]`,
+    ...Object.entries(redirections).map(
+      ([de, vers]) =>
+        `RewriteRule ^${echapper(prefixe.slice(1) + de.replace(/\/$/, ''))}/?$ ${prefixe}${vers} [R=301,L]`,
+    ),
+    '',
+    '<IfModule mod_headers.c>',
+    '  Header always set Strict-Transport-Security "max-age=31536000"',
+    '  Header always set X-Content-Type-Options "nosniff"',
+    '  Header always set Referrer-Policy "strict-origin-when-cross-origin"',
+    '  Header always set X-Frame-Options "DENY"',
+    '  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"',
+    '  <FilesMatch "\\.(js|css|woff2|webp|svg)$">',
+    '    Header set Cache-Control "public, max-age=31536000, immutable"',
+    '  </FilesMatch>',
+    '  <FilesMatch "\\.(html|xml|txt|json)$">',
+    '    Header set Cache-Control "no-cache"',
+    '  </FilesMatch>',
+    '</IfModule>',
+    '',
+    '<IfModule mod_deflate.c>',
+    '  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/json text/javascript application/javascript image/svg+xml',
+    '</IfModule>',
+    '',
+  ].join('\n');
+}

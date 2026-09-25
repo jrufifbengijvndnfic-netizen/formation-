@@ -99,3 +99,26 @@ describe('déploiement Vercel', () => {
     expect(racine.outputDirectory).toBe('site/dist');
   });
 });
+
+describe('hébergement Apache ou LiteSpeed (.htaccess)', () => {
+  it('impose HTTPS et le domaine sans www, et sert la page 404', async () => {
+    const { htaccess } = await import('./seo');
+    const h = htaccess('formation-locatif.com', '/', { 'annexe/c/': 'glossaire/' });
+    expect(h).toContain('RewriteCond %{HTTP_HOST} ^www\\.formation-locatif\\.com$ [NC]');
+    expect(h).toContain('RewriteRule ^(.*)$ https://formation-locatif.com/$1 [R=301,L]');
+    expect(h).toContain('ErrorDocument 404 /404.html');
+    expect(h).toContain('DirectoryIndex index.html');
+    expect(h).toContain('RewriteCond %{HTTP:X-Forwarded-Proto} !https');
+    expect(h).toContain('RewriteRule ^annexe/c/?$ /glossaire/ [R=301,L]');
+  });
+});
+
+describe('nom du site pour Google', () => {
+  it('déclare WebSite et Organization', async () => {
+    const { siteWebJsonLd } = await import('./seo');
+    const j = JSON.stringify(siteWebJsonLd('https://formation-locatif.com'));
+    expect(j).toContain('"@type":"WebSite"');
+    expect(j).toContain('"name":"Formation Locatif"');
+    expect(j).toContain('formation-locatif.com');
+  });
+});

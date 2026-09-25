@@ -58,6 +58,11 @@ branche `claude/admiring-einstein-bp3wj6`.
   `site/src/lib/edition.ts`), pour le jour où le cours sera réservé aux acheteurs.
 `npm run test:site` teste l'édition construite (les deux passent).
 
+**Hébergement et référencement** : le domaine `formation-locatif.com` pointe vers Hostinger (plan
+Premium), où le site est déposé dans `public_html` ; le build produit un `.htaccess`. Guide de mise en
+ligne et de Google Search Console : `REFERENCEMENT-GOOGLE.md`. Codes de vérification éventuels :
+`VERIFICATIONS` dans `site/src/lib/seo.ts`.
+
 **Feuille de route vers la vente** : `FEUILLE-DE-ROUTE-implementation.md` (état d'avancement en tête).
 Décisions de la phase 0 et textes de l'offre dans `offre/` ; plan technique du paiement Stripe et
 de l'espace membre à valider : `offre/plan-paiement-et-acces.md`. Actions de fin de module :
@@ -90,7 +95,7 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
 - formulaire d'inscription par e-mail prêt, affiché dès que `FORMULAIRE_EMAIL.action` est renseigné.
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **011**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **012**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)

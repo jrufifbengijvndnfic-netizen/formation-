@@ -5,7 +5,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { COURS_PUBLIC, ROUTE_ACCUEIL_OUTILS, ROUTES_COURS, ROUTES_EXTRAITS } from './src/lib/edition.ts';
 import { manquants } from './src/lib/entreprise.ts';
-import { REDIRECTIONS, SITE_PAR_DEFAUT } from './src/lib/seo.ts';
+import { REDIRECTIONS, SITE_PAR_DEFAUT, htaccess } from './src/lib/seo.ts';
+import { parseFormation } from './src/lib/parse-formation.ts';
+import { lireSource } from './src/lib/source.ts';
 
 /**
  * Déploiement :
@@ -98,10 +100,12 @@ function fichiersReferencement() {
           .filter((p) => p !== '404/' && !redirigees.has(p))
           .sort()
           .map((p) => new URL(prefixe + p, site).href);
+        // Date de mise à jour du contenu (« Contenu à jour au… ») : aide Google à recrawler.
+        const lastmod = parseFormation(lireSource()).aJourAu;
         writeFileSync(
           path.join(sortie, 'sitemap.xml'),
           '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-            adresses.map((a) => `  <url><loc>${a}</loc></url>`).join('\n') +
+            adresses.map((a) => `  <url><loc>${a}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n') +
             '\n</urlset>\n',
         );
         writeFileSync(
@@ -117,6 +121,8 @@ function fichiersReferencement() {
             ])
             .join('\n') + '\n',
         );
+        // Hébergement Apache ou LiteSpeed (Hostinger…) : équivalent de vercel.json.
+        writeFileSync(path.join(sortie, '.htaccess'), htaccess(new URL(site).hostname, prefixe, REDIRECTIONS));
         writeFileSync(
           path.join(sortie, '_headers'),
           [

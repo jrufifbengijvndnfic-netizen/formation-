@@ -8,9 +8,11 @@ import { lien } from '../lib/navigation';
 import {
   IMAGE_PARTAGE,
   MARQUE,
+  VERIFICATIONS,
   adresseAbsolue,
   filArianeJsonLd,
   raccourcir,
+  siteWebJsonLd,
   titreDePage,
   type EtapeFilAriane,
 } from '../lib/seo';
@@ -34,7 +36,10 @@ const titreComplet = titreDePage(titre);
 const resume = raccourcir(description);
 const canonique = adresseAbsolue(Astro.url.pathname, site);
 const image = adresseAbsolue(lien(IMAGE_PARTAGE.chemin), site);
+// Page d'accueil : nom du site et éditeur (affichage du nom « Formation Locatif » par Google).
+const accueil = Astro.url.pathname === lien();
 const jsonLd = [
+  ...(accueil ? [siteWebJsonLd(site)] : []),
   ...(donneesStructurees ? [donneesStructurees] : []),
   ...(filAriane ? [filArianeJsonLd(filAriane, site)] : []),
 ];
@@ -63,6 +68,8 @@ const enJson = (donnees: Record<string, unknown>) => JSON.stringify(donnees).rep
     <meta property="og:image:alt" content={`${MARQUE} — L'immobilier locatif en France`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#1C2330" />
+    {VERIFICATIONS.google && <meta name="google-site-verification" content={VERIFICATIONS.google} />}
+    {VERIFICATIONS.bing && <meta name="msvalidate.01" content={VERIFICATIONS.bing} />}
     <link rel="icon" href={lien('favicon.svg')} type="image/svg+xml" />
     <link rel="sitemap" type="application/xml" href={adresseAbsolue(lien('sitemap.xml'), site)} />
     <Font cssVariable="--police-titre" preload />
