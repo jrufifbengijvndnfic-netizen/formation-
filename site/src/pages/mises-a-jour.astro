@@ -1,0 +1,66 @@
+---
+/**
+ * Politique de mise à jour et journal des modifications (feuille de route, tâche 3.4). Le journal
+ * est lu dans MISES-A-JOUR.md, à la racine du dépôt.
+ */
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import FilAriane from '../components/FilAriane.astro';
+import Info from '../components/Info.astro';
+import Base from '../layouts/Base.astro';
+import { miseAJour } from '../lib/donnees';
+import { COURS_PUBLIC } from '../lib/edition';
+import { CONDITIONS } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+import { nouveauContexte, rendreMarkdown } from '../lib/render';
+import { DOSSIER_PACK } from '../lib/source';
+
+const journal = readFileSync(path.resolve(DOSSIER_PACK, '..', '..', 'MISES-A-JOUR.md'), 'utf8')
+  .replace(/^# .*\n/, '')
+  .replace(/^Politique complète.*\n/m, '');
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Mises à jour' }];
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Mises à jour de la formation"
+  description={`Politique de mise à jour de la formation et journal daté des modifications. ${miseAJour}.`}
+  niveau="0"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <h1>Mises à jour de la formation</h1>
+      <p class="chapeau">{miseAJour}. Le droit du logement change souvent : voici comment la formation suit.</p>
+    </div>
+  </div>
+  <div class="conteneur prose contenu">
+    <h2 id="politique">Notre politique</h2>
+    <ul>
+      <li>
+        <strong>Quand</strong> : à chaque loi de finances et loi de financement de la Sécurité sociale, à chaque
+        changement majeur du droit du logement, et chaque trimestre pour l'IRL et les taux d'usure.
+      </li>
+      <li>
+        <strong>Comment</strong> : la date « Contenu à jour au… » change sur tout le site, chaque modification est
+        inscrite dans le journal ci-dessous, et les textes en cours d'adoption restent signalés
+        {COURS_PUBLIC ? (
+          <>
+            {' '}
+            dans la page <a href={lien('a-surveiller/')}>À surveiller</a>.
+          </>
+        ) : (
+          ' dans la formation.'
+        )}
+      </li>
+      <li>
+        <strong>Pour les élèves</strong> : un e-mail résume chaque mise à jour importante.
+      </li>
+      <li>
+        <strong>Durée d'inclusion dans le prix</strong> : <Info valeur={CONDITIONS.misesAJour} />.
+      </li>
+    </ul>
+    <h2 id="journal">Journal des modifications</h2>
+    <Fragment set:html={rendreMarkdown(journal, nouveauContexte())} />
+  </div>
+</Base>

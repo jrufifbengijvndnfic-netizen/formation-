@@ -1,0 +1,94 @@
+---
+/**
+ * Page « Méthode et sources » (feuille de route, tâche 5.1) : qui écrit, comment la formation est
+ * construite et vérifiée, quelles sources. Rien d'inventé : l'auteur vient de src/lib/entreprise.ts.
+ */
+import FilAriane from '../components/FilAriane.astro';
+import Info from '../components/Info.astro';
+import Base from '../layouts/Base.astro';
+import { miseAJour, tousLesModules } from '../lib/donnees';
+import { AUTEUR } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+import { SIMULATEURS } from '../lib/simulateurs';
+
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Méthode et sources' }];
+const sources: [string, string, string][] = [
+  ['Légifrance', 'https://www.legifrance.gouv.fr', 'lois, décrets, codes (texte officiel en vigueur)'],
+  ['Service-public.fr', 'https://www.service-public.fr', 'fiches pratiques de l’administration'],
+  ['impots.gouv.fr et BOFiP', 'https://bofip.impots.gouv.fr', 'fiscalité et doctrine de l’administration fiscale'],
+  ['ANIL', 'https://www.anil.org', 'analyses juridiques du logement (réseau des ADIL)'],
+  ['INSEE', 'https://www.insee.fr', 'indice de référence des loyers (IRL)'],
+  ['Banque de France', 'https://www.banque-france.fr', 'taux d’usure'],
+  ['ADEME', 'https://www.ademe.fr', 'DPE, observatoire DPE-Audit'],
+  ['ANAH et France Rénov’', 'https://france-renov.gouv.fr', 'aides à la rénovation, Loc’Avantages'],
+];
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Méthode et sources de la formation"
+  description="Qui écrit la formation, comment elle est construite et vérifiée, et les sources officielles utilisées pour chaque module."
+  niveau="0"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <h1>Méthode et sources</h1>
+      <p class="chapeau">D'où vient l'information de la formation, et comment elle est vérifiée.</p>
+    </div>
+  </div>
+  <div class="conteneur prose contenu">
+    <h2 id="auteur">Qui écrit la formation</h2>
+    <p>
+      <strong>
+        <Info valeur={AUTEUR.nom} />
+      </strong>
+      {AUTEUR.presentation && ` — ${AUTEUR.presentation}`}
+    </p>
+    <p>
+      La formation n'est pas une formation certifiante et son auteur ne donne pas de conseil personnalisé : c'est un
+      travail d'information générale, documenté et daté.
+    </p>
+
+    <h2 id="construction">Comment elle est construite</h2>
+    <ul>
+      <li>
+        Un texte unique, organisé en {tousLesModules.length} modules ; chaque module se termine par ses{' '}
+        <strong>textes de référence</strong> (lois, décrets, articles de code).
+      </li>
+      <li>
+        Une <strong>date de mise à jour</strong> affichée sur chaque page ({miseAJour.toLowerCase()}) et un{' '}
+        <a href={lien('mises-a-jour/')}>journal des modifications</a>.
+      </li>
+      <li>
+        Les textes <strong>en cours d'adoption</strong> sont signalés comme tels et ne sont jamais présentés comme le
+        droit en vigueur.
+      </li>
+      <li>Les exemples chiffrés sont présentés comme des exemples, jamais comme des gains garantis.</li>
+    </ul>
+
+    <h2 id="verification">Comment elle est vérifiée</h2>
+    <ul>
+      <li>Une relecture du fond juridique au 24 septembre 2026, dont les corrections ont été intégrées.</li>
+      <li>
+        Les {SIMULATEURS.length} simulateurs sont testés automatiquement : les calculs de l'annexe E sont comparés à une
+        implémentation de référence indépendante sur des milliers de cas.
+      </li>
+      <li>Les nombres annoncés (modules, questions, lettres, termes) sont recomptés à chaque publication du site.</li>
+      <li>Relecture par un professionnel du droit ou du chiffre : en cours de mise en place.</li>
+    </ul>
+
+    <h2 id="sources">Les sources officielles utilisées</h2>
+    <ul>
+      {sources.map(([nom, url, usage]) => (
+        <li>
+          <a href={url}>{nom}</a> : {usage}
+        </li>
+      ))}
+    </ul>
+    <p>
+      En cas de doute sur votre situation, l'ADIL de votre département donne un conseil juridique, financier et fiscal
+      gratuit et neutre.
+    </p>
+  </div>
+</Base>

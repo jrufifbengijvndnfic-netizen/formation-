@@ -51,3 +51,7 @@ export function pdfDisponible(): boolean {
 export const NOM_EXERCICES = 'exercices.md';
 export const CHEMIN_EXERCICES = path.join(DOSSIER_PACK, NOM_EXERCICES);
 export const lireExercicesSource = (): string => readFileSync(CHEMIN_EXERCICES, 'utf8');
+
+/** Actions « À faire maintenant » de fin de module. */
+export const CHEMIN_ACTIONS = path.join(DOSSIER_PACK, 'actions.md');
+export const lireActionsSource = (): string => readFileSync(CHEMIN_ACTIONS, 'utf8');

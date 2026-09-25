@@ -9,7 +9,8 @@ import { chargerFormation } from './formation';
 import { cheminElement, lien } from './navigation';
 import { encadres, glossaire, modules, quizDuModule, tousLesElements } from './parse-formation';
 import { nouveauContexte, rendreMarkdown, texteBrut, type ContexteRendu } from './render';
-import { lireExercicesSource, pdfDisponible } from './source';
+import { lireActionsSource, lireExercicesSource, pdfDisponible } from './source';
+import { lireActions } from './actions';
 import type { Element, Encadre, Niveau, Partie, Rubrique, TermeGlossaire } from './types';
 
 export const formation = chargerFormation();
@@ -31,6 +32,9 @@ export const chercheur = new ChercheurGlossaire(termes);
 export const sectionsExercices = lireExercices(lireExercicesSource());
 export const exercicesDuModule = (numero: string): Exercice[] =>
   sectionsExercices.find((s) => s.portee === 'module' && s.cle === numero)?.exercices ?? [];
+/** Action « À faire maintenant » de fin de module (actions.md). */
+export const actionsModules = lireActions(lireActionsSource());
+export const actionDuModule = (numero: string) => actionsModules.find((a) => a.module === numero);
 export const exercicesDExamen = (cle: string): Exercice[] =>
   sectionsExercices.find((s) => s.portee === 'examen' && s.cle === cle)?.exercices ?? [];
 export const avecPdf = pdfDisponible();

@@ -36,12 +36,12 @@ const nbLettres = lettres(formation).length;
 const nbChecklists = checklists(formation).length;
 const publicNiveau = (n: number) => organisation[`Niveau ${n}`]?.public ?? '';
 const dureeNiveau = (n: number) => organisation[`Niveau ${n}`]?.duree ?? '';
-const pourQui = niveaux.map((n) => `${publicNiveau(n.niveau).toLowerCase()} (niveau ${n.niveau})`).join(', ');
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'La formation' }];
 const donnees = coursJsonLd(Astro.site ?? SITE_PAR_DEFAUT, lien(CHEMIN_VENTE));
 
 // Conditions de l'offre : seules celles renseignées sont affichées.
 const conditions = [
+  ['Questions', CONDITIONS.accompagnement],
   ['Accès', CONDITIONS.acces],
   ['Mises à jour', CONDITIONS.misesAJour],
   ['Facture', CONDITIONS.facture],
@@ -52,6 +52,43 @@ const conditions = [
 const remboursement = CONDITIONS.garantie
   ? `${CONDITIONS.garantie}. Le détail figure dans les conditions générales de vente.`
   : 'Vous disposez du droit de rétractation de quatorze jours, sauf si vous demandez l’accès immédiat au contenu et renoncez expressément à ce droit avant le paiement (article L. 221-28 du Code de la consommation). Le détail figure dans les conditions générales de vente.';
+
+// Promesse et argumentaire : offre/promesse.md, offre/pourquoi-payer.md, offre/bonus.md.
+const PROMESSE = 'Gardez votre logement louable et votre location en règle, du DPE à la déclaration';
+const nbExercicesTotal = nbExercices;
+const COMPARATIF: [string, string, string][] = [
+  [
+    'Temps passé',
+    'Recherches répétées, texte par texte',
+    `${tousLesModules.length} modules dans l'ordre où un bailleur en a besoin`,
+  ],
+  [
+    'Sources à croiser',
+    'Lois, décrets, BOFiP, sites publics à rapprocher soi-même',
+    'Textes de référence cités à la fin de chaque module',
+  ],
+  [
+    'Risque d’erreur',
+    'Règle ancienne ou d’un autre cas, lue sur un forum',
+    `${miseAJour.replace('Contenu à jour', 'À jour')}, projets de loi signalés`,
+  ],
+  ['Calculs', 'À refaire à la main', `${SIMULATEURS.length} simulateurs testés`],
+  ['Courriers', 'À chercher et adapter', `${nbLettres} modèles de lettres à compléter`],
+  [
+    'Vérifier qu’on a compris',
+    'Aucun moyen',
+    `${nbQuestions} questions de quiz, ${nbExercicesTotal} exercices corrigés, examens notés`,
+  ],
+  ['Changements de loi', 'À surveiller seul', 'Page « À surveiller » et journal des mises à jour'],
+];
+const BONUS: [string, string][] = [
+  ['La boîte à calculs', `${SIMULATEURS.length} simulateurs, reliés au module qui les explique`],
+  ['Le classeur de lettres', `${nbLettres} modèles : révision du loyer, charges, relance, mise en demeure, congés…`],
+  ['Les checklists', `${nbChecklists} listes à cocher, de la mise en location à la sortie du locataire`],
+  ['Le calendrier des échéances', 'IRL, fin de l’encadrement, coefficient DPE 2027, logements F non décents en 2028'],
+  ['L’entraînement noté', `${nbExercicesTotal} exercices, examens notés et test final de 50 questions avec bilan`],
+  ['Vos questions par e-mail', 'réponse sous 72 heures ouvrées'],
+];
 
 const faq: [string, string][] = [
   [
@@ -79,6 +116,15 @@ const faq: [string, string][] = [
     'Oui : le site est conçu et testé pour les petits écrans, y compris les simulateurs et les lettres.',
   ],
   ['Puis-je être remboursé ?', remboursement],
+  ['Puis-je poser des questions ?', `${CONDITIONS.accompagnement}.`],
+  [
+    'Les mises à jour sont-elles incluses ?',
+    `La formation est mise à jour à chaque loi de finances et à chaque changement majeur du droit du logement ; chaque modification est datée dans le journal des mises à jour.${CONDITIONS.misesAJour ? ` Inclusion dans le prix : ${CONDITIONS.misesAJour}.` : ''}`,
+  ],
+  [
+    'Mon logement est classé F ou G : la formation m’aide-t-elle ?',
+    'Oui : les modules 1.4, 1.5 et 3.9 expliquent le calendrier de décence, le gel des loyers, la validité du DPE, les travaux et les aides ; l’outil gratuit « Mon logement est-il encore louable ? » vous situe tout de suite.',
+  ],
   ...(CONDITIONS.facture ? [['Aurai-je une facture ?', CONDITIONS.facture] as [string, string]] : []),
   [
     'Est-ce un conseil personnalisé ?',
@@ -92,9 +138,10 @@ const faq: [string, string][] = [
     'Les simulateurs sont-ils inclus ?',
     `Les ${SIMULATEURS.length} simulateurs et les ${nbLettres} modèles de lettres sont gratuits pour tous, sans inscription.`,
   ],
-  ...(AUTEUR.nom
-    ? [['Qui a écrit la formation ?', `${AUTEUR.nom}. ${AUTEUR.presentation}`.trim()] as [string, string]]
-    : []),
+  [
+    'Qui êtes-vous ?',
+    `${AUTEUR.nom ? `${AUTEUR.nom}. ${AUTEUR.presentation} ` : ''}La page « Méthode et sources » explique qui écrit la formation, comment elle est construite et vérifiée, et quelles sources officielles elle utilise.`.trim(),
+  ],
   ['Y a-t-il des vidéos ?', 'Non : la formation est écrite, avec tableaux, cas chiffrés, quiz et outils interactifs.'],
   ['La formation est-elle certifiante ou éligible au CPF ?', 'Non.'],
   ...(CONDITIONS.paiement ? [['Comment payer ?', CONDITIONS.paiement] as [string, string]] : []),
@@ -117,12 +164,16 @@ const faq: [string, string][] = [
     <div class="conteneur">
       <FilAriane etapes={filAriane} />
       <p class="bandeau__sur">Formation en ligne « {titreSite} »</p>
-      <h1>Louez, gérez et déclarez votre bien sans erreur coûteuse</h1>
+      <h1>{PROMESSE}</h1>
       <p class="chapeau">
-        {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs et {nbLettres} modèles de lettres pour décider
-        en connaissant les règles : bail, loyer, DPE, fiscalité, crédit, revente et transmission. {miseAJour}.
+        Les règles de la location en France, dans l'ordre où un bailleur en a besoin : décence énergétique, loyer, bail,
+        charges, impayés, fiscalité. {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs, {nbLettres}{' '}
+        modèles de lettres. {miseAJour}.
       </p>
-      <p class="bandeau__pour-qui">Pour qui : {pourQui}.</p>
+      <p class="bandeau__pour-qui">
+        Pour les bailleurs en place (DPE, loyer, bail, impôts), ceux qui gèrent seuls, et les futurs investisseurs : le
+        niveau 1 part de zéro.
+      </p>
       <p class="bandeau__actions">
         <a
           class="bouton bouton--plein"
@@ -144,10 +195,25 @@ const faq: [string, string][] = [
 
   <div class="conteneur prose">
     <section aria-labelledby="probleme">
-      <h2 id="probleme">Une erreur de bailleur coûte cher</h2>
+      <h2 id="probleme">Votre logement sera-t-il encore louable en 2028 ?</h2>
+      <p>En métropole, la décence énergétique se durcit par étapes :</p>
+      <ul>
+        <li>
+          depuis le 1er janvier 2025, un logement classé <strong>G</strong> ne peut plus faire l'objet d'un nouveau
+          bail, d'un renouvellement ni d'une reconduction ;
+        </li>
+        <li>
+          le <strong>1er janvier 2028</strong>, ce sera le tour des logements classés <strong>F</strong>, puis des
+          logements <strong>E</strong> le 1er janvier 2034 ;
+        </li>
+        <li>
+          et dès aujourd'hui, le loyer d'un logement F ou G ne peut plus être révisé, augmenté à la relocation ni
+          réévalué.
+        </li>
+      </ul>
       <p>
-        Un logement devenu non décent, un impayé mal géré, un régime fiscal mal choisi, une revente mal anticipée : ces
-        erreurs se paient en loyers perdus, en procédures ou en impôt.
+        S'y ajoutent les autres erreurs de bailleur qui se paient en loyers perdus, en procédures ou en impôt : un dépôt
+        de garantie rendu en retard, un congé mal délivré, un impayé mal géré, un régime fiscal mal choisi.
       </p>
       <ul>
         <li>
@@ -193,9 +259,34 @@ const faq: [string, string][] = [
     <section aria-labelledby="gratuit">
       <h2 id="gratuit">Tout est sur service-public.fr ? Presque.</h2>
       <p>
-        Les règles existent, mais elles sont dispersées entre des dizaines de textes, de sites et de mises à jour. La
-        formation les rassemble dans l'ordre où un bailleur en a besoin, avec des cas chiffrés et des outils prêts à
-        l'emploi. Les sources officielles restent la référence : chaque module cite ses textes.
+        Les sources officielles sont excellentes et restent la référence : chaque module les cite. La formation ne les
+        remplace pas, elle les ordonne.
+      </p>
+      <div class="tableau" role="region" tabindex="0" aria-labelledby="comparatif-legende">
+        <table>
+          <caption id="comparatif-legende" class="visuellement-cache">
+            Chercher seul ou suivre la formation
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Chercher seul</th>
+              <th scope="col">Suivre la formation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {COMPARATIF.map(([critere, seul, formationTexte]) => (
+              <tr>
+                <th scope="row">{critere}</th>
+                <td>{seul}</td>
+                <td>{formationTexte}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <a href={lien('methode-et-sources/')}>Méthode et sources</a> : comment la formation est construite et vérifiée.
       </p>
     </section>
 
@@ -232,6 +323,10 @@ const faq: [string, string][] = [
       <h2 id="essayer">Essayez avant d'acheter</h2>
       <ul>
         <li>
+          <a href={lien('commencer/')}>Le parcours « Commencer ici »</a> : une heure pour un premier résultat chiffré
+          sur votre logement
+        </li>
+        <li>
           <a href={lien('module/1-1/')} data-suivi="debut_contenu_gratuit">
             Le module 1.1 en entier
           </a>
@@ -252,15 +347,22 @@ const faq: [string, string][] = [
     <section aria-labelledby="pour-qui">
       <h2 id="pour-qui">Pour qui ?</h2>
       <ul>
-        {niveaux.map((n) => (
-          <li>
-            Niveau {n.niveau} : {publicNiveau(n.niveau).toLowerCase()}
-          </li>
-        ))}
+        <li>
+          <strong>Le bailleur en place, inquiet pour son DPE</strong> : un ou deux logements, souvent anciens, classés
+          E, F ou G ; il veut savoir ce qui s'applique à lui, et quand.
+        </li>
+        <li>
+          <strong>Le bailleur qui gère seul</strong> : il rédige ses baux, révise son loyer, régularise ses charges, et
+          veut éviter l'erreur coûteuse.
+        </li>
+        <li>
+          <strong>Le futur premier investisseur</strong> : il prépare un achat et veut comparer rentabilité, fiscalité
+          et contraintes avant de signer (niveau 1 : débutant complet).
+        </li>
       </ul>
       <p>
-        <strong>Ce n'est pas pour vous</strong> si vous cherchez un conseil personnalisé ou une méthode d'enrichissement
-        rapide.
+        <strong>Ce n'est pas pour vous</strong> si vous cherchez un conseil personnalisé sur votre situation, une
+        méthode pour vous enrichir rapidement, du droit immobilier étranger, ou des vidéos.
       </p>
     </section>
 
@@ -274,7 +376,9 @@ const faq: [string, string][] = [
       )}
       <p>
         Textes officiels cités dans chaque module, date de mise à jour affichée, textes en cours d'adoption signalés,
-        exemples chiffrés présentés comme des exemples et non comme des promesses.
+        exemples chiffrés présentés comme des exemples et non comme des promesses.{' '}
+        <a href={lien('methode-et-sources/')}>Méthode et sources</a> ·{' '}
+        <a href={lien('mises-a-jour/')}>journal des mises à jour</a>.
       </p>
     </section>
 
@@ -299,7 +403,8 @@ const faq: [string, string][] = [
       <p>
         Chaque niveau s'achète séparément. La formation complète réunit les trois pour {prixTexte(offrePack().prix)} au
         lieu de {prixTexte(prixSepares())}. Inclus dans chaque niveau : les modules du niveau, leurs quiz, l'examen du
-        niveau et les checklists associées. Les simulateurs et les modèles de lettres restent gratuits pour tous.
+        niveau, les exercices corrigés et les checklists associées. Les simulateurs et les modèles de lettres restent
+        gratuits pour tous.
         {CONDITIONS.mentionPrix && ` ${CONDITIONS.mentionPrix}.`}
       </p>
       {conditions.length > 0 && (
@@ -311,6 +416,14 @@ const faq: [string, string][] = [
           ))}
         </ul>
       )}
+      <h3>Ce qui vous aide en plus</h3>
+      <ul class="offre-conditions">
+        {BONUS.map(([nom, contenu]) => (
+          <li>
+            <strong>{nom}</strong> : {contenu}
+          </li>
+        ))}
+      </ul>
       <Tarifs />
     </section>
   </div>

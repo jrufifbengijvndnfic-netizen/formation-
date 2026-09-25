@@ -1,6 +1,9 @@
 ---
 /** Corps d'un élément : introduction puis rubriques, avec les composants interactifs à leur place. */
-import { exercicesDuModule, rendreElement } from '../lib/donnees';
+import { actionDuModule, exercicesDuModule, rendreElement } from '../lib/donnees';
+import { lien } from '../lib/navigation';
+import { referencementSimulateur } from '../lib/referencement-simulateurs';
+import { simulateurParId } from '../lib/simulateurs';
 import type { Element } from '../lib/types';
 import Checklist from './Checklist.astro';
 import Exercices from './Exercices.astro';
@@ -15,6 +18,9 @@ const { intro, rubriques } = rendreElement(element);
 // Exercices d'entraînement : juste après le quiz du module.
 const exercices = element.type === 'module' ? exercicesDuModule(element.numero ?? '') : [];
 const idExercices = `exercices-${(element.numero ?? '').replace('.', '-')}`;
+// Action « À faire maintenant » : clôt le module (feuille de route, tâche 3.2).
+const action = element.type === 'module' ? actionDuModule(element.numero ?? '') : undefined;
+const outil = action?.outil ? simulateurParId(action.outil) : undefined;
 ---
 
 <div class="contenu">
@@ -40,5 +46,18 @@ const idExercices = `exercices-${(element.numero ?? '').replace('.', '-')}`;
       <h2 id={`${idExercices}-titre`}>Exercices d'entraînement {element.numero}</h2>
       <Exercices exercices={exercices} cle={element.numero ?? ''} portee="module" />
     </section>
+  )}
+  {action && (
+    <aside class="a-faire" aria-labelledby={`a-faire-${idExercices}`}>
+      <h2 id={`a-faire-${idExercices}`}>À faire maintenant (moins de dix minutes)</h2>
+      <p>{action.texte}</p>
+      {outil && (
+        <p>
+          <a class="bouton" href={lien(`simulateurs/${outil.id}/`)}>
+            Ouvrir l'outil : {referencementSimulateur(outil).h1}
+          </a>
+        </p>
+      )}
+    </aside>
   )}
 </div>

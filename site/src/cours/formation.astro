@@ -28,9 +28,6 @@ const nbLettres = lettres(formation).length;
 // Audit de conversion, A2 et A6 : titre orienté résultat ; titre de page avec les mots recherchés.
 const titrePage = 'Formation investissement locatif en ligne : louer, gérer, déclarer';
 const description = `Formation en ligne en trois niveaux : ${tousLesModules.length} modules, ${SIMULATEURS.length} simulateurs, ${nbLettres} modèles de lettres. Module 1.1 gratuit. ${accroche}`;
-const pourQui = niveaux
-  .map((n) => `${organisation[`Niveau ${n.niveau}`]?.public.toLowerCase()} (niveau ${n.niveau})`)
-  .join(', ');
 const site = Astro.site ?? new URL(SITE_PAR_DEFAUT);
 // Cahier des charges SEO, § 5.1 : formation (Course) avec son offre.
 const donnees = coursJsonLd(site, lien('tarifs/'));
@@ -42,12 +39,16 @@ const donnees = coursJsonLd(site, lien('tarifs/'));
       <p class="bandeau__sur">
         Formation en ligne « {titreSite} » · édition {formation.edition}
       </p>
-      <h1>Louez, gérez et déclarez votre bien sans erreur coûteuse</h1>
+      <h1>Gardez votre logement louable et votre location en règle, du DPE à la déclaration</h1>
       <p class="chapeau">
-        {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs et {nbLettres} modèles de lettres pour décider
-        en connaissant les règles : bail, loyer, DPE, fiscalité, crédit, revente et transmission.
+        Les règles de la location en France, dans l'ordre où un bailleur en a besoin : décence énergétique, loyer, bail,
+        charges, impayés, fiscalité. {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs, {nbLettres}{' '}
+        modèles de lettres.
       </p>
-      <p class="bandeau__pour-qui">Pour qui : {pourQui}.</p>
+      <p class="bandeau__pour-qui">
+        Pour les bailleurs en place (DPE, loyer, bail, impôts), ceux qui gèrent seuls, et les futurs investisseurs : le
+        niveau 1 part de zéro.
+      </p>
       <p class="bandeau__actions">
         <a
           class="bouton bouton--plein"

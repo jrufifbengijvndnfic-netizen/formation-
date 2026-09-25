@@ -58,6 +58,12 @@ branche `claude/admiring-einstein-bp3wj6`.
   `site/src/lib/edition.ts`), pour le jour où le cours sera réservé aux acheteurs.
 `npm run test:site` teste l'édition construite (les deux passent).
 
+**Feuille de route vers la vente** : `FEUILLE-DE-ROUTE-implementation.md` (état d'avancement en tête).
+Décisions de la phase 0 et textes de l'offre dans `offre/` ; plan technique du paiement Stripe et
+de l'espace membre à valider : `offre/plan-paiement-et-acces.md`. Actions de fin de module :
+`files/formation-immobilier-locatif-2026/actions.md` (38, testées). Revue de conformité des textes :
+`conformite/revue-textes.md`. Journal public des mises à jour : `MISES-A-JOUR.md`.
+
 **Exercices et examens notés** (version 010, à la demande de l'auteur) :
 `files/formation-immobilier-locatif-2026/exercices.md`, à côté du Markdown de la formation, qu'il ne
 modifie pas. 10 exercices par module (380), tirés uniquement du texte du module, calculs détaillés dans
@@ -84,7 +90,7 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
 - formulaire d'inscription par e-mail prêt, affiché dès que `FORMULAIRE_EMAIL.action` est renseigné.
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **010**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **011**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)

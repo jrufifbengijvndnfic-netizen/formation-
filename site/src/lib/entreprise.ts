@@ -38,6 +38,8 @@ export const CONDITIONS = {
   facture: '',
   /** Ex. « Carte bancaire ; paiement en 3 fois pour la formation complète ». */
   paiement: '',
+  /** Accompagnement annoncé (décision de la phase 0 de la feuille de route). */
+  accompagnement: 'Questions par e-mail, réponse sous 72 heures ouvrées ; pas d’accompagnement individuel au-delà',
   /** Médiateur de la consommation (nom et site), obligatoire pour vendre à des particuliers. */
   mediateur: '',
 };

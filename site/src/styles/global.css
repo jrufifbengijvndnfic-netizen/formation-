@@ -1747,6 +1747,23 @@ html:not(.js) .exercices__note {
   min-width: 0;
 }
 
+/* Action « À faire maintenant » de fin de module */
+.a-faire {
+  margin: 2rem 0;
+  padding: 1.1rem 1.3rem;
+  border: 1.5px solid var(--succes);
+  border-left-width: 6px;
+  border-radius: var(--rayon);
+  background: var(--papier);
+}
+.a-faire h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+.a-faire p:last-child {
+  margin-bottom: 0;
+}
+
 /* Information légale encore manquante (src/lib/entreprise.ts) */
 .a-completer {
   font-style: italic;

@@ -1,0 +1,118 @@
+---
+/**
+ * « Commencer ici » : parcours de la première heure (feuille de route, tâche 3.1). Aucun contenu
+ * nouveau : il enchaîne le module 1.1, l'outil DPE, le simulateur de rentabilité et la checklist,
+ * tous publics, pour obtenir un premier résultat chiffré personnel.
+ */
+import Avertissement from '../components/Avertissement.astro';
+import FilAriane from '../components/FilAriane.astro';
+import Base from '../layouts/Base.astro';
+import { CHEMIN_VENTE, lien } from '../lib/navigation';
+
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Commencer ici' }];
+const etapes = [
+  {
+    duree: '20 minutes',
+    titre: 'Lire le module 1.1 et faire son quiz',
+    texte: 'Les acteurs, les risques et les textes qui gouvernent la location en France.',
+    lien: lien('module/1-1/'),
+    bouton: 'Lire le module 1.1',
+  },
+  {
+    duree: '10 minutes',
+    titre: 'Vérifier la date et la classe du DPE de votre logement',
+    texte:
+      'Munissez-vous de votre DPE. L’outil vous dit si le logement reste louable, à quelle échéance, et si le loyer est gelé.',
+    lien: lien('simulateurs/dpe-location/'),
+    bouton: 'Vérifier mon logement',
+  },
+  {
+    duree: '15 minutes',
+    titre: 'Calculer la rentabilité de votre bien (ou d’un bien visé)',
+    texte: 'Prix, frais, loyer, charges et crédit : rentabilité brute, nette et cash-flow mensuel.',
+    lien: lien('simulateurs/rentabilite/'),
+    bouton: 'Calculer ma rentabilité',
+  },
+  {
+    duree: '15 minutes',
+    titre: 'Cocher les premières étapes de la checklist de mise en location',
+    texte: 'Décence, diagnostics, zonage, régime : les cases cochées restent enregistrées dans votre navigateur.',
+    lien: lien('checklist/mettre-en-location-son-premier-logement/'),
+    bouton: 'Ouvrir la checklist',
+  },
+];
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Commencer ici : votre première heure de formation"
+  description="Une heure pour un premier résultat concret : module 1.1, vérification de votre DPE, calcul de rentabilité et checklist de mise en location."
+  niveau="1"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <p class="bandeau__sur">Parcours de la première heure</p>
+      <h1>Commencer ici</h1>
+      <p class="chapeau">
+        Quatre étapes, environ une heure, pour repartir avec un premier résultat chiffré sur votre propre logement.
+      </p>
+    </div>
+  </div>
+  <div class="conteneur prose">
+    <ol class="parcours">
+      {etapes.map((e, i) => (
+        <li class="parcours__etape">
+          <p class="parcours__duree">
+            Étape {i + 1} · {e.duree}
+          </p>
+          <h2>{e.titre}</h2>
+          <p>{e.texte}</p>
+          <p>
+            <a class="bouton" href={e.lien}>
+              {e.bouton}
+            </a>
+          </p>
+        </li>
+      ))}
+    </ol>
+    <section class="encart" aria-labelledby="obtenu-titre">
+      <h2 id="obtenu-titre" style="margin-top:0">
+        Ce que vous venez d'obtenir
+      </h2>
+      <ul>
+        <li>Le paysage : qui fait quoi dans la location, et d'où viennent les règles.</li>
+        <li>La situation de votre logement face aux échéances de décence énergétique (2025, 2028, 2034).</li>
+        <li>La rentabilité et le cash-flow de votre bien, chiffrés avec vos propres données.</li>
+        <li>Une liste des étapes de mise en location, déjà en partie cochée.</li>
+      </ul>
+      <p>
+        La suite : le niveau 1 complet (12 modules, leurs quiz et exercices, un examen).{' '}
+        <a href={lien(CHEMIN_VENTE)}>Voir le programme et les prix</a>.
+      </p>
+    </section>
+    <Avertissement />
+  </div>
+</Base>
+
+<style>
+  .parcours {
+    list-style: none;
+    padding: 0;
+  }
+  .parcours__etape {
+    border-left: 4px solid var(--n1);
+    padding: 0.2rem 0 0.2rem 1.1rem;
+    margin: 0 0 1.8rem;
+  }
+  .parcours__etape h2 {
+    margin: 0.2rem 0 0.4rem;
+    font-size: 1.25rem;
+  }
+  .parcours__duree {
+    font-family: var(--titre);
+    font-size: 0.85rem;
+    color: var(--texte-doux);
+    margin: 0;
+  }
+</style>
