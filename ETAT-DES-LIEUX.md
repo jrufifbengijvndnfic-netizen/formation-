@@ -95,7 +95,7 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
 - formulaire d'inscription par e-mail prêt, affiché dès que `FORMULAIRE_EMAIL.action` est renseigné.
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **013**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **014**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist` + `vercel.json`).
 
 ## 3. Décisions prises (et pourquoi)

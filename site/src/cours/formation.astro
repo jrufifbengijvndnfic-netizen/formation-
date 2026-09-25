@@ -2,8 +2,6 @@
 import Avertissement from '../components/Avertissement.astro';
 import Base from '../layouts/Base.astro';
 import {
-  annexes,
-  aSurveiller,
   avecPdf,
   formation,
   miseAJour,
@@ -12,17 +10,16 @@ import {
   numerosDuNiveau,
   organisation,
   sectionsExercices,
-  termes,
-  titreSite,
   tousLesModules,
 } from '../lib/donnees';
 import { CHEMIN_VENTE, lien } from '../lib/navigation';
-import { lettres, toutesLesQuestions } from '../lib/parse-formation';
+import { lettres } from '../lib/parse-formation';
 import { coursJsonLd } from '../lib/cours-jsonld';
 import { SITE_PAR_DEFAUT, offreNiveau, offrePack, prixSepares, prixTexte } from '../lib/seo';
 import { SIMULATEURS } from '../lib/simulateurs';
 
 const nbLettres = lettres(formation).length;
+const nbExercices = sectionsExercices.filter((x) => x.portee === 'module').reduce((t, x) => t + x.exercices.length, 0);
 // Audit de conversion, A2 et A6 : titre orienté résultat ; titre de page avec les mots recherchés.
 const titrePage = 'Formation investissement locatif en ligne : DPE, loyer, bail, impôts';
 const description = `Logement classé F ou G, loyer, bail, charges, impôts : la formation en ligne du bailleur, en ${niveaux.length} niveaux. ${SIMULATEURS.length} simulateurs gratuits, module 1.1 offert.`;
@@ -32,81 +29,101 @@ const donnees = coursJsonLd(site, lien('tarifs/'));
 ---
 
 <Base titre={titrePage} description={description} niveau="0" donneesStructurees={donnees}>
-  <div class="bandeau" data-pagefind-body>
-    <div class="conteneur">
-      <p class="bandeau__sur">
-        Formation en ligne « {titreSite} » · édition {formation.edition}
-      </p>
-      <h1>Gardez votre logement louable et votre location en règle, du DPE à la déclaration</h1>
-      <p class="chapeau">
-        Les règles de la location en France, dans l'ordre où un bailleur en a besoin : décence énergétique, loyer, bail,
-        charges, impayés, fiscalité. {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs, {nbLettres}{' '}
-        modèles de lettres.
-      </p>
-      <p class="bandeau__pour-qui">
-        Pour les bailleurs en place (DPE, loyer, bail, impôts), ceux qui gèrent seuls, et les futurs investisseurs : le
-        niveau 1 part de zéro.
-      </p>
-      <p class="bandeau__actions">
-        <a
-          class="bouton bouton--plein"
-          href={lien('module/1-1/')}
-          data-suivi="clic_cta_principal debut_contenu_gratuit"
-        >
-          Commencer gratuitement le niveau 1
+  <div class="accueil" data-pagefind-body>
+    <section class="hero conteneur" aria-labelledby="hero-titre">
+      <div class="hero__texte">
+        <p class="hero__sur">Formation en ligne · {miseAJour.replace('Contenu à jour', 'à jour')}</p>
+        <h1 id="hero-titre">Gardez votre logement louable et votre location en règle, du DPE à la déclaration</h1>
+        <p class="hero__chapeau">
+          Tout ce qu'un bailleur doit savoir, dans l'ordre où il en a besoin&nbsp;: DPE, loyer, bail, charges, impayés,
+          impôts. Des leçons courtes, des exercices et des outils prêts à l'emploi.
+        </p>
+        <p class="hero__actions">
+          <a
+            class="bouton bouton--plein hero__cta"
+            href={lien('module/1-1/')}
+            data-suivi="clic_cta_principal debut_contenu_gratuit"
+          >
+            Commencer gratuitement <span aria-hidden="true">→</span>
+          </a>
+          <a class="hero__lien" href={lien(CHEMIN_VENTE)} data-suivi="clic_programme_prix">
+            Voir le programme et les prix
+          </a>
+        </p>
+      </div>
+      <aside class="dpe" aria-labelledby="dpe-titre">
+        <p class="dpe__sur">Test gratuit</p>
+        <h2 id="dpe-titre">Votre logement est-il encore louable ?</h2>
+        <ul class="dpe__classes" aria-label="Calendrier de la décence énergétique en métropole">
+          <li>
+            <span class="dpe__lettre dpe__lettre--g">G</span> non décent depuis 2025
+          </li>
+          <li>
+            <span class="dpe__lettre dpe__lettre--f">F</span> à partir de 2028
+          </li>
+          <li>
+            <span class="dpe__lettre dpe__lettre--e">E</span> à partir de 2034
+          </li>
+        </ul>
+        <a class="bouton dpe__bouton" href={lien('simulateurs/dpe-location/')} data-suivi="clic_test_dpe">
+          Faire le test DPE
         </a>
-        <a class="bouton" href={lien(CHEMIN_VENTE)} data-suivi="clic_programme_prix">
-          Voir le programme et les prix
-        </a>
-      </p>
-      <p class="bandeau__dpe">
-        Logement classé E, F ou G ?{' '}
-        <a href={lien('simulateurs/dpe-location/')} data-suivi="clic_test_dpe">
-          Vérifiez gratuitement s'il reste louable
-        </a>
-      </p>
-      <p class="bandeau__meta">
-        <span>Dès {prixTexte(offreNiveau(1).prix)} le niveau</span>
-        <span>{prixTexte(offrePack().prix)} les trois niveaux</span>
-        <span>{miseAJour}</span>
-        <span>
-          {toutesLesQuestions(formation).length} questions de quiz et{' '}
-          {sectionsExercices.filter((x) => x.portee === 'module').reduce((t, x) => t + x.exercices.length, 0)} exercices
-        </span>
-      </p>
-    </div>
-  </div>
+      </aside>
+    </section>
 
-  <div class="conteneur">
-    <section aria-labelledby="niveaux-titre">
-      <h2 id="niveaux-titre">Trois niveaux progressifs</h2>
-      <div class="feuilles">
-        {niveaux.map((n) => {
-          const org = organisation[`Niveau ${n.niveau}`];
-          const nb = modulesDuNiveau(n.niveau).length;
-          return (
-            <article
-              class="feuille"
-              data-niveau={String(n.niveau)}
-              data-avancement={numerosDuNiveau(n.niveau).join(',')}
-            >
-              <div class="feuille__tete">
-                <span class="parcelle">N{n.niveau}</span>
+    <div class="conteneur">
+      <ul class="chiffres" aria-label="La formation en chiffres">
+        <li>
+          <strong>{tousLesModules.length}</strong> modules
+        </li>
+        <li>
+          <strong>{nbExercices}</strong> exercices corrigés
+        </li>
+        <li>
+          <strong>{SIMULATEURS.length}</strong> outils gratuits
+        </li>
+        <li>
+          <strong>{nbLettres}</strong> lettres types
+        </li>
+      </ul>
+
+      <section class="etapes" aria-labelledby="etapes-titre">
+        <h2 id="etapes-titre">Comment ça marche</h2>
+        <ol>
+          <li>
+            <h3>Faites le point</h3>
+            <p>Le test DPE vous dit en quelques questions ce qui s'applique à votre logement.</p>
+          </li>
+          <li>
+            <h3>Apprenez pas à pas</h3>
+            <p>Un module court à la fois, avec un quiz et des exercices pour vérifier que c'est acquis.</p>
+          </li>
+          <li>
+            <h3>Passez à l'action</h3>
+            <p>Chaque module se termine par une action concrète, avec le simulateur ou la lettre type qui va avec.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="niveaux-titre">
+        <h2 id="niveaux-titre">Trois niveaux, à votre rythme</h2>
+        <div class="niveaux">
+          {niveaux.map((n) => {
+            const org = organisation[`Niveau ${n.niveau}`];
+            return (
+              <article
+                class="niveau"
+                data-niveau={String(n.niveau)}
+                data-avancement={numerosDuNiveau(n.niveau).join(',')}
+              >
+                <p class="niveau__num">Niveau {n.niveau}</p>
                 <h3>
                   <a href={lien(`niveau-${n.niveau}/`)}>{n.titreCourt}</a>
                 </h3>
-              </div>
-              <div class="feuille__corps">
-                <dl>
-                  <dt>Public</dt>
-                  <dd>{org?.public}</dd>
-                  <dt>Durée</dt>
-                  <dd>{org?.duree}</dd>
-                  <dt>Contenu</dt>
-                  <dd>{nb} modules et un examen</dd>
-                  <dt>Prix</dt>
-                  <dd>{prixTexte(offreNiveau(n.niveau).prix)}</dd>
-                </dl>
+                <p class="niveau__detail">
+                  {modulesDuNiveau(n.niveau).length} modules · {org?.duree}
+                </p>
+                <p class="niveau__prix">{prixTexte(offreNiveau(n.niveau).prix)}</p>
                 <div data-progression-seule>
                   <p class="registre__meta" data-avancement-texte>
                     Progression : 0 %
@@ -125,70 +142,363 @@ const donnees = coursJsonLd(site, lien('tarifs/'));
                 <p hidden data-si-termine>
                   <span class="badge-niveau">Niveau terminé</span>
                 </p>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-      <p>
-        Formation complète : <strong>{prixTexte(offrePack().prix)}</strong> au lieu de {prixTexte(prixSepares())}.{' '}
-        <a href={lien(`${CHEMIN_VENTE}#offre`)} data-suivi="clic_programme_prix">
-          Voir le programme détaillé, les prix et les questions fréquentes
-        </a>
-      </p>
-    </section>
+              </article>
+            );
+          })}
+        </div>
+      </section>
 
-    <section aria-labelledby="acces-titre">
-      <h2 id="acces-titre">Accès rapides</h2>
-      <ul class="acces">
-        <li>
-          <a href={lien('mode-d-emploi/')}>
-            Mode d'emploi<small>Organisation, conventions et les 20 nouveautés 2025-2026</small>
+      <section class="final" aria-labelledby="final-titre">
+        <h2 id="final-titre">Toute la formation : {prixTexte(offrePack().prix)}</h2>
+        <p>
+          Les trois niveaux au lieu de {prixTexte(prixSepares())}. Le premier module est offert pour vous faire une
+          idée.
+        </p>
+        <p class="hero__actions">
+          <a
+            class="bouton bouton--plein"
+            href={lien('module/1-1/')}
+            data-suivi="clic_cta_principal debut_contenu_gratuit"
+          >
+            Commencer gratuitement
           </a>
-        </li>
-        <li>
-          <a href={lien('outils/')}>
-            Outils gratuits
-            <small>{SIMULATEURS.length} simulateurs : rentabilité, crédit, fiscalité, plus-value, DPE…</small>
+          <a class="hero__lien" href={lien(`${CHEMIN_VENTE}#offre`)} data-suivi="clic_programme_prix">
+            Programme détaillé et questions fréquentes
           </a>
-        </li>
-        <li>
-          <a href={lien('glossaire/')}>
-            Glossaire<small>{termes.length} termes de A à Z</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('a-surveiller/')}>
-            À surveiller<small>{aSurveiller.length} textes en cours d'adoption et échéances</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('lettres/')}>
-            Modèles de lettres<small>Dix courriers à compléter, copier ou imprimer</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('annexes/')}>
-            Annexes<small>{annexes.length} outils : chiffres clés, calendrier, textes, formules, checklists</small>
-          </a>
-        </li>
-        <li>
-          <a href={lien('progression/')}>
-            Ma progression<small>Suivi, export et remise à zéro</small>
-          </a>
-        </li>
+        </p>
+      </section>
+
+      <nav class="raccourcis" aria-label="Accès rapides">
+        <a href={lien('outils/')}>Outils gratuits</a>
+        <a href={lien('lettres/')}>Lettres types</a>
+        <a href={lien('glossaire/')}>Glossaire</a>
+        <a href={lien('annexes/')}>Annexes</a>
+        <a href={lien('a-surveiller/')}>À surveiller</a>
+        <a href={lien('mode-d-emploi/')}>Mode d'emploi</a>
+        <a href={lien('progression/')}>Ma progression</a>
         {avecPdf && (
-          <li>
-            <a href={lien('formation-immobilier-locatif-2026.pdf')} download>
-              Version PDF<small>La formation complète à imprimer</small>
-            </a>
-          </li>
+          <a href={lien('formation-immobilier-locatif-2026.pdf')} download>
+            Version PDF
+          </a>
         )}
-      </ul>
-    </section>
+      </nav>
 
-    <div class="prose">
-      <Avertissement />
+      <div class="prose">
+        <Avertissement />
+      </div>
     </div>
   </div>
 </Base>
+
+<style>
+  .hero {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    padding-block: clamp(2.5rem, 7vw, 5rem) clamp(2rem, 5vw, 3.5rem);
+  }
+  @media (min-width: 60rem) {
+    .hero {
+      grid-template-columns: minmax(0, 1.6fr) minmax(18rem, 1fr);
+      gap: 4rem;
+    }
+  }
+  .accueil {
+    background: radial-gradient(60rem 28rem at 85% -10%, var(--papier-2), transparent 70%);
+  }
+  .hero__sur {
+    display: inline-block;
+    margin: 0 0 1.2rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--filet);
+    border-radius: 999px;
+    background: var(--papier);
+    font-family: var(--titre);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--texte-doux);
+  }
+  .hero h1 {
+    margin: 0 0 1.1rem;
+    font-size: clamp(2rem, 4.6vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 20ch;
+  }
+  .hero__chapeau {
+    margin: 0 0 1.8rem;
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    line-height: 1.55;
+    color: var(--texte-doux);
+    max-width: 36rem;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin: 0;
+  }
+  .hero__cta {
+    font-size: 1.05rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+  }
+  .final .bouton--plein {
+    border-radius: 999px;
+    padding-inline: 1.4rem;
+  }
+  .hero__lien {
+    font-family: var(--titre);
+    font-weight: 600;
+    color: var(--encre);
+    text-underline-offset: 0.25em;
+  }
+  .hero__lien:hover {
+    color: var(--lien);
+  }
+
+  .dpe {
+    padding: 1.6rem;
+    border: 1px solid var(--filet);
+    border-radius: 16px;
+    background: var(--papier);
+    box-shadow: 0 12px 32px -18px rgb(28 35 48 / 35%);
+  }
+  .dpe__sur {
+    margin: 0;
+    font-family: var(--titre);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--texte-doux);
+  }
+  .dpe h2,
+  .hero h1 {
+    hyphens: manual;
+    text-wrap: balance;
+  }
+  .dpe h2 {
+    margin: 0.3rem 0 1rem;
+    font-size: 1.35rem;
+    line-height: 1.25;
+  }
+  .dpe__classes {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0 0 1.3rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.95rem;
+  }
+  .dpe__classes li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .dpe__lettre {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    font-family: var(--titre);
+    font-weight: 800;
+    color: #fff;
+  }
+  .dpe__lettre--g {
+    background: #b3261e;
+  }
+  .dpe__lettre--f {
+    background: #9e4410;
+  }
+  .dpe__lettre--e {
+    background: #f2c230;
+    color: #1c2330;
+  }
+  .dpe__bouton {
+    width: 100%;
+    justify-content: center;
+    border-radius: 999px;
+  }
+
+  .chiffres {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 1rem;
+    margin: 0 0 3.5rem;
+    padding: 1.2rem 0;
+    list-style: none;
+    border-block: 1px solid var(--filet);
+    font-family: var(--titre);
+    color: var(--texte-doux);
+    text-align: center;
+  }
+  .chiffres strong {
+    display: block;
+    font-size: 1.8rem;
+    line-height: 1.1;
+    color: var(--encre);
+  }
+
+  section h2 {
+    font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+    letter-spacing: -0.01em;
+  }
+  .etapes {
+    margin-bottom: 3.5rem;
+  }
+  .etapes ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.2rem;
+    margin: 1.2rem 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: etape;
+  }
+  .etapes li {
+    counter-increment: etape;
+    padding: 1.3rem;
+    border-radius: 16px;
+    background: var(--papier);
+    border: 1px solid var(--filet);
+  }
+  .etapes li::before {
+    content: counter(etape);
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.7rem;
+    border-radius: 999px;
+    background: var(--encre);
+    color: var(--papier);
+    font-family: var(--titre);
+    font-weight: 700;
+  }
+  .etapes h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.1rem;
+  }
+  .etapes p {
+    margin: 0;
+    color: var(--texte-doux);
+  }
+
+  .niveaux {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.2rem;
+    margin: 1.2rem 0 3.5rem;
+  }
+  .niveau {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.4rem;
+    border: 1px solid var(--filet);
+    border-top: 5px solid var(--accent);
+    border-radius: 16px;
+    background: var(--papier);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .niveau:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -18px rgb(28 35 48 / 40%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .niveau {
+      transition: none;
+    }
+    .niveau:hover {
+      transform: none;
+    }
+  }
+  .niveau p {
+    margin: 0;
+  }
+  .niveau__num {
+    font-family: var(--titre);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+  .niveau h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  .niveau h3 a {
+    color: var(--encre);
+    text-decoration: none;
+  }
+  .niveau h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .niveau__detail {
+    color: var(--texte-doux);
+    font-size: 0.92rem;
+  }
+  .niveau__prix {
+    font-family: var(--titre);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem !important;
+  }
+  .niveau [data-progression-seule] {
+    margin-top: auto;
+  }
+
+  .final {
+    margin: 0 0 2.5rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 20px;
+    background: var(--papier-2);
+    text-align: center;
+  }
+  .final h2 {
+    margin-top: 0;
+  }
+  .final p {
+    color: var(--texte-doux);
+  }
+  .final .hero__actions {
+    justify-content: center;
+    margin-top: 1.2rem;
+  }
+
+  .raccourcis {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 2rem;
+  }
+  .raccourcis a {
+    position: relative;
+    z-index: 1;
+    padding: 0.45rem 0.9rem;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--filet);
+    border-radius: 999px;
+    background: var(--papier);
+    font-family: var(--titre);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--encre);
+    text-decoration: none;
+  }
+  .raccourcis a:hover {
+    border-color: var(--filet-fort);
+    color: var(--lien);
+  }
+</style>
