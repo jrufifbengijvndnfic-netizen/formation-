@@ -1,7 +1,7 @@
 /*
- * Direction artistique « plan cadastral et tampons administratifs ».
- * Parcellaire en filigrane dans les bandeaux, numéros de module traités comme des numéros de
- * parcelle, encadrés en « tampons », filets fins. Couleurs de niveau identiques au PDF.
+ * Direction artistique « claire et aérée » (version 015) : hauts de page clairs légèrement teintés
+ * par la couleur du niveau, cartes arrondies, boutons en pastille, numéros de module traités comme
+ * des numéros de parcelle. Couleurs de niveau identiques au PDF.
  * Contrastes vérifiés (WCAG 2.2 AA) en thème clair et sombre.
  */
 
@@ -49,7 +49,8 @@
   --largeur-texte: 44rem;
   --largeur-page: 78rem;
   --gouttiere: clamp(1rem, 3vw, 2rem);
-  --rayon: 3px;
+  --rayon: 12px;
+  --ombre: 0 12px 32px -20px rgb(28 35 48 / 35%);
 
   /* Parcellaire : polygones irréguliers en traits fins, pour les bandeaux de couleur. */
   --parcellaire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240' viewBox='0 0 360 240'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='1'%3E%3Cpath d='M0 38 L64 30 L118 52 L112 118 L40 126 L0 110'/%3E%3Cpath d='M118 52 L196 40 L214 104 L112 118'/%3E%3Cpath d='M196 40 L270 18 L300 86 L214 104'/%3E%3Cpath d='M270 18 L360 30 M300 86 L360 92'/%3E%3Cpath d='M40 126 L58 204 L140 196 L112 118'/%3E%3Cpath d='M140 196 L226 184 L214 104'/%3E%3Cpath d='M226 184 L318 172 L300 86'/%3E%3Cpath d='M318 172 L360 176 M58 204 L50 240 M226 184 L236 240 M140 196 L148 240 M0 196 L58 204'/%3E%3Cpath d='M64 30 L70 0 M196 40 L188 0'/%3E%3C/g%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.09' stroke-dasharray='3 4'%3E%3Cpath d='M0 150 L112 140 L330 128'/%3E%3C/g%3E%3C/svg%3E");
@@ -306,12 +307,13 @@ main {
   line-height: 1.2;
   padding: 0.6rem 1rem;
   border: 1.5px solid var(--encre);
-  border-radius: var(--rayon);
+  border-radius: 999px;
   background: var(--papier);
   color: var(--encre);
   text-decoration: none;
   cursor: pointer;
   min-height: 2.75rem;
+  padding-inline: 1.25rem;
 }
 .bouton:hover {
   background: var(--papier-2);
@@ -560,28 +562,39 @@ main {
   }
 }
 
-/* ------------------------------------------------------------------ Bandeaux (parcellaire) */
+/* ------------------------------------------------------------------ Bandeaux (haut de page clair, teinté par le niveau) */
 .bandeau {
-  background-color: var(--bandeau, #1c2330);
-  background-image: var(--parcellaire);
-  background-size: 360px 240px;
-  color: #fff;
-  padding: 2rem 0 2.2rem;
-  margin-bottom: 2rem;
+  background-color: var(--papier-2);
+  background-image: radial-gradient(
+    60rem 26rem at 85% -20%,
+    color-mix(in srgb, var(--accent) 14%, transparent),
+    transparent 70%
+  );
+  color: var(--encre);
+  padding: clamp(1.8rem, 5vw, 3rem) 0 clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--filet);
 }
-.bandeau a {
-  color: #fff;
+.bandeau a:not(.bouton) {
+  color: var(--encre);
 }
 .bandeau h1 {
-  color: #fff;
-  margin-bottom: 0.4rem;
+  color: var(--encre);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 .bandeau__sur {
+  display: inline-block;
   font-family: var(--titre);
-  font-size: 0.95rem;
-  font-weight: 500;
-  margin: 0 0 0.6rem;
-  opacity: 0.95;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin: 0 0 0.9rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--filet);
+  border-radius: 999px;
+  background: var(--papier);
+  color: var(--accent);
 }
 .bandeau__meta {
   display: flex;
@@ -589,14 +602,18 @@ main {
   gap: 0.4rem 1.2rem;
   font-family: var(--titre);
   font-size: 0.88rem;
+  color: var(--texte-doux);
   margin: 0.8rem 0 0;
 }
 .bandeau p {
   max-width: var(--largeur-texte);
 }
+.bandeau .chapeau {
+  color: var(--texte-doux);
+}
 .bandeau__sigles {
   font-size: 0.85rem;
-  opacity: 0.95;
+  color: var(--texte-doux);
   margin: 0.3rem 0 0;
 }
 .bandeau__sigles abbr {
@@ -611,26 +628,13 @@ main {
 .bandeau__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.75rem;
-  margin: 1.2rem 0 0.4rem;
+  margin: 1.4rem 0 0.4rem;
 }
 .bandeau .bandeau__actions .bouton {
-  background: transparent;
-  border-color: #fff;
-  color: #fff;
   font-size: 1rem;
-  padding: 0.7rem 1.15rem;
-}
-.bandeau .bandeau__actions .bouton--plein {
-  background: #fff;
-  color: #1c2330;
-}
-.bandeau .bandeau__actions .bouton:hover {
-  filter: none;
-  background: rgb(255 255 255 / 0.14);
-}
-.bandeau .bandeau__actions .bouton--plein:hover {
-  background: #e8ecf2;
+  padding: 0.75rem 1.4rem;
 }
 /* Progression : masquée tant que le visiteur n'a lu aucun module (classe posée dans <head>, sans décalage) */
 html:not(.a-progression) .progression-globale,
@@ -652,6 +656,8 @@ html:not(.a-progression) [data-progression-seule] {
   font-variant-numeric: tabular-nums;
 }
 .bandeau .parcelle {
+  color: var(--accent);
+  background: var(--papier);
   font-size: 1rem;
   margin-right: 0.3rem;
   vertical-align: 0.2em;
@@ -1119,7 +1125,7 @@ details.corrige > p {
   white-space: nowrap;
   padding: 0.15rem 0.5rem;
   border: 1px solid var(--filet-fort);
-  border-radius: 2px;
+  border-radius: 999px;
   color: var(--texte-doux);
 }
 .statut::before {
@@ -1156,23 +1162,35 @@ details.corrige > p {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--filet);
+  border-top: 5px solid var(--accent);
   border-radius: var(--rayon);
   background: var(--papier);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.feuille:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ombre);
+}
+@media (prefers-reduced-motion: reduce) {
+  .feuille {
+    transition: none;
+  }
+  .feuille:hover {
+    transform: none;
+  }
 }
 .feuille__tete {
-  background-color: var(--bandeau);
-  background-image: var(--parcellaire);
-  background-size: 360px 240px;
-  color: #fff;
-  padding: 1rem 1.1rem 1.1rem;
-  border-radius: var(--rayon) var(--rayon) 0 0;
+  color: var(--accent);
+  padding: 1.1rem 1.2rem 0;
 }
 .feuille__tete h3 {
   margin: 0.3rem 0 0;
   font-size: 1.15rem;
 }
 .feuille__tete h3 a {
-  color: #fff;
+  color: var(--encre);
   text-decoration: none;
 }
 .feuille__tete h3 a::after {
@@ -1226,19 +1244,26 @@ details.corrige > p {
 /* Accès rapides */
 .acces {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 0;
-  margin: 1rem 0 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 1.2rem 0 2.5rem;
   padding: 0;
   list-style: none;
-  border-top: 1.5px solid var(--encre);
 }
 .acces li {
-  border-bottom: 1px solid var(--filet);
+  display: flex;
 }
 .acces a {
   display: block;
-  padding: 0.9rem 0.2rem;
+  flex: 1;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+  background: var(--papier);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
   font-family: var(--titre);
   font-weight: 600;
   color: var(--encre);
@@ -1246,9 +1271,20 @@ details.corrige > p {
 }
 .acces a:hover {
   color: var(--lien);
+  border-color: var(--filet-fort);
+  transform: translateY(-2px);
+  box-shadow: var(--ombre);
+}
+@media (prefers-reduced-motion: reduce) {
+  .acces a,
+  .acces a:hover {
+    transition: none;
+    transform: none;
+  }
 }
 .acces small {
   display: block;
+  margin-top: 0.35rem;
   font-weight: 400;
   font-size: 0.85rem;
   color: var(--texte-doux);
@@ -2469,11 +2505,9 @@ html:not(.js) .exercices__note {
   }
 }
 
-/* Statut dans un bandeau de couleur */
-.statut--bandeau,
-.statut--bandeau[data-statut] {
-  color: #fff;
-  border-color: rgb(255 255 255 / 75%);
+/* Statut dans le bandeau : fond clair pour rester lisible sur la teinte du niveau */
+.statut--bandeau {
+  background: var(--papier);
 }
 
 /* En-tête compact sur petit écran : une seule ligne. */
