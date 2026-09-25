@@ -1,4 +1,5 @@
 ---
+import ALaUneDpe from '../../components/ALaUneDpe.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import Base from '../../layouts/Base.astro';
 import { lien } from '../../lib/navigation';
@@ -26,6 +27,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Simulateurs
     </div>
   </div>
   <div class="conteneur" data-pagefind-body>
+    <ALaUneDpe />
     <ol class="registre">
       {SIMULATEURS.map((s, i) => (
         <li class="registre__ligne">

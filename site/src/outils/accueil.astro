@@ -1,4 +1,5 @@
 ---
+import ALaUneDpe from '../components/ALaUneDpe.astro';
 import Avertissement from '../components/Avertissement.astro';
 import FilAriane from '../components/FilAriane.astro';
 import Tarifs from '../components/Tarifs.astro';
@@ -35,7 +36,7 @@ const categories = CATEGORIES_SIMULATEURS.map((c) => ({
 ---
 
 <Base
-  titre="Simulateurs immobiliers gratuits et lettres types pour bailleurs"
+  titre="Outils gratuits pour bailleurs : test DPE, simulateurs, lettres types"
   description={`${SIMULATEURS.length} simulateurs gratuits (rentabilité, prêt, frais de notaire, LMNP, plus-value, IFI…) et ${listeLettres.length} modèles de lettres pour bailleurs. Sans inscription.`}
   niveau="0"
   donneesStructurees={COURS_PUBLIC ? undefined : donnees}
@@ -55,6 +56,7 @@ const categories = CATEGORIES_SIMULATEURS.map((c) => ({
   </div>
 
   <div class="conteneur">
+    <ALaUneDpe />
     {categories.map((c, i) => (
       <section aria-labelledby={`categorie-${i}`}>
         <h2 id={`categorie-${i}`}>{c.titre}</h2>

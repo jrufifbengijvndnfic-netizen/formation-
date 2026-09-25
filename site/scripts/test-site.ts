@@ -20,7 +20,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { chromium, devices, firefox, webkit, type Browser, type BrowserContext, type Page } from 'playwright';
 import { COURS_PUBLIC as COURS } from '../src/lib/edition';
-import { demarrerServeur, toutesLesPages, verifierDist } from './serveur-statique';
+import { DIST, demarrerServeur, toutesLesPages, verifierDist } from './serveur-statique';
 
 verifierDist();
 const { base: BASE, serveur } = await demarrerServeur();
@@ -146,6 +146,7 @@ async function referencement(page: Page, chemin: string, titre: string): Promise
     return {
       description: description ?? '',
       canonique: document.querySelector('link[rel="canonical"]')?.getAttribute('href') ?? null,
+      noindex: document.querySelector('meta[name="robots"]')?.getAttribute('content')?.includes('noindex') ?? false,
       ogUrl,
       ogImage,
       ogTitre,
@@ -166,7 +167,15 @@ async function referencement(page: Page, chemin: string, titre: string): Promise
     h.description.length >= 50 && h.description.length <= 160,
     `SEO ${chemin} : description de ${h.description.length} caractères`,
   );
-  verifier(h.canonique === attendue && h.ogUrl === attendue, `SEO ${chemin} : canonique ${h.canonique}`);
+  // Page volontairement hors index (recherche, progression) : ni canonique ni place dans le plan du site.
+  if (h.noindex) {
+    verifier(
+      h.canonique === null && !readFileSync(path.join(DIST, 'sitemap.xml'), 'utf8').includes(`<loc>${attendue}</loc>`),
+      `SEO ${chemin} : page noindex avec canonique ou dans le plan du site`,
+    );
+  } else {
+    verifier(h.canonique === attendue && h.ogUrl === attendue, `SEO ${chemin} : canonique ${h.canonique}`);
+  }
   verifier(
     h.ogImage?.endsWith('/images/og-image.webp') && h.ogTitre && h.ogDescription && h.twitter === 'summary_large_image',
     `SEO ${chemin} : Open Graph ou Twitter incomplet`,

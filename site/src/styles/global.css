@@ -1747,6 +1747,34 @@ html:not(.js) .exercices__note {
   min-width: 0;
 }
 
+/* Outil DPE mis en avant (vitrine des outils, liste des simulateurs) */
+.a-la-une {
+  margin: 0 0 2rem;
+  padding: 1.1rem 1.3rem;
+  border: 1.5px solid var(--n3);
+  border-left-width: 6px;
+  border-radius: var(--rayon);
+  background: var(--papier);
+}
+.a-la-une h2 {
+  margin: 0.1rem 0 0.4rem;
+  font-size: 1.25rem;
+}
+.a-la-une p:last-child {
+  margin-bottom: 0;
+}
+.a-la-une__sur {
+  margin: 0;
+  font-family: var(--titre);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+.bandeau__dpe {
+  font-size: 0.95rem;
+  margin: 0.6rem 0 0;
+}
+
 /* Action « À faire maintenant » de fin de module */
 .a-faire {
   margin: 2rem 0;

@@ -21,6 +21,7 @@ Outil : dpe-location
 
 ## Module 1.5
 Regardez la date de votre DPE : réalisé avant le 1er juillet 2021, il n'est plus valable. Si le logement est chauffé à l'électricité, téléchargez l'attestation gratuite de nouvelle étiquette sur l'observatoire DPE-Audit de l'ADEME.
+Outil : dpe-location
 
 ## Module 1.6
 Relevez trois loyers de logements comparables réellement loués, calculez leur loyer au m² hors charges et comparez-le au vôtre.

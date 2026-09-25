@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
-import { copyFileSync, existsSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { COURS_PUBLIC, ROUTE_ACCUEIL_OUTILS, ROUTES_COURS, ROUTES_EXTRAITS } from './src/lib/edition.ts';
@@ -98,6 +98,11 @@ function fichiersReferencement() {
         const adresses = pages
           .map((p) => p.pathname.replace(/^\/?/, '').replace(/\/?$/, '/').replace(/^\/$/, ''))
           .filter((p) => p !== '404/' && !redirigees.has(p))
+          // Pages marquées noindex (recherche, progression, redirections de repli) : hors du plan.
+          .filter((p) => {
+            const fichier = path.join(sortie, p, 'index.html');
+            return !existsSync(fichier) || !readFileSync(fichier, 'utf8').includes('name="robots" content="noindex"');
+          })
           .sort()
           .map((p) => new URL(prefixe + p, site).href);
         // Date de mise à jour du contenu (« Contenu à jour au… ») : aide Google à recrawler.

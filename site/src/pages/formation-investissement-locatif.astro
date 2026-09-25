@@ -54,7 +54,6 @@ const remboursement = CONDITIONS.garantie
   : 'Vous disposez du droit de rétractation de quatorze jours, sauf si vous demandez l’accès immédiat au contenu et renoncez expressément à ce droit avant le paiement (article L. 221-28 du Code de la consommation). Le détail figure dans les conditions générales de vente.';
 
 // Promesse et argumentaire : offre/promesse.md, offre/pourquoi-payer.md, offre/bonus.md.
-const PROMESSE = 'Gardez votre logement louable et votre location en règle, du DPE à la déclaration';
 const nbExercicesTotal = nbExercices;
 const COMPARATIF: [string, string, string][] = [
   [
@@ -154,8 +153,8 @@ const faq: [string, string][] = [
 
 <Base
   filAriane={filAriane}
-  titre="Formation investissement locatif : programme, prix et extrait gratuit"
-  description={`Formation en ligne en trois niveaux : ${tousLesModules.length} modules, ${SIMULATEURS.length} simulateurs, ${nbLettres} lettres. Module 1.1 gratuit, dès ${offreNiveau(1).prix} € le niveau. À jour au 24 septembre 2026.`}
+  titre="Formation propriétaire bailleur : programme, prix et module gratuit"
+  description={`Formation en ligne pour propriétaires bailleurs : DPE et logement F ou G, loyer, bail, impôts. ${tousLesModules.length} modules, module 1.1 gratuit, dès ${offreNiveau(1).prix} €.`}
   niveau="0"
   actif="formation"
   donneesStructurees={donnees}
@@ -164,7 +163,7 @@ const faq: [string, string][] = [
     <div class="conteneur">
       <FilAriane etapes={filAriane} />
       <p class="bandeau__sur">Formation en ligne « {titreSite} »</p>
-      <h1>{PROMESSE}</h1>
+      <h1>Formation pour bailleurs : gardez votre logement louable et votre location en règle</h1>
       <p class="chapeau">
         Les règles de la location en France, dans l'ordre où un bailleur en a besoin : décence énergétique, loyer, bail,
         charges, impayés, fiscalité. {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs, {nbLettres}{' '}
@@ -184,6 +183,12 @@ const faq: [string, string][] = [
         </a>
         <a class="bouton" href="#offre" data-suivi="clic_programme_prix">
           Voir le programme et les prix
+        </a>
+      </p>
+      <p class="bandeau__dpe">
+        Logement classé E, F ou G ?{' '}
+        <a href={lien('simulateurs/dpe-location/')} data-suivi="clic_test_dpe">
+          Vérifiez gratuitement s'il reste louable
         </a>
       </p>
       <p class="bandeau__meta">

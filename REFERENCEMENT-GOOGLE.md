@@ -1,6 +1,6 @@
 # Mettre formation-locatif.com en ligne sur Hostinger et le faire apparaître sur Google
 
-Guide du 25 septembre 2026 (version 012 du site). À suivre dans l'ordre.
+Guide du 25 septembre 2026 (version 013 du site). À suivre dans l'ordre.
 
 ## Pourquoi on ne trouve rien aujourd'hui
 
@@ -21,10 +21,10 @@ Guide du 25 septembre 2026 (version 012 du site). À suivre dans l'ordre.
    (`default.php`, `index.php`, ancien site éventuel). Si vous aviez déjà envoyé un ZIP et qu'il a
    créé un sous-dossier (par exemple `formation-location-version-011`), supprimez-le aussi : le site
    était alors à `formation-locatif.com/formation-location-version-011/`, pas à la racine.
-3. Envoyez `formation-location-version-012.zip` dans `public_html`, clic droit → **Extraire** →
+3. Envoyez `formation-location-version-013.zip` dans `public_html`, clic droit → **Extraire** →
    destination : `public_html` lui-même. Les fichiers `index.html`, `.htaccess`, `sitemap.xml`,
    `robots.txt` et les dossiers `module`, `simulateurs`… doivent se trouver **directement** dans
-   `public_html` (le ZIP 012 est prévu pour : pas de dossier intermédiaire).
+   `public_html` (le ZIP 013 est prévu pour : pas de dossier intermédiaire).
 4. Supprimez le fichier ZIP de `public_html` après l'extraction.
 5. hPanel → **Sécurité → SSL** : vérifiez que le certificat SSL gratuit est **actif** pour
    `formation-locatif.com` et `www.formation-locatif.com`.
@@ -61,19 +61,19 @@ mets dans `VERIFICATIONS.google` (`site/src/lib/seo.ts`) et je régénère le si
 ## Étape 3 — Faire explorer le site par Google
 
 1. Search Console → **Sitemaps** → saisissez `sitemap.xml` → **Envoyer**. Le plan liste les
-   108 pages publiques, avec leur date de mise à jour.
+   105 pages publiques, avec leur date de mise à jour.
 2. Search Console → **Inspection de l'URL** (barre en haut) → collez chaque adresse ci-dessous →
    **Demander une indexation** (environ dix demandes par jour, commencez par celles-ci) :
    1. `https://formation-locatif.com/`
-   2. `https://formation-locatif.com/outils/`
-   3. `https://formation-locatif.com/simulateurs/`
-   4. `https://formation-locatif.com/simulateurs/rentabilite/`
-   5. `https://formation-locatif.com/simulateurs/frais-acquisition/`
+   2. `https://formation-locatif.com/simulateurs/dpe-location/` (la page de notre douleur principale)
+   3. `https://formation-locatif.com/formation-investissement-locatif/`
+   4. `https://formation-locatif.com/outils/`
+   5. `https://formation-locatif.com/simulateurs/`
    6. `https://formation-locatif.com/simulateurs/revision-loyer/`
-   7. `https://formation-locatif.com/simulateurs/dpe-location/`
-   8. `https://formation-locatif.com/simulateurs/plus-value/`
-   9. `https://formation-locatif.com/simulateurs/capacite-emprunt/`
-   10. `https://formation-locatif.com/formation-investissement-locatif/`
+   7. `https://formation-locatif.com/module/1-4/`
+   8. `https://formation-locatif.com/simulateurs/rentabilite/`
+   9. `https://formation-locatif.com/simulateurs/frais-acquisition/`
+   10. `https://formation-locatif.com/simulateurs/plus-value/`
    Puis les jours suivants : `/lettres/`, les autres simulateurs, `/glossaire/`.
 3. Revenez au bout d'une semaine : **Pages** (combien sont indexées, et pourquoi pas les autres) et
    **Performances** (requêtes sur lesquelles le site apparaît).
@@ -107,6 +107,9 @@ Google classe mieux un site que d'autres sites citent. Sans tricher (pas d'achat
   Personne ne peut garantir la première place de Google.
 
 ## Ce qui est déjà fait dans le site
+
+Contrôle complet avant envoi : `audit/AUDIT-SEO-avant-google.md`.
+
 
 Titres et descriptions pensés pour les recherches, une page par outil et par lettre, plan du site
 avec dates de mise à jour, `robots.txt`, adresses officielles (canoniques), données structurées

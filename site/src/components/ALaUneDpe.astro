@@ -1,0 +1,18 @@
+---
+/**
+ * Mise en avant de l'outil DPE (décision de la feuille de route : la douleur principale est le
+ * logement qui devient illouable). Lien interne fort vers la page d'appel de cette douleur.
+ */
+import { lien } from '../lib/navigation';
+---
+
+<aside class="a-la-une" aria-labelledby="a-la-une-titre">
+  <p class="a-la-une__sur">À la une</p>
+  <h2 id="a-la-une-titre">
+    <a href={lien('simulateurs/dpe-location/')}>Mon logement est-il encore louable ? Le test DPE gratuit</a>
+  </h2>
+  <p>
+    Classe G non décente depuis 2025, F à partir du 1er janvier 2028, E en 2034, loyer gelé pour F et G : indiquez la
+    classe de votre logement et sa date de DPE, l'outil vous dit ce qui s'applique.
+  </p>
+</aside>

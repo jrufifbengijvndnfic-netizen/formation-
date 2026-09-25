@@ -101,10 +101,10 @@ export const REFERENCEMENT_SIMULATEURS: Record<string, ReferencementSimulateur> 
       'Date limite du congé donné par le bailleur et date de fin du préavis du locataire, selon le type de bail et le préavis applicable. Calcul gratuit.',
   },
   'dpe-location': {
-    titre: 'DPE et location : mon logement est-il encore louable ? (calcul gratuit)',
+    titre: 'DPE G, F ou E : mon logement est-il encore louable ? Test gratuit',
     h1: 'Mon logement est-il encore louable ? Décence énergétique et DPE',
     description:
-      'Classe DPE G, F ou E : date d’interdiction de louer, gel du loyer, audit à la vente. Vérifiez gratuitement si votre logement est encore louable en 2026.',
+      'Logement classé G, F ou E : dates d’interdiction de louer (2025, 2028, 2034), gel du loyer, audit à la vente. Vérifiez gratuitement votre logement.',
   },
   'regularisation-charges': {
     titre: 'Calcul régularisation des charges locatives gratuit',

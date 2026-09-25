@@ -34,6 +34,9 @@ const voisinsDuModule = voisins(formation, m);
 // Précédent / suivant seulement vers des pages publiées.
 const precedent = COURS_PUBLIC ? voisinsDuModule.precedent : undefined;
 const suivant = COURS_PUBLIC ? voisinsDuModule.suivant : undefined;
+// Description complétée quand l'objectif du module est court (110 caractères au moins pour Google).
+const descriptionModule =
+  description(m).length < 110 ? `${description(m)} Leçon, cas chiffrés, quiz et exercices corrigés.` : description(m);
 const extraitGratuit = MODULES_GRATUITS.includes(m.numero ?? '');
 const surveiller = m.encadres.filter((e) => e.type === 'A_SURVEILLER');
 const titreVoisin = (e: Element) => (e.type === 'module' ? e.titreCourt : e.titre);
@@ -48,8 +51,8 @@ const filAriane = [
 
 <Base
   filAriane={filAriane}
-  titre={`Module ${m.numero} — ${m.titreCourt}`}
-  description={description(m)}
+  titre={`${m.titreCourt} (module ${m.numero})`}
+  description={descriptionModule}
   niveau={String(n) as '1' | '2' | '3'}
   actif={`niveau-${n}`}
 >
