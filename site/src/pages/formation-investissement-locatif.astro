@@ -90,7 +90,7 @@ const COMPARATIF: [string, string, string][] = [
 const BONUS: [string, string][] = [
   [
     'L’outil « Poser une question »',
-    `plus de ${nbReponses} réponses tirées de la formation, trouvées à partir de vos mots, chacune avec sa source et le lien vers le module`,
+    `posez votre question avec vos mots, la réponse de la formation s’affiche avec sa source (plus de ${nbReponses} réponses)`,
   ],
   ['La boîte à calculs', `${SIMULATEURS.length} simulateurs, reliés au module qui les explique`],
   ['Le classeur de lettres', `${nbLettres} modèles : révision du loyer, charges, relance, mise en demeure, congés…`],
@@ -103,7 +103,7 @@ const BONUS: [string, string][] = [
 const faq: [string, string][] = [
   [
     'Tout est gratuit ailleurs, pourquoi payer ?',
-    `Les règles sont publiques mais dispersées. La formation les ordonne en trois niveaux, les illustre par des cas chiffrés et fournit ${SIMULATEURS.length} outils, ${nbLettres} lettres et ${nbChecklists} checklists. Vous gagnez du temps et vous évitez les oublis.`,
+    `Les règles sont publiques mais dispersées. La formation les ordonne en trois niveaux, les illustre par des cas chiffrés et fournit ${SIMULATEURS.length} outils, ${nbLettres} lettres et ${nbChecklists} checklists. Vous n’avez plus à rapprocher les textes vous-même.`,
   ],
   [
     'Je n’ai pas encore de bien. Est-ce trop tôt ?',
@@ -128,15 +128,15 @@ const faq: [string, string][] = [
   ['Puis-je être remboursé ?', remboursement],
   [
     'Puis-je poser des questions ?',
-    `Oui. L’outil « Poser une question » répond tout de suite, à côté de la leçon ou depuis la barre de recherche : vous écrivez votre question avec vos mots, il affiche le passage de la formation qui y répond (plus de ${nbReponses} réponses, chacune avec sa source), des questions proches et le lien vers le module. Pour ce que la formation ne couvre pas : ${CONDITIONS.accompagnement.charAt(0).toLowerCase()}${CONDITIONS.accompagnement.slice(1)}.`,
+    `Oui. Écrivez votre question avec vos mots, à côté de la leçon ou dans la barre de recherche : l’outil « Poser une question » affiche le passage de la formation qui y répond, avec sa source et le lien vers le module. Il compte plus de ${nbReponses} réponses. Pour ce que la formation ne couvre pas : ${CONDITIONS.accompagnement.charAt(0).toLowerCase()}${CONDITIONS.accompagnement.slice(1)}.`,
   ],
   [
     'Les mises à jour sont-elles incluses ?',
-    `La formation est mise à jour à chaque loi de finances et à chaque changement majeur du droit du logement ; chaque modification est datée dans le journal des mises à jour.${CONDITIONS.misesAJour ? ` Inclusion dans le prix : ${CONDITIONS.misesAJour}.` : ''}`,
+    `La formation est mise à jour à chaque loi de finances et à chaque changement majeur du droit du logement. Chaque modification est datée dans le journal des mises à jour.${CONDITIONS.misesAJour ? ` Inclusion dans le prix : ${CONDITIONS.misesAJour}.` : ''}`,
   ],
   [
     'Mon logement est classé F ou G : la formation m’aide-t-elle ?',
-    'Oui : les modules 1.4, 1.5 et 3.9 expliquent le calendrier de décence, le gel des loyers, la validité du DPE, les travaux et les aides ; l’outil gratuit « Mon logement est-il encore louable ? » vous situe tout de suite.',
+    'Oui : les modules 1.4, 1.5 et 3.9 expliquent le calendrier de décence, le gel des loyers, la validité du DPE, les travaux et les aides. L’outil gratuit « Mon logement est-il encore louable ? » vous situe tout de suite.',
   ],
   ...(CONDITIONS.facture ? [['Aurai-je une facture ?', CONDITIONS.facture] as [string, string]] : []),
   [
@@ -230,8 +230,8 @@ const faq: [string, string][] = [
         </li>
       </ul>
       <p>
-        S'y ajoutent les autres erreurs de bailleur qui se paient en loyers perdus, en procédures ou en impôt : un dépôt
-        de garantie rendu en retard, un congé mal délivré, un impayé mal géré, un régime fiscal mal choisi.
+        D'autres erreurs coûtent aussi, en loyers perdus, en procédures ou en impôt. Par exemple&nbsp;: un dépôt de
+        garantie rendu en retard, un congé mal délivré, un impayé mal géré, un régime fiscal mal choisi.
       </p>
       <ul>
         <li>
@@ -252,7 +252,7 @@ const faq: [string, string][] = [
     </section>
 
     <section aria-labelledby="methode">
-      <h2 id="methode">Comment fonctionne la formation</h2>
+      <h2 id="methode">Ce que vous faites, module après module</h2>
       <ul>
         <li>
           <strong>Trois niveaux progressifs</strong>, du premier bail à la transmission.
@@ -270,10 +270,9 @@ const faq: [string, string][] = [
         </li>
         <li>
           <strong>Un outil «&nbsp;Poser une question&nbsp;»</strong>, à côté de chaque leçon et dans la barre de
-          recherche&nbsp;: écrivez votre question avec vos mots («&nbsp;mon locataire ne paie plus&nbsp;»,
-          «&nbsp;puis-je encore louer un logement classé F&nbsp;?&nbsp;»). Il retrouve en quelques secondes, parmi plus
-          de {nbReponses} réponses tirées de la formation, le passage qui y répond, avec sa source, des questions
-          proches et le lien vers le module.{' '}
+          recherche. Écrivez votre question avec vos mots («&nbsp;mon locataire ne paie plus&nbsp;»). L'outil affiche en
+          quelques secondes le passage de la formation qui y répond, avec sa source et le lien vers le module. Plus de{' '}
+          {nbReponses} réponses.{' '}
           {COURS_PUBLIC && (
             <a href={lien('assistant/')} data-ouvrir-question>
               Essayez-le
