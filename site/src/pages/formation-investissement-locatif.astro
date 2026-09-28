@@ -183,6 +183,10 @@ const faq: [string, string][] = [
         DPE, loyer, bail, charges, impayés, impôts&nbsp;: les règles de la location, dans l'ordre où vous en avez
         besoin.
       </p>
+      <p class="bandeau__prix">
+        Module 1.1 gratuit, sans inscription · puis dès {prixTexte(offreNiveau(1).prix)} le niveau,{' '}
+        {prixTexte(offrePack().prix)} les trois
+      </p>
       <p class="bandeau__actions">
         <a
           class="bouton bouton--plein"
@@ -194,10 +198,6 @@ const faq: [string, string][] = [
         <a class="bouton" href="#offre" data-suivi="clic_programme_prix">
           Voir le programme et les prix
         </a>
-      </p>
-      <p class="bandeau__prix">
-        Module 1.1 gratuit, sans inscription · puis dès {prixTexte(offreNiveau(1).prix)} le niveau,{' '}
-        {prixTexte(offrePack().prix)} les trois
       </p>
       <p class="bandeau__preuve">
         {tousLesModules.length} modules · {SIMULATEURS.length} simulateurs · {nbLettres} lettres · textes officiels
