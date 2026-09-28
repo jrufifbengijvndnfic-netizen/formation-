@@ -56,6 +56,10 @@ const remboursement = CONDITIONS.garantie
   ? `${CONDITIONS.garantie}. Le détail figure dans les conditions générales de vente.`
   : 'Vous disposez du droit de rétractation de quatorze jours, sauf si vous demandez l’accès immédiat au contenu et renoncez expressément à ce droit avant le paiement (article L. 221-28 du Code de la consommation). Le détail figure dans les conditions générales de vente.';
 
+// Réponses provisoires tant que la condition n'est pas renseignée dans src/lib/entreprise.ts : elles
+// n'affirment rien et sont remplacées automatiquement (audit de vente, A5).
+const aPreciser = 'Précisé à l’ouverture du paiement en ligne, dans les conditions générales de vente.';
+
 // Promesse et argumentaire : offre/promesse.md, offre/pourquoi-payer.md, offre/bonus.md.
 const nbExercicesTotal = nbExercices;
 const COMPARATIF: [string, string, string][] = [
@@ -133,17 +137,38 @@ const faq: [string, string][] = [
   ],
   [
     'Les mises à jour sont-elles incluses ?',
-    `La formation est mise à jour à chaque loi de finances et à chaque changement majeur du droit du logement. Chaque modification est datée dans le journal des mises à jour.${CONDITIONS.misesAJour ? ` Inclusion dans le prix : ${CONDITIONS.misesAJour}.` : ''}`,
+    `La formation est mise à jour à chaque loi de finances et à chaque changement majeur du droit du logement. Chaque modification est datée dans le journal des mises à jour.${CONDITIONS.misesAJour ? ` Inclusion dans le prix : ${CONDITIONS.misesAJour}.` : ' Leur inclusion dans le prix sera précisée à l’ouverture du paiement en ligne.'}`,
   ],
   [
     'Mon logement est classé F ou G : la formation m’aide-t-elle ?',
     'Oui : les modules 1.4, 1.5 et 3.9 expliquent le calendrier de décence, le gel des loyers, la validité du DPE, les travaux et les aides. L’outil gratuit « Mon logement est-il encore louable ? » vous situe tout de suite.',
   ],
-  ...(CONDITIONS.facture ? [['Aurai-je une facture ?', CONDITIONS.facture] as [string, string]] : []),
+  ['Aurai-je une facture ?', CONDITIONS.facture || aPreciser],
+  ['Combien de temps ai-je accès ?', CONDITIONS.acces || aPreciser],
   [
     'Est-ce un conseil personnalisé ?',
     'Non. C’est une formation d’information générale ; pour une décision engageante, consultez un avocat, un notaire, un expert-comptable ou un conseiller en gestion de patrimoine.',
   ],
+  [
+    'Je gère déjà un bien. Est-ce pour moi ?',
+    `Oui. Le niveau 2 s’adresse à ce profil (${publicNiveau(2).toLowerCase()}). Si votre logement est classé E, F ou G, commencez par les modules 1.4 et 1.5.`,
+  ],
+  [
+    'Pourquoi ce prix ?',
+    `${prixTexte(offreNiveau(1).prix)} le niveau 1, ou ${prixTexte(offrePack().prix)} les trois niveaux au lieu de ${prixTexte(prixSepares())}. Pour comparer : dans l’exemple du module 2.6, le choix du régime fiscal représente environ 2 000 € d’impôt par an. C’est un exemple, pas un gain promis.`,
+  ],
+  [
+    'Et si je ne comprends pas un module ?',
+    `Chaque terme technique renvoie au glossaire (${termes.length} termes). L’outil « Poser une question » retrouve le passage qui répond, et chaque exercice a sa correction détaillée.`,
+  ],
+  ...(AVIS.length === 0
+    ? [
+        [
+          'Y a-t-il des avis ?',
+          'Pas encore. Seuls des avis d’acheteurs vérifiés seront publiés ici. En attendant, lisez le module 1.1 en entier pour juger par vous-même.',
+        ] as [string, string],
+      ]
+    : []),
   [
     'Par quel niveau commencer ?',
     niveaux.map((n) => `${publicNiveau(n.niveau)} : niveau ${n.niveau}`).join('. ') + '.',
@@ -158,7 +183,7 @@ const faq: [string, string][] = [
   ],
   ['Y a-t-il des vidéos ?', 'Non : la formation est écrite, avec tableaux, cas chiffrés, quiz et outils interactifs.'],
   ['La formation est-elle certifiante ou éligible au CPF ?', 'Non.'],
-  ...(CONDITIONS.paiement ? [['Comment payer ?', CONDITIONS.paiement] as [string, string]] : []),
+  ['Puis-je payer en plusieurs fois ?', CONDITIONS.paiement || aPreciser],
   [
     'Mes données sont-elles collectées ?',
     'Aucun cookie ni traceur publicitaire ; votre progression et vos saisies restent dans votre navigateur. Voir la politique de confidentialité.',
