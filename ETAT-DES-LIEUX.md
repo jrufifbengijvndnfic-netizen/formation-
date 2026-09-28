@@ -105,7 +105,7 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
   une question ».
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **020**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **021**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist`, fichier caché `.htaccess` compris).
 
 ## 3. Décisions prises (et pourquoi)
