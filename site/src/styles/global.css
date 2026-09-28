@@ -615,6 +615,16 @@ main {
 .bandeau p {
   max-width: var(--largeur-texte);
 }
+/* Page de vente : prix et preuve courte sous les boutons (audit de vente, A1) */
+.bandeau__prix {
+  font-family: var(--titre);
+  font-weight: 600;
+  margin: 0.2rem 0 0;
+}
+.bandeau__preuve {
+  color: var(--texte-doux);
+  margin: 0.3rem 0 0;
+}
 .bandeau .chapeau {
   color: var(--texte-doux);
 }

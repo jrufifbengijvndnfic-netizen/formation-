@@ -21,7 +21,6 @@ import {
   organisation,
   sectionsExercices,
   termes,
-  titreSite,
   tousLesModules,
 } from '../lib/donnees';
 import { COURS_PUBLIC } from '../lib/edition';
@@ -177,16 +176,11 @@ const faq: [string, string][] = [
   <div class="bandeau" data-suivi-vue="vue_page_vente">
     <div class="conteneur">
       <FilAriane etapes={filAriane} />
-      <p class="bandeau__sur">Formation en ligne « {titreSite} »</p>
+      <p class="bandeau__sur">Formation en ligne · {miseAJour.replace('Contenu à jour', 'à jour')}</p>
       <h1>Formation pour bailleurs : gardez votre logement louable et votre location en règle</h1>
       <p class="chapeau">
-        Les règles de la location en France, dans l'ordre où un bailleur en a besoin : décence énergétique, loyer, bail,
-        charges, impayés, fiscalité. {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs, {nbLettres}{' '}
-        modèles de lettres, et un outil qui retrouve la réponse à vos questions dans la formation. {miseAJour}.
-      </p>
-      <p class="bandeau__pour-qui">
-        Pour les bailleurs en place (DPE, loyer, bail, impôts), ceux qui gèrent seuls, et les futurs investisseurs : le
-        niveau 1 part de zéro.
+        DPE, loyer, bail, charges, impayés, impôts&nbsp;: les règles de la location, dans l'ordre où vous en avez
+        besoin.
       </p>
       <p class="bandeau__actions">
         <a
@@ -200,15 +194,19 @@ const faq: [string, string][] = [
           Voir le programme et les prix
         </a>
       </p>
+      <p class="bandeau__prix">
+        Module 1.1 gratuit, sans inscription · puis dès {prixTexte(offreNiveau(1).prix)} le niveau,{' '}
+        {prixTexte(offrePack().prix)} les trois
+      </p>
+      <p class="bandeau__preuve">
+        {tousLesModules.length} modules · {SIMULATEURS.length} simulateurs · {nbLettres} lettres · textes officiels
+        cités dans chaque module
+      </p>
       <p class="bandeau__dpe">
         Logement classé E, F ou G ?{' '}
         <a href={lien('simulateurs/dpe-location/')} data-suivi="clic_test_dpe">
           Vérifiez gratuitement s'il reste louable
         </a>
-      </p>
-      <p class="bandeau__meta">
-        <span>Dès {prixTexte(offreNiveau(1).prix)} le niveau</span>
-        <span>{prixTexte(offrePack().prix)} les trois niveaux</span>
       </p>
     </div>
   </div>
