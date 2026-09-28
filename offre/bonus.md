@@ -2,6 +2,7 @@
 
 | Bonus | Contenu | Objection levée |
 |---|---|---|
+| **L'outil « Poser une question »** | 1 274 réponses tirées de la formation (leçons, points clés, pièges, 477 questions de quiz et d'exercices, glossaire, annexes, simulateurs), trouvées à partir des mots de l'élève, chacune avec sa source et le lien vers le module ; 139 questions fréquentes en 10 thèmes | « Je ne trouverai pas la réponse à ma question » |
 | **La boîte à calculs** | 24 simulateurs : révision du loyer, rentabilité, DPE, plus-value, capacité d'emprunt, micro ou réel… | « Je ne saurai pas faire les calculs » |
 | **Le classeur de lettres** | 10 modèles : révision du loyer, régularisation des charges, relance, mise en demeure, congés, dépôt de garantie, quittance… | « Je ne saurai pas quoi écrire au locataire » |
 | **Les checklists** | Mettre en location son premier logement, et les six checklists de l'annexe G | « Je vais oublier une étape » |

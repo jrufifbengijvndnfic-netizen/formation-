@@ -125,11 +125,12 @@ Page `/assistant/` (édition complète ; accès depuis les raccourcis de l'accue
 page Recherche et le lien « Une question sur ce module ? » du sommaire de chaque module, qui fait
 passer les réponses de ce module en priorité).
 
-- **Fiches** (`src/lib/assistant.ts`, publiées dans `/assistant/fiches.json`, 150 Ko compressé,
-  chargé seulement sur cette page) : un passage par paragraphe à intitulé en gras des leçons, avec
-  ses tableaux et encadrés ; points clés, pièges et textes de référence de chaque module ; questions
-  des quiz et des exercices avec la bonne réponse et l'explication ; glossaire ; lettres types ;
-  checklists ; lignes des tableaux des annexes A, B, H, I et des nouveautés (section 0.5). Rien
+- **Fiches** (`src/lib/assistant.ts`, 1 274 fiches publiées dans `/assistant/fiches.json`, 160 Ko
+  compressé, chargé seulement sur cette page) : un passage par paragraphe à intitulé en gras des
+  leçons, avec ses tableaux et encadrés ; encadrés « À surveiller » et « Nouveau » ; points clés,
+  pièges, textes de référence et action « À faire maintenant » de chaque module ; questions des quiz
+  et des exercices avec la bonne réponse et l'explication ; glossaire ; lettres types ; checklists ;
+  simulateurs ; lignes des tableaux des annexes A, B, H, I et des nouveautés (section 0.5). Rien
   n'est rédigé : tout vient du Markdown de la formation, qui reste la seule source.
 - **Moteur** (`src/lib/assistant-recherche.ts`, sans dépendance, exécuté dans le navigateur) :
   mots normalisés (accents, pluriels, formes proches), synonymes du langage courant (`SYNONYMES` :
@@ -140,9 +141,22 @@ passer les réponses de ce module en priorité).
   si `EDITEUR.email` est renseigné, la question par e-mail.
 - **Lien vers le passage** : ancre de la rubrique et fragment de texte (`#lecon:~:text=…`) qui ouvre
   le module sur le paragraphe et le surligne (Chrome, Edge, Safari, Firefox récents).
-- **Tests** (`src/lib/assistant.test.ts`) : une liste de questions d'élèves avec le module attendu.
-  Si une question réelle reçoit une mauvaise réponse, l'ajouter à cette liste, puis ajuster
-  `SYNONYMES` : c'est le levier le plus simple.
+- **Questions fréquentes** (`src/lib/assistant-questions.ts`, 139 questions en 10 thèmes) : des
+  questions telles qu'un bailleur les écrit, chacune rattachée au passage qui y répond (cible
+  « l:1.7:Le dossier du candidat », « g:treve-hivernale », « s:dpe-location »…). Rattachées à leur
+  fiche, elles l'aident à ressortir pour toutes les formulations voisines ; affichées par thème sur la
+  page, elles montrent ce qu'on peut demander. Seule la question est écrite : la réponse reste le
+  passage de la formation. Une cible introuvable arrête le build.
+- **Pour chaque question** : la réponse principale, jusqu'à 3 passages « À lire aussi », 3 questions
+  proches de quiz ou d'exercices et 8 « autres réponses » repliées.
+- **Tests** (`src/lib/assistant.test.ts`) : chaque question fréquente doit mener à son passage, et des
+  formulations libres jamais vues (« ma maison est en G je fais quoi ») au bon module. Si une vraie
+  question d'élève reçoit une mauvaise réponse, le plus simple est de l'ajouter aux questions
+  fréquentes avec sa cible ; pour un mot du langage courant, l'ajouter à `SYNONYMES`.
+- **Argument de vente** : l'outil figure sur la page de vente (en-tête, « Comment fonctionne la
+  formation », comparatif, « Ce qui vous aide en plus », FAQ, « Essayez avant d'acheter ») et à
+  l'étape 2 de l'accueil ; le nombre de réponses (`nombreDeReponses`, arrondi à la centaine) est
+  calculé au build.
 - Aucun envoi de données : les questions restent dans le navigateur (sessionStorage, le temps de la
   visite, pour retrouver la conversation au retour d'un module).
 

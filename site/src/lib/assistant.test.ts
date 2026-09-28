@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { construireBase, decouperEnPassages, lignesDeTableaux, sansIntitule } from './assistant';
+import {
+  construireBase,
+  decouperEnPassages,
+  ficheDeLaCible,
+  lignesDeTableaux,
+  nombreDeReponses,
+  sansIntitule,
+} from './assistant';
+import { QUESTIONS_FREQUENTES } from './assistant-questions';
 import { IndexFiches, mots, racine, repondre } from './assistant-recherche';
 
 describe('mots de la question', () => {
@@ -93,6 +101,67 @@ describe('réponses', () => {
       expect(verifier(f?.m, f?.t ?? ''), `réponse : ${f?.t} (${f?.c})`).toBe(true);
     });
   }
+
+  it('chaque question fréquente mène à son passage', () => {
+    const ratees: string[] = [];
+    for (const { questions } of QUESTIONS_FREQUENTES) {
+      for (const [question, cible] of questions) {
+        const attendue = ficheDeLaCible(base.fiches, cible);
+        expect(attendue, `cible introuvable : ${cible}`).toBeDefined();
+        const obtenue = repondre(index, question).principale?.fiche;
+        if (obtenue?.i !== attendue?.i) ratees.push(`${question} → ${obtenue?.t ?? 'aucune'}`);
+      }
+    }
+    expect(ratees).toEqual([]);
+  });
+
+  /** Formulations jamais vues (langage courant) : la réponse doit venir du bon endroit. */
+  const formulationsLibres: [string, RegExp][] = [
+    ['ma maison est en G je fais quoi', /3\.9|décence/i],
+    ['jusqu’à quand je peux louer un F', /3\.9|décence/i],
+    ['le diagnostic énergie de mon appart est vieux, je dois le refaire ?', /1\.5|DPE/i],
+    ['relocation plus cher zone tendue possible ?', /relocation/i],
+    ['quels justificatifs demander au futur locataire', /1\.7/],
+    ['garant + GLI c’est autorisé ?', /garantie/i],
+    ['bail meublé combien de temps', /durée/i],
+    ['délai pour restituer la caution après état des lieux', /dépôt de garantie/i],
+    ['je veux récupérer mon appart pour ma fille', /reprise|congé/i],
+    ['loyers impayés depuis 2 mois', /2\.13/],
+    ['peut-on expulser en hiver', /trêve/i],
+    ['comment payer moins d’impôts sur mes loyers', /2\.6|2\.8|réel|déficit/i],
+    ['taux d’endettement maximum banque', /2\.10/],
+    ['location saisonnière dans ma résidence principale combien de nuits', /3\.8/],
+  ];
+  for (const [question, attendu] of formulationsLibres) {
+    it(`formulation libre : ${question}`, () => {
+      const p = repondre(index, question).principale;
+      expect(p, 'aucune réponse').toBeDefined();
+      expect(`${p?.fiche.m ?? ''} ${p?.fiche.t} ${p?.fiche.c}`).toMatch(attendu);
+    });
+  }
+
+  it('accompagne chaque question fréquente de pistes (à lire, questions proches, autres réponses)', () => {
+    let pistes = 0;
+    let n = 0;
+    for (const { questions } of QUESTIONS_FREQUENTES) {
+      for (const [question] of questions) {
+        const r = repondre(index, question);
+        n++;
+        pistes += r.aLire.length + r.questionsProches.length + r.autres.length;
+        expect(r.aLire.length + r.questionsProches.length + r.autres.length, question).toBeGreaterThan(0);
+      }
+    }
+    expect(pistes / n).toBeGreaterThanOrEqual(6);
+  });
+
+  it('propose d’autres réponses au-delà des premières', () => {
+    expect(repondre(index, 'dépôt de garantie').autres.length).toBeGreaterThan(0);
+  });
+
+  it('compte les réponses pour la page de vente (arrondi à la centaine)', () => {
+    expect(nombreDeReponses()).toBe(Math.floor(base.fiches.length / 100) * 100);
+    expect(nombreDeReponses()).toBeGreaterThanOrEqual(1200);
+  });
 
   it('ne présente pas de réponse à une question hors sujet', () => {
     expect(repondre(index, 'Quelle est la meilleure recette de crêpes ?').principale).toBeUndefined();

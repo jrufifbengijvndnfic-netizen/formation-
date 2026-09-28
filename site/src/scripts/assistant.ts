@@ -81,6 +81,20 @@ function blocALire(titre: string, resultats: Resultat[]): HTMLElement {
   return bloc;
 }
 
+/** Autres résultats, repliés : titre, provenance et lien. */
+function blocAutres(resultats: Resultat[]): HTMLElement {
+  const details = element('details', 'assistant__plus assistant__autres');
+  details.append(element('summary', undefined, `Voir d’autres réponses (${resultats.length})`));
+  const liste = element('ul');
+  for (const r of resultats) {
+    const li = element('li');
+    li.append(lienVers(r, r.fiche.t), element('span', 'assistant__provenance', r.fiche.c));
+    liste.append(li);
+  }
+  details.append(liste);
+  return details;
+}
+
 /** Questions de quiz et d'exercices proches, réponse dépliable. */
 function blocQuestions(resultats: Resultat[]): HTMLElement {
   const bloc = element('div', 'assistant__plus');
@@ -115,6 +129,7 @@ function messageReponse(question: string): { li: HTMLLIElement; resume: string }
     li.append(suite);
     if (r.aLire.length) li.append(blocALire('À lire aussi', r.aLire));
     if (r.questionsProches.length) li.append(blocQuestions(r.questionsProches));
+    if (r.autres.length) li.append(blocAutres(r.autres));
     return { li, resume: `Réponse trouvée : ${p.fiche.t}, ${p.fiche.c}.` };
   }
   li.classList.add('assistant__message--introuvable');

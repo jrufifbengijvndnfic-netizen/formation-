@@ -10,6 +10,7 @@ import FilAriane from '../components/FilAriane.astro';
 import InscriptionEmail from '../components/InscriptionEmail.astro';
 import Tarifs from '../components/Tarifs.astro';
 import Base from '../layouts/Base.astro';
+import { nombreDeReponses } from '../lib/assistant';
 import { coursJsonLd } from '../lib/cours-jsonld';
 import {
   estPublie,
@@ -34,6 +35,8 @@ const nbQuestions = toutesLesQuestions(formation).length;
 const nbExercices = sectionsExercices.filter((x) => x.portee === 'module').reduce((t, x) => t + x.exercices.length, 0);
 const nbLettres = lettres(formation).length;
 const nbChecklists = checklists(formation).length;
+/** Réponses de l'outil « Poser une question », arrondies à la centaine (« plus de 1 200 »). */
+const nbReponses = nombreDeReponses().toLocaleString('fr-FR');
 const publicNiveau = (n: number) => organisation[`Niveau ${n}`]?.public ?? '';
 const dureeNiveau = (n: number) => organisation[`Niveau ${n}`]?.duree ?? '';
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'La formation' }];
@@ -62,6 +65,11 @@ const COMPARATIF: [string, string, string][] = [
     `${tousLesModules.length} modules dans l'ordre où un bailleur en a besoin`,
   ],
   [
+    'Une question précise',
+    'Moteur de recherche, forums, réponses contradictoires ou dépassées',
+    `Posée avec vos mots : le passage de la formation qui y répond, avec sa source, en quelques secondes (plus de ${nbReponses} réponses)`,
+  ],
+  [
     'Sources à croiser',
     'Lois, décrets, BOFiP, sites publics à rapprocher soi-même',
     'Textes de référence cités à la fin de chaque module',
@@ -81,6 +89,10 @@ const COMPARATIF: [string, string, string][] = [
   ['Changements de loi', 'À surveiller seul', 'Page « À surveiller » et journal des mises à jour'],
 ];
 const BONUS: [string, string][] = [
+  [
+    'L’outil « Poser une question »',
+    `plus de ${nbReponses} réponses tirées de la formation, trouvées à partir de vos mots, chacune avec sa source et le lien vers le module`,
+  ],
   ['La boîte à calculs', `${SIMULATEURS.length} simulateurs, reliés au module qui les explique`],
   ['Le classeur de lettres', `${nbLettres} modèles : révision du loyer, charges, relance, mise en demeure, congés…`],
   ['Les checklists', `${nbChecklists} listes à cocher, de la mise en location à la sortie du locataire`],
@@ -115,7 +127,10 @@ const faq: [string, string][] = [
     'Oui : le site est conçu et testé pour les petits écrans, y compris les simulateurs et les lettres.',
   ],
   ['Puis-je être remboursé ?', remboursement],
-  ['Puis-je poser des questions ?', `${CONDITIONS.accompagnement}.`],
+  [
+    'Puis-je poser des questions ?',
+    `Oui. L’outil « Poser une question » répond tout de suite : vous écrivez votre question avec vos mots, il affiche le passage de la formation qui y répond (plus de ${nbReponses} réponses, chacune avec sa source), des questions proches et le lien vers le module. Pour ce que la formation ne couvre pas : ${CONDITIONS.accompagnement.charAt(0).toLowerCase()}${CONDITIONS.accompagnement.slice(1)}.`,
+  ],
   [
     'Les mises à jour sont-elles incluses ?',
     `La formation est mise à jour à chaque loi de finances et à chaque changement majeur du droit du logement ; chaque modification est datée dans le journal des mises à jour.${CONDITIONS.misesAJour ? ` Inclusion dans le prix : ${CONDITIONS.misesAJour}.` : ''}`,
@@ -167,7 +182,7 @@ const faq: [string, string][] = [
       <p class="chapeau">
         Les règles de la location en France, dans l'ordre où un bailleur en a besoin : décence énergétique, loyer, bail,
         charges, impayés, fiscalité. {tousLesModules.length} modules, {SIMULATEURS.length} simulateurs, {nbLettres}{' '}
-        modèles de lettres. {miseAJour}.
+        modèles de lettres, et un outil qui retrouve la réponse à vos questions dans la formation. {miseAJour}.
       </p>
       <p class="bandeau__pour-qui">
         Pour les bailleurs en place (DPE, loyer, bail, impôts), ceux qui gèrent seuls, et les futurs investisseurs : le
@@ -256,6 +271,12 @@ const faq: [string, string][] = [
           <strong>{nbChecklists} checklists</strong>.
         </li>
         <li>
+          <strong>Un outil « Poser une question »</strong> : écrivez votre question avec vos mots (« mon locataire ne
+          paie plus », « puis-je encore louer un logement classé F ? »). Il retrouve en quelques secondes, parmi plus de{' '}
+          {nbReponses} réponses tirées de la formation, le passage qui y répond, avec sa source, des questions proches
+          et le lien vers le module. {COURS_PUBLIC && <a href={lien('assistant/')}>Essayez-le</a>}
+        </li>
+        <li>
           <strong>Une date de mise à jour affichée</strong> et les textes en cours d'adoption signalés.
         </li>
       </ul>
@@ -342,6 +363,12 @@ const faq: [string, string][] = [
             La checklist « Mettre en location son premier logement »
           </a>
         </li>
+        {COURS_PUBLIC && (
+          <li>
+            <a href={lien('assistant/')}>L'outil « Poser une question »</a> : posez la question qui vous occupe et voyez
+            la réponse de la formation
+          </li>
+        )}
         <li>
           <a href={lien('simulateurs/')}>Les {SIMULATEURS.length} simulateurs</a> et{' '}
           <a href={lien('lettres/')}>les {nbLettres} modèles de lettres</a>, gratuits et sans inscription

@@ -7,6 +7,9 @@
  */
 import FilAriane from '../components/FilAriane.astro';
 import Base from '../layouts/Base.astro';
+import { nombreDeReponses } from '../lib/assistant';
+import { QUESTIONS_FREQUENTES } from '../lib/assistant-questions';
+import { tousLesModules } from '../lib/donnees';
 import { EDITEUR } from '../lib/entreprise';
 import { lien } from '../lib/navigation';
 
@@ -19,6 +22,9 @@ const exemples = [
   'Micro-foncier ou régime réel : lequel choisir ?',
   'Combien de temps pour rendre le dépôt de garantie ?',
 ];
+const nbQuestionsFrequentes = QUESTIONS_FREQUENTES.reduce((t, x) => t + x.questions.length, 0);
+/** « ? » et « : » précédés d'une espace insécable (pas de ponctuation seule en début de ligne). */
+const insecable = (t: string) => t.replace(/ ([?:!;])/g, '\u00a0$1');
 ---
 
 <Base
@@ -49,8 +55,9 @@ const exemples = [
     <ol class="assistant__fil" data-fil aria-label="Conversation">
       <li class="assistant__message assistant__message--formation">
         <p>
-          Bonjour. Je retrouve pour vous, dans les 38 modules, les quiz, les exercices, le glossaire et les annexes, le
-          passage qui répond à votre question.
+          Bonjour. Parmi plus de {nombreDeReponses().toLocaleString('fr-FR')} réponses tirées des{' '}
+          {tousLesModules.length} modules, des quiz, des exercices, du glossaire, des annexes et des simulateurs, je
+          retrouve le passage qui répond à votre question.
         </p>
         <p class="assistant__consigne">Quelques exemples :</p>
         <ul class="assistant__exemples">
@@ -62,6 +69,23 @@ const exemples = [
             </li>
           ))}
         </ul>
+        <details class="assistant__themes">
+          <summary>Toutes les questions fréquentes ({nbQuestionsFrequentes}), par thème</summary>
+          {QUESTIONS_FREQUENTES.map((t) => (
+            <div class="assistant__theme">
+              <h2>{t.theme}</h2>
+              <ul class="assistant__exemples">
+                {t.questions.map(([q]) => (
+                  <li>
+                    <button type="button" class="assistant__exemple" data-exemple={insecable(q)}>
+                      {insecable(q)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </details>
       </li>
     </ol>
 

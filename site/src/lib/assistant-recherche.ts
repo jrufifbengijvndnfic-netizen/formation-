@@ -25,6 +25,11 @@ export interface Fiche {
   u: string;
   /** Numéro du module d'origine, s'il y en a un. */
   m?: string;
+  /**
+   * Questions fréquentes auxquelles la fiche répond (assistant-questions.ts) : indexées comme le
+   * titre, non affichées.
+   */
+  v?: string[];
 }
 
 export interface BaseFiches {
@@ -65,7 +70,7 @@ const MOTS_VIDES = new Set(
     'ceci cela celui celle ceux celles chez vers entre sous apres avant depuis pendant selon lorsque ' +
     'si oui non svp merci bonjour question savoir sait veux voudrais aimerais chose choses cas ' +
     'va vont sera seront serait devient deviennent devenir peuvent pourrait pourrais dois doivent devrait ' +
-    'faudrait passe-t-il se-passe il-y-a ya'
+    'faudrait passe-t-il se-passe il-y-a ya fais fait-on quoi c-est cest ok normal'
   ).split(' '),
 );
 
@@ -98,6 +103,7 @@ const TERMINAISONS = [
   'ee',
   'er',
   'ez',
+  'ir',
   're',
   'e',
 ];
@@ -159,6 +165,8 @@ export function texteDuHtml(html: string): string {
 
 /** Le titre compte trois fois plus que le corps de la réponse. */
 const POIDS_TITRE = 3;
+/** Une question fréquente rattachée à la fiche compte un peu plus que le titre : c'est un choix vérifié. */
+const POIDS_QUESTION = 4;
 const K1 = 1.2;
 const B = 0.75;
 
@@ -188,12 +196,21 @@ export class IndexFiches {
     this.documents = base.fiches.map((fiche) => {
       const titre = mots(fiche.t);
       const corps = mots(texteDuHtml(fiche.h));
+      // Questions fréquentes : chaque mot compte un peu plus qu'un mot du titre, une seule fois par
+      // fiche, et n'allonge pas la fiche (une fiche riche en questions n'est pas pénalisée ailleurs).
+      const variantes = (fiche.v ?? []).map(mots);
       const frequences = new Map<string, number>();
       for (const m of titre) frequences.set(m, (frequences.get(m) ?? 0) + POIDS_TITRE);
       for (const m of corps) frequences.set(m, (frequences.get(m) ?? 0) + 1);
+      for (const m of new Set(variantes.flat())) {
+        frequences.set(
+          m,
+          (frequences.get(m) ?? 0) + (titre.includes(m) ? POIDS_QUESTION - POIDS_TITRE : POIDS_QUESTION),
+        );
+      }
       const suite = [...titre, '|', ...corps];
       const paires = new Set<string>();
-      for (let k = 1; k < suite.length; k++) paires.add(`${suite[k - 1]} ${suite[k]}`);
+      for (const s of [suite, ...variantes]) for (let k = 1; k < s.length; k++) paires.add(`${s[k - 1]} ${s[k]}`);
       return { fiche, frequences, suite, paires, longueur: titre.length * POIDS_TITRE + corps.length };
     });
     const n = this.documents.length;
@@ -291,6 +308,9 @@ export class IndexFiches {
       // Questions de quiz et d'exercices : courtes, donc favorisées par BM25 ; un passage de leçon
       // est une meilleure réponse principale à score voisin (elles restent en « questions proches »).
       if (d.fiche.g === 'q') score *= 0.85;
+      // Lettres, simulateurs, checklists et actions « À faire maintenant » : outils et conseils à côté
+      // de l'explication, qui passe devant.
+      if (/^(lettre|sim|checklist|action)-/.test(d.fiche.i)) score *= 0.85;
       resultats.push({ fiche: d.fiche, score, couverture });
     }
     return resultats.sort((a, b) => b.score - a.score).slice(0, options.limite ?? 8);
@@ -308,10 +328,12 @@ export interface Reponse {
   aLire: Resultat[];
   /** Questions de quiz proches, avec leur réponse. */
   questionsProches: Resultat[];
+  /** Autres résultats pertinents, au-delà des précédents (« Voir d'autres réponses »). */
+  autres: Resultat[];
 }
 
 /** En dessous, la meilleure fiche ne couvre pas assez la question pour être présentée comme réponse. */
-export const COUVERTURE_MINIMALE = 0.6;
+export const COUVERTURE_MINIMALE = 0.55;
 
 export function repondre(index: IndexFiches, question: string, moduleCourant?: string): Reponse {
   const resultats = index.chercher(question, { limite: 30, ...(moduleCourant ? { moduleCourant } : {}) });
@@ -321,27 +343,42 @@ export function repondre(index: IndexFiches, question: string, moduleCourant?: s
     return {
       aLire: resultats.filter((r) => r.fiche.g !== 'q' && r.couverture >= 0.34).slice(0, 3),
       questionsProches: resultats.filter((r) => r.fiche.g === 'q' && r.couverture >= 0.34).slice(0, 3),
+      autres: [],
     };
   }
   // Réponse principale : un passage de la formation plutôt qu'une question d'exercice quand leurs
   // pertinences sont voisines ; la question passe alors en tête des « questions proches ».
   const passage = resultats.find((r) => r.fiche.g !== 'q' && r.couverture >= COUVERTURE_MINIMALE);
   const principale = premier.fiche.g === 'q' && passage && passage.score >= premier.score * 0.6 ? passage : premier;
-  const seuil = principale.score * 0.45;
-  const vues = new Set([principale.fiche.i]);
-  // Pas deux fois le même passage : même adresse (ancre et fragment compris).
+  // Seuils mesurés sur le meilleur des autres résultats, et non sur la réponse principale : quand une
+  // question fréquente la désigne, son score s'envole et écarterait sinon toutes les pistes voisines.
+  const reference = Math.min(principale.score, resultats.find((r) => r !== principale)?.score ?? 0);
+  const seuil = reference * 0.45;
+  // Fiches déjà montrées, et adresses déjà citées (pas deux fois le même passage).
+  const montrees = new Set([principale.fiche.i]);
   const adresses = new Set([principale.fiche.u]);
   const aLire: Resultat[] = [];
   const questionsProches: Resultat[] = [];
   for (const r of resultats) {
-    if (r.score < seuil || r.couverture < COUVERTURE_MINIMALE - 0.1 || vues.has(r.fiche.i)) continue;
-    vues.add(r.fiche.i);
-    if (r.fiche.g === 'q') {
-      if (questionsProches.length < 3) questionsProches.push(r);
-    } else if (aLire.length < 3 && !adresses.has(r.fiche.u)) {
-      adresses.add(r.fiche.u);
+    if (r.score < seuil || r.couverture < COUVERTURE_MINIMALE - 0.1 || montrees.has(r.fiche.i)) continue;
+    if (r.fiche.g === 'q' && questionsProches.length < 3) {
+      questionsProches.push(r);
+      montrees.add(r.fiche.i);
+    } else if (r.fiche.g !== 'q' && aLire.length < 3 && !adresses.has(r.fiche.u)) {
       aLire.push(r);
+      montrees.add(r.fiche.i);
+      adresses.add(r.fiche.u);
     }
   }
-  return { principale, aLire, questionsProches };
+  // Au-delà : jusqu'à huit autres résultats encore pertinents, tous genres confondus.
+  const autres: Resultat[] = [];
+  for (const r of resultats) {
+    if (autres.length >= 8) break;
+    if (montrees.has(r.fiche.i) || adresses.has(r.fiche.u)) continue;
+    if (r.score < reference * 0.25 || r.couverture < COUVERTURE_MINIMALE - 0.15) continue;
+    autres.push(r);
+    montrees.add(r.fiche.i);
+    if (r.fiche.g !== 'q') adresses.add(r.fiche.u);
+  }
+  return { principale, aLire, questionsProches, autres };
 }

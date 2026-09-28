@@ -9,14 +9,19 @@
  * - Points clés, pièges à éviter, textes de référence de chaque module.
  * - Questions des quiz et des exercices de fin de module, avec la bonne réponse et son explication
  *   (sauf les exercices qui prolongent le précédent : leur énoncé seul ne suffit pas).
- * - Glossaire, modèles de lettres, checklists.
+ * - Actions « À faire maintenant » de fin de module, encadrés « À surveiller » et « Nouveau ».
+ * - Glossaire, modèles de lettres, checklists, simulateurs.
  * - Tableaux des annexes A (chiffres clés), B (calendrier), H (sources), I (à surveiller) et des
  *   nouveautés (section 0.5) : une fiche par ligne.
+ * Les questions fréquentes (assistant-questions.ts) sont rattachées à leur fiche.
  */
+import { QUESTIONS_FREQUENTES } from './assistant-questions';
 import type { BaseFiches, Fiche } from './assistant-recherche';
-import { texteDuHtml } from './assistant-recherche';
+import { normaliser, texteDuHtml } from './assistant-recherche';
 import {
+  actionDuModule,
   annexes,
+  elementParId,
   exercicesDuModule,
   formation,
   modulesExistants,
@@ -27,11 +32,13 @@ import {
 } from './donnees';
 import { COURS_PUBLIC } from './edition';
 import type { Exercice } from './exercices';
-import { cheminAnnexe, cheminModule, idModule, lien } from './navigation';
-import { checklists, lettres, quizDuModule } from './parse-formation';
+import { cheminAnnexe, cheminModule, idModule, lien, lienElement } from './navigation';
+import { checklists, encadres, lettres, quizDuModule } from './parse-formation';
 import { referencementLettre } from './referencement-lettres';
+import { referencementSimulateur } from './referencement-simulateurs';
+import { SIMULATEURS } from './simulateurs';
 import { nouveauContexte, rendreEnLigne, rendreMarkdown, texteBrut } from './render';
-import type { Element } from './types';
+import { LIBELLES_ENCADRE, type Element } from './types';
 
 /**
  * Mots du langage courant → mots de la formation. Complétés automatiquement par les sigles du
@@ -39,6 +46,22 @@ import type { Element } from './types';
  */
 export const SYNONYMES: Record<string, string> = {
   proprio: 'propriétaire bailleur',
+  appart: 'appartement logement',
+  appartement: 'logement',
+  maison: 'logement',
+  studio: 'logement',
+  g: 'classé DPE décence',
+  f: 'classé DPE décence',
+  vieux: 'ancien validité',
+  refaire: 'validité',
+  prévenir: 'préavis congé',
+  fille: 'reprise proche famille',
+  fils: 'reprise proche famille',
+  hiver: 'trêve hivernale',
+  'payer moins': 'réduire impôt régime réel déficit foncier',
+  'moins d’impôts': 'réduire impôt régime réel déficit foncier',
+  nuits: 'jours',
+  nuit: 'jours',
   propriétaire: 'bailleur',
   bailleur: 'propriétaire',
   locataire: 'preneur',
@@ -309,6 +332,23 @@ function fichesDuModule(m: Element): Fiche[] {
       }
     }
   }
+  const action = actionDuModule(numero);
+  if (action) {
+    const outil = action.outil ? SIMULATEURS.find((x) => x.id === action.outil) : undefined;
+    fiches.push({
+      i: `action-${numero}`,
+      t: `À faire maintenant (module ${numero})`,
+      c: categorie,
+      g: 'p',
+      h:
+        `<p>${rendreEnLigne(action.texte)}</p>` +
+        (outil
+          ? `<p><a href="${lien(`simulateurs/${outil.id}/`)}">Outil : ${referencementSimulateur(outil).h1}</a></p>`
+          : ''),
+      u: `${base}#a-faire-exercices-${idModule(numero)}`,
+      m: numero,
+    });
+  }
   return fiches;
 }
 
@@ -390,25 +430,119 @@ function fichesDesAnnexes(): Fiche[] {
     });
   }
   const g = annexe('G');
-  for (const c of checklists(formation).filter((c) => c.elementId === g.id)) {
+  for (const c of checklists(formation)) {
+    const dansG = c.elementId === g.id;
+    const element = elementParId(c.elementId);
     fiches.push({
       i: `checklist-${c.id}`,
       t: `Checklist : ${c.titre}`,
-      c: `Annexe G — ${g.titreCourt}`,
+      c: dansG ? `Annexe G — ${g.titreCourt}` : 'Checklist',
       g: 'a',
       h: `<ul>${c.items.map((item) => `<li>${rendreEnLigne(item)}</li>`).join('')}</ul>`,
-      u: `${lien(cheminAnnexe('G'))}#${g.rubriques.find((r) => r.checklist?.id === c.id)?.id ?? ''}`,
+      u: dansG
+        ? `${lien(cheminAnnexe('G'))}#${g.rubriques.find((r) => r.checklist?.id === c.id)?.id ?? ''}`
+        : element
+          ? lienElement(element)
+          : lien(cheminAnnexe('G')),
+    });
+  }
+  for (const x of SIMULATEURS) {
+    const methode = x.methode?.length
+      ? `<ul>${x.methode.map((l) => `<li>${rendreEnLigne(l)}</li>`).join('')}</ul>`
+      : '';
+    const modules = x.modules.length
+      ? `<p>Expliqué dans ${x.modules.length > 1 ? 'les modules' : 'le module'} ${x.modules.join(', ')}.</p>`
+      : '';
+    fiches.push({
+      i: `sim-${x.id}`,
+      t: referencementSimulateur(x).h1,
+      c: 'Simulateur gratuit',
+      g: 'a',
+      h: `<p>${rendreEnLigne(x.resume)}</p>${methode}${modules}`,
+      u: lien(`simulateurs/${x.id}/`),
     });
   }
   return fiches;
 }
 
+/** Encadrés « À surveiller » (textes en préparation) et « Nouveau » des modules. */
+function fichesDesEncadres(): Fiche[] {
+  return encadres(formation)
+    .filter((e) => e.type === 'A_SURVEILLER' || e.type === 'NOUVEAU')
+    .flatMap((e) => {
+      const element = elementParId(e.elementId);
+      if (!element || element.type !== 'module') return [];
+      const numero = element.numero as string;
+      const texte = texteBrut(e.lignes.join(' '));
+      const phrase = texte.split(/(?<=[.;:])\s/)[0] ?? texte;
+      return [
+        {
+          i: `encadre-${numero}-${e.rang}`,
+          t: `${LIBELLES_ENCADRE[e.type]} : ${phrase.length > 110 ? `${phrase.slice(0, phrase.lastIndexOf(' ', 107))}…` : phrase}`,
+          c: `Module ${numero} — ${element.titreCourt}`,
+          g: 'l' as const,
+          h: html(e.lignes.join('\n'), numero),
+          u: `${lien(cheminModule(numero))}#encadre-${e.rang}`,
+          m: numero,
+        },
+      ];
+    });
+}
+
+// ---------------------------------------------------------------------------
+// Questions fréquentes
+// ---------------------------------------------------------------------------
+
+const comparable = (t: string) => normaliser(t).replace(/['’]/g, "'");
+
+/** Fiche désignée par une cible de assistant-questions.ts (voir le format en tête de ce fichier). */
+export function ficheDeLaCible(fiches: Fiche[], cible: string): Fiche | undefined {
+  const [genre, a, ...reste] = cible.split(':');
+  const b = reste.join(':');
+  switch (genre) {
+    case 'l':
+      return fiches.find((f) => f.g === 'l' && f.m === a && comparable(f.t).startsWith(comparable(b)));
+    case 'p':
+      return fiches.find((f) => f.i === `${a}-${b}`);
+    case 'g':
+      return fiches.find((f) => f.i === `g-${a}`);
+    case 's':
+      return fiches.find((f) => f.i === `sim-${a}`);
+    case 'f':
+      return fiches.find((f) => f.i === `lettre-${a}`);
+    default:
+      return undefined;
+  }
+}
+
+/** Rattache chaque question fréquente à sa fiche (champ « v ») ; une cible introuvable arrête le build. */
+function rattacherQuestions(fiches: Fiche[]): void {
+  for (const { questions } of QUESTIONS_FREQUENTES) {
+    for (const [question, cible] of questions) {
+      const f = ficheDeLaCible(fiches, cible);
+      if (!f) throw new Error(`Question fréquente « ${question} » : cible introuvable « ${cible} »`);
+      (f.v ??= []).push(question);
+    }
+  }
+}
+
+let base: BaseFiches | undefined;
+
+/** Base complète (calculée une fois par build : la page de l'outil et la page de vente la lisent). */
 export function construireBase(): BaseFiches {
-  const fiches = [...tousLesModules.flatMap(fichesDuModule), ...fichesDesAnnexes()];
+  if (base) return base;
+  const fiches = [...tousLesModules.flatMap(fichesDuModule), ...fichesDesEncadres(), ...fichesDesAnnexes()];
   const ids = new Set<string>();
   for (const f of fiches) {
     if (ids.has(f.i)) throw new Error(`Fiche en double dans l'outil « Poser une question » : ${f.i}`);
     ids.add(f.i);
   }
-  return { fiches, synonymes: synonymesAvecSigles() };
+  rattacherQuestions(fiches);
+  base = { fiches, synonymes: synonymesAvecSigles() };
+  return base;
+}
+
+/** Nombre de réponses, arrondi à la centaine inférieure pour les textes (« plus de 1 500 »). */
+export function nombreDeReponses(): number {
+  return Math.floor(construireBase().fiches.length / 100) * 100;
 }

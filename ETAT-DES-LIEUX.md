@@ -98,10 +98,12 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
   écrit sa question avec ses mots, la réponse est le passage de la formation qui y répond le mieux,
   avec sa source, le lien qui ouvre le module sur ce paragraphe, d'autres passages et des questions
   proches (quiz et exercices) avec leur réponse. Aucune IA générative : rien n'est rédigé, tout est
-  tiré de la formation. Voir `site/README.md`, section « Poser une question ».
+  tiré de la formation. Version 019 : 1 274 réponses, 139 questions fréquentes en 10 thèmes, « Voir
+  d'autres réponses », et l'outil devenu argument de vente. Voir `site/README.md`, section « Poser
+  une question ».
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **018**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **019**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist`, fichier caché `.htaccess` compris).
 
 ## 3. Décisions prises (et pourquoi)

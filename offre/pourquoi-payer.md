@@ -6,6 +6,7 @@ restent la référence : chaque module les cite. La formation ne les remplace pa
 | | Chercher seul | Suivre la formation |
 |---|---|---|
 | Temps passé | Recherches répétées, texte par texte | 3 niveaux, 38 modules dans l'ordre où un bailleur en a besoin (durées indicatives : 10 à 12 h, 15 à 18 h, 20 h et plus) |
+| Une question précise | Moteur de recherche, forums, réponses contradictoires ou dépassées | Outil « Poser une question » : posée avec vos mots, le passage de la formation qui y répond, avec sa source, en quelques secondes (1 274 réponses, 139 questions fréquentes en 10 thèmes) |
 | Sources à croiser | Lois, décrets, BOFiP, sites publics, à rapprocher soi-même | Textes de référence cités à la fin de chaque module |
 | Risque d'erreur | Règles anciennes ou d'un autre cas lues sur un forum | Contenu daté (à jour au 24 septembre 2026), textes en cours d'adoption signalés |
 | Calculs | À refaire à la main | 24 simulateurs testés (révision IRL, rentabilité, plus-value, DPE…) |
