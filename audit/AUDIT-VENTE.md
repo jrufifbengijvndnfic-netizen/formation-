@@ -23,12 +23,12 @@ compte.
 
 **NO-GO : ne pas envoyer de trafic, surtout payant, tant que le paiement n'est pas en place.**
 
-| | Avant | Projection après le plan (sans les [À FOURNIR]) | Projection après Stripe et les [À FOURNIR] |
+| | Avant | **Après le plan (mesuré, § 15)** | Projection après Stripe et les [À FOURNIR] |
 |---|---|---|---|
-| Note sur 100 | **52** | 73 | 90 à 93 |
-| Portes bloquantes en échec | G1, G2, G4, G7 (+ G3 et G8 partielles) | G1, G2, G4 (+ G3 partielle) | aucune, si le parcours d'achat est testé |
-| Test des 5 secondes, page de vente mobile | **8 / 12** | 11 / 12 | 12 / 12 (auteur nommé) |
-| Test des 5 secondes, accueil mobile | **10 / 12** | 11 / 12 | 12 / 12 |
+| Note sur 100 | **52** | **69** | 90 à 93 |
+| Portes bloquantes en échec | G1, G2, G4, G7 (+ G3 et G8 partielles) | **G1, G2, G4** (+ G3 et G8 partielles) | aucune, si le parcours d'achat est testé |
+| Test des 5 secondes, page de vente mobile | **8 / 12** | **11 / 12** | 12 / 12 (auteur nommé) |
+| Test des 5 secondes, accueil mobile | **10 / 12** | **11 / 12** | 12 / 12 |
 
 **Les trois blocages principaux :**
 
@@ -503,3 +503,105 @@ Classées par impact sur les ventes.
 | 14 | **Relecture professionnelle**, si elle a eu lieu (nom, qualité, date) | Page « Méthode et sources » | Bloc 9 |
 | 15 | **Outil de mesure** (Plausible ou Matomo) et son compte | `MESURE_AUDIENCE` + script | Mesure des conversions |
 | 16 | **Service d'e-mailing** (Brevo, MailerLite…) : adresse du formulaire | `FORMULAIRE_EMAIL.action` | Inscription e-mail, relance des visiteurs non prêts |
+
+---
+
+## 15. Après implémentation (phase 12, itération 1)
+
+Actions A1 à A8 et A10 appliquées sur `optim/vente`, un commit par action (A1 et A3 ont chacune un commit
+complémentaire). Captures dans `audit/apres/`, mesures dans `audit/apres/mesures-apres.json` et
+`audit/apres/lh-apres.json`.
+
+**Contrôles :**
+- `npm run build` : 8 154 liens internes vérifiés, 105 pages indexables ;
+- `npm run test:site` : 4 554 vérifications, 0 échec ;
+- `npm test` : 268 tests ;
+- lint : aucun problème.
+
+### Portes bloquantes
+
+| # | Avant | Après | Preuve |
+|---|---|---|---|
+| G5 | Presque | **Réussite** | Libellé « Lire le module 1.1 gratuitement » ; bonus e-mail masqué sans adresse |
+| G7 | Échec | **Réussite** | Bouton principal de la page de vente : y = 534 px, hauteur 45 px, en 375 × 667 (`apres/vente-375-haut.png`) |
+| G8 | Partiel | Partiel | Prix dans le premier écran mobile ; il manque la mention de TVA et le récapitulatif Stripe |
+| G1, G2, G4 | Échec | Échec | Dépendent du compte Stripe (prévu) |
+| G3 | Partiel | Partiel | Dépend des [À FOURNIR] |
+| G6 | Réussite | Réussite | 0 erreur de console, 0 lien cassé |
+
+### Test des 5 secondes
+
+| Page | Avant | Après | Ce qui a changé |
+|---|---|---|---|
+| Vente, mobile | 8 | **11** | Bouton dans l'écran (+2), prix dans l'écran (+1) |
+| Vente, ordinateur | 11 | **11** | – |
+| Accueil, mobile | 10 | **11** | Ligne de prix dans l'écran (+1) |
+| Accueil, ordinateur | 10 | **11** | Ligne de prix (+1) |
+
+Le point manquant est partout le même : « Pourquoi y croire ? » (1/2). Il passe à 2 avec un auteur nommé.
+
+### Phrases
+
+| Mesure | Avant | Après |
+|---|---|---|
+| Longueur moyenne | 12,2 mots | 11,1 mots |
+| Phrases de plus de 25 mots | 15 | 11 |
+| Phrases de plus de 35 mots | 5 | 0 hors avertissement (35 mots, intouchable) |
+| Liste noire | 1 | **0** |
+
+### Blocs et objections
+
+- **14 blocs** : 10 présents, 2 faibles (visuel réel du produit, auteur), 2 absents (preuves, garantie).
+  Avant : 8, 4 et 2.
+- **20 objections** : 12 levées, 7 partielles, 1 non levée (« Qui êtes-vous ? »). Avant : 9, 6 et 5.
+  - Les 7 partielles attendent les [À FOURNIR] : facture, accès, paiement fractionné, mises à jour,
+    accompagnement par e-mail, avis, garantie.
+  - Leurs réponses provisoires n'affirment rien et se remplacent automatiquement.
+
+### Boutons (page de vente, 375 px)
+
+Le bouton principal apparaît 5 fois, aux positions y = 534, 1 868, 4 274, 5 259 et 10 150 px. Avant, il
+n'apparaissait que 2 fois, à 696 et 9 680 px. Chaque rappel donne le prix et un lien « Voir les offres ».
+
+### Mobile et vitesse (Lighthouse mobile)
+
+| Page | Perf. avant → après | Access. | LCP après | CLS | Poids après |
+|---|---|---|---|---|---|
+| Accueil | 97 → **99** | 100 | 1,8 s | 0 | 143 Kio |
+| Page de vente | 99 → **99** | 100 | 2,0 s | 0 | 149 Kio |
+| Tarifs | 99 → **100** | 100 | 1,8 s | 0 | 141 Kio |
+
+Textes longs de moins de 16 px sur la page de vente : 15 → 1 (la pastille du bandeau). Débordement
+horizontal : 0.
+
+Reste de moins de 16 px : 6 sur la page Tarifs et 2 sur l'accueil, hors du périmètre de l'action A8.
+
+### Note recalculée
+
+| Axe | Poids | Avant | Après | Pourquoi |
+|---|---|---|---|---|
+| Compréhension immédiate | 20 | 12 | **16** | 11/12 partout ; « DPE » reste au premier écran sans explication |
+| Promesse et offre | 15 | 6 | **9** | Prix et gratuit clairs dès le haut ; pas de garantie ni d'achat |
+| Persuasion et structure | 15 | 9 | **12** | Bouton répété, conclusion ; preuves et garantie absentes |
+| Objections et preuves | 15 | 6 | **9** | 12/20 levées ; auteur et avis absents |
+| Friction et boutons | 10 | 4 | **6** | Libellé exact, bouton visible ; le paiement reste impossible |
+| Mobile et vitesse | 10 | 8 | **10** | Lighthouse 99–100, cibles de 44 px, 16 px |
+| Confiance et conformité | 10 | 4 | **4** | Mentions toujours vides, rétractation non gérée |
+| Mesure et référencement | 5 | 3 | **3** | FAQPage ajouté ; aucun outil de mesure |
+| **Total** | 100 | **52** | **69** | |
+
+**Pourquoi la boucle s'arrête à la première itération**, sans atteindre les seuils :
+
+- aucune porte bloquante en échec : **non** (G1, G2, G4) ;
+- note ≥ 90 : **non** (69).
+
+Ce qui manque ne peut pas s'écrire sans inventer.
+
+- **Compte Stripe (G1, G2, G4, G8)** : de l'ordre de 12 points sur Friction, Offre et Conformité, et
+  surtout la possibilité même de vendre.
+- **Mentions légales, TVA, médiateur (G3)** : 3 à 4 points, plus la légalité de la vente.
+- **Garantie** : environ 3 points (Offre, Structure).
+- **Auteur nommé** : 3 à 4 points (5 secondes, Objections).
+- **Avis vérifiés** : 2 à 3 points, à recueillir après les premières ventes.
+
+Une deuxième itération sera faite dès réception des informations du propriétaire.
