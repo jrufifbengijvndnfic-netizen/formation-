@@ -9,7 +9,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Recherche' 
   indexable={false}
   filAriane={filAriane}
   titre="Recherche"
-  description="Recherche plein texte dans les modules, examens, annexes, glossaire et simulateurs de la formation."
+  description="Recherche plein texte dans les modules, examens, annexes, glossaire et simulateurs de la formation, avec la réponse de la formation à votre question."
   niveau="0"
   actif="recherche"
 >
@@ -25,17 +25,17 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Recherche' 
   <div class="conteneur prose">
     <form role="search" class="filtre" data-recherche action={lien('recherche/')} method="get">
       <div class="champ" style="flex:1;min-width:14rem">
-        <label for="recherche-page">Mots recherchés</label>
+        <label for="recherche-page">Votre question ou les mots recherchés</label>
         <input type="search" id="recherche-page" name="q" autocomplete="off" aria-describedby="recherche-etat" />
       </div>
       <button type="submit" class="bouton bouton--plein">
         Rechercher
       </button>
     </form>
-    <p class="champ__aide">
-      Vous cherchez la réponse à une question précise ? <a href={lien('assistant/')}>Posez-la avec vos mots</a> :
-      l'outil vous montre directement le passage de la formation qui y répond.
-    </p>
+    <section class="reponse-recherche" aria-labelledby="reponse-recherche-titre" hidden data-reponse-recherche>
+      <h2 id="reponse-recherche-titre">La réponse de la formation</h2>
+      <div data-reponse-contenu></div>
+    </section>
     <p id="recherche-etat" class="checklist-etat" role="status"></p>
     <ol class="resultats-recherche" data-resultats></ol>
     <noscript>

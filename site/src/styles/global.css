@@ -1667,6 +1667,7 @@ html:not(.js) .exercices__note {
   align-items: stretch;
 }
 .champ input[type='text'],
+.champ input[type='search'],
 .champ input[type='date'],
 .champ select,
 .champ textarea {
@@ -2432,8 +2433,260 @@ html:not(.js) .exercices__note {
   border: 1px solid var(--filet);
   box-shadow: var(--ombre);
 }
-.assistant__message--introuvable {
+.assistant__reponse--introuvable {
   border-left: 4px solid var(--c-astuce);
+  padding-left: 0.9rem;
+}
+.assistant__reponse > :first-child {
+  margin-top: 0;
+}
+.assistant__pages li .assistant__provenance {
+  display: block;
+  line-height: 1.45;
+}
+/* Réponse de la formation en tête de la page Recherche. */
+.reponse-recherche {
+  margin: 1.2rem 0 1.6rem;
+  padding: 1rem 1.2rem;
+  background: var(--papier);
+  border: 1px solid var(--filet);
+  border-left: 4px solid var(--lien);
+  border-radius: var(--rayon);
+}
+.reponse-recherche > h2 {
+  font-size: 0.86rem;
+  font-family: var(--titre);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--texte-doux);
+  margin: 0 0 0.5rem;
+  padding: 0;
+  border: 0;
+}
+/* Passage atteint depuis le panneau « Une question ? » : surligné un instant. */
+.passage-surligne {
+  animation: passage-surligne 3s ease-out;
+  border-radius: 4px;
+}
+@keyframes passage-surligne {
+  0%,
+  60% {
+    background: color-mix(in srgb, var(--c-astuce) 22%, transparent);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--c-astuce) 22%, transparent);
+  }
+  100% {
+    background: transparent;
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .passage-surligne {
+    animation: none;
+    outline: 3px solid var(--c-astuce);
+    outline-offset: 4px;
+  }
+}
+
+/* ------------------------------------------------------------------ Panneau « Une question ? » */
+.panneau-question__bouton {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding: 0.55rem 1.1rem 0.55rem 0.6rem;
+  font: inherit;
+  font-family: var(--titre);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--papier);
+  background: var(--encre);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 10px 28px -10px rgb(28 35 48 / 55%);
+  cursor: pointer;
+}
+.panneau-question__bouton:hover {
+  background: color-mix(in srgb, var(--encre) 85%, var(--lien));
+}
+.panneau-question__bouton[aria-expanded='true'] {
+  display: none;
+}
+.panneau-question__icone {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--papier);
+  color: var(--encre);
+  font-weight: 700;
+}
+.panneau-question {
+  position: fixed;
+  z-index: 25;
+  right: 1rem;
+  top: 6rem;
+  bottom: 1rem;
+  width: min(27rem, calc(100vw - 2rem));
+  display: flex;
+  flex-direction: column;
+  background: var(--papier);
+  border: 1px solid var(--filet);
+  border-radius: 16px;
+  box-shadow: 0 18px 48px -18px rgb(28 35 48 / 45%);
+}
+.panneau-question[hidden] {
+  display: none;
+}
+.panneau-question__tete {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem 0.75rem;
+  border-bottom: 1px solid var(--filet);
+}
+.panneau-question__tete h2 {
+  font-size: 1.05rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.panneau-question__tete p {
+  margin: 0.1rem 0 0;
+  font-family: var(--titre);
+  font-size: 0.8rem;
+  color: var(--texte-doux);
+}
+.panneau-question__fermer {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--encre);
+  background: transparent;
+  border: 1px solid var(--filet);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.panneau-question__fil {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.9rem 1rem;
+}
+.panneau-question__accueil p {
+  font-size: 0.93rem;
+  margin: 0 0 0.7rem;
+}
+.panneau-question__messages {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.panneau-question .assistant__message {
+  padding: 0.8rem 0.9rem;
+  scroll-margin-top: 0.5rem;
+}
+.panneau-question .assistant__message--formation {
+  box-shadow: none;
+}
+.panneau-question .assistant__contenu {
+  font-size: 0.93rem;
+}
+/* Tableaux dans le panneau étroit : texte plus petit, défilement horizontal plutôt que colonnes écrasées. */
+.panneau-question .assistant__contenu table {
+  font-size: 0.8rem;
+}
+.panneau-question .assistant__contenu :is(th, td) {
+  min-width: 6.5rem;
+}
+.panneau-question .assistant__titre {
+  font-size: 1.05rem;
+}
+.panneau-question .assistant__plus h4 {
+  font-size: 0.9rem;
+  margin: 0 0 0.4rem;
+}
+.panneau-question__saisie {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  padding: 0.7rem 1rem 0.4rem;
+  border-top: 1px solid var(--filet);
+}
+.panneau-question__saisie textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.75rem;
+  max-height: 8rem;
+  resize: vertical;
+  font: inherit;
+  font-family: var(--titre);
+  font-size: 0.92rem;
+  padding: 0.55rem 0.7rem;
+  border: 1.5px solid var(--filet-fort);
+  border-radius: var(--rayon);
+  background: var(--papier);
+  color: var(--encre);
+}
+.panneau-question__pied {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.3rem 1rem 0.7rem;
+  font-family: var(--titre);
+  font-size: 0.8rem;
+}
+.panneau-question__effacer {
+  font: inherit;
+  color: var(--texte-doux);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* Grand écran : la page se resserre pour laisser le panneau à côté de la leçon. */
+@media (min-width: 64rem) {
+  html.panneau-ouvert main,
+  html.panneau-ouvert .pied {
+    padding-right: 28.5rem;
+  }
+}
+/* Écran moyen : le sommaire du module s'efface tant que le panneau est ouvert, la leçon garde sa largeur. */
+@media (min-width: 64rem) and (max-width: 100rem) {
+  html.panneau-ouvert .page-element--sommaire {
+    grid-template-columns: minmax(0, var(--largeur-texte));
+  }
+  html.panneau-ouvert .page-element--sommaire > .sommaire {
+    display: none;
+  }
+}
+/* Petit écran : le panneau s'ouvre en bas, sur la plus grande partie de l'écran. */
+@media (max-width: 63.99rem) {
+  .panneau-question {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: min(85dvh, 44rem);
+    border-radius: 16px 16px 0 0;
+    border-bottom: 0;
+  }
+  .panneau-question__bouton {
+    right: 0.9rem;
+    bottom: 0.9rem;
+  }
 }
 .assistant__message--eleve {
   align-self: flex-end;
@@ -2621,7 +2874,9 @@ html:not(.js) .exercices__note {
 /* ------------------------------------------------------------------ Impression */
 @media print {
   .assistant__saisie,
-  .assistant__exemples {
+  .assistant__exemples,
+  .panneau-question,
+  .panneau-question__bouton {
     display: none !important;
   }
   :root,

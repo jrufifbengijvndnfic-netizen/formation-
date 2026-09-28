@@ -129,7 +129,7 @@ const faq: [string, string][] = [
   ['Puis-je être remboursé ?', remboursement],
   [
     'Puis-je poser des questions ?',
-    `Oui. L’outil « Poser une question » répond tout de suite : vous écrivez votre question avec vos mots, il affiche le passage de la formation qui y répond (plus de ${nbReponses} réponses, chacune avec sa source), des questions proches et le lien vers le module. Pour ce que la formation ne couvre pas : ${CONDITIONS.accompagnement.charAt(0).toLowerCase()}${CONDITIONS.accompagnement.slice(1)}.`,
+    `Oui. L’outil « Poser une question » répond tout de suite, à côté de la leçon ou depuis la barre de recherche : vous écrivez votre question avec vos mots, il affiche le passage de la formation qui y répond (plus de ${nbReponses} réponses, chacune avec sa source), des questions proches et le lien vers le module. Pour ce que la formation ne couvre pas : ${CONDITIONS.accompagnement.charAt(0).toLowerCase()}${CONDITIONS.accompagnement.slice(1)}.`,
   ],
   [
     'Les mises à jour sont-elles incluses ?',
@@ -271,10 +271,16 @@ const faq: [string, string][] = [
           <strong>{nbChecklists} checklists</strong>.
         </li>
         <li>
-          <strong>Un outil « Poser une question »</strong> : écrivez votre question avec vos mots (« mon locataire ne
-          paie plus », « puis-je encore louer un logement classé F ? »). Il retrouve en quelques secondes, parmi plus de{' '}
-          {nbReponses} réponses tirées de la formation, le passage qui y répond, avec sa source, des questions proches
-          et le lien vers le module. {COURS_PUBLIC && <a href={lien('assistant/')}>Essayez-le</a>}
+          <strong>Un outil «&nbsp;Poser une question&nbsp;»</strong>, à côté de chaque leçon et dans la barre de
+          recherche&nbsp;: écrivez votre question avec vos mots («&nbsp;mon locataire ne paie plus&nbsp;»,
+          «&nbsp;puis-je encore louer un logement classé F&nbsp;?&nbsp;»). Il retrouve en quelques secondes, parmi plus
+          de {nbReponses} réponses tirées de la formation, le passage qui y répond, avec sa source, des questions
+          proches et le lien vers le module.{' '}
+          {COURS_PUBLIC && (
+            <a href={lien('assistant/')} data-ouvrir-question>
+              Essayez-le
+            </a>
+          )}
         </li>
         <li>
           <strong>Une date de mise à jour affichée</strong> et les textes en cours d'adoption signalés.
@@ -365,8 +371,10 @@ const faq: [string, string][] = [
         </li>
         {COURS_PUBLIC && (
           <li>
-            <a href={lien('assistant/')}>L'outil « Poser une question »</a> : posez la question qui vous occupe et voyez
-            la réponse de la formation
+            <a href={lien('assistant/')} data-ouvrir-question>
+              L'outil « Poser une question »
+            </a>{' '}
+            : posez la question qui vous occupe et voyez la réponse de la formation
           </li>
         )}
         <li>

@@ -121,9 +121,24 @@ Les simulateurs sont gratuits et référencés comme tels (`src/lib/referencemen
 
 ## Poser une question
 
-Page `/assistant/` (édition complète ; accès depuis les raccourcis de l'accueil, le pied de page, la
-page Recherche et le lien « Une question sur ce module ? » du sommaire de chaque module, qui fait
-passer les réponses de ce module en priorité).
+Édition complète seulement. Trois accès au même moteur (version 020) :
+
+- **Panneau « Une question ? »** (`src/components/PanneauQuestion.astro`, `src/scripts/panneau.ts`)
+  sur toutes les pages sauf `/assistant/` : un bouton en bas à droite l'ouvre à côté de la leçon (en
+  bas de l'écran sur mobile). Sur une page de module, les réponses de ce module passent en premier et
+  les suggestions sont ses questions fréquentes. « Lire le passage » vers la page affichée fait
+  défiler jusqu'au paragraphe et le surligne ; la conversation suit l'élève de page en page
+  (sessionStorage) et, sur grand écran, le panneau resté ouvert se rouvre. Sur écran moyen, le
+  sommaire du module s'efface tant que le panneau est ouvert. Les liens « Poser une question »
+  (`data-ouvrir-question` : accueil, pied de page, page de vente, sommaire des modules) l'ouvrent.
+- **Barre de recherche de l'en-tête** (« Question ou mot-clé ») : Entrée ouvre le panneau avec la
+  réponse de la formation, puis les pages trouvées par la recherche plein texte (double effet).
+- **Page Recherche** : « La réponse de la formation » au-dessus des résultats plein texte (utile sur
+  mobile, où la barre de l'en-tête est remplacée par le lien Recherche).
+- **Page `/assistant/`** : version pleine page, avec les 139 questions fréquentes par thème.
+
+Code partagé : `src/scripts/reponses.ts` (chargement des fiches, construction d'une réponse,
+défilement vers un passage) et `src/scripts/pagefind.ts` (recherche plein texte).
 
 - **Fiches** (`src/lib/assistant.ts`, 1 274 fiches publiées dans `/assistant/fiches.json`, 160 Ko
   compressé, chargé seulement sur cette page) : un passage par paragraphe à intitulé en gras des

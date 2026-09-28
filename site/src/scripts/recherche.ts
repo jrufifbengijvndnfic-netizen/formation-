@@ -1,50 +1,30 @@
-/** Recherche plein texte : index statique Pagefind généré au build (npm run build). */
-interface ResultatPagefind {
-  url: string;
-  excerpt: string;
-  meta: { title?: string };
-}
-interface Pagefind {
-  options(o: Record<string, unknown>): Promise<void>;
-  search(q: string): Promise<{ results: { data(): Promise<ResultatPagefind> }[] } | null>;
-}
+/**
+ * Page Recherche : la réponse de la formation à la question (outil « Poser une question »), puis les
+ * pages qui contiennent les mots cherchés (index statique Pagefind généré au build).
+ */
+import { chercherPages, extrait } from './pagefind';
+import { chargerIndex, construireReponse } from './reponses';
 
 const formulaire = document.querySelector<HTMLFormElement>('[data-recherche]');
 const champ = document.querySelector<HTMLInputElement>('#recherche-page');
 const etat = document.querySelector<HTMLElement>('#recherche-etat');
 const liste = document.querySelector<HTMLOListElement>('[data-resultats]');
-const base = (import.meta.env.BASE_URL ?? '/').replace(/\/?$/, '/');
-let pagefind: Pagefind | null = null;
+const blocReponse = document.querySelector<HTMLElement>('[data-reponse-recherche]');
+const contenuReponse = blocReponse?.querySelector<HTMLElement>('[data-reponse-contenu]');
 let jeton = 0;
 
-async function charger(): Promise<Pagefind | null> {
-  if (pagefind) return pagefind;
+/** Réponse de la formation, au-dessus des résultats (masquée si la formation ne répond pas). */
+async function repondre(q: string, mon: number): Promise<void> {
+  if (!blocReponse || !contenuReponse) return;
   try {
-    const chemin = `${base}pagefind/pagefind.js`;
-    pagefind = (await import(/* @vite-ignore */ chemin)) as Pagefind;
-    await pagefind.options({ excerptLength: 28, baseUrl: base });
-    return pagefind;
+    const index = await chargerIndex();
+    if (mon !== jeton) return;
+    const { element, trouvee } = construireReponse(index, q, { niveau: 3, lienRecherche: false });
+    contenuReponse.replaceChildren(element);
+    blocReponse.hidden = !trouvee;
   } catch {
-    if (etat) etat.textContent = 'Index de recherche indisponible (il est créé par « npm run build »).';
-    return null;
+    blocReponse.hidden = true;
   }
-}
-
-/** Nettoie un extrait Pagefind : seul <mark> est conservé. */
-function extrait(html: string): DocumentFragment {
-  const gabarit = document.createElement('template');
-  gabarit.innerHTML = html;
-  const sortie = document.createDocumentFragment();
-  gabarit.content.childNodes.forEach((n) => {
-    if (n.nodeType === Node.ELEMENT_NODE && (n as Element).tagName === 'MARK') {
-      const m = document.createElement('mark');
-      m.textContent = n.textContent;
-      sortie.appendChild(m);
-    } else {
-      sortie.appendChild(document.createTextNode(n.textContent ?? ''));
-    }
-  });
-  return sortie;
 }
 
 async function chercher(q: string): Promise<void> {
@@ -53,20 +33,22 @@ async function chercher(q: string): Promise<void> {
   if (!q.trim()) {
     liste.replaceChildren();
     etat.textContent = '';
+    if (blocReponse) blocReponse.hidden = true;
     return;
   }
-  const pf = await charger();
-  if (!pf || mon !== jeton) return;
-  const recherche = await pf.search(q);
-  if (!recherche || mon !== jeton) return;
-  const donnees = await Promise.all(recherche.results.slice(0, 30).map((r) => r.data()));
+  void repondre(q, mon);
+  const trouve = await chercherPages(q, 30);
   if (mon !== jeton) return;
+  if (!trouve) {
+    etat.textContent = 'Index de recherche indisponible (il est créé par « npm run build »).';
+    return;
+  }
   etat.textContent =
-    recherche.results.length === 0
-      ? `Aucun résultat pour « ${q} ».`
-      : `${recherche.results.length} résultat${recherche.results.length > 1 ? 's' : ''} pour « ${q} »${recherche.results.length > 30 ? ' (30 premiers affichés)' : ''}.`;
+    trouve.total === 0
+      ? `Aucune page ne contient « ${q} ».`
+      : `${trouve.total} page${trouve.total > 1 ? 's' : ''} pour « ${q} »${trouve.total > 30 ? ' (30 premières affichées)' : ''}.`;
   liste.replaceChildren(
-    ...donnees.map((d) => {
+    ...trouve.pages.map((d) => {
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = d.url;

@@ -45,13 +45,7 @@ const insecable = (t: string) => t.replace(/ ([?:!;])/g, '\u00a0$1');
     </div>
   </div>
 
-  <div
-    class="conteneur assistant"
-    data-assistant
-    data-fiches={lien('assistant/fiches.json')}
-    data-recherche={lien('recherche/')}
-    data-email={EDITEUR.email}
-  >
+  <div class="conteneur assistant" data-assistant data-email={EDITEUR.email}>
     <ol class="assistant__fil" data-fil aria-label="Conversation">
       <li class="assistant__message assistant__message--formation">
         <p>

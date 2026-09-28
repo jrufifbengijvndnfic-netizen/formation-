@@ -2,7 +2,9 @@
 import { Font } from 'astro:assets';
 import '../styles/global.css';
 import EnTete from '../components/EnTete.astro';
+import PanneauQuestion from '../components/PanneauQuestion.astro';
 import PiedDePage from '../components/PiedDePage.astro';
+import { COURS_PUBLIC } from '../lib/edition';
 import { lien } from '../lib/navigation';
 import {
   IMAGE_PARTAGE,
@@ -44,6 +46,8 @@ const jsonLd = [
 ];
 // « </ » échappé : un texte ne peut pas refermer la balise script.
 const enJson = (donnees: Record<string, unknown>) => JSON.stringify(donnees).replace(/</g, '\\u003c');
+// Panneau « Une question ? » : pages de l'édition complète, sauf la page de l'outil elle-même.
+const avecPanneau = COURS_PUBLIC && Astro.url.pathname !== lien('assistant/');
 ---
 
 <!doctype html>
@@ -105,6 +109,7 @@ const enJson = (donnees: Record<string, unknown>) => JSON.stringify(donnees).rep
       <slot />
     </main>
     <PiedDePage />
+    {avecPanneau && <PanneauQuestion />}
     <script>
       import '../scripts/global';
     </script>

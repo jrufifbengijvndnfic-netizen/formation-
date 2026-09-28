@@ -76,9 +76,9 @@ const modules = tousLesModules.map((m) => m.numero).join(',');
       {COURS_PUBLIC && (
         <form class="recherche-entete" role="search" action={lien('recherche/')} method="get">
           <label class="visuellement-cache" for="recherche-rapide">
-            Rechercher dans la formation
+            Rechercher dans la formation ou poser une question
           </label>
-          <input id="recherche-rapide" name="q" type="search" placeholder="Rechercher" autocomplete="off" />
+          <input id="recherche-rapide" name="q" type="search" placeholder="Question ou mot-clé" autocomplete="off" />
           <kbd aria-hidden="true">/</kbd>
         </form>
       )}

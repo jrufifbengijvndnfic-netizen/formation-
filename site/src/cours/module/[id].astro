@@ -101,7 +101,9 @@ const filAriane = [
           </ol>
           {COURS_PUBLIC && (
             <p class="sommaire__question">
-              <a href={`${lien('assistant/')}?module=${m.numero}`}>Une question sur ce module&nbsp;?</a>
+              <a href={`${lien('assistant/')}?module=${m.numero}`} data-ouvrir-question>
+                Une question sur ce module&nbsp;?
+              </a>
             </p>
           )}
         </div>

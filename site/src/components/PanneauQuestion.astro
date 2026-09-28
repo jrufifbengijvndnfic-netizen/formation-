@@ -1,0 +1,109 @@
+---
+/**
+ * Panneau « Une question ? » : bouton sur chaque page du cours, qui ouvre à côté de la leçon (en bas
+ * de l'écran sur mobile) la réponse de la formation à une question écrite avec ses mots. La barre de
+ * recherche de l'en-tête l'ouvre aussi : la réponse, puis les pages trouvées. Sur une page de module,
+ * les réponses de ce module passent en premier et les suggestions sont ses questions fréquentes.
+ * Script : src/scripts/panneau.ts.
+ */
+import { QUESTIONS_FREQUENTES } from '../lib/assistant-questions';
+import { EDITEUR } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+
+const numero = /\/module\/(\d+)-(\d+)\/$/.exec(Astro.url.pathname);
+const moduleCourant = numero ? `${numero[1]}.${numero[2]}` : '';
+const toutes = QUESTIONS_FREQUENTES.flatMap((t) => t.questions);
+const duModule = moduleCourant
+  ? toutes.filter(([, cible]) => new RegExp(`^[lp]:${moduleCourant.replace('.', '\\.')}:`).test(cible)).map(([q]) => q)
+  : [];
+const generales = [
+  'Mon logement est classé G : puis-je encore le louer ?',
+  'Mon locataire ne paie plus son loyer : que faire ?',
+  'Comment calculer la révision annuelle du loyer ?',
+  'Micro-foncier ou régime réel : lequel choisir ?',
+];
+/** « ? » et « : » précédés d'une espace insécable. */
+const insecable = (t: string) => t.replace(/ ([?:!;])/g, '\u00a0$1');
+const suggestions = [...new Set([...duModule, ...generales])].slice(0, 4).map(insecable);
+---
+
+<button
+  type="button"
+  class="panneau-question__bouton"
+  aria-expanded="false"
+  aria-controls="panneau-question"
+  data-panneau-bouton
+  data-pagefind-ignore
+>
+  <span class="panneau-question__icone" aria-hidden="true">
+    ?
+  </span>
+  Une question&nbsp;?
+</button>
+<aside
+  id="panneau-question"
+  class="panneau-question"
+  aria-labelledby="panneau-question-titre"
+  hidden
+  data-panneau
+  data-module={moduleCourant}
+  data-email={EDITEUR.email}
+  data-pagefind-ignore
+>
+  <div class="panneau-question__tete">
+    <div>
+      <h2 id="panneau-question-titre">Une question&nbsp;?</h2>
+      <p data-panneau-contexte>
+        {moduleCourant ? `Réponses du module ${moduleCourant} en priorité.` : 'Réponses tirées de toute la formation.'}
+      </p>
+    </div>
+    <button type="button" class="panneau-question__fermer" aria-label="Fermer le panneau" data-panneau-fermer>
+      <span aria-hidden="true">✕</span>
+    </button>
+  </div>
+  <div class="panneau-question__fil" data-panneau-fil>
+    <div class="panneau-question__accueil">
+      <p>
+        Écrivez votre question avec vos mots, ici ou dans la barre de recherche : la réponse est le passage de la
+        formation, avec le lien pour le lire.
+      </p>
+      <ul class="assistant__exemples">
+        {suggestions.map((q) => (
+          <li>
+            <button type="button" class="assistant__exemple" data-exemple={q}>
+              {q}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <ol class="panneau-question__messages" data-panneau-messages aria-label="Vos questions et les réponses"></ol>
+  </div>
+  <p class="visuellement-cache" role="status" data-panneau-annonce></p>
+  <form class="panneau-question__saisie" data-panneau-formulaire>
+    <label class="visuellement-cache" for="panneau-question-champ">
+      Votre question
+    </label>
+    <textarea
+      id="panneau-question-champ"
+      rows="2"
+      maxlength="400"
+      autocomplete="off"
+      placeholder="Votre question…"
+      data-panneau-champ
+    ></textarea>
+    <button type="submit" class="bouton bouton--plein">
+      Envoyer
+    </button>
+  </form>
+  <p class="panneau-question__pied">
+    <a href={lien('assistant/')}>Toutes les questions fréquentes</a>
+    <button type="button" class="panneau-question__effacer" data-panneau-effacer hidden>
+      Effacer
+    </button>
+  </p>
+</aside>
+
+<script>
+  import '../scripts/panneau';
+</script>
