@@ -1,0 +1,122 @@
+---
+/**
+ * Outil « Poser une question » : l'élève écrit sa question avec ses mots ; la réponse est le passage
+ * de la formation qui y répond le mieux, avec sa source, d'autres passages utiles et des questions
+ * proches avec leur réponse. Aucune réponse n'est rédigée : tout vient de la formation
+ * (src/lib/assistant.ts pour les fiches, src/lib/assistant-recherche.ts pour le moteur).
+ */
+import FilAriane from '../components/FilAriane.astro';
+import Base from '../layouts/Base.astro';
+import { EDITEUR } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Poser une question' }];
+const exemples = [
+  'Mon logement est classé F : puis-je encore le louer ?',
+  'Quels papiers puis-je demander à un candidat locataire ?',
+  'Mon locataire ne paie plus son loyer, que faire ?',
+  'Comment calculer la révision du loyer ?',
+  'Micro-foncier ou régime réel : lequel choisir ?',
+  'Combien de temps pour rendre le dépôt de garantie ?',
+];
+---
+
+<Base
+  indexable={false}
+  filAriane={filAriane}
+  titre="Poser une question"
+  description="Posez votre question avec vos mots : la réponse vient de la formation, avec le passage exact, sa source et les questions proches."
+  niveau="0"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <h1>Poser une question</h1>
+      <p>
+        Écrivez votre question avec vos mots. La réponse est un passage de la formation, avec le lien pour le lire dans
+        son module.
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="conteneur assistant"
+    data-assistant
+    data-fiches={lien('assistant/fiches.json')}
+    data-recherche={lien('recherche/')}
+    data-email={EDITEUR.email}
+  >
+    <ol class="assistant__fil" data-fil aria-label="Conversation">
+      <li class="assistant__message assistant__message--formation">
+        <p>
+          Bonjour. Je retrouve pour vous, dans les 38 modules, les quiz, les exercices, le glossaire et les annexes, le
+          passage qui répond à votre question.
+        </p>
+        <p class="assistant__consigne">Quelques exemples :</p>
+        <ul class="assistant__exemples">
+          {exemples.map((q) => (
+            <li>
+              <button type="button" class="assistant__exemple" data-exemple={q}>
+                {q}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </li>
+    </ol>
+
+    <p class="visuellement-cache" role="status" data-annonce></p>
+
+    <form class="assistant__saisie" data-formulaire>
+      <p class="assistant__contexte" data-contexte hidden>
+        <span data-contexte-texte></span>
+        <button type="button" class="bouton bouton--discret" data-contexte-retirer>
+          Toute la formation
+        </button>
+      </p>
+      <label for="assistant-question">Votre question</label>
+      <div class="assistant__ligne">
+        <textarea
+          id="assistant-question"
+          name="q"
+          rows="2"
+          maxlength="400"
+          autocomplete="off"
+          placeholder="Par exemple : quel délai de préavis pour un meublé ?"
+          aria-describedby="assistant-aide"
+          disabled
+          data-question
+        ></textarea>
+        <button type="submit" class="bouton bouton--plein" disabled data-envoyer>
+          Envoyer
+        </button>
+      </div>
+      <p id="assistant-aide" class="assistant__aide" data-etat>
+        Chargement de la formation…
+      </p>
+    </form>
+    <div class="assistant__pied">
+      <p class="assistant__aide">
+        Entrée pour envoyer, Maj + Entrée pour aller à la ligne. Les réponses sont de l'information générale tirée de la
+        formation, pas un conseil personnalisé : pour votre cas précis, l'ADIL de votre département vous répond
+        gratuitement. Vos questions restent dans votre navigateur : rien n'est envoyé.
+      </p>
+      <p>
+        <button type="button" class="bouton bouton--discret" data-effacer hidden>
+          Effacer la conversation
+        </button>
+      </p>
+    </div>
+
+    <noscript>
+      <p>
+        Cet outil nécessite JavaScript. Utilisez la <a href={lien('recherche/')}>recherche</a> ou le{' '}
+        <a href={lien('glossaire/')}>glossaire</a>.
+      </p>
+    </noscript>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/assistant';
+</script>

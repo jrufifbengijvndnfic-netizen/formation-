@@ -41,6 +41,8 @@ export const ROUTES_COURS: { pattern: string; entrypoint: string }[] = [
   ['/a-surveiller', 'a-surveiller.astro'],
   ['/progression', 'progression.astro'],
   ['/recherche', 'recherche.astro'],
+  ['/assistant', 'assistant.astro'],
+  ['/assistant/fiches.json', 'assistant/fiches.json.ts'],
 ].map(([pattern, fichier]) => ({ pattern: pattern as string, entrypoint: `./src/cours/${fichier}` }));
 
 /** Vitrine des outils gratuits : page d'accueil de l'édition « outils », /outils/ sinon. */

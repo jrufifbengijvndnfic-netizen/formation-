@@ -18,7 +18,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Recherche' 
       <FilAriane etapes={filAriane} />
       <h1>Recherche</h1>
       <p>
-        Raccourci clavier : <kbd style="color:#fff;border-color:#fff">/</kbd> depuis n'importe quelle page.
+        Raccourci clavier : <kbd>/</kbd> depuis n'importe quelle page.
       </p>
     </div>
   </div>
@@ -32,6 +32,10 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Recherche' 
         Rechercher
       </button>
     </form>
+    <p class="champ__aide">
+      Vous cherchez la réponse à une question précise ? <a href={lien('assistant/')}>Posez-la avec vos mots</a> :
+      l'outil vous montre directement le passage de la formation qui y répond.
+    </p>
     <p id="recherche-etat" class="checklist-etat" role="status"></p>
     <ol class="resultats-recherche" data-resultats></ol>
     <noscript>

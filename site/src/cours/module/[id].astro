@@ -99,6 +99,11 @@ const filAriane = [
               </li>
             ))}
           </ol>
+          {COURS_PUBLIC && (
+            <p class="sommaire__question">
+              <a href={`${lien('assistant/')}?module=${m.numero}`}>Une question sur ce module&nbsp;?</a>
+            </p>
+          )}
         </div>
       </nav>
 

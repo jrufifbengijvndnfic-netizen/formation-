@@ -119,6 +119,33 @@ formulaire) restent en place pour l'outil qui sera choisi ; aucun script ne les 
 
 Les simulateurs sont gratuits et référencés comme tels (`src/lib/referencement-simulateurs.ts`).
 
+## Poser une question
+
+Page `/assistant/` (édition complète ; accès depuis les raccourcis de l'accueil, le pied de page, la
+page Recherche et le lien « Une question sur ce module ? » du sommaire de chaque module, qui fait
+passer les réponses de ce module en priorité).
+
+- **Fiches** (`src/lib/assistant.ts`, publiées dans `/assistant/fiches.json`, 150 Ko compressé,
+  chargé seulement sur cette page) : un passage par paragraphe à intitulé en gras des leçons, avec
+  ses tableaux et encadrés ; points clés, pièges et textes de référence de chaque module ; questions
+  des quiz et des exercices avec la bonne réponse et l'explication ; glossaire ; lettres types ;
+  checklists ; lignes des tableaux des annexes A, B, H, I et des nouveautés (section 0.5). Rien
+  n'est rédigé : tout vient du Markdown de la formation, qui reste la seule source.
+- **Moteur** (`src/lib/assistant-recherche.ts`, sans dépendance, exécuté dans le navigateur) :
+  mots normalisés (accents, pluriels, formes proches), synonymes du langage courant (`SYNONYMES` :
+  « proprio », « Airbnb », « caution » pour le dépôt de garantie, « ne paie plus »…) et sigles du
+  glossaire, classement BM25, bonus aux expressions retrouvées telles quelles. Un passage de leçon est
+  préféré à une question d'exercice de pertinence voisine. En dessous de 60 % des mots de la question
+  retrouvés, l'outil dit qu'il n'a pas trouvé et propose des pistes, la recherche plein texte et,
+  si `EDITEUR.email` est renseigné, la question par e-mail.
+- **Lien vers le passage** : ancre de la rubrique et fragment de texte (`#lecon:~:text=…`) qui ouvre
+  le module sur le paragraphe et le surligne (Chrome, Edge, Safari, Firefox récents).
+- **Tests** (`src/lib/assistant.test.ts`) : une liste de questions d'élèves avec le module attendu.
+  Si une question réelle reçoit une mauvaise réponse, l'ajouter à cette liste, puis ajuster
+  `SYNONYMES` : c'est le levier le plus simple.
+- Aucun envoi de données : les questions restent dans le navigateur (sessionStorage, le temps de la
+  visite, pour retrouver la conversation au retour d'un module).
+
 ## Référencement (cahier des charges SEO)
 
 - Titres « … | Formation Locatif » (marque omise au-delà de 70 caractères, titre abrégé au-delà de 72),
