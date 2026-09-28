@@ -5,6 +5,7 @@
  * avis, aucune garantie, aucune urgence inventés : auteur, avis et conditions viennent de
  * src/lib/entreprise.ts et ne s'affichent que renseignés.
  */
+import AppelVente from '../components/AppelVente.astro';
 import Avertissement from '../components/Avertissement.astro';
 import FilAriane from '../components/FilAriane.astro';
 import InscriptionEmail from '../components/InscriptionEmail.astro';
@@ -249,6 +250,7 @@ const faq: [string, string][] = [
           Exemples pédagogiques tirés de la formation, pas des gains garantis : votre situation peut être différente.
         </em>
       </p>
+      <AppelVente />
     </section>
 
     <section aria-labelledby="methode">
@@ -317,6 +319,7 @@ const faq: [string, string][] = [
       <p>
         <a href={lien('methode-et-sources/')}>Méthode et sources</a> : comment la formation est construite et vérifiée.
       </p>
+      <AppelVente />
     </section>
 
     <section aria-labelledby="programme">
@@ -379,6 +382,7 @@ const faq: [string, string][] = [
           <a href={lien('lettres/')}>les {nbLettres} modèles de lettres</a>, gratuits et sans inscription
         </li>
       </ul>
+      <AppelVente />
     </section>
 
     <section aria-labelledby="pour-qui">
@@ -480,19 +484,12 @@ const faq: [string, string][] = [
         <a href={lien('confidentialite/')}>politique de confidentialité</a>.
       </p>
     </section>
-    <p class="vente-fin">
-      <a class="bouton bouton--plein" href={lien('module/1-1/')} data-suivi="clic_cta_principal debut_contenu_gratuit">
-        Lire le module 1.1 gratuitement
-      </a>
-    </p>
+    <AppelVente titre="Prêt à commencer ?" />
     <Avertissement />
   </div>
 </Base>
 
 <style>
-  .vente-fin {
-    margin: 2rem 0;
-  }
   details {
     border-bottom: 1px solid var(--filet);
     padding: 0.6rem 0;

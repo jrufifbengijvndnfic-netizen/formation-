@@ -1,0 +1,60 @@
+---
+/**
+ * Rappel du bouton principal de la page de vente (audit de vente, A4) : répété après les blocs de
+ * persuasion, puis en conclusion avec un titre. Le prix vient de OFFRES ; la garantie ne s'affiche que
+ * si elle est renseignée dans src/lib/entreprise.ts.
+ */
+import { CONDITIONS } from '../lib/entreprise';
+import { lien } from '../lib/navigation';
+import { offreNiveau, offrePack, prixTexte } from '../lib/seo';
+
+interface Props {
+  /** Titre du bloc de conclusion ; absent pour les rappels intermédiaires. */
+  titre?: string;
+}
+const { titre } = Astro.props;
+const id = titre ? 'appel-vente-titre' : undefined;
+---
+
+<div
+  class:list={['appel-vente', { 'appel-vente--final': titre }]}
+  aria-labelledby={id}
+  role={titre ? 'region' : undefined}
+>
+  {titre && <h2 id={id}>{titre}</h2>}
+  {titre && (
+    <p>Le module 1.1 est gratuit et sans inscription&nbsp;: lisez-le en entier, avec son quiz, avant de décider.</p>
+  )}
+  <p class="appel-vente__bouton">
+    <a class="bouton bouton--plein" href={lien('module/1-1/')} data-suivi="clic_cta_principal debut_contenu_gratuit">
+      Lire le module 1.1 gratuitement
+    </a>
+  </p>
+  <p class="appel-vente__suite">
+    Ensuite&nbsp;: niveau 1 à {prixTexte(offreNiveau(1).prix)}, ou les trois niveaux pour {prixTexte(offrePack().prix)}.{' '}
+    <a href="#offre" data-suivi="clic_programme_prix">
+      Voir les offres
+    </a>
+    {CONDITIONS.garantie && <> · {CONDITIONS.garantie}, détail dans les conditions générales de vente.</>}
+  </p>
+</div>
+
+<style>
+  .appel-vente {
+    margin: 2rem 0 2.5rem;
+    padding: 1.2rem 1.3rem;
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon);
+    background: var(--papier-2);
+  }
+  .appel-vente h2 {
+    margin-top: 0;
+  }
+  .appel-vente__bouton {
+    margin: 0 0 0.6rem;
+  }
+  .appel-vente__suite {
+    margin: 0;
+    color: var(--texte-doux);
+  }
+</style>
