@@ -12,7 +12,7 @@ export const SITE_PAR_DEFAUT = 'https://formation-locatif.com';
 /**
  * Offres commerciales (prix TTC en euros), affichées sur la page Tarifs, l'accueil et les pages de
  * niveau, et déclarées dans les données structurées. `lienAchat` : adresse de la page de paiement
- * (plateforme de vente) ; tant qu'elle est absente, le site indique « achat bientôt disponible ».
+ * (plateforme de vente) ; tant qu'elle est absente, le site indique « paiement en ligne bientôt ouvert ».
  */
 export interface Offre {
   id: 'niveau-1' | 'niveau-2' | 'niveau-3' | 'pack';

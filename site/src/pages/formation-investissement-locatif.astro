@@ -25,7 +25,7 @@ import {
   tousLesModules,
 } from '../lib/donnees';
 import { COURS_PUBLIC } from '../lib/edition';
-import { AUTEUR, AVIS, CONDITIONS } from '../lib/entreprise';
+import { AUTEUR, AVIS, CONDITIONS, EDITEUR } from '../lib/entreprise';
 import { checklists, lettres, toutesLesQuestions } from '../lib/parse-formation';
 import { CHEMIN_VENTE, cheminModule, lien, lienElement } from '../lib/navigation';
 import { SITE_PAR_DEFAUT, offreNiveau, offrePack, prixSepares, prixTexte } from '../lib/seo';
@@ -42,9 +42,12 @@ const dureeNiveau = (n: number) => organisation[`Niveau ${n}`]?.duree ?? '';
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'La formation' }];
 const donnees = coursJsonLd(Astro.site ?? SITE_PAR_DEFAUT, lien(CHEMIN_VENTE));
 
+// Réponse par e-mail promise seulement si une adresse de contact est publiée (audit de vente, A6).
+const questionsParEmail = EDITEUR.email ? CONDITIONS.accompagnement : '';
+
 // Conditions de l'offre : seules celles renseignées sont affichées.
 const conditions = [
-  ['Questions', CONDITIONS.accompagnement],
+  ['Questions', questionsParEmail],
   ['Accès', CONDITIONS.acces],
   ['Mises à jour', CONDITIONS.misesAJour],
   ['Facture', CONDITIONS.facture],
@@ -102,7 +105,7 @@ const BONUS: [string, string][] = [
   ['Les checklists', `${nbChecklists} listes à cocher, de la mise en location à la sortie du locataire`],
   ['Le calendrier des échéances', 'IRL, fin de l’encadrement, coefficient DPE 2027, logements F non décents en 2028'],
   ['L’entraînement noté', `${nbExercicesTotal} exercices, examens notés et test final de 50 questions avec bilan`],
-  ['Vos questions par e-mail', 'réponse sous 72 heures ouvrées'],
+  ...(questionsParEmail ? [['Vos questions par e-mail', 'réponse sous 72 heures ouvrées'] as [string, string]] : []),
 ];
 
 const faq: [string, string][] = [
@@ -133,7 +136,7 @@ const faq: [string, string][] = [
   ['Puis-je être remboursé ?', remboursement],
   [
     'Puis-je poser des questions ?',
-    `Oui. Écrivez votre question avec vos mots, à côté de la leçon ou dans la barre de recherche : l’outil « Poser une question » affiche le passage de la formation qui y répond, avec sa source et le lien vers le module. Il compte plus de ${nbReponses} réponses. Pour ce que la formation ne couvre pas : ${CONDITIONS.accompagnement.charAt(0).toLowerCase()}${CONDITIONS.accompagnement.slice(1)}.`,
+    `Oui. Écrivez votre question avec vos mots, à côté de la leçon ou dans la barre de recherche : l’outil « Poser une question » affiche le passage de la formation qui y répond, avec sa source et le lien vers le module. Il compte plus de ${nbReponses} réponses. ${questionsParEmail ? `Pour ce que la formation ne couvre pas : ${questionsParEmail.charAt(0).toLowerCase()}${questionsParEmail.slice(1)} (${EDITEUR.email}).` : ''}`.trim(),
   ],
   [
     'Les mises à jour sont-elles incluses ?',
