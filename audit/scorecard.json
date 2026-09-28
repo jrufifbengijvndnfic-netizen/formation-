@@ -1,0 +1,53 @@
+{
+  "date": "2026-09-28",
+  "version_site": "020 (cf85e2f)",
+  "branche": "optim/vente",
+  "avant": {
+    "verdict": "NO-GO",
+    "note_sur_100": 52,
+    "portes": {
+      "G1": "echec",
+      "G2": "echec",
+      "G3": "partiel",
+      "G4": "echec",
+      "G5": "presque",
+      "G6": "reussite",
+      "G7": "echec",
+      "G8": "partiel"
+    },
+    "test_5_secondes": {
+      "vente_mobile": { "quoi": 2, "pour_qui": 2, "resultat": 2, "croire": 1, "prix_contenu": 1, "action": 0, "total": 8 },
+      "vente_ordinateur": { "quoi": 2, "pour_qui": 2, "resultat": 2, "croire": 1, "prix_contenu": 2, "action": 2, "total": 11 },
+      "accueil_mobile": { "quoi": 2, "pour_qui": 2, "resultat": 2, "croire": 1, "prix_contenu": 1, "action": 2, "total": 10 },
+      "accueil_ordinateur": { "quoi": 2, "pour_qui": 2, "resultat": 2, "croire": 1, "prix_contenu": 1, "action": 2, "total": 10 }
+    },
+    "axes": [
+      { "axe": "Compréhension immédiate", "poids": 20, "note_sur_5": 3, "points": 12 },
+      { "axe": "Promesse et offre", "poids": 15, "note_sur_5": 2, "points": 6 },
+      { "axe": "Persuasion et structure", "poids": 15, "note_sur_5": 3, "points": 9 },
+      { "axe": "Objections et preuves", "poids": 15, "note_sur_5": 2, "points": 6 },
+      { "axe": "Friction et boutons", "poids": 10, "note_sur_5": 2, "points": 4 },
+      { "axe": "Mobile et vitesse", "poids": 10, "note_sur_5": 4, "points": 8 },
+      { "axe": "Confiance et conformité", "poids": 10, "note_sur_5": 2, "points": 4 },
+      { "axe": "Mesure et référencement", "poids": 5, "note_sur_5": 3, "points": 3 }
+    ],
+    "blocs_14": { "present": 8, "faible": 4, "absent": 2 },
+    "objections_20": { "oui": 9, "partiel": 6, "non": 5 },
+    "phrases": { "nombre": 180, "moyenne_mots": 12.2, "plus_de_25_mots": 15, "liste_noire": 1 },
+    "bouton_principal_vente_375": { "haut_px": 696, "hauteur_px": 64, "ecran_px": 667 },
+    "lighthouse_mobile": [
+      { "page": "/", "perf": 97, "a11y": 100, "bp": 100, "seo": 100, "lcp": "2.0 s", "cls": "0", "tbt": "0 ms", "poids_kio": 143 },
+      { "page": "/formation-investissement-locatif/", "perf": 99, "a11y": 100, "bp": 100, "seo": 100, "lcp": "1.8 s", "cls": "0", "tbt": "0 ms", "poids_kio": 147 },
+      { "page": "/tarifs/", "perf": 99, "a11y": 100, "bp": 100, "seo": 100, "lcp": "1.8 s", "cls": "0", "tbt": "0 ms", "poids_kio": 141 },
+      { "page": "/niveau-1/", "perf": 100, "a11y": 100, "bp": 100, "seo": 100, "lcp": "1.8 s", "cls": "0", "tbt": "0 ms", "poids_kio": 141 },
+      { "page": "/module/1-1/", "perf": 99, "a11y": 100, "bp": 100, "seo": 100, "lcp": "2.0 s", "cls": "0", "tbt": "0 ms", "poids_kio": 154 },
+      { "page": "/simulateurs/rentabilite/", "perf": 99, "a11y": 100, "bp": 100, "seo": 100, "lcp": "2.0 s", "cls": "0", "tbt": "0 ms", "poids_kio": 170 },
+      { "page": "/glossaire/", "perf": 99, "a11y": 100, "bp": 100, "seo": 100, "lcp": "2.0 s", "cls": "0", "tbt": "0 ms", "poids_kio": 154 },
+      { "page": "/commencer/", "perf": 100, "a11y": 100, "bp": 100, "seo": 100, "lcp": "1.8 s", "cls": "0", "tbt": "0 ms", "poids_kio": 141 }
+    ],
+    "scripts_tiers": 0
+  },
+  "projection_apres_plan": { "note_sur_100": 73, "vente_mobile_5s": 11, "accueil_mobile_5s": 11, "portes_en_echec": ["G1", "G2", "G4"] },
+  "projection_apres_stripe_et_a_fournir": { "note_sur_100": 93, "portes_en_echec": [] },
+  "apres": null
+}
