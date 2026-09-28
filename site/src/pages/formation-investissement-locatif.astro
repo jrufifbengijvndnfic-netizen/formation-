@@ -40,7 +40,7 @@ const nbReponses = nombreDeReponses().toLocaleString('fr-FR');
 const publicNiveau = (n: number) => organisation[`Niveau ${n}`]?.public ?? '';
 const dureeNiveau = (n: number) => organisation[`Niveau ${n}`]?.duree ?? '';
 const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'La formation' }];
-const donnees = coursJsonLd(Astro.site ?? SITE_PAR_DEFAUT, lien(CHEMIN_VENTE));
+const { '@context': contexte, ...cours } = coursJsonLd(Astro.site ?? SITE_PAR_DEFAUT, lien(CHEMIN_VENTE));
 
 // Réponse par e-mail promise seulement si une adresse de contact est publiée (audit de vente, A6).
 const questionsParEmail = EDITEUR.email ? CONDITIONS.accompagnement : '';
@@ -192,6 +192,22 @@ const faq: [string, string][] = [
     'Aucun cookie ni traceur publicitaire ; votre progression et vos saisies restent dans votre navigateur. Voir la politique de confidentialité.',
   ],
 ];
+
+// Formation et questions fréquentes dans un même graphe (audit de vente, A10).
+const donnees = {
+  '@context': contexte,
+  '@graph': [
+    cours,
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map(([q, r]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: r },
+      })),
+    },
+  ],
+};
 ---
 
 <Base
