@@ -109,8 +109,8 @@ export function filArianeJsonLd(etapes: EtapeFilAriane[], site: URL | string): R
 }
 
 /**
- * Redirections permanentes (301), chemins relatifs à la base du site. Servies par _redirects
- * (Netlify, Cloudflare Pages) et vercel.json ; une page de repli (meta refresh) existe aussi.
+ * Redirections permanentes (301), chemins relatifs à la base du site. Servies par le .htaccess
+ * (Hostinger) ; une page de repli (meta refresh) existe aussi.
  */
 export const REDIRECTIONS: Record<string, string> = {};
 
@@ -154,9 +154,20 @@ export function siteWebJsonLd(site: URL | string): Record<string, unknown> {
 }
 
 /**
- * Fichier .htaccess pour un hébergement Apache ou LiteSpeed (Hostinger, OVH, o2switch…) : HTTPS et
- * domaine sans « www » imposés (301), page 404, redirections, en-têtes de sécurité et cache. Vercel,
- * Netlify et Cloudflare Pages l'ignorent (ils lisent vercel.json, _redirects et _headers).
+ * robots.txt : toutes les pages sont explorables (les pages en noindex aussi : Google doit pouvoir
+ * lire leur balise noindex pour les écarter) ; seul l'index du moteur de recherche interne
+ * (fichiers de Pagefind, qui ne sont pas des pages) est interdit. Le site n'a pas de zone privée.
+ */
+export function robots(prefixe: string, adresseSitemap: string): string {
+  return ['User-agent: *', 'Allow: /', `Disallow: ${prefixe}pagefind/`, '', `Sitemap: ${adresseSitemap}`, ''].join(
+    '\n',
+  );
+}
+
+/**
+ * Fichier .htaccess pour l'hébergement Apache ou LiteSpeed (Hostinger) : HTTPS et domaine sans
+ * « www » imposés (301), /sitemap_index.xml redirigé vers /sitemap.xml, page 404, redirections,
+ * en-têtes de sécurité et cache.
  */
 export function htaccess(domaine: string, prefixe: string, redirections: Record<string, string>): string {
   const echapper = (t: string) => t.replace(/[.]/g, '\\.');
@@ -175,6 +186,8 @@ export function htaccess(domaine: string, prefixe: string, redirections: Record<
     '# Domaine principal sans « www » : une seule adresse pour Google',
     `RewriteCond %{HTTP_HOST} ^www\\.${echapper(domaine)}$ [NC]`,
     `RewriteRule ^(.*)$ https://${domaine}/$1 [R=301,L]`,
+    '# Nom de plan du site cherché par les robots habitués à WordPress (Yoast, Rank Math)',
+    `RewriteRule ^${echapper(prefixe.slice(1))}sitemap_index\\.xml$ ${prefixe}sitemap.xml [R=301,L]`,
     ...Object.entries(redirections).map(
       ([de, vers]) =>
         `RewriteRule ^${echapper(prefixe.slice(1) + de.replace(/\/$/, ''))}/?$ ${prefixe}${vers} [R=301,L]`,

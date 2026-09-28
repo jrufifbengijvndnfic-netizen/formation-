@@ -3,7 +3,6 @@ import { Font } from 'astro:assets';
 import '../styles/global.css';
 import EnTete from '../components/EnTete.astro';
 import PiedDePage from '../components/PiedDePage.astro';
-import { MESURE_AUDIENCE } from '../lib/entreprise';
 import { lien } from '../lib/navigation';
 import {
   IMAGE_PARTAGE,
@@ -70,6 +69,7 @@ const enJson = (donnees: Record<string, unknown>) => JSON.stringify(donnees).rep
     <meta name="theme-color" content="#1C2330" />
     {VERIFICATIONS.google && <meta name="google-site-verification" content={VERIFICATIONS.google} />}
     {VERIFICATIONS.bing && <meta name="msvalidate.01" content={VERIFICATIONS.bing} />}
+    <link rel="icon" href={lien('favicon.ico')} sizes="32x32" />
     <link rel="icon" href={lien('favicon.svg')} type="image/svg+xml" />
     <link rel="sitemap" type="application/xml" href={adresseAbsolue(lien('sitemap.xml'), site)} />
     <Font cssVariable="--police-titre" preload />
@@ -95,18 +95,6 @@ const enJson = (donnees: Record<string, unknown>) => JSON.stringify(donnees).rep
         }
       })();
     </script>
-    {MESURE_AUDIENCE && (
-      <>
-        <script is:inline>
-          window.va =
-            window.va ||
-            function (...args) {
-              (window.vaq = window.vaq || []).push(args);
-            };
-        </script>
-        <script is:inline defer src="/_vercel/insights/script.js"></script>
-      </>
-    )}
   </head>
   <body data-niveau={niveau}>
     <a class="lien-evitement" href="#contenu">

@@ -13,16 +13,6 @@ hPanel → Gestionnaire de fichiers → `public_html` : supprimer l'ancien conte
 **Extraire** dans `public_html`, supprimer le ZIP. Guide complet, avec Google Search Console :
 `REFERENCEMENT-GOOGLE.md`.
 
-## Mettre une version en ligne sur Vercel
-
-- **Recommandé : depuis GitHub.** Vercel → Add New → Project → importer le dépôt `formation-`,
-  sans rien changer aux réglages. Le `vercel.json` de la racine construit le site. Chaque envoi sur
-  GitHub redéploie ensuite automatiquement.
-- **Avec le ZIP** : le tableau de bord de Vercel n'accepte pas de ZIP. Décompresser le fichier, puis,
-  dans le dossier obtenu, lancer `npx vercel deploy --prod` (Node.js requis ; connexion au compte
-  Vercel demandée la première fois).
-- **Netlify** accepte directement le dossier décompressé par glisser-déposer (Deploy manually).
-
 ## Historique
 
 | Version | Date | Nouveautés |
@@ -43,3 +33,4 @@ hPanel → Gestionnaire de fichiers → `public_html` : supprimer l'ancien conte
 | 014 | 25 septembre 2026 | Page d'accueil refaite, plus simple et plus moderne : fond clair, un seul bouton principal « Commencer gratuitement », carte « Votre logement est-il encore louable ? » (G, F, E et bouton vers le test DPE), 4 chiffres clés, « Comment ça marche » en 3 étapes, cartes de niveau allégées (modules, durée, prix), bloc final avec le prix de la formation complète, accès rapides en pastilles ; titre, description et promesse inchangés ; Lighthouse 100 sur l'accueil |
 | 015 | 25 septembre 2026 | Nouveau style visuel sur tout le site, dans l'esprit de l'accueil : hauts de page clairs (plus de grands bandeaux sombres), légèrement teintés par la couleur du niveau, surtitre en pastille ; coins arrondis ; boutons en pastille ; cartes de niveau et listes d'accès (outils, lettres…) en cartes ; statuts en pastille ; thème sombre et impression conservés ; contenu, titres et textes inchangés ; Lighthouse 99 à 100 |
 | 016 | 25 septembre 2026 | Retouches demandées : plus de trait sous l'entrée active du menu (remplacé par un fond arrondi discret) ; couleur du niveau bien visible en haut des modules, des niveaux et des examens (fond teinté et filet de couleur : vert niveau 1, bleu niveau 2, bordeaux niveau 3) ; pages hors niveau inchangées |
+| 017 | 28 septembre 2026 | Corrections d'hébergement et d'indexation (journaux Hostinger) : script de mesure d'audience Vercel retiré (404 sur `/_vercel/insights/script.js`, aucun outil de mesure désormais, pages Confidentialité, À propos et pied de page mises à jour) ; `vercel.json`, `netlify.toml`, `_redirects` et `_headers` supprimés ; `/sitemap_index.xml` redirigé en 301 vers `/sitemap.xml` ; `robots.txt` interdit seulement l'index de recherche `/pagefind/` ; `favicon.ico` ajouté (404 à chaque visite) ; hébergeur des mentions légales et de la confidentialité : Hostinger au lieu de Vercel ; contrôles au build : ressources toutes présentes et locales, titres, descriptions et canoniques uniques, plan du site cohérent (105 adresses) |

@@ -63,19 +63,6 @@ describe('fil d’Ariane (schema.org)', () => {
   });
 });
 
-describe('redirections 301', () => {
-  it('vercel.json reprend chaque redirection de REDIRECTIONS', async () => {
-    const { readFileSync } = await import('node:fs');
-    const { REDIRECTIONS } = await import('./seo');
-    const config = JSON.parse(readFileSync(new URL('../../vercel.json', import.meta.url), 'utf8')) as {
-      redirects: { source: string; destination: string; statusCode: number }[];
-    };
-    for (const [de, vers] of Object.entries(REDIRECTIONS)) {
-      expect(config.redirects).toContainEqual({ source: `/${de}`, destination: `/${vers}`, statusCode: 301 });
-    }
-  });
-});
-
 describe('offres', () => {
   it('niveau 1 sous 100 €, niveau 3 autour de 300 €, pack moins cher que les niveaux séparés', async () => {
     const { offreNiveau, offrePack, prixSepares, offreJsonLd } = await import('./seo');
@@ -88,19 +75,25 @@ describe('offres', () => {
   });
 });
 
-describe('déploiement Vercel', () => {
-  it('le vercel.json de la racine du dépôt reprend redirections et en-têtes de site/vercel.json', async () => {
-    const { readFileSync } = await import('node:fs');
-    const lire = (chemin: string) => JSON.parse(readFileSync(new URL(chemin, import.meta.url), 'utf8'));
-    const racine = lire('../../../vercel.json');
-    const site = lire('../../vercel.json');
-    expect(racine.redirects).toEqual(site.redirects);
-    expect(racine.headers).toEqual(site.headers);
-    expect(racine.outputDirectory).toBe('site/dist');
+describe('robots.txt', () => {
+  it('autorise les pages, interdit seulement l’index de recherche et déclare le plan du site', async () => {
+    const { robots } = await import('./seo');
+    const r = robots('/', 'https://formation-locatif.com/sitemap.xml');
+    expect(r).toContain('User-agent: *\nAllow: /');
+    expect(r).toContain('Disallow: /pagefind/');
+    expect(r).toContain('Sitemap: https://formation-locatif.com/sitemap.xml');
+    expect(r.match(/^Disallow:/gm)).toHaveLength(1);
   });
 });
 
 describe('hébergement Apache ou LiteSpeed (.htaccess)', () => {
+  it('redirige /sitemap_index.xml vers /sitemap.xml en 301', async () => {
+    const { htaccess } = await import('./seo');
+    expect(htaccess('formation-locatif.com', '/', {})).toContain(
+      'RewriteRule ^sitemap_index\\.xml$ /sitemap.xml [R=301,L]',
+    );
+  });
+
   it('impose HTTPS et le domaine sans www, et sert la page 404', async () => {
     const { htaccess } = await import('./seo');
     const h = htaccess('formation-locatif.com', '/', { 'annexe/c/': 'glossaire/' });

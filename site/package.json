@@ -12,7 +12,7 @@
     "check": "node ./node_modules/astro/bin/astro.mjs check",
     "test": "node ./node_modules/vitest/vitest.mjs run",
     "test:watch": "node ./node_modules/vitest/vitest.mjs",
-    "build": "npm run check && node ./node_modules/astro/bin/astro.mjs build && node ./node_modules/pagefind/lib/runner/bin.cjs --site dist && node ./node_modules/tsx/dist/cli.mjs scripts/check-links.ts",
+    "build": "npm run check && node ./node_modules/astro/bin/astro.mjs build && node ./node_modules/pagefind/lib/runner/bin.cjs --site dist && node ./node_modules/tsx/dist/cli.mjs scripts/check-links.ts && node ./node_modules/tsx/dist/cli.mjs scripts/check-indexation.ts",
     "preview": "node ./node_modules/astro/bin/astro.mjs preview",
     "build-json": "node ./node_modules/tsx/dist/cli.mjs scripts/build-json.ts",
     "lint": "node ./node_modules/eslint/bin/eslint.js .",
@@ -21,7 +21,8 @@
     "test:site": "node ./node_modules/tsx/dist/cli.mjs scripts/test-site.ts",
     "lighthouse": "node ./node_modules/tsx/dist/cli.mjs scripts/lighthouse.ts",
     "image-partage": "node ./node_modules/tsx/dist/cli.mjs scripts/image-partage.ts",
-    "instagram": "node ./node_modules/tsx/dist/cli.mjs scripts/instagram.ts"
+    "instagram": "node ./node_modules/tsx/dist/cli.mjs scripts/instagram.ts",
+    "favicon": "node ./node_modules/tsx/dist/cli.mjs scripts/favicon.ts"
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.3.0",

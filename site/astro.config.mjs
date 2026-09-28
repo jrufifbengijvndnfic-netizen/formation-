@@ -5,7 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { COURS_PUBLIC, ROUTE_ACCUEIL_OUTILS, ROUTES_COURS, ROUTES_EXTRAITS } from './src/lib/edition.ts';
 import { manquants } from './src/lib/entreprise.ts';
-import { REDIRECTIONS, SITE_PAR_DEFAUT, htaccess } from './src/lib/seo.ts';
+import { REDIRECTIONS, SITE_PAR_DEFAUT, htaccess, robots } from './src/lib/seo.ts';
 import { parseFormation } from './src/lib/parse-formation.ts';
 import { lireSource } from './src/lib/source.ts';
 
@@ -80,12 +80,10 @@ function copierPdf() {
 }
 
 /**
- * Fichiers générés à chaque build pour les moteurs de recherche et l'hébergement :
- * - sitemap.xml : uniquement les adresses canoniques indexables (ni 404 ni redirections) ;
- * - robots.txt : tout est autorisé, avec l'adresse du plan du site ;
- * - _redirects (Netlify, Cloudflare Pages) : redirections permanentes 301 ;
- * - _headers (Netlify, Cloudflare Pages) : HTTPS strict (HSTS), sécurité, cache des fichiers versionnés.
- * Vercel lit l'équivalent dans vercel.json (vérifié par un test).
+ * Fichiers générés à chaque build pour les moteurs de recherche et l'hébergement (Hostinger, Apache) :
+ * - sitemap.xml : uniquement les adresses canoniques indexables (ni 404, ni redirections, ni noindex) ;
+ * - robots.txt : pages autorisées, index de recherche interdit, adresse du plan du site ;
+ * - .htaccess : HTTPS, domaine sans « www », /sitemap_index.xml, 404, en-têtes (voir seo.ts).
  */
 function fichiersReferencement() {
   return {
@@ -113,35 +111,9 @@ function fichiersReferencement() {
             adresses.map((a) => `  <url><loc>${a}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n') +
             '\n</urlset>\n',
         );
-        writeFileSync(
-          path.join(sortie, 'robots.txt'),
-          `User-agent: *\nAllow: /\n\nSitemap: ${new URL(prefixe + 'sitemap.xml', site).href}\n`,
-        );
-        writeFileSync(
-          path.join(sortie, '_redirects'),
-          Object.entries(REDIRECTIONS)
-            .flatMap(([de, vers]) => [
-              `${prefixe}${de} ${prefixe}${vers} 301`,
-              `${prefixe}${de.replace(/\/$/, '')} ${prefixe}${vers} 301`,
-            ])
-            .join('\n') + '\n',
-        );
-        // Hébergement Apache ou LiteSpeed (Hostinger…) : équivalent de vercel.json.
+        writeFileSync(path.join(sortie, 'robots.txt'), robots(prefixe, new URL(prefixe + 'sitemap.xml', site).href));
+        // Hébergement Apache ou LiteSpeed (Hostinger) : redirections, 404, en-têtes et cache.
         writeFileSync(path.join(sortie, '.htaccess'), htaccess(new URL(site).hostname, prefixe, REDIRECTIONS));
-        writeFileSync(
-          path.join(sortie, '_headers'),
-          [
-            '/*',
-            '  Strict-Transport-Security: max-age=31536000',
-            '  X-Content-Type-Options: nosniff',
-            '  Referrer-Policy: strict-origin-when-cross-origin',
-            '  X-Frame-Options: DENY',
-            '  Permissions-Policy: camera=(), microphone=(), geolocation=()',
-            `${prefixe}_astro/*`,
-            '  Cache-Control: public, max-age=31536000, immutable',
-            '',
-          ].join('\n'),
-        );
       },
     },
   };

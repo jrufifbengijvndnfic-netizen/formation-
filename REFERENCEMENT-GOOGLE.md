@@ -21,10 +21,10 @@ Guide du 25 septembre 2026 (version 013 du site). À suivre dans l'ordre.
    (`default.php`, `index.php`, ancien site éventuel). Si vous aviez déjà envoyé un ZIP et qu'il a
    créé un sous-dossier (par exemple `formation-location-version-011`), supprimez-le aussi : le site
    était alors à `formation-locatif.com/formation-location-version-011/`, pas à la racine.
-3. Envoyez `formation-location-version-016.zip` dans `public_html`, clic droit → **Extraire** →
+3. Envoyez `formation-location-version-017.zip` dans `public_html`, clic droit → **Extraire** →
    destination : `public_html` lui-même. Les fichiers `index.html`, `.htaccess`, `sitemap.xml`,
    `robots.txt` et les dossiers `module`, `simulateurs`… doivent se trouver **directement** dans
-   `public_html` (le ZIP 016 est prévu pour : pas de dossier intermédiaire).
+   `public_html` (le ZIP 017 est prévu pour : pas de dossier intermédiaire).
 4. Supprimez le fichier ZIP de `public_html` après l'extraction.
 5. hPanel → **Sécurité → SSL** : vérifiez que le certificat SSL gratuit est **actif** pour
    `formation-locatif.com` et `www.formation-locatif.com`.
@@ -38,10 +38,16 @@ Guide du 25 septembre 2026 (version 013 du site). À suivre dans l'ordre.
 **Le fichier `.htaccess` est caché** : dans le gestionnaire de fichiers, activez l'affichage des
 fichiers cachés pour le voir. Il ne faut pas le supprimer.
 
-**Et Vercel ?** Le projet Vercel peut rester (il publie une copie à une adresse `….vercel.app`),
-mais le site officiel est désormais celui d'Hostinger. Chaque page déclare son adresse officielle
-(`formation-locatif.com`), donc Google ne compte pas la copie comme un doublon. Pour éviter toute
-confusion, vous pouvez supprimer le projet Vercel.
+**Et Vercel ?** Depuis la version 017, le site ne contient plus rien de propre à Vercel (ni script
+de mesure, ni `vercel.json`) : supprimez le projet Vercel s'il existe encore, pour qu'aucune copie du
+site ne reste en ligne à une adresse `….vercel.app`.
+
+**Si une page répond « 403 Forbidden »** : le `.htaccess` du site n'en produit qu'un seul cas,
+quand un dossier n'a pas de `index.html` (`Options -Indexes`), par exemple si le ZIP a été extrait
+dans un sous-dossier au lieu de `public_html`. Si `public_html/index.html` est bien là, le 403 vient
+du filtrage d'Hostinger : hPanel → **Sécurité** (pare-feu, protection anti-robots, blocage d'adresses
+IP ou de pays) et **CDN** (mode de protection) ; vérifier aussi qu'aucune protection par mot de passe
+n'est active sur `public_html`. Googlebot (adresses 66.249.x.x) ne doit jamais être bloqué.
 
 **Mises à jour suivantes** : à chaque nouvelle version, supprimez l'ancien contenu de
 `public_html` (sauf `.well-known` s'il existe) et extrayez le nouveau ZIP.

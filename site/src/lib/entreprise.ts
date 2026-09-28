@@ -17,11 +17,11 @@ export const EDITEUR = {
   directeurPublication: '',
 };
 
-/** Hébergeur (Vercel). À adapter si le site est hébergé ailleurs. */
+/** Hébergeur (Hostinger, depuis le 25 septembre 2026). Adresse à vérifier sur la facture Hostinger. */
 export const HEBERGEUR = {
-  nom: 'Vercel Inc.',
-  adresse: '440 N Barranca Ave #4133, Covina, CA 91723, États-Unis',
-  site: 'https://vercel.com',
+  nom: 'Hostinger International Ltd',
+  adresse: '61 Lordou Vironos Street, 6023 Larnaca, Chypre',
+  site: 'https://www.hostinger.fr',
 };
 
 /** Conditions de l'offre, affichées sur la page de vente, les tarifs et les CGV. */
@@ -69,10 +69,12 @@ export const FORMULAIRE_EMAIL = {
 };
 
 /**
- * Mesure d'audience sans cookie ni donnée personnelle (Vercel Web Analytics). À activer aussi dans le
- * tableau de bord Vercel (Analytics). false = aucun script de mesure.
+ * Mesure d'audience. false = aucun script de mesure, et les pages (pied de page, À propos,
+ * Confidentialité) l'indiquent. L'outil de Vercel a été retiré : le site est hébergé chez Hostinger.
+ * Avant de repasser à true : installer le nouvel outil, son bandeau de consentement s'il en faut un,
+ * et réécrire la section « Mesure d'audience » de la page Confidentialité.
  */
-export const MESURE_AUDIENCE = true;
+export const MESURE_AUDIENCE = false;
 
 /** Champs obligatoires encore vides (affichés à chaque build). */
 export function manquants(): string[] {

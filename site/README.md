@@ -54,7 +54,8 @@ liens de téléchargement (accueil, pied de page, à propos). Sans ce fichier, l
 
 ## Déploiement
 
-Le dossier `dist/` est autonome : il se dépose tel quel sur n'importe quel hébergement statique.
+Le dossier `dist/` est autonome. Il est hébergé chez Hostinger (Apache) : son contenu, fichier caché
+`.htaccess` compris, se dépose à la racine de `public_html` (voir `../REFERENCEMENT-GOOGLE.md`).
 
 | Variable                  | Effet                                                                                                       |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -63,14 +64,17 @@ Le dossier `dist/` est autonome : il se dépose tel quel sur n'importe quel héb
 
 Chaque build produit aussi dans `dist/` :
 
-- `sitemap.xml` (adresses canoniques indexables uniquement) et `robots.txt` ;
-- `_redirects` (redirections 301) et `_headers` (HTTPS strict, sécurité, cache), lus par Netlify et
-  Cloudflare Pages. Vercel lit l'équivalent dans `vercel.json` : celui de la racine du dépôt
-  (construit `site/`, publie `site/dist`) ou celui de `site/` si le « Root Directory » du projet Vercel
-  est `site` ; un test vérifie qu'ils concordent. Netlify lit `../netlify.toml`.
+- `sitemap.xml` (adresses canoniques indexables uniquement) et `robots.txt` (fonction `robots`) ;
+- `.htaccess` (fonction `htaccess`, `src/lib/seo.ts`) : HTTPS et domaine sans « www » (301),
+  `/sitemap_index.xml` → `/sitemap.xml` (301), page 404, redirections, en-têtes de sécurité et cache.
 
-Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`) ; un test vérifie que
-`vercel.json` les reprend.
+Les redirections se déclarent dans `REDIRECTIONS` (`src/lib/seo.ts`). `public/favicon.ico` est
+fabriqué à partir de `public/favicon.svg` par `npm run favicon`.
+
+À la fin du build, `scripts/check-links.ts` vérifie les liens internes et chaque ressource chargée
+(scripts, styles, polices, images, icônes, préchargements) : fichier présent dans `dist/`, aucun
+chargement depuis un autre domaine, `favicon.ico` présent. `scripts/check-indexation.ts` vérifie
+titres et descriptions uniques, adresses canoniques absolues et plan du site cohérent.
 
 ## Éditions
 
@@ -109,10 +113,9 @@ réels, formulaire e-mail, mesure d'audience). Elles alimentent `/mentions-legal
 `/confidentialite/`, la page de vente et le pied de page ; un champ vide s'affiche « à compléter » et
 le build liste les champs manquants.
 
-**Mesure d'audience** : Vercel Web Analytics, sans cookie (`MESURE_AUDIENCE`). Un attribut
-`data-suivi="nom"` sur un lien ou un bouton envoie l'événement au clic, `data-suivi-vue` à
-l'affichage, `data-suivi-envoi` sur un formulaire à l'envoi (`src/scripts/global.ts`). Le serveur de
-test sert un script vide à la place de `/_vercel/insights/script.js`.
+**Mesure d'audience** : aucun outil installé (`MESURE_AUDIENCE = false`) ; les pages l'indiquent. Les
+attributs `data-suivi="nom"` (clic), `data-suivi-vue` (affichage) et `data-suivi-envoi` (envoi de
+formulaire) restent en place pour l'outil qui sera choisi ; aucun script ne les lit aujourd'hui.
 
 Les simulateurs sont gratuits et référencés comme tels (`src/lib/referencement-simulateurs.ts`).
 

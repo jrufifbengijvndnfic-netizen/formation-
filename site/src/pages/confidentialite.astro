@@ -17,7 +17,7 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Confidentia
 <Base
   filAriane={filAriane}
   titre="Politique de confidentialité"
-  description={`Données traitées par le site ${MARQUE} : aucun cookie publicitaire, progression et saisies conservées dans votre navigateur, mesure d'audience sans cookie.`}
+  description={`Données traitées par le site ${MARQUE} : aucun cookie publicitaire, progression et saisies conservées dans votre navigateur, ${MESURE_AUDIENCE ? "mesure d'audience sans cookie" : "aucun outil de mesure d'audience"}.`}
   niveau="0"
 >
   <div class="bandeau">
@@ -52,16 +52,15 @@ const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Confidentia
       </li>
     </ul>
 
-    {MESURE_AUDIENCE && (
-      <>
-        <h2 id="mesure">Mesure d'audience</h2>
-        <p>
-          Le site compte ses visites avec Vercel Web Analytics, sans cookie : pages vues, pages d'arrivée, pays, type
-          d'appareil et de navigateur, et quelques clics sur les boutons (par exemple « Commencer gratuitement le niveau
-          1 »), sous forme de statistiques agrégées. Ces données servent uniquement à améliorer le site ; elles ne sont
-          ni vendues ni utilisées pour de la publicité.
-        </p>
-      </>
+    <h2 id="mesure">Mesure d'audience</h2>
+    {MESURE_AUDIENCE ? (
+      <p>
+        {/* À réécrire avec le nom de l'outil installé et les données qu'il collecte (voir src/lib/entreprise.ts). */}
+        Le site compte ses visites sous forme de statistiques agrégées. Ces données servent uniquement à améliorer le
+        site ; elles ne sont ni vendues ni utilisées pour de la publicité.
+      </p>
+    ) : (
+      <p>Le site n'utilise aucun outil de mesure d'audience : aucune statistique de visite n'est collectée.</p>
     )}
 
     {FORMULAIRE_EMAIL.action && (

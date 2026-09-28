@@ -89,14 +89,15 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
 - pages `/mentions-legales/`, `/cgv/`, `/confidentialite/` ; **informations du vendeur à renseigner
   dans `site/src/lib/entreprise.ts`** (le build liste les champs encore vides ; les pages affichent
   « à compléter ») ;
-- mesure d'audience sans cookie (Vercel Web Analytics, `MESURE_AUDIENCE`) et événements
-  `data-suivi` (clic_cta_principal, debut_contenu_gratuit, clic_encart_formation, clic_fin_extrait,
-  vue_page_vente, debut_paiement…) ; à activer dans Vercel → projet → Analytics ;
+- mesure d'audience : aucun outil depuis la version 017 (`MESURE_AUDIENCE = false` ; le script de
+  Vercel, jamais servi par Hostinger, a été retiré). Les attributs `data-suivi` (clic_cta_principal,
+  debut_contenu_gratuit, clic_encart_formation, clic_fin_extrait, vue_page_vente, debut_paiement…)
+  restent en place pour le futur outil, à installer avec son bandeau de consentement ;
 - formulaire d'inscription par e-mail prêt, affiché dès que `FORMULAIRE_EMAIL.action` est renseigné.
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **016**) et produit `versions/formation-location-version-NNN.zip` (contenu de
-`site/dist` + `vercel.json`).
+(version actuelle : **017**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+`site/dist`, fichier caché `.htaccess` compris).
 
 ## 3. Décisions prises (et pourquoi)
 
@@ -151,7 +152,7 @@ Congé, Zonage A, B, C.
   « Breadcrumb ») ;
 - polices : API `fonts` d'Astro (hébergées localement, préchargées, `swap`, polices de secours
   aux métriques ajustées) ;
-- 301 : `REDIRECTIONS` → `_redirects` (Netlify, Cloudflare Pages) et `vercel.json` ; la page
+- 301 : `REDIRECTIONS` → `.htaccess` (Hostinger), avec `/sitemap_index.xml` → `/sitemap.xml` ; la page
   `/annexe/c/` reste en repli (meta refresh, `noindex`).
 
 **Serveur de test compressé.** `scripts/serveur-statique.ts` sert `dist/` en gzip, comme tout
@@ -232,7 +233,6 @@ Formation-immobilier/          (dépôt GitHub « formation- »)
 ├── VERIFICATION-JURIDIQUE.md  ← relecture du fond au 24 septembre 2026 (écarts à trancher)
 ├── TESTS-MANUELS.md           ← essais sur vrais téléphones et lecteurs d'écran
 ├── README.md
-├── netlify.toml               ← configuration Netlify (Vercel : site/vercel.json)
 ├── files/
 │   ├── BRIEF-claude-code-site-formation.md
 │   ├── cahier-des-charges-seo.md
@@ -267,15 +267,15 @@ Formation-immobilier/          (dépôt GitHub « formation- »)
      médiateur de la consommation et l'auteur dans `site/src/lib/entreprise.ts` (CGV à faire relire
      par un juriste) ;
    - le service d'e-mailing (adresse du formulaire) et l'aimant « calendrier du bailleur 2026-2027 » ;
-   - l'activation de Web Analytics dans Vercel (les événements personnalisés demandent l'offre Pro) ;
+   - le choix d'un outil de mesure d'audience, avec son bandeau de consentement (demande séparée) ;
    - le jour venu, publier l'édition « outils » (`EDITION=outils`) pour réserver le cours aux acheteurs.
 5. **Domaine** : `formation-locatif.com` (défaut du build ; le cahier des charges SEO disait `.fr`).
    Une autre adresse se choisit par `SITE_URL=https://… npm run build`.
 6. **PDF** : il n'a pas été fourni à cette session. Le déposer sous
    `files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.pdf` : le build le
    copie dans `dist/` et affiche les liens de téléchargement (masqués tant qu'il est absent).
-7. **Hébergement** : Vercel, Netlify ou Cloudflare Pages (configurations fournies, redirections 301
-   et en-têtes HTTPS compris), ou tout hébergement statique en déposant `site/dist/`. Voir `site/README.md`.
+7. **Hébergement** : Hostinger (Apache) depuis le 25 septembre 2026. Le build produit le `.htaccess`
+   (HTTPS, adresse sans « www », 301, page 404, en-têtes). Voir `REFERENCEMENT-GOOGLE.md`.
 8. **Intégration continue** (facultatif) : un workflow GitHub Actions pourrait lancer
    `npm test`, `npm run lint` et `npm run build` à chaque envoi.
 9. **Git local sur le Mac** : le travail est sur GitHub (branche `claude/admiring-einstein-bp3wj6`).

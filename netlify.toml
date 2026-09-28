@@ -1,8 +1,0 @@
-# Netlify : le site est dans site/ ; _redirects (301) et _headers (HTTPS strict, cache) sont générés dans dist/.
-[build]
-  base = "site"
-  command = "npm run build"
-  publish = "dist"
-
-[build.environment]
-  NODE_VERSION = "22"

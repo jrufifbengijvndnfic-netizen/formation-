@@ -21,9 +21,13 @@ const TYPES: Record<string, string> = {
   '.woff2': 'font/woff2',
   '.pdf': 'application/pdf',
   '.xml': 'application/xml',
+  '.txt': 'text/plain; charset=utf-8',
+  '.webp': 'image/webp',
+  '.png': 'image/png',
+  '.ico': 'image/x-icon',
 };
 
-const COMPRESSIBLES = new Set(['.html', '.js', '.mjs', '.css', '.json', '.svg', '.xml']);
+const COMPRESSIBLES = new Set(['.html', '.js', '.mjs', '.css', '.json', '.svg', '.xml', '.txt']);
 
 export function verifierDist(): void {
   if (!existsSync(path.join(DIST, 'index.html'))) {
@@ -35,11 +39,6 @@ export function verifierDist(): void {
 export async function demarrerServeur(): Promise<{ base: string; serveur: Server }> {
   const serveur = createServer((req, res) => {
     const url = new URL(req.url ?? '/', 'http://localhost');
-    // Mesure d'audience Vercel : servie par l'hébergeur en production ; ici, un script vide.
-    if (url.pathname.startsWith('/_vercel/insights/')) {
-      res.writeHead(200, { 'content-type': TYPES['.js'] as string, 'cache-control': 'no-cache' }).end('');
-      return;
-    }
     let fichier = path.join(DIST, decodeURIComponent(url.pathname));
     if (!fichier.startsWith(DIST)) {
       res.writeHead(403).end();
