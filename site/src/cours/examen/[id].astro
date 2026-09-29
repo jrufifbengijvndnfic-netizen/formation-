@@ -2,7 +2,9 @@
 import Avertissement from '../../components/Avertissement.astro';
 import Exercices from '../../components/Exercices.astro';
 import FilAriane from '../../components/FilAriane.astro';
+import Reserve from '../../components/Reserve.astro';
 import Base from '../../layouts/Base.astro';
+import { niveauDeLExamen } from '../../lib/acces';
 import { elements, exercicesDExamen, numerosDuNiveau, rendreElement, resumer } from '../../lib/donnees';
 import { lien, slugExamen } from '../../lib/navigation';
 import { texteBrut } from '../../lib/render';
@@ -22,6 +24,8 @@ const n = examen.niveau as Niveau;
 const nbCas = (examen.markdown.match(/^\*\*Cas \d+ — /gm) ?? []).length;
 const cle = slugExamen(examen);
 const questions = exercicesDExamen(cle);
+// Accès par code : l'examen s'ouvre avec le code de son niveau (examen final : niveau 3).
+const reserve = niveauDeLExamen(cle);
 // Le texte rendu alterne « énoncé du cas N » et « corrigé du cas N » (<details class="corrige">) :
 // les questions notées de chaque cas s'insèrent entre son énoncé et son corrigé.
 const morceaux = (rendreElement(examen).intro ?? '').split(/(?=<details class="corrige">)/);
@@ -39,6 +43,7 @@ const filAriane = [
   description={resumer(`${nbCas} cas pratiques corrigés. ${texteBrut(examen.markdown)}`)}
   niveau={String(n) as '1' | '2' | '3'}
   actif={`niveau-${n}`}
+  reserve={reserve}
 >
   <div data-pagefind-body>
     <div class="bandeau">
@@ -52,52 +57,55 @@ const filAriane = [
     </div>
     <div class="conteneur">
       <div class="prose">
-        <div class="encart" data-avancement={numerosDuNiveau(n).join(',')} data-pagefind-ignore>
-          <p>
-            Pour chaque cas : lisez l'énoncé, répondez aux questions, cliquez sur « Corriger », puis lisez le corrigé
-            détaillé. Réussite à 70 %.
-          </p>
-          <p class="bilan-examen" data-bilan-examen={cle} role="status">
-            Cas corrigés : 0 sur {nbCas}. Le score de l'examen s'affiche quand tous les cas sont faits.
-          </p>
-          <p hidden data-si-termine>
-            <span class="badge-niveau">Examen débloqué</span> Vous avez lu tous les modules du niveau et réussi leurs
-            quiz.
-          </p>
-          <p class="examen-verrou" data-si-en-cours>
-            Conseillé après les modules du niveau {n} (
-            <span data-avancement-texte>{texteAvancementInitial(numerosDuNiveau(n))}</span>). L'accès reste libre.
-          </p>
-        </div>
-        <div class="contenu">
-          {morceaux.slice(0, nbCas).map((html, k) => (
-            <>
-              <Fragment set:html={html} />
-              <Exercices
-                exercices={questions.filter((q) => q.cas === k + 1)}
-                cle={`${cle}:cas-${k + 1}`}
-                portee="examen"
-              />
-            </>
-          ))}
-          <Fragment set:html={morceaux[nbCas]} />
-        </div>
-        {cle === 'final' && (
-          <section class="encart" aria-labelledby="test-final-titre" data-pagefind-ignore>
-            <h2 id="test-final-titre" style="margin-top:0">
-              Deuxième partie : le test de 50 questions
-            </h2>
+        <Reserve niveau={reserve} sujet="examen">
+          <div class="encart" data-avancement={numerosDuNiveau(n).join(',')} data-pagefind-ignore>
             <p>
-              50 questions tirées au hasard dans les 38 modules (au moins une par module, nouveau tirage à chaque
-              essai), réponses cachées jusqu'à la fin, bilan des modules à revoir.
+              Pour chaque cas : lisez l'énoncé, répondez aux questions, cliquez sur « Corriger », puis lisez le corrigé
+              détaillé. Réussite à 70 %.
             </p>
-            <p>
-              <a class="bouton bouton--plein" href={lien('examen/test-final/')}>
-                Passer le test de 50 questions
-              </a>
+            <p class="bilan-examen" data-bilan-examen={cle} role="status">
+              Cas corrigés : 0 sur {nbCas}. Le score de l'examen s'affiche quand tous les cas sont faits.
             </p>
-          </section>
-        )}
+            <p hidden data-si-termine>
+              <span class="badge-niveau">Examen débloqué</span> Vous avez lu tous les modules du niveau et réussi leurs
+              quiz.
+            </p>
+            <p class="examen-verrou" data-si-en-cours>
+              Conseillé après les modules du niveau {n} (
+              <span data-avancement-texte>{texteAvancementInitial(numerosDuNiveau(n))}</span>), mais ouvert à tout
+              moment.
+            </p>
+          </div>
+          <div class="contenu">
+            {morceaux.slice(0, nbCas).map((html, k) => (
+              <>
+                <Fragment set:html={html} />
+                <Exercices
+                  exercices={questions.filter((q) => q.cas === k + 1)}
+                  cle={`${cle}:cas-${k + 1}`}
+                  portee="examen"
+                />
+              </>
+            ))}
+            <Fragment set:html={morceaux[nbCas]} />
+          </div>
+          {cle === 'final' && (
+            <section class="encart" aria-labelledby="test-final-titre" data-pagefind-ignore>
+              <h2 id="test-final-titre" style="margin-top:0">
+                Deuxième partie : le test de 50 questions
+              </h2>
+              <p>
+                50 questions tirées au hasard dans les 38 modules (au moins une par module, nouveau tirage à chaque
+                essai), réponses cachées jusqu'à la fin, bilan des modules à revoir.
+              </p>
+              <p>
+                <a class="bouton bouton--plein" href={lien('examen/test-final/')}>
+                  Passer le test de 50 questions
+                </a>
+              </p>
+            </section>
+          )}
+        </Reserve>
         <p class="groupe-boutons no-print" data-pagefind-ignore>
           <a class="bouton" href={lien(`niveau-${n}/`)}>
             Retour au niveau {n}

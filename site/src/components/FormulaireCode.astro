@@ -1,0 +1,44 @@
+---
+/**
+ * Saisie d'un code d'accès (verrou d'une page réservée, page /acces/). Vérification et mémoire :
+ * src/scripts/acces.ts ; codes : src/lib/acces.ts.
+ */
+import { CODES_EN_CHIFFRES } from '../lib/acces';
+
+interface Props {
+  /** Identifiant du champ (unique dans la page). */
+  id?: string;
+  /** Libellé du bouton, ex. « Ouvrir le niveau 2 ». */
+  bouton?: string;
+}
+const { id = 'code-acces', bouton = 'Valider le code' } = Astro.props;
+---
+
+<form class="code-acces" data-code-formulaire novalidate>
+  <label for={id}>Votre code d'accès</label>
+  <div class="code-acces__ligne">
+    <input
+      id={id}
+      name="code"
+      type="text"
+      inputmode={CODES_EN_CHIFFRES ? 'numeric' : 'text'}
+      autocomplete="off"
+      autocapitalize="characters"
+      spellcheck="false"
+      maxlength="40"
+      aria-describedby={`${id}-message`}
+      data-code-champ
+    />
+    <button type="submit" class="bouton bouton--plein">
+      {bouton}
+    </button>
+  </div>
+  <p id={`${id}-message`} class="code-acces__message" role="status" data-code-message></p>
+  <noscript>
+    <p>Activez JavaScript pour saisir votre code.</p>
+  </noscript>
+</form>
+
+<script>
+  import '../scripts/acces';
+</script>

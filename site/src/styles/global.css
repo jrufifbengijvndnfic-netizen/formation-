@@ -1771,6 +1771,148 @@ html:not(.js) .exercices__note {
   margin-bottom: 0;
 }
 
+/* ------------------------------------------------------------------ Accès par code (src/lib/acces.ts) */
+/* Page réservée : contenu masqué et verrou affiché tant que la classe acces-ouvert n'est pas posée
+   (script du <head>, avant l'affichage). Sans JavaScript, la page reste verrouillée. */
+html:not(.acces-ouvert) .reserve__contenu {
+  display: none;
+}
+html.acces-ouvert .verrou {
+  display: none;
+}
+/* Petit écran : sur une page verrouillée, le sommaire (liens vers un contenu masqué) laisse le verrou
+   remonter dans le premier écran. Grand écran : il reste en colonne, comme aperçu du module. */
+@media (max-width: 63.99rem) {
+  html[data-reserve]:not(.acces-ouvert) .page-element--sommaire > .sommaire {
+    display: none;
+  }
+}
+.verrou {
+  margin: 0 0 2.5rem;
+  padding: 1.3rem 1.4rem;
+  border: 1.5px solid var(--encre);
+  border-left: 6px solid var(--accent);
+  border-radius: var(--rayon);
+  background: var(--papier);
+}
+.verrou h2 {
+  margin: 0.3rem 0 0.6rem;
+  font-size: 1.35rem;
+}
+.verrou__sur {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-family: var(--titre);
+  font-weight: 600;
+  color: var(--accent);
+}
+.verrou__icone {
+  flex: none;
+}
+.verrou__offre {
+  margin: 0 0 0.4rem;
+}
+.verrou__gratuit {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--texte-doux);
+}
+.code-acces {
+  margin: 1.1rem 0 1.2rem;
+}
+.code-acces label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--titre);
+  font-weight: 600;
+}
+.code-acces__ligne {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.code-acces__ligne input {
+  flex: 1 1 9rem;
+  min-width: 0;
+  max-width: 16rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.75rem;
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  border: 1.5px solid var(--filet-fort);
+  border-radius: var(--rayon);
+  background: var(--papier);
+  color: var(--encre);
+}
+.code-acces__ligne input[aria-invalid='true'] {
+  border-color: var(--erreur);
+}
+/* Zone d'annonce toujours présente (lecteurs d'écran) ; marge seulement quand elle a un texte. */
+.code-acces__message {
+  margin: 0;
+}
+.code-acces__message:not(:empty) {
+  margin-top: 0.5rem;
+}
+.code-acces__message[data-etat='erreur'] {
+  color: var(--erreur);
+  font-weight: 600;
+}
+.code-acces__message[data-etat='succes'] {
+  color: var(--succes);
+  font-weight: 600;
+}
+/* « Une question ? » : passage d'un niveau non ouvert remplacé par l'endroit où il se trouve. */
+.assistant__reserve {
+  margin: 0.4rem 0 0.8rem;
+  padding: 0.6rem 0.9rem;
+  border-left: 4px solid var(--filet-fort);
+  border-radius: var(--rayon);
+  background: var(--papier-2);
+}
+.assistant__reserve p {
+  margin: 0.25rem 0;
+}
+.acces-confirme {
+  margin: 0 0 1.5rem;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--succes);
+  border-radius: var(--rayon);
+  color: var(--succes);
+  font-family: var(--titre);
+  font-weight: 600;
+}
+/* Mentions qui suivent l'état d'un niveau (data-acces sur <html>) : « réservé » ou « ouvert ». */
+[data-niveau-acces] .si-acces-ouvert {
+  display: none;
+}
+html[data-acces~='1'] [data-niveau-acces='1'] .si-acces-ouvert,
+html[data-acces~='2'] [data-niveau-acces='2'] .si-acces-ouvert,
+html[data-acces~='3'] [data-niveau-acces='3'] .si-acces-ouvert {
+  display: revert;
+}
+html[data-acces~='1'] [data-niveau-acces='1'] .si-acces-ferme,
+html[data-acces~='2'] [data-niveau-acces='2'] .si-acces-ferme,
+html[data-acces~='3'] [data-niveau-acces='3'] .si-acces-ferme {
+  display: none;
+}
+.mention-reserve {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.45rem;
+  border: 1px solid var(--filet-fort);
+  border-radius: 999px;
+  font-family: var(--titre);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--texte-doux);
+  vertical-align: 0.15em;
+}
+
 /* Boutons vers la formation (vitrine des outils) */
 .actions-formation {
   display: flex;

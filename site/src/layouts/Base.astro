@@ -4,6 +4,7 @@ import '../styles/global.css';
 import EnTete from '../components/EnTete.astro';
 import PanneauQuestion from '../components/PanneauQuestion.astro';
 import PiedDePage from '../components/PiedDePage.astro';
+import { CLE_ACCES, EMPREINTES_ACCES } from '../lib/acces';
 import { COURS_PUBLIC } from '../lib/edition';
 import { lien } from '../lib/navigation';
 import {
@@ -17,6 +18,7 @@ import {
   titreDePage,
   type EtapeFilAriane,
 } from '../lib/seo';
+import type { Niveau } from '../lib/types';
 
 interface Props {
   titre: string;
@@ -30,8 +32,10 @@ interface Props {
   filAriane?: EtapeFilAriane[] | undefined;
   /** Faux pour la page 404 : ni adresse canonique ni indexation. */
   indexable?: boolean;
+  /** Niveau à ouvrir avec un code pour lire la page (contenu dans <Reserve>, src/lib/acces.ts). */
+  reserve?: Niveau | undefined;
 }
-const { titre, description, niveau, actif, donneesStructurees, filAriane, indexable = true } = Astro.props;
+const { titre, description, niveau, actif, donneesStructurees, filAriane, indexable = true, reserve } = Astro.props;
 const site = Astro.site ?? new URL('http://localhost/');
 const titreComplet = titreDePage(titre);
 const resume = raccourcir(description);
@@ -39,9 +43,21 @@ const canonique = adresseAbsolue(Astro.url.pathname, site);
 const image = adresseAbsolue(lien(IMAGE_PARTAGE.chemin), site);
 // Page d'accueil : nom du site et éditeur (affichage du nom « Formation Locatif » par Google).
 const accueil = Astro.url.pathname === lien();
+// Page réservée : contenu payant signalé à Google (données structurées des contenus sous abonnement),
+// le texte restant dans la page.
+const contenuPayant = reserve
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: titre,
+      isAccessibleForFree: false,
+      hasPart: { '@type': 'WebPageElement', isAccessibleForFree: false, cssSelector: '.reserve__contenu' },
+    }
+  : undefined;
 const jsonLd = [
   ...(accueil ? [siteWebJsonLd(site)] : []),
   ...(donneesStructurees ? [donneesStructurees] : []),
+  ...(contenuPayant ? [contenuPayant] : []),
   ...(filAriane ? [filArianeJsonLd(filAriane, site)] : []),
 ];
 // « </ » échappé : un texte ne peut pas refermer la balise script.
@@ -51,7 +67,7 @@ const avecPanneau = COURS_PUBLIC && Astro.url.pathname !== lien('assistant/');
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-reserve={reserve}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -99,6 +115,25 @@ const avecPanneau = COURS_PUBLIC && Astro.url.pathname !== lien('assistant/');
         }
       })();
     </script>
+    {COURS_PUBLIC && <script is:inline define:vars={{ cle: CLE_ACCES, empreintes: EMPREINTES_ACCES }}>
+      // Accès par code (src/lib/acces.ts) : niveaux ouverts posés sur <html> avant l'affichage,
+      // pour montrer une page réservée déjà ouverte sans passer par son verrou.
+      const racine = document.documentElement;
+      const lire = (nom) => {
+        try {
+          const liste = JSON.parse(window[nom].getItem(cle) || '[]');
+          return Array.isArray(liste) ? liste : [];
+        } catch {
+          return [];
+        }
+      };
+      const niveaux = [...lire('localStorage'), ...lire('sessionStorage')]
+        .filter((e) => typeof e === 'string' && Object.prototype.hasOwnProperty.call(empreintes, e))
+        .map((e) => empreintes[e]);
+      const ouverts = [...new Set(niveaux)].sort();
+      racine.dataset.acces = ouverts.join(' ');
+      if (ouverts.includes(Number(racine.dataset.reserve))) racine.classList.add('acces-ouvert');
+    </script>}
   </head>
   <body data-niveau={niveau}>
     <a class="lien-evitement" href="#contenu">

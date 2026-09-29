@@ -1,0 +1,77 @@
+---
+/**
+ * Contenu réservé à un niveau (accès par code, src/lib/acces.ts). Sans niveau, le contenu est affiché
+ * tel quel. Avec un niveau : verrou (présentation du niveau, saisie du code, offres), puis le contenu,
+ * masqué par la feuille de style tant que la page n'a pas la classe acces-ouvert (posée dans le
+ * <head> par Base.astro, avant l'affichage). La page doit passer le même niveau à Base (prop reserve).
+ */
+import FormulaireCode from './FormulaireCode.astro';
+import { modulesDuNiveau, niveauDe } from '../lib/donnees';
+import { CHEMIN_VENTE, lien } from '../lib/navigation';
+import { offreNiveau, offrePack, prixTexte } from '../lib/seo';
+import type { Niveau } from '../lib/types';
+
+interface Props {
+  niveau?: Niveau | undefined;
+  /** Ce que la page contient, pour le titre du verrou. */
+  sujet?: 'module' | 'examen' | 'test';
+}
+const { niveau, sujet = 'module' } = Astro.props;
+const titre = niveau
+  ? {
+      module: `Ce module fait partie du niveau ${niveau}`,
+      examen: `Cet examen fait partie du niveau ${niveau}`,
+      test: `Ce test fait partie du niveau ${niveau}`,
+    }[sujet]
+  : '';
+const partie = niveau ? niveauDe(niveau) : undefined;
+const nbModules = niveau ? modulesDuNiveau(niveau).length : 0;
+---
+
+{niveau && partie ? (
+  <>
+    <section class="verrou" aria-labelledby="verrou-titre" data-pagefind-ignore>
+      <p class="verrou__sur">
+        <svg class="verrou__icone" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path
+            d="M7 10V7a5 5 0 0 1 10 0v3M5.5 10h13a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Réservé au niveau {niveau}
+      </p>
+      <h2 id="verrou-titre">{titre}</h2>
+      <p>
+        Niveau {niveau} — {partie.titreCourt}&nbsp;: {nbModules} modules, leurs quiz, leurs exercices corrigés et
+        l'examen du niveau. Saisissez le code d'accès reçu avec votre achat&nbsp;: le niveau s'ouvre sur cet appareil.
+      </p>
+      <FormulaireCode id="code-verrou" bouton={`Ouvrir le niveau ${niveau}`} />
+      <p class="verrou__offre">
+        Pas encore de code&nbsp;? Niveau {niveau}&nbsp;: {prixTexte(offreNiveau(niveau).prix)}, les trois niveaux&nbsp;:{' '}
+        {prixTexte(offrePack().prix)}.{' '}
+        <a href={lien(`${CHEMIN_VENTE}#offre`)} data-suivi="clic_verrou_offres">
+          Voir les offres
+        </a>
+      </p>
+      <ul class="verrou__gratuit">
+        <li>
+          Sans code&nbsp;: <a href={lien('module/1-1/')}>le module 1.1</a>, le{' '}
+          <a href={lien('glossaire/')}>glossaire</a>, les <a href={lien('annexes/')}>annexes</a> et les{' '}
+          <a href={lien('simulateurs/')}>simulateurs</a>.
+        </li>
+        <li>
+          Plusieurs codes&nbsp;? <a href={lien('acces/')}>Mes accès</a>
+        </li>
+      </ul>
+    </section>
+    <div class="reserve__contenu">
+      <p class="acces-confirme" tabindex="-1" hidden data-acces-confirme data-pagefind-ignore></p>
+      <slot />
+    </div>
+  </>
+) : (
+  <slot />
+)}

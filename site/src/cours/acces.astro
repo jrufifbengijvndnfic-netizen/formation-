@@ -1,0 +1,67 @@
+---
+/**
+ * Mes accès : saisie des codes d'accès (un par niveau), état des trois niveaux dans ce navigateur,
+ * retrait des codes (ordinateur partagé). Accès par code : src/lib/acces.ts.
+ */
+import FilAriane from '../components/FilAriane.astro';
+import FormulaireCode from '../components/FormulaireCode.astro';
+import Base from '../layouts/Base.astro';
+import { modulesDuNiveau, niveaux } from '../lib/donnees';
+import { CHEMIN_VENTE, lien } from '../lib/navigation';
+import { offreNiveau, offrePack, prixSepares, prixTexte } from '../lib/seo';
+
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Mes accès' }];
+---
+
+<Base
+  indexable={false}
+  filAriane={filAriane}
+  titre="Mes accès à la formation"
+  description="Saisissez le code d'accès reçu avec votre achat : chaque code ouvre un niveau de la formation dans ce navigateur."
+  niveau="0"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <h1>Mes accès à la formation</h1>
+      <p>
+        Chaque code ouvre un niveau, dans ce navigateur. Sur un autre appareil, saisissez-le de nouveau&nbsp;: il reste
+        valable.
+      </p>
+    </div>
+  </div>
+  <div class="conteneur prose">
+    <FormulaireCode id="code-acces" bouton="Valider le code" />
+
+    <h2>Vos niveaux dans ce navigateur</h2>
+    <ul class="acces-niveaux">
+      {niveaux.map((n) => (
+        <li data-niveau-acces={n.niveau}>
+          <strong>
+            Niveau {n.niveau} — {n.titreCourt}
+          </strong>{' '}
+          ({modulesDuNiveau(n.niveau).length} modules)&nbsp;: <span class="si-acces-ferme">verrouillé.</span>
+          <span class="si-acces-ouvert">
+            ouvert. <a href={lien(`niveau-${n.niveau}/`)}>Aller au niveau {n.niveau}</a>
+          </span>
+        </li>
+      ))}
+    </ul>
+    <p>
+      Pas encore de code&nbsp;? Niveau 1&nbsp;: {prixTexte(offreNiveau(1).prix)}, niveau 2&nbsp;:{' '}
+      {prixTexte(offreNiveau(2).prix)}, niveau 3&nbsp;: {prixTexte(offreNiveau(3).prix)}, ou les trois pour{' '}
+      {prixTexte(offrePack().prix)} au lieu de {prixTexte(prixSepares())}.{' '}
+      <a href={lien(`${CHEMIN_VENTE}#offre`)}>Voir les offres</a>. Le <a href={lien('module/1-1/')}>module 1.1</a> se
+      lit sans code.
+    </p>
+
+    <h2>Ordinateur partagé&nbsp;?</h2>
+    <p>Quand vous avez fini, retirez vos codes de ce navigateur&nbsp;: les niveaux se verrouillent de nouveau.</p>
+    <p>
+      <button type="button" class="bouton" data-acces-oublier>
+        Retirer mes codes de ce navigateur
+      </button>
+    </p>
+    <p role="status" data-acces-statut></p>
+  </div>
+</Base>

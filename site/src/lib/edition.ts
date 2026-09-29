@@ -13,12 +13,8 @@ export const EDITION: Edition = process.env.EDITION === 'outils' ? 'outils' : 'c
 /** Vrai si les pages du cours sont construites (et peuvent donc recevoir des liens). */
 export const COURS_PUBLIC = EDITION === 'complete';
 
-/**
- * Extraits gratuits (aimant à prospects) : publiés dans les deux éditions. Dans l'édition « outils »,
- * ce sont les seules pages du cours construites.
- */
-export const MODULES_GRATUITS = ['1.1'];
-export const CHECKLISTS_GRATUITES = ['mettre-en-location-son-premier-logement'];
+// Extraits gratuits : définis dans extraits.ts, que les scripts du navigateur peuvent importer.
+export { CHECKLISTS_GRATUITES, MODULES_GRATUITS } from './extraits';
 
 /** Pages à extraits gratuits : injectées dans les deux éditions (leurs chemins sont filtrés). */
 export const ROUTES_EXTRAITS: { pattern: string; entrypoint: string }[] = [
@@ -43,6 +39,7 @@ export const ROUTES_COURS: { pattern: string; entrypoint: string }[] = [
   ['/recherche', 'recherche.astro'],
   ['/assistant', 'assistant.astro'],
   ['/assistant/fiches.json', 'assistant/fiches.json.ts'],
+  ['/acces', 'acces.astro'],
 ].map(([pattern, fichier]) => ({ pattern: pattern as string, entrypoint: `./src/cours/${fichier}` }));
 
 /** Vitrine des outils gratuits : page d'accueil de l'édition « outils », /outils/ sinon. */

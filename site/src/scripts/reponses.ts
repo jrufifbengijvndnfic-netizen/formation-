@@ -3,8 +3,13 @@
  * pages du cours), la page Recherche et la page /assistant/. Les fiches (/assistant/fiches.json) sont
  * chargées une fois, au premier besoin ; chaque question est traitée dans le navigateur, sans envoi.
  * Le HTML des fiches vient du build (contenu de la formation) ; la question, de textContent.
+ * Fiche d'un module réservé dont le niveau n'est pas ouvert (accès par code, src/lib/acces.ts) : le
+ * passage n'est pas affiché, seulement où il se trouve.
  */
+import { niveauDuModule } from '../lib/acces';
 import { IndexFiches, repondre, type BaseFiches, type Resultat } from '../lib/assistant-recherche';
+import { CHEMIN_VENTE } from '../lib/navigation';
+import type { Niveau } from '../lib/types';
 import { chercherPages, extrait } from './pagefind';
 
 const base = (import.meta.env.BASE_URL ?? '/').replace(/\/?$/, '/');
@@ -80,6 +85,37 @@ function contenu(html: string): HTMLDivElement {
   return div;
 }
 
+/** Niveau à ouvrir pour lire la fiche, s'il n'est pas ouvert dans ce navigateur (data-acces sur <html>). */
+function niveauFerme(r: Resultat): Niveau | undefined {
+  const n = r.fiche.m ? niveauDuModule(r.fiche.m) : undefined;
+  if (n === undefined) return undefined;
+  return (document.documentElement.dataset.acces ?? '').split(' ').includes(String(n)) ? undefined : n;
+}
+
+/** À la place du passage d'un niveau fermé : où il se trouve, et comment l'ouvrir. */
+function apercuReserve(r: Resultat, n: Niveau): HTMLDivElement {
+  const div = element('div', 'assistant__reserve');
+  div.append(
+    element(
+      'p',
+      undefined,
+      `La réponse se trouve dans le module ${r.fiche.m}, réservé au niveau ${n} : saisissez votre code d’accès sur la page du module pour la lire.`,
+    ),
+  );
+  const offres = element('a', undefined, 'Voir les offres');
+  offres.href = `${base}${CHEMIN_VENTE}#offre`;
+  const p = element('p');
+  p.append('Pas encore de code ? ', offres, '.');
+  div.append(p);
+  return div;
+}
+
+/** Passage de la fiche, ou son aperçu si son niveau n'est pas ouvert. */
+const passage = (r: Resultat): HTMLDivElement => {
+  const n = niveauFerme(r);
+  return n ? apercuReserve(r, n) : contenu(r.fiche.h);
+};
+
 function liste(resultats: Resultat[]): HTMLUListElement {
   const ul = element('ul');
   for (const r of resultats) {
@@ -110,7 +146,7 @@ function blocQuestions(niveau: number, resultats: Resultat[]): HTMLElement {
     details.append(element('summary', undefined, r.fiche.t));
     const p = element('p', 'assistant__provenance');
     p.append(lienVers(r, r.fiche.c));
-    details.append(contenu(r.fiche.h), p);
+    details.append(passage(r), p);
     bloc.append(details);
   }
   return bloc;
@@ -139,14 +175,20 @@ export function construireReponse(
     const p = r.principale;
     const source = element('p', 'assistant__source');
     source.append('D’après ', lienVers(p, p.fiche.c));
-    bloc.append(source, titre(options.niveau, 'assistant__titre', p.fiche.t), contenu(p.fiche.h));
+    const ferme = niveauFerme(p);
+    bloc.append(source, titre(options.niveau, 'assistant__titre', p.fiche.t), passage(p));
     const suite = element('p', 'assistant__lire');
-    suite.append(lienVers(p, 'Lire le passage dans la formation', 'bouton bouton--discret'));
+    suite.append(
+      lienVers(p, ferme ? 'Aller au module' : 'Lire le passage dans la formation', 'bouton bouton--discret'),
+    );
     bloc.append(suite);
     if (r.aLire.length) bloc.append(blocALire(sous, 'À lire aussi', r.aLire));
     if (r.questionsProches.length) bloc.append(blocQuestions(sous, r.questionsProches));
     if (r.autres.length) bloc.append(blocAutres(r.autres));
-    return { element: bloc, resume: `Réponse trouvée : ${p.fiche.t}, ${p.fiche.c}.`, trouvee: true };
+    const resume = ferme
+      ? `Réponse dans le module ${p.fiche.m}, réservé au niveau ${ferme}.`
+      : `Réponse trouvée : ${p.fiche.t}, ${p.fiche.c}.`;
+    return { element: bloc, resume, trouvee: true };
   }
   bloc.classList.add('assistant__reponse--introuvable');
   bloc.append(

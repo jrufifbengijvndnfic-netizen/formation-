@@ -1,6 +1,7 @@
 ---
 import FilAriane from '../components/FilAriane.astro';
 import Base from '../layouts/Base.astro';
+import { niveauDuModule } from '../lib/acces';
 import {
   modulesDuNiveau,
   niveauDe,
@@ -11,7 +12,7 @@ import {
   resumer,
   tempsDeLecture,
 } from '../lib/donnees';
-import { lien, lienElement } from '../lib/navigation';
+import { CHEMIN_VENTE, lien, lienElement } from '../lib/navigation';
 import { texteAvancementInitial } from '../lib/progression';
 import { rendreMarkdown, texteBrut } from '../lib/render';
 import { MARQUE, SITE_PAR_DEFAUT, adresseAbsolue, offreJsonLd, offreNiveau, prixTexte } from '../lib/seo';
@@ -69,6 +70,23 @@ const donnees = {
     </div>
 
     <div class="conteneur">
+      <section
+        class="encart acces-niveau"
+        data-niveau-acces={n}
+        aria-labelledby="acces-niveau-titre"
+        data-pagefind-ignore
+      >
+        <h2 id="acces-niveau-titre" style="margin-top:0">
+          Accès au niveau {n}
+        </h2>
+        <p class="si-acces-ferme">
+          {n === 1 && 'Le module 1.1 se lit sans code. '}Les modules{n === 1 && ' suivants'}, leurs quiz et l'examen
+          s'ouvrent avec le code d'accès du niveau {n} ({prixTexte(offre.prix)}).{' '}
+          <a href={lien('acces/')}>Saisir mon code</a> · <a href={lien(`${CHEMIN_VENTE}#offre`)}>Voir les offres</a>
+        </p>
+        <p class="si-acces-ouvert">Niveau {n} ouvert dans ce navigateur&nbsp;: bonne lecture.</p>
+      </section>
+
       <section class="encart" data-avancement={numeros} aria-labelledby="avancement-titre" data-pagefind-ignore>
         <h2 id="avancement-titre" style="margin-top:0">
           Votre avancement
@@ -89,21 +107,30 @@ const donnees = {
           réussis : l'examen est débloqué.
         </p>
         <p class="examen-verrou" data-si-en-cours style="margin-top:1rem">
-          Lisez chaque module et réussissez son quiz et ses dix exercices (70 %) pour débloquer l'examen. Tout le
-          contenu reste librement accessible.
+          Lisez chaque module et réussissez son quiz et ses dix exercices (70 %) pour débloquer l'examen. C'est un
+          conseil&nbsp;: l'examen reste ouvert à tout moment.
         </p>
       </section>
 
       <h2>Modules</h2>
       <ol class="registre">
         {mods.map((m) => (
-          <li class="registre__ligne">
+          <li class="registre__ligne" data-niveau-acces={niveauDuModule(m.numero ?? '')}>
             <span class="registre__numero">
               <span class="parcelle">{m.numero}</span>
             </span>
             <div>
               <h3 class="registre__titre">
                 <a href={lienElement(m)}>{m.titreCourt}</a>
+                {niveauDuModule(m.numero ?? '') ? (
+                  <span class="mention-reserve si-acces-ferme" data-pagefind-ignore>
+                    Réservé
+                  </span>
+                ) : (
+                  <span class="mention-reserve" data-pagefind-ignore>
+                    Gratuit
+                  </span>
+                )}
               </h3>
               <p class="registre__resume">{objectifs(m)}</p>
               <p class="registre__meta">

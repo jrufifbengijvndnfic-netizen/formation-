@@ -3,7 +3,9 @@ import Avertissement from '../../components/Avertissement.astro';
 import EncartFormation from '../../components/EncartFormation.astro';
 import ContenuElement from '../../components/ContenuElement.astro';
 import FilAriane from '../../components/FilAriane.astro';
+import Reserve from '../../components/Reserve.astro';
 import Base from '../../layouts/Base.astro';
+import { niveauDuModule } from '../../lib/acces';
 import {
   description,
   estPublie,
@@ -38,6 +40,8 @@ const suivant = COURS_PUBLIC ? voisinsDuModule.suivant : undefined;
 const descriptionModule =
   description(m).length < 110 ? `${description(m)} Leçon, cas chiffrés, quiz et exercices corrigés.` : description(m);
 const extraitGratuit = MODULES_GRATUITS.includes(m.numero ?? '');
+// Accès par code : niveau à ouvrir pour lire le module (aucun pour l'extrait gratuit).
+const reserve = niveauDuModule(m.numero ?? '');
 const surveiller = m.encadres.filter((e) => e.type === 'A_SURVEILLER');
 const titreVoisin = (e: Element) => (e.type === 'module' ? e.titreCourt : e.titre);
 const filAriane = [
@@ -55,6 +59,7 @@ const filAriane = [
   description={descriptionModule}
   niveau={String(n) as '1' | '2' | '3'}
   actif={`niveau-${n}`}
+  reserve={reserve}
 >
   <div data-pagefind-body>
     <div class="bandeau">
@@ -110,17 +115,19 @@ const filAriane = [
       </nav>
 
       <article class="prose">
-        <ContenuElement element={m} />
+        <Reserve niveau={reserve}>
+          <ContenuElement element={m} />
 
-        <div class="actions-module" data-pagefind-ignore>
-          <button type="button" class="bouton bouton--plein" data-marquer-lu={m.numero} aria-pressed="false">
-            Marquer comme lu
-          </button>
-          <button type="button" class="bouton bouton--discret" data-imprimer>
-            Imprimer le module
-          </button>
-          <span class="etat-lecture" data-etat-lecture role="status"></span>
-        </div>
+          <div class="actions-module" data-pagefind-ignore>
+            <button type="button" class="bouton bouton--plein" data-marquer-lu={m.numero} aria-pressed="false">
+              Marquer comme lu
+            </button>
+            <button type="button" class="bouton bouton--discret" data-imprimer>
+              Imprimer le module
+            </button>
+            <span class="etat-lecture" data-etat-lecture role="status"></span>
+          </div>
+        </Reserve>
 
         {extraitGratuit && (
           <EncartFormation

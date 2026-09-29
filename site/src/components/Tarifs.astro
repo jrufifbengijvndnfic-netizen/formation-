@@ -61,3 +61,8 @@ const contenu = (o: Offre) => {
   est gratuit, et les simulateurs restent gratuits pour tous, sans inscription :{' '}
   <a href={lien('simulateurs/')}>voir les simulateurs</a>.
 </p>
+{COURS_PUBLIC && (
+  <p class="registre__meta">
+    Vous avez reçu un code d'accès&nbsp;? <a href={lien('acces/')}>Ouvrez votre niveau</a>.
+  </p>
+)}

@@ -22,7 +22,8 @@
     "lighthouse": "node ./node_modules/tsx/dist/cli.mjs scripts/lighthouse.ts",
     "image-partage": "node ./node_modules/tsx/dist/cli.mjs scripts/image-partage.ts",
     "instagram": "node ./node_modules/tsx/dist/cli.mjs scripts/instagram.ts",
-    "favicon": "node ./node_modules/tsx/dist/cli.mjs scripts/favicon.ts"
+    "favicon": "node ./node_modules/tsx/dist/cli.mjs scripts/favicon.ts",
+    "code-acces": "node ./node_modules/tsx/dist/cli.mjs scripts/code-acces.ts"
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.3.0",

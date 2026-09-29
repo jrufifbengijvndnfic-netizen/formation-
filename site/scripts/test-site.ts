@@ -19,6 +19,8 @@ import { existsSync, readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { chromium, devices, firefox, webkit, type Browser, type BrowserContext, type Page } from 'playwright';
+import { CLE_ACCES, EMPREINTES_ACCES } from '../src/lib/acces';
+import { QUESTIONS_FREQUENTES } from '../src/lib/assistant-questions';
 import { COURS_PUBLIC as COURS } from '../src/lib/edition';
 import { DIST, demarrerServeur, toutesLesPages, verifierDist } from './serveur-statique';
 
@@ -45,10 +47,27 @@ const executablePath =
 const navigateur: Browser = await moteur.launch(executablePath ? { executablePath } : {});
 console.log(`Navigateur : ${nomNavigateur} ${navigateur.version()}`);
 
+/**
+ * Nouveau contexte de navigation. Par défaut, les trois niveaux y sont ouverts (codes d'accès déjà
+ * saisis) : les contrôles portent sur le contenu des pages réservées. `acces` faux : aucun code.
+ */
 async function nouvellePage(
   options: Parameters<Browser['newContext']>[0] = {},
+  acces = true,
 ): Promise<{ ctx: BrowserContext; page: Page; erreurs: string[] }> {
   const ctx = await navigateur.newContext({ locale: 'fr-FR', ...options });
+  if (acces && COURS) {
+    await ctx.addInitScript(
+      ({ cle, empreintes }) => {
+        try {
+          window.localStorage.setItem(cle, JSON.stringify(empreintes));
+        } catch {
+          /* stockage bloqué par le test lui-même */
+        }
+      },
+      { cle: CLE_ACCES, empreintes: Object.keys(EMPREINTES_ACCES) },
+    );
+  }
   const page = await ctx.newPage();
   const erreurs: string[] = [];
   page.on('pageerror', (e) => erreurs.push(e.message));
@@ -245,8 +264,8 @@ async function mobile(chemins: string[], nom: string, options: Parameters<Browse
 // ------------------------------------------------------------------ 3. Clavier
 // Parcourt la page à la touche Tab jusqu'à revenir au début : chaque arrêt doit avoir un contour de
 // focus visible et ne pas être entièrement masqué (en-tête collant, etc.).
-async function clavier(chemin: string): Promise<void> {
-  const { ctx, page, erreurs } = await nouvellePage({ viewport: { width: 1280, height: 800 } });
+async function clavier(chemin: string, acces = true): Promise<void> {
+  const { ctx, page, erreurs } = await nouvellePage({ viewport: { width: 1280, height: 800 } }, acces);
   await page.goto(BASE + chemin, { waitUntil: 'load' });
   // Page qui place d'elle-même le focus (recherche) : il doit être dans le contenu principal.
   const autofocus = await page.evaluate(() =>
@@ -341,11 +360,14 @@ const echantillonClavier = [
         '/glossaire/',
         '/recherche/',
         '/progression/',
+        '/acces/',
       ]
     : []),
 ];
 console.log(`Parcours au clavier de ${echantillonClavier.length} pages…`);
 for (const chemin of echantillonClavier) await clavier(chemin);
+// Page réservée, sans code : le verrou se parcourt au clavier.
+if (COURS) await clavier('/module/3-1/', false);
 
 // ------------------------------------------------------------------ 4. Parcours fonctionnels
 console.log('Parcours fonctionnels…');
@@ -580,6 +602,125 @@ console.log('Parcours fonctionnels…');
   await ctx.close();
 }
 
+// ------------------------------------------------------------------ 5. Accès par code
+if (COURS) {
+  console.log('Accès par code…');
+  const { ctx, page, erreurs } = await nouvellePage({ viewport: { width: 1280, height: 900 } }, false);
+  const visible = (sel: string) => page.locator(sel).first().isVisible();
+  const valider = async (champ: string, code: string) => {
+    await page.fill(champ, code);
+    await page.locator(champ).press('Enter');
+  };
+
+  // Module réservé, sans code : verrou affiché, contenu masqué, avertissement toujours visible.
+  await page.goto(`${BASE}/module/2-1/`);
+  verifier(await visible('.verrou'), 'accès : verrou sur le module 2.1');
+  verifier(!(await visible('.reserve__contenu')), 'accès : contenu du module 2.1 masqué');
+  verifier(await visible('.avertissement'), 'accès : avertissement visible sur une page verrouillée');
+  const axe = await new AxeBuilder({ page }).withTags(TAGS).analyze();
+  verifier(axe.violations.length === 0, `accès : axe sur le verrou ${axe.violations.map((v) => v.id).join(', ')}`);
+  const jsonLd = await page.evaluate(() =>
+    [...document.querySelectorAll('script[type="application/ld+json"]')].map((e) => e.textContent ?? ''),
+  );
+  verifier(
+    jsonLd.some((j) => j.includes('"isAccessibleForFree":false') && j.includes('.reserve__contenu')),
+    'accès : contenu payant signalé en données structurées',
+  );
+
+  // Code inconnu, puis code d'un autre niveau (accepté, mais la page reste verrouillée).
+  await valider('#code-verrou', '1234');
+  await page.locator('[data-code-message][data-etat="erreur"]').waitFor();
+  verifier(
+    (await page.textContent('[data-code-message]'))?.includes('pas reconnu') &&
+      (await page.getAttribute('#code-verrou', 'aria-invalid')) === 'true',
+    'accès : code inconnu refusé',
+  );
+  await valider('#code-verrou', '0003');
+  await page.locator('[data-code-message][data-etat="succes"]').waitFor();
+  verifier(
+    (await page.textContent('[data-code-message]'))?.includes('niveau 3') && !(await visible('.reserve__contenu')),
+    'accès : le code du niveau 3 n’ouvre pas le niveau 2',
+  );
+
+  // Bon code (espaces tolérés) : la page s'ouvre sans rechargement, le focus va à la confirmation.
+  await valider('#code-verrou', ' 00 02 ');
+  await page.locator('.reserve__contenu').waitFor({ state: 'visible' });
+  verifier(!(await visible('.verrou')), 'accès : verrou retiré après le bon code');
+  verifier(
+    await page.evaluate(() => document.activeElement?.hasAttribute('data-acces-confirme')),
+    'accès : focus sur la confirmation',
+  );
+
+  // Codes mémorisés : niveaux 2 et 3 ouverts d'emblée, niveau 1 fermé, module 1.1 libre.
+  await page.goto(`${BASE}/module/2-5/`);
+  verifier((await visible('.reserve__contenu')) && !(await visible('.verrou')), 'accès : niveau 2 mémorisé');
+  await page.goto(`${BASE}/examen/final/`);
+  verifier(await visible('.reserve__contenu'), 'accès : examen final ouvert par le code du niveau 3');
+  await page.goto(`${BASE}/examen/niveau-1/`);
+  verifier(await visible('.verrou'), 'accès : examen du niveau 1 verrouillé');
+  await page.goto(`${BASE}/module/1-1/`);
+  verifier((await page.locator('.verrou').count()) === 0, 'accès : module 1.1 gratuit, sans verrou');
+  await page.goto(`${BASE}/niveau-1/`);
+  verifier(
+    (await visible('[data-niveau-acces="1"] .mention-reserve')) && (await visible('.acces-niveau .si-acces-ferme')),
+    'accès : page du niveau 1, modules marqués « Réservé »',
+  );
+  await page.goto(`${BASE}/niveau-2/`);
+  verifier(
+    !(await visible('[data-niveau-acces="2"] .mention-reserve')) && (await visible('.acces-niveau .si-acces-ouvert')),
+    'accès : page du niveau 2, niveau ouvert',
+  );
+
+  // « Une question ? » : passage d'un niveau fermé remplacé par le module où il se trouve.
+  const question = QUESTIONS_FREQUENTES.flatMap((t) => t.questions).find(([, cible]) => cible.startsWith('l:2.6:'));
+  const derniereReponse = '.assistant__message:last-child .assistant__reponse';
+  const demander = async () => {
+    await page.goto(`${BASE}/assistant/`);
+    await page.locator('[data-envoyer]:not([disabled])').waitFor();
+    await page.fill('[data-question]', question?.[0] ?? '');
+    await page.click('[data-envoyer]');
+    await page.locator(derniereReponse).waitFor();
+  };
+  // Mes accès : état des niveaux, saisie d'un code, retrait des codes.
+  await page.goto(`${BASE}/acces/`);
+  verifier(
+    (await visible('[data-niveau-acces="2"] .si-acces-ouvert')) &&
+      (await visible('[data-niveau-acces="1"] .si-acces-ferme')),
+    'accès : état des niveaux sur /acces/',
+  );
+  await page.click('[data-acces-oublier]');
+  verifier(await visible('[data-niveau-acces="2"] .si-acces-ferme'), 'accès : codes retirés');
+  await demander();
+  verifier(
+    (await visible(`${derniereReponse} > .assistant__reserve`)) &&
+      !(await page.locator(`${derniereReponse} > .assistant__contenu`).count()),
+    'accès : réponse d’un niveau fermé remplacée par son module',
+  );
+  await page.goto(`${BASE}/acces/`);
+  await valider('#code-acces', '0002');
+  await page.locator('[data-niveau-acces="2"] .si-acces-ouvert').waitFor({ state: 'visible' });
+  reussis++;
+  await demander();
+  verifier(
+    (await visible(`${derniereReponse} > .assistant__contenu`)) &&
+      !(await page.locator(`${derniereReponse} > .assistant__reserve`).count()),
+    'accès : réponse affichée une fois le niveau ouvert',
+  );
+  await page.goto(`${BASE}/module/3-1/`);
+  verifier(await visible('.verrou'), 'accès : niveau 3 reverrouillé après le retrait des codes');
+
+  // Verrou sur petit écran : pas de défilement horizontal.
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto(`${BASE}/examen/test-final/`);
+  verifier(
+    (await visible('.verrou')) &&
+      (await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)) <= 0,
+    'accès : verrou du test final à 320 px',
+  );
+  verifier(erreurs.length === 0, `accès : erreurs JavaScript ${erreurs.join(' | ')}`);
+  await ctx.close();
+}
+
 // Stockage indisponible (navigation privée stricte) : le site reste utilisable.
 {
   const { ctx, page, erreurs } = await nouvellePage();
@@ -599,7 +740,16 @@ console.log('Parcours fonctionnels…');
       'stockage bloqué : simulateur et thème utilisables',
     );
   } else {
+    // Sans stockage durable, le code d'accès tient pour la session (sessionStorage).
     await page.goto(`${BASE}/module/1-2/`);
+    verifier(await page.locator('.verrou').isVisible(), 'stockage bloqué : module réservé verrouillé');
+    await page.fill('#code-verrou', '0001');
+    await page.click('.verrou button[type="submit"]');
+    await page.locator('.reserve__contenu').waitFor({ state: 'visible' });
+    verifier(
+      (await page.textContent('[data-acces-confirme]'))?.includes('après sa fermeture'),
+      'stockage bloqué : code gardé pour la session, message',
+    );
     await page.click('[data-marquer-lu]');
     verifier(
       (await page.getAttribute('[data-marquer-lu]', 'aria-pressed')) === 'true',
@@ -609,6 +759,8 @@ console.log('Parcours fonctionnels…');
       (await page.textContent('[data-etat-lecture]'))?.includes('stockage du navigateur indisponible'),
       'stockage bloqué : message',
     );
+    await page.goto(`${BASE}/module/1-3/`);
+    verifier(await page.locator('.reserve__contenu').isVisible(), 'stockage bloqué : niveau 1 ouvert pour la session');
   }
   verifier(erreurs.length === 0, `stockage bloqué : erreurs JavaScript ${erreurs.join(' | ')}`);
   await ctx.close();
