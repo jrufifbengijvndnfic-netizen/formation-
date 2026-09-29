@@ -101,8 +101,25 @@ réussis à 70 %.
 Les prix se règlent dans `OFFRES` (`src/lib/seo.ts`) : niveau 1 à 97 €, niveau 2 à 197 €, niveau 3 à
 297 €, formation complète à 447 €. Ils s'affichent sur `/tarifs/`, l'accueil et les pages de niveau.
 Renseigner `lienAchat` (page de paiement de la plateforme de vente) fait apparaître le bouton
-« Acheter » ; sans lui, le site indique « achat en ligne bientôt disponible ». Le site étant statique,
-il ne protège pas le contenu payant : la plateforme de vente s'en charge.
+« Acheter » ; sans lui, le site indique « paiement en ligne bientôt ouvert ».
+
+**Accès par code** (version 022, `src/lib/acces.ts`) : les modules (sauf l'extrait gratuit 1.1), les
+examens de niveau, l'examen final et le test de 50 questions affichent un verrou tant que leur niveau
+n'est pas ouvert. Un code ouvre un niveau (aujourd'hui `0001`, `0002`, `0003` pour les niveaux 1, 2
+et 3 ; l'examen final et le test relèvent du niveau 3). Le code se saisit sur la page verrouillée ou
+sur `/acces/` (« Mes accès », qui permet aussi de retirer les codes d'un ordinateur partagé) ; il est
+vérifié dans le navigateur par son empreinte SHA-256 (aucun code en clair dans le site publié) et
+gardé dans le navigateur (`localStorage`, à défaut `sessionStorage`). Le script du `<head>`
+(`Base.astro`) ouvre la page avant l'affichage ; composants `Reserve.astro` (verrou + contenu) et
+`FormulaireCode.astro`, script `src/scripts/acces.ts`. « Une question ? » n'affiche pas le passage
+d'un niveau fermé, seulement le module où il se trouve. Les pages réservées portent les données
+structurées des contenus payants (`isAccessibleForFree: false`) : Google peut les indexer.
+Ajouter ou changer un code : `npm run code-acces -- <code> <niveau>`, puis coller la ligne affichée
+dans `EMPREINTES_ACCES` ; retirer une ligne ferme ce code sur tous les appareils.
+**Limite** : c'est un verrou d'affichage, pas une protection serveur. Le texte reste dans le HTML des
+pages (lisible dans le code source, dans `/assistant/fiches.json` et dans la banque du test final),
+et un code donné peut circuler ; des codes de quatre chiffres se devinent. Une vraie protection viendra
+avec le paiement en ligne (codes par acheteur ou espace membre).
 
 Page de vente : `src/pages/formation-investissement-locatif.astro` (`CHEMIN_VENTE` dans
 `src/lib/navigation.ts`). Encart « Aller plus loin » vers la formation : `src/components/EncartFormation.astro`

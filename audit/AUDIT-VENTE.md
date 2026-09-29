@@ -605,3 +605,31 @@ Ce qui manque ne peut pas s'écrire sans inventer.
 - **Avis vérifiés** : 2 à 3 points, à recueillir après les premières ventes.
 
 Une deuxième itération sera faite dès réception des informations du propriétaire.
+
+---
+
+## 16. Version 022 : accès par code (demande du propriétaire, 29 septembre 2026)
+
+Le propriétaire a demandé de protéger la formation « comme si elle était payante », avec un code par
+niveau : `0001`, `0002`, `0003`.
+
+**Ce qui est en place (constat).**
+- Les modules (sauf le 1.1, gratuit), les examens, l'examen final et le test de 50 questions
+  affichent un verrou tant que leur niveau n'est pas ouvert.
+- Le code se saisit sur la page verrouillée ou sur « Mes accès » (`/acces/`). Il est gardé dans le
+  navigateur.
+- « Une question ? » indique le module qui répond, sans afficher le passage d'un niveau fermé.
+- Tests : `npm run test:site`, partie « Accès par code ».
+
+**Effet sur la porte G1 : toujours en échec.**
+- Le verrou est un verrou d'affichage : le texte reste dans le code source des pages, dans
+  `/assistant/fiches.json` et dans la banque du test final.
+- Les codes de quatre chiffres se devinent.
+- Un visiteur ordinaire ne lit plus les niveaux payants sans code. Quelqu'un qui ouvre le code source,
+  ou qui connaît un code, les lit.
+- G1 ne passera qu'avec une protection par le serveur : Stripe, puis des codes par acheteur ou un
+  espace membre.
+
+**Effet sur l'offre (hypothèse, à vérifier au test humain).** Le produit se présente enfin comme
+payant : verrou, prix et lien vers les offres sur chaque page réservée, mentions « Réservé » et
+« Gratuit » sur les pages de niveau.

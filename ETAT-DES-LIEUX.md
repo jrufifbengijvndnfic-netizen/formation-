@@ -103,9 +103,13 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
   panneau « Une question ? » à côté de chaque leçon et répond aussi depuis la barre de recherche
   (réponse puis pages trouvées) et sur la page Recherche. Voir `site/README.md`, section « Poser
   une question ».
+- accès par code (version 022, `site/src/lib/acces.ts`) : modules (sauf 1.1), examens et test final
+  verrouillés par niveau ; codes `0001`, `0002`, `0003` (niveaux 1, 2, 3), saisis sur la page ou sur
+  `/acces/` et gardés dans le navigateur. Verrou d'affichage en attendant le paiement en ligne : le
+  texte reste dans le code source des pages. Voir `site/README.md`, section « Tarifs et vente ».
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **021**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **022**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist`, fichier caché `.htaccess` compris).
 
 ## 3. Décisions prises (et pourquoi)
