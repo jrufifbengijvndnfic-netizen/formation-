@@ -21,10 +21,10 @@ Guide du 25 septembre 2026 (version 013 du site). À suivre dans l'ordre.
    (`default.php`, `index.php`, ancien site éventuel). Si vous aviez déjà envoyé un ZIP et qu'il a
    créé un sous-dossier (par exemple `formation-location-version-011`), supprimez-le aussi : le site
    était alors à `formation-locatif.com/formation-location-version-011/`, pas à la racine.
-3. Envoyez `formation-location-version-021.zip` dans `public_html`, clic droit → **Extraire** →
+3. Envoyez `formation-location-version-022.zip` dans `public_html`, clic droit → **Extraire** →
    destination : `public_html` lui-même. Les fichiers `index.html`, `.htaccess`, `sitemap.xml`,
    `robots.txt` et les dossiers `module`, `simulateurs`… doivent se trouver **directement** dans
-   `public_html` (le ZIP 021 est prévu pour : pas de dossier intermédiaire).
+   `public_html` (le ZIP 022 est prévu pour : pas de dossier intermédiaire).
 4. Supprimez le fichier ZIP de `public_html` après l'extraction.
 5. hPanel → **Sécurité → SSL** : vérifiez que le certificat SSL gratuit est **actif** pour
    `formation-locatif.com` et `www.formation-locatif.com`.
