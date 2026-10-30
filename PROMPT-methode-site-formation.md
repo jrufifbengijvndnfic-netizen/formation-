@@ -102,6 +102,20 @@ explique ce qu'il bloque.
 9. **Honnêteté sur les limites.** Ce que tu ne peux pas vérifier (vrais acheteurs, vrais téléphones,
    sources officielles inaccessibles), tu le dis, et tu prépares le protocole pour un humain.
 
+**Parler au propriétaire** (il n'est pas développeur) :
+
+10. **Langage simple.** Explique ce que chaque étape change concrètement pour lui. Définis chaque
+    mot technique la première fois (branche, fusion, zip, DNS, build) en une phrase.
+11. **Statut exact.** Ne dis jamais « c'est fait » avant que le build et tous les tests soient passés.
+    Distingue « écrit », « testé », « en ligne ». Si un outil tombe en panne en cours de route, dis
+    ce qui est fait et ce qui reste, et pousse ce qui peut l'être.
+12. **Décisions numérotées.** Présente chaque choix qui lui revient sous forme de liste numérotée,
+    avec tes options et ta recommandation. Il répondra point par point (« décision 1 : d'accord »).
+13. **Proposer avant de coder une interface.** Pour toute nouvelle fonction visible (un panneau, un
+    outil, une page), propose trois ou quatre façons de l'intégrer, avec une maquette ou une capture,
+    puis code celle qu'il choisit. S'il envoie une capture annotée, pars d'elle.
+14. **Comptes rendus courts pendant les longs travaux**, une ligne à chaque étape franchie.
+
 ---
 
 ## 4. Portes bloquantes
@@ -242,11 +256,42 @@ phase, arrête-toi et rends un compte rendu court : ce qui est fait, ce qui est 
 - progression : export et import en JSON, réinitialisation ;
 - à propos, méthode et sources, mises à jour.
 
+**Page d'accueil (modèle éprouvé, version 014).**
+
+1. Une promesse orientée résultat, la date « à jour au », un seul bouton principal (commencer
+   gratuitement) et un lien secondaire (programme et prix).
+2. Une ligne de prix au-dessus des boutons : extrait gratuit, prix d'entrée, prix du pack.
+3. Une carte vers l'outil phare.
+4. Quatre chiffres clés calculés depuis le contenu (modules, exercices, outils, modèles), jamais
+   saisis à la main.
+5. « Comment ça marche » en trois étapes.
+6. Une carte par niveau : modules, durée, prix.
+7. Un bloc final avec le prix de la formation complète.
+8. Des accès rapides en pastilles.
+
+**Direction artistique.**
+
+- Une couleur par niveau, reprise partout : haut de page légèrement teinté, filet de couleur, numéro
+  de module.
+- Hauts de page clairs ; pastilles ; coins arrondis ; chiffres tabulaires dans les tableaux et les
+  outils.
+- Thème sombre ; styles d'impression ; respect de `prefers-reduced-motion`.
+- Avertissement en texte intégral, mais discret : petit, sous un filet, sans cadre.
+- Bandeau du haut réduit à la date de mise à jour.
+- Menu sur une seule ligne à toutes les largeurs : chaque entrée ajoutée se vérifie à 1 024, 1 280
+  et 1 440 px.
+- À éviter : crème et terracotta, noir et vert acide, grilles de cartes à ombres portées, surtitres en
+  capitales espacées, dégradés violets, emojis décoratifs, animations gratuites.
+- Méthode : faire valider le style sur l'accueil, puis l'appliquer à tout le site en une version.
+
 **Deux éditions du même code** :
 
 - **complète** : la formation et les outils ;
 - **outils** : seulement les outils, la vente, les pages légales et les extraits gratuits, pour le
   jour où le cours sera servi ailleurs.
+
+**Adresses.** Courtes et stables : `/module/1-1/`, `/examen/niveau-1/`, `/annexe/a/`. La progression
+de l'élève est rangée par numéro de module, pas par titre : un titre corrigé ne fait rien perdre.
 
 **Fidélité.** Le texte n'est jamais réécrit. Seule la typographie de la langue (espaces insécables
 en français) est ajoutée à l'affichage, et c'est écrit sur la page À propos.
@@ -282,8 +327,17 @@ explique.
 6. Les paramètres passent dans l'adresse de la page : un calcul se partage par un lien.
 7. Prévois une page par outil et par modèle. Chacune a son titre, sa description pensée pour la
    recherche et ses données structurées `WebApplication` gratuites. Ajoute une vitrine `/outils/`.
-8. Choisis un **outil phare**, celui qui répond à la douleur principale. Relie-le depuis l'accueil, la
-   page de vente, la vitrine et les modules concernés.
+   Pour Google, chaque page d'outil montre aussi :
+   - la méthode de calcul (la formule) ;
+   - un exemple chiffré tiré du module ;
+   - des liens vers les autres outils.
+8. Prévois deux familles d'outils :
+   - les calculs que la formation spécifie déjà ;
+   - des outils tirés des règles des modules (un test, un diagnostic, un calendrier), chacun fondé
+     sur un passage précis.
+
+   Choisis ensuite un **outil phare**, celui qui répond à la douleur principale. Relie-le depuis
+   l'accueil, la page de vente, la vitrine et les modules concernés.
 9. Glossaire : infobulle sur la première occurrence de chaque terme par module, hors titres,
    tableaux, formules et gras. Les sigles respectent la casse. Une liste d'exclusion écarte les mots
    ambigus.
@@ -327,6 +381,21 @@ exercices réussis à 70 %.
    passage qui répond à une question écrite avec ses mots. Moteur de pertinence BM25, synonymes du
    langage courant, questions fréquentes par thème. Aucune IA générative, rien d'inventé, rien
    d'envoyé.
+   - Si le propriétaire demande « un chatbot », propose cette solution et explique pourquoi : elle
+     ne peut pas inventer une réponse, elle ne coûte rien et elle n'envoie aucune donnée.
+   - Fiches : passages des leçons, points clés, pièges, questions de quiz et d'exercices avec leur
+     réponse, glossaire, annexes, outils, actions, encadrés.
+   - Chaque réponse donne :
+     - le passage principal et sa source ;
+     - « Lire le passage », qui ouvre le module, fait défiler jusqu'au paragraphe et le surligne ;
+     - d'autres passages à lire et les questions proches ;
+     - « Voir d'autres réponses ».
+   - Intégration retenue ici, après trois ou quatre propositions :
+     - un panneau « Une question ? » à côté de la leçon (en bas de l'écran sur téléphone) ;
+     - les réponses du module en priorité, ses questions fréquentes en suggestion ;
+     - la conversation qui suit l'élève de page en page ;
+     - la barre de recherche à double effet : la réponse de la formation, puis les pages trouvées.
+   - L'outil devient un argument de vente : comparatif, bonus, FAQ, « essayer avant d'acheter ».
 
 **Fini quand** chaque module a son quiz et ses dix exercices, que le test final tire bien une
 question par module et que l'auteur a relu les exercices.
@@ -399,6 +468,20 @@ servie en HTTPS.
 - compression.
 
 **Livraison.** Le zip contient le site **à sa racine**, `.htaccess` compris.
+
+**Avant et après la mise en ligne.**
+
+- Vérifie d'abord où pointe le domaine (DNS). Un site déployé chez un hébergeur alors que le domaine
+  pointe vers un autre reste introuvable.
+- Hébergeur de type Vercel ou Netlify : le build se lance depuis le sous-dossier du site ; écris-le
+  dans la configuration.
+- Changement d'hébergeur : retire tout ce qui était propre à l'ancien (scripts de mesure, fichiers de
+  configuration), sinon chaque visite produit des erreurs 404.
+- Erreur 403 : un dossier sans `index.html` (zip extrait au mauvais endroit), ou un pare-feu, un CDN
+  ou une protection par mot de passe chez l'hébergeur. Les robots de Google ne doivent jamais être
+  bloqués.
+- Après la mise en ligne, lis les journaux de l'hébergeur (404, 403, redirections) et corrige chaque
+  erreur qui revient, avec un contrôle au build pour qu'elle ne revienne pas.
 
 **Guide `REFERENCEMENT-GOOGLE.md`.**
 
@@ -511,6 +594,15 @@ peut recevoir du trafic.
      se remplace seule quand le champ est renseigné.
    - Un bonus qui dépend d'un moyen absent (par exemple une adresse e-mail) ne s'affiche pas.
 
+7. **Capter les e-mails des visiteurs pas encore prêts à acheter.**
+   - Un aimant gratuit et utile, tiré de la formation (ici, le calendrier des échéances de l'année).
+   - Un formulaire relié au service d'e-mailing (Brevo, MailerLite…). Il ne s'affiche que lorsque
+     l'adresse du service est renseignée.
+   - Double consentement géré par le service, désinscription en un clic, lien vers la page
+     confidentialité.
+   - Une courte séquence d'e-mails écrite à l'avance (`audit/textes-proposes.md`), sans pression ni
+     fausse urgence.
+
 **Fini quand** aucune porte n'est en échec (hors P10 et P11 avant la vente), le test des 5 secondes
 atteint 11 sur 12, la note est ≥ 90, et le reste est listé [À FOURNIR].
 
@@ -568,6 +660,8 @@ connaissance de cause.
    - deux cases non pré-cochées : accès immédiat, renonciation à la rétractation ;
    - facture automatique ;
    - page de remerciement ;
+   - accueil après achat, écrit à l'avance (`offre/accueil-apres-achat.md`) : e-mail de
+     confirmation, accès, premiers pas, comment poser une question ;
    - codes par acheteur ou espace membre.
 
 **Fini quand** les tests du verrou passent et que la limite est écrite.
@@ -583,6 +677,8 @@ connaissance de cause.
 2. **Produire le zip** `versions/[nom]-version-NNN.zip` depuis le dossier construit, fichiers à la
    racine, `.htaccess` compris. Ouvre-le pour vérifier : `index.html` et `.htaccess` à la racine, la
    nouveauté présente dans la page concernée.
+   - Le dossier construit (`dist/`) n'est pas versionné : reconstruis-le juste avant chaque zip.
+   - Un zip contient toujours le site entier, avec toutes les améliorations précédentes.
 3. **Mettre à jour les documents** dans la même version : `ETAT-DES-LIEUX.md`,
    `REFERENCEMENT-GOOGLE.md` (nom du zip), `README` du site, et le journal public des mises à jour
    quand le fond change.
@@ -600,6 +696,62 @@ connaissance de cause.
    - la nouveauté elle-même.
 
 **Fini quand** la checklist de la section 9 est entièrement cochée.
+
+### Après la phase 9 — Faire connaître, lancer, entretenir
+
+À lancer sur demande du propriétaire, une fois le site en ligne.
+
+**1. Plan de communication** (`communication/PLAN-COMMUNICATION.md`). Il couvre :
+
+- l'ordre des opérations et le rôle de chaque canal ;
+- la marque et la voix ;
+- le compte : bio, lien ;
+- le système visuel ;
+- six piliers éditoriaux et les formats qui marchent sur le sujet ;
+- trente sujets de publications tirés de la formation ;
+- un rythme tenable ;
+- le chemin du réseau social jusqu'à la vente ;
+- la publicité payante : quand commencer, règles de la plateforme ;
+- LinkedIn et la newsletter ;
+- les quatre premières semaines ;
+- ce qu'il ne faut pas faire.
+
+La liste noire de la section 7 s'applique aussi aux publications.
+
+**2. Publications prêtes à poster** : un dossier numéroté par publication (images, légende, mots-clés),
+un fichier `A-PUBLIER.md` (ordre, jour, texte) et un zip.
+
+**3. Vidéos générées par IA** : un prompt par plan, avec ces règles.
+
+- Partir d'une image conçue par le propriétaire (image vers vidéo) plutôt que d'un texte seul.
+- Ne jamais faire écrire de texte par l'IA : prévoir une zone vide, le texte s'incruste au montage.
+- Écrire les prompts en anglais et expliquer l'intention en français au-dessus.
+- Format vertical 9:16, cadre large.
+- Jamais de personne réelle identifiable, de logo, de faux document officiel ni de signe de richesse.
+- Noter les limites constatées de l'outil : modèle le moins cher réservé aux abonnés, préréglages
+  proposés à la place de la génération, pas de champ de prompt négatif.
+- Le montage fait l'essentiel : accroche, sous-titres, rythme.
+
+**4. Lancer.**
+
+1. Répétition générale : un achat test complet.
+2. Objectifs chiffrés de départ, dans `objectifs.md`.
+3. Ouverture des ventes.
+
+**5. Preuves et légitimité.**
+
+- Relecture par un professionnel du secteur.
+- Dix premiers élèves, dont on intègre les retours.
+- Avis recueillis avec leur mode de vérification, jamais inventés.
+
+**6. Entretenir** : chaque mise à jour du contenu = une nouvelle version (phase 9).
+
+| Fréquence | À faire |
+| --- | --- |
+| Chaque semaine | Lire l'actualité officielle du secteur ; répondre aux élèves ; noter les objections entendues |
+| Chaque mois | Relire les chiffres de visite et de vente ; publier un article ; demander un avis aux nouveaux élèves |
+| Chaque trimestre | Mettre à jour les valeurs qui bougent (indices, taux, barèmes) ; relire la grille ; tester une amélioration de la page de vente |
+| Chaque année | Intégrer les nouvelles règles de l'année ; réviser chiffres clés et calendrier ; publier le journal des mises à jour ; changer la date « à jour au » |
 
 ---
 
@@ -646,7 +798,22 @@ Une négation honnête (« ce n'est pas une formation certifiante ») n'est pas 
 
 - **Travail non poussé** : une session entière peut se perdre. Pousse à la fin de chaque étape.
 - **Caractère spécial dans le chemin du dossier** (par exemple « : ») : les scripts npm échouent.
-  Appelle les outils par `node ./node_modules/…`.
+  Appelle les outils par `node ./node_modules/…`. Avec Astro 7, le binaire est
+  `astro/bin/astro.mjs`.
+- **Contexte perdu entre deux sessions** : sans journal, tout est à redécouvrir. Tiens
+  `ETAT-DES-LIEUX.md` à jour à chaque version, et commence chaque session par sa lecture.
+- **Domaine qui pointe ailleurs** : le site est en ligne, mais introuvable à son adresse. Vérifie le
+  DNS avant de déployer.
+- **Erreur 403** : zip extrait dans un sous-dossier, ou filtrage de l'hébergeur. Vérifie que
+  `index.html` est à la racine, puis le pare-feu et le CDN.
+- **Dossier construit absent** (nouvelle machine, conteneur recyclé) : reconstruis avant le zip,
+  jamais de zip depuis un ancien `dist/`.
+- **Menu qui passe sur deux lignes** après l'ajout d'une entrée : vérifie à toutes les largeurs.
+  Trouve un autre point d'entrée plutôt que de surcharger le menu.
+- **Navigateurs supplémentaires impossibles à télécharger** dans l'environnement de travail :
+  dis-le, et prévois les tests Firefox et WebKit sur une autre machine.
+- **Scripts temporaires** lancés hors du projet : « top-level await » refusé. Lance-les depuis le
+  dossier du site.
 - **Zip avec un dossier intermédiaire** : le site se retrouve dans un sous-dossier. Mets les fichiers
   à la racine du zip.
 - **Restes d'un ancien hébergeur** (script de mesure, fichiers de configuration) : des 404 à chaque
@@ -712,13 +879,15 @@ cd dist && zip -qr -X ../../versions/[nom]-version-NNN.zip .
 | `site/` | Le code du site, ses tests et ses scripts de contrôle |
 | `ETAT-DES-LIEUX.md` | Le journal de reprise |
 | `FEUILLE-DE-ROUTE.md` | Les tâches vers la vente, cochées |
-| `offre/` | Promesse, cible, pourquoi payer, prix, garantie, bonus, frontière, plan de paiement |
+| `offre/` | Promesse, cible, pourquoi payer, prix, garantie, bonus, frontière, plan de paiement, accueil après achat |
 | `audit/` | Audit de vente, réécritures, test humain, notes avant et après, captures |
 | `VERIFICATION-FOND.md` | La relecture du fond et la suite donnée |
 | `TESTS-MANUELS.md` | Le protocole sur vrais appareils |
 | `conformite/revue-textes.md` | La revue des textes de vente |
 | `REFERENCEMENT-GOOGLE.md` | Mise en ligne, Search Console, Bing, liens |
 | `versions/` | `VERSIONS.md` et un zip par version |
+| `communication/` (sur demande) | Plan de communication, publications prêtes, prompts vidéo |
+| `objectifs.md` (au lancement) | Les objectifs chiffrés de départ |
 
 ---
 
@@ -732,6 +901,9 @@ Termine chaque grande étape, et la mission entière, par :
 4. les décisions qui reviennent au propriétaire ;
 5. la liste [À FOURNIR], classée par impact sur les ventes ;
 6. ce que tu n'as pas pu vérifier, et pourquoi ;
-7. le zip de la version, envoyé.
+7. le zip de la version, envoyé, avec les instructions de dépôt.
+
+Le tout en langage simple, sans jargon : le propriétaire doit pouvoir agir sans rien demander de
+plus.
 
 **Attends ma validation explicite avant de fusionner quoi que ce soit.**
