@@ -7,6 +7,7 @@ import Simulateur from '../../components/Simulateur.astro';
 import Base from '../../layouts/Base.astro';
 import { COURS_PUBLIC } from '../../lib/edition';
 import { formuleSimulateur, irlPublies, moduleParNumero } from '../../lib/donnees';
+import { cheminGuide, guidesDuSimulateur } from '../../lib/guides';
 import { CHEMIN_VENTE, cheminModule, lien } from '../../lib/navigation';
 import { referencementSimulateur, siglesAExpliquer, simulateurJsonLd } from '../../lib/referencement-simulateurs';
 import { SITE_PAR_DEFAUT } from '../../lib/seo';
@@ -29,6 +30,7 @@ const seo = referencementSimulateur(sim);
 const formule = sim.formule ? formuleSimulateur(sim.formule) : undefined;
 const niveauxDuSimulateur = [...new Set(sim.modules.map((n) => n.split('.')[0]))].sort();
 const autres = SIMULATEURS.filter((s) => s !== sim);
+const guides = guidesDuSimulateur(sim.id);
 const donnees = simulateurJsonLd(sim, Astro.url.pathname, Astro.site ?? SITE_PAR_DEFAUT);
 const sigles = siglesAExpliquer(`${seo.h1} ${sim.resume}`);
 // Outils dont le résultat conclut (« non décent », « non conforme ») : rappel court près du résultat.
@@ -114,6 +116,18 @@ const filAriane = [
         </p>
       )}
       <div class="prose">
+        {guides.length > 0 && (
+          <section aria-labelledby="guides-titre" data-pagefind-ignore>
+            <h2 id="guides-titre">{guides.length > 1 ? 'Guides sur ce sujet' : 'Guide sur ce sujet'}</h2>
+            <ul>
+              {guides.map((g) => (
+                <li>
+                  <a href={lien(cheminGuide(g))}>{g.h1}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <EncartFormation modules={sim.modules} />
         <InscriptionEmail />
         <section aria-labelledby="methode-titre">

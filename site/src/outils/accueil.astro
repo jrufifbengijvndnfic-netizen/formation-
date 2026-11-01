@@ -5,6 +5,7 @@ import FilAriane from '../components/FilAriane.astro';
 import Tarifs from '../components/Tarifs.astro';
 import Base from '../layouts/Base.astro';
 import { formation, miseAJour } from '../lib/donnees';
+import { GUIDES, cheminGuide } from '../lib/guides';
 import { COURS_PUBLIC } from '../lib/edition';
 import { CHEMIN_VENTE, lien } from '../lib/navigation';
 import { lettres } from '../lib/parse-formation';
@@ -81,6 +82,20 @@ const categories = CATEGORIES_SIMULATEURS.map((c) => ({
             <a href={lien(`lettres/${referencementLettre(l).slug}/`)}>
               {referencementLettre(l).h1}
               <small>À compléter en ligne, puis copier ou imprimer</small>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="guides-titre">
+      <h2 id="guides-titre">Guides pratiques</h2>
+      <ul class="acces">
+        {GUIDES.map((g) => (
+          <li>
+            <a href={lien(cheminGuide(g))}>
+              {g.h1}
+              <small>{g.sur}</small>
             </a>
           </li>
         ))}

@@ -16,6 +16,7 @@ import {
   tousLesModules,
 } from '../../lib/donnees';
 import { COURS_PUBLIC, MODULES_GRATUITS } from '../../lib/edition';
+import { GUIDES, cheminGuide } from '../../lib/guides';
 import { CHEMIN_VENTE, idModule, lien, lienElement, libelleCourt, voisins } from '../../lib/navigation';
 import type { Element, Niveau } from '../../lib/types';
 
@@ -43,6 +44,8 @@ const extraitGratuit = MODULES_GRATUITS.includes(m.numero ?? '');
 // Accès par code : niveau à ouvrir pour lire le module (aucun pour l'extrait gratuit).
 const reserve = niveauDuModule(m.numero ?? '');
 const surveiller = m.encadres.filter((e) => e.type === 'A_SURVEILLER');
+// Guides pratiques d'actualité qui renvoient vers ce module (lien visible même si le module est réservé).
+const guides = GUIDES.filter((g) => g.modules.includes(m.numero ?? ''));
 const titreVoisin = (e: Element) => (e.type === 'module' ? e.titreCourt : e.titre);
 const filAriane = [
   { libelle: 'Accueil', href: lien() },
@@ -128,6 +131,19 @@ const filAriane = [
             <span class="etat-lecture" data-etat-lecture role="status"></span>
           </div>
         </Reserve>
+
+        {guides.length > 0 && (
+          <aside class="guides-module" aria-labelledby="guides-module-titre" data-pagefind-ignore>
+            <h2 id="guides-module-titre">Actualité : {guides.length > 1 ? 'guides pratiques' : 'guide pratique'}</h2>
+            <ul>
+              {guides.map((g) => (
+                <li>
+                  <a href={lien(cheminGuide(g))}>{g.h1}</a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
 
         {extraitGratuit && (
           <EncartFormation
