@@ -60,7 +60,7 @@ Cette formation est un outil pédagogique d'information générale. Elle ne remp
 | 13 | Facturation électronique | Depuis le 1er septembre 2026, les loueurs en meublé (LMNP, LMP) doivent pouvoir recevoir les factures électroniques de leurs fournisseurs via une plateforme agréée | 2.9 |
 | 14 | Thermostat programmable | Obligation dans les logements existants reportée au 1er janvier 2030 (décret n° 2025-1343 du 26 décembre 2025) | 1.4 |
 | 15 | Indice de référence des loyers | IRL du 3e trimestre 2026 : 148,06 (+1,57 % sur un an) ; prochaine publication annoncée le 15 janvier 2027 | 2.1 |
-| 16 | Crédit | Taux d'usure du 3e trimestre 2026 : 5,29 % pour les prêts à taux fixe de 20 ans et plus ; règles HCSF inchangées (35 %, 25 ans) | 2.10 |
+| 16 | Crédit | Taux d'usure du 4e trimestre 2026 : 5,40 % pour les prêts à taux fixe de 20 ans et plus ; règles HCSF inchangées (35 %, 25 ans) | 2.10 |
 | 17 | Dons familiaux exonérés | Jusqu'au 31 décembre 2026, dons de sommes d'argent exonérés jusqu'à 100 000 € par donateur pour acheter un logement neuf ou en VEFA loué comme résidence principale ou pour rénover sa résidence principale | 3.7 |
 | 18 | Taxe sur les logements vacants | Fusion de la TLV et de la THLV en une taxe unique sur la vacance des locaux d'habitation à compter des impositions 2027 | 2.9 |
 | 19 | Justice | Réintroduction d'un droit de timbre de 50 € (contribution pour l'aide juridique) pour la plupart des instances civiles, hors injonction de payer | 2.13 |
@@ -1872,13 +1872,13 @@ Calculer sa capacité d'emprunt, comprendre les règles des banques, choisir le 
 
 **Les taux.** À l'été 2026, les taux moyens hors assurance tournent autour de 3,2 % sur 15 ans, 3,35 % sur 20 ans et 3,45 % sur 25 ans, les meilleurs dossiers obtenant environ 0,2 à 0,3 point de moins. Le coût global se mesure par le TAEG (taux annuel effectif global), qui intègre intérêts, assurance obligatoire, frais de dossier et de garantie. Aucun prêt ne peut dépasser le taux d'usure.
 
-| Taux d'usure (prêts immobiliers aux particuliers), 3e trimestre 2026 | Seuil |
+| Taux d'usure (prêts immobiliers aux particuliers), 4e trimestre 2026 | Seuil |
 |---|---|
-| Prêts à taux fixe de moins de 10 ans | 4,07 % |
-| Prêts à taux fixe de 10 à moins de 20 ans | 4,57 % |
-| Prêts à taux fixe de 20 ans et plus | 5,29 % |
-| Prêts à taux variable | 5,28 % |
-| Prêts relais | 6,39 % |
+| Prêts à taux fixe de moins de 10 ans | 4,09 % |
+| Prêts à taux fixe de 10 à moins de 20 ans | 4,68 % |
+| Prêts à taux fixe de 20 ans et plus | 5,40 % |
+| Prêts à taux variable | 5,52 % |
+| Prêts relais | 6,49 % |
 
 Ces seuils sont publiés par la Banque de France à la fin de chaque trimestre pour le trimestre suivant.
 
@@ -1906,7 +1906,7 @@ Ces seuils sont publiés par la Banque de France à la fin de chaque trimestre p
 
 #### Points clés
 
-35 % d'endettement, 25 ans maximum, 70 % des loyers retenus. TAEG sous le taux d'usure (5,29 % à 20 ans et plus au 3e trimestre 2026). Assurance emprunteur librement choisie et changeable à tout moment. Indemnités de remboursement anticipé plafonnées.
+35 % d'endettement, 25 ans maximum, 70 % des loyers retenus. TAEG sous le taux d'usure (5,40 % à 20 ans et plus au 4e trimestre 2026). Assurance emprunteur librement choisie et changeable à tout moment. Indemnités de remboursement anticipé plafonnées.
 
 #### Pièges à éviter
 
@@ -1927,13 +1927,13 @@ D: 40 %
 R: C
 E: Le taux d'effort est limité à 35 % des revenus nets, assurance emprunteur incluse, sauf dérogations limitées.
 
-Q: Quel est le taux d'usure des prêts à taux fixe de 20 ans et plus au 3e trimestre 2026 ?
-A: 4,57 %
-B: 5,29 %
-C: 6,39 %
+Q: Quel est le taux d'usure des prêts à taux fixe de 20 ans et plus au 4e trimestre 2026 ?
+A: 4,68 %
+B: 5,40 %
+C: 6,49 %
 D: 3,45 %
 R: B
-E: Publié au Journal officiel fin juin 2026, applicable du 1er juillet au 30 septembre 2026.
+E: Publié au Journal officiel fin septembre 2026, applicable du 1er octobre au 31 décembre 2026.
 
 Q: Depuis la loi Lemoine, l'emprunteur peut changer d'assurance de prêt :
 A: Uniquement à la date anniversaire
@@ -3362,7 +3362,7 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | IFI | Seuil et barème | 1 300 000 € ; 0,5 % à 1,5 % ; abattement de 30 % sur la résidence principale ; décote entre 1,3 et 1,4 million |
 | Transmission | Abattements | 100 000 € par parent et par enfant tous les 15 ans ; 31 865 € par petit-enfant ; don familial de 31 865 € ; dons affectés au logement neuf ou à la rénovation énergétique : 100 000 € par donateur, 300 000 € par donataire jusqu'au 31 décembre 2026 |
 | Crédit | Normes HCSF | Taux d'effort de 35 % assurance comprise, 25 ans (27 avec différé) |
-| Crédit | Taux d'usure 3e trimestre 2026 | Moins de 10 ans 4,07 % ; 10 à 20 ans 4,57 % ; 20 ans et plus 5,29 % ; variable 5,28 % ; relais 6,39 % |
+| Crédit | Taux d'usure 4e trimestre 2026 | Moins de 10 ans 4,09 % ; 10 à 20 ans 4,68 % ; 20 ans et plus 5,40 % ; variable 5,52 % ; relais 6,49 % |
 | Crédit | Taux moyens de marché (été 2026) | Environ 3,2 % (15 ans), 3,35 % (20 ans), 3,45 % (25 ans), hors assurance |
 | Crédit | Éco-prêt à taux zéro | Jusqu'à 50 000 €, jusqu'au 31 décembre 2027 |
 | Achat | Droits de mutation dans l'ancien | Taxe départementale 4,50 % ou 5 % selon le département (hors primo-accédants) + taxe communale 1,20 % + frais d'assiette ; frais totaux de 7,5 à 8,5 % |
@@ -4334,7 +4334,7 @@ Rythme de veille conseillé : chaque semaine, actualités de service-public et d
 | Loi de financement de la Sécurité sociale pour 2027 | Taux des prélèvements sociaux | Octobre à décembre 2026 |
 | DPE | Entrée en vigueur du coefficient électricité à 1,7 (arrêté du 19 août 2026) : générer les attestations de nouvelle étiquette | 1er janvier 2027 |
 | IRL | Publication du 4e trimestre 2026 | 15 janvier 2027 (annoncée) |
-| Taux d'usure | Seuils du 4e trimestre 2026 | Fin septembre 2026 |
+| Taux d'usure | Seuils du 1er trimestre 2027 | Fin décembre 2026 |
 | Meublés de tourisme | Fin de la période de transition vers Déclaloc dans les communes ; issue du texte « RIPOST » | Second semestre 2026 |
 | Bail mobilité | Décret sur les baux d'une semaine à dix-huit mois en résidences à vocation d'emploi | À paraître |
 | Aides au logement et bail | Nouvelles clauses liées aux aides au logement dans le contrat type | 1er janvier 2027 |

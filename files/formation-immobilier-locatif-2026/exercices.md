@@ -1907,23 +1907,23 @@ R: B
 E: 25 ans, portés à 27 ans lorsqu'un différé d'amortissement est justifié (neuf, travaux importants).
 
 T: qcm
-Q: Au 3e trimestre 2026, une banque propose un prêt à taux fixe sur 15 ans avec un TAEG de 4,70 %. Est-il possible ?
+Q: Au 4e trimestre 2026, une banque propose un prêt à taux fixe sur 15 ans avec un TAEG de 4,70 %. Est-il possible ?
 A: Oui
-B: Non : il dépasse le taux d'usure de 4,57 % (10 à moins de 20 ans)
-C: Oui, car le seuil est de 5,29 %
+B: Non : il dépasse le taux d'usure de 4,68 % (10 à moins de 20 ans)
+C: Oui, car le seuil est de 5,40 %
 D: Oui, si l'emprunteur l'accepte
 R: B
-E: Le seuil des prêts à taux fixe de 10 à moins de 20 ans est de 4,57 % ; aucun prêt ne peut le dépasser.
+E: Le seuil des prêts à taux fixe de 10 à moins de 20 ans est de 4,68 % ; aucun prêt ne peut le dépasser.
 
 T: qcm
 L: suite
 Q: Et un prêt à taux fixe sur 22 ans avec un TAEG de 5,10 % ?
-A: Possible : sous le seuil de 5,29 % des prêts de 20 ans et plus
-B: Impossible : au-dessus de 4,57 %
-C: Impossible : au-dessus de 4,07 %
+A: Possible : sous le seuil de 5,40 % des prêts de 20 ans et plus
+B: Impossible : au-dessus de 4,68 %
+C: Impossible : au-dessus de 4,09 %
 D: Possible seulement en taux variable
 R: A
-E: Pour 20 ans et plus, le seuil est de 5,29 % : 5,10 % est en dessous.
+E: Pour 20 ans et plus, le seuil est de 5,40 % : 5,10 % est en dessous.
 
 T: nombre
 Q: Remboursement anticipé de 100 000 € de capital restant dû, prêt à 3,5 %. Quelle indemnité maximale la banque peut-elle exiger ?

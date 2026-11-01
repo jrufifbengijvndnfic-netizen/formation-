@@ -2378,7 +2378,7 @@ const usure: Simulateur = {
   modules: ['2.10'],
   methode: [
     'Aucun prêt ne peut dépasser le taux d’usure : on compare le TAEG (intérêts, assurance obligatoire, frais de dossier et de garantie) au seuil.',
-    'Seuils du 3e trimestre 2026 : taux fixe de moins de 10 ans 4,07 % ; de 10 à moins de 20 ans 4,57 % ; 20 ans et plus 5,29 % ; taux variable 5,28 % ; prêts relais 6,39 %.',
+    'Seuils du 4e trimestre 2026 (1er octobre au 31 décembre) : taux fixe de moins de 10 ans 4,09 % ; de 10 à moins de 20 ans 4,68 % ; 20 ans et plus 5,40 % ; taux variable 5,52 % ; prêts relais 6,49 %.',
     'Les seuils sont publiés à la fin de chaque trimestre pour le trimestre suivant.',
   ],
   groupes: [{ id: 'pret', titre: 'Offre de prêt' }],
@@ -2417,7 +2417,7 @@ const usure: Simulateur = {
       ],
       blocs: [
         {
-          titre: 'Comparaison (3e trimestre 2026)',
+          titre: 'Comparaison (4e trimestre 2026)',
           lignes: [
             { libelle: 'TAEG de l’offre', valeur: `${nombre(n(v, 'taeg'), 2)} %` },
             { libelle: 'Taux d’usure applicable', valeur: `${nombre(seuil, 2)} %`, fort: true },

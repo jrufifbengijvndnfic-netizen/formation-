@@ -1046,15 +1046,15 @@
         },
         {
           "id": "q2-10-2",
-          "question": "Quel est le taux d'usure des prêts à taux fixe de 20 ans et plus au 3e trimestre 2026 ?",
+          "question": "Quel est le taux d'usure des prêts à taux fixe de 20 ans et plus au 4e trimestre 2026 ?",
           "options": {
-            "A": "4,57 %",
-            "B": "5,29 %",
-            "C": "6,39 %",
+            "A": "4,68 %",
+            "B": "5,40 %",
+            "C": "6,49 %",
             "D": "3,45 %"
           },
           "reponse": "B",
-          "explication": "Publié au Journal officiel fin juin 2026, applicable du 1er juillet au 30 septembre 2026."
+          "explication": "Publié au Journal officiel fin septembre 2026, applicable du 1er octobre au 31 décembre 2026."
         },
         {
           "id": "q2-10-3",

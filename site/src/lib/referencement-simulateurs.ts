@@ -146,7 +146,7 @@ export const REFERENCEMENT_SIMULATEURS: Record<string, ReferencementSimulateur> 
     titre: 'Taux d’usure 2026 : calcul gratuit pour votre prêt immobilier',
     h1: 'Taux d’usure : mon prêt immobilier est-il possible ?',
     description:
-      'Comparez le TAEG de votre offre au taux d’usure du 3e trimestre 2026 selon la durée et le type de prêt (fixe, variable, relais). Vérification gratuite.',
+      'Comparez le TAEG de votre offre au taux d’usure du 4e trimestre 2026 selon la durée et le type de prêt (fixe, variable, relais). Vérification gratuite.',
   },
   'tva-travaux': {
     titre: 'TVA travaux 5,5 %, 10 % ou 20 % : calcul gratuit',

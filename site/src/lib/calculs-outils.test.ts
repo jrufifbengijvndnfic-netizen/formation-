@@ -110,12 +110,12 @@ describe('encadrement, usure, TVA, loyer au m²', () => {
     const r = O.encadrementLoyer({ surface: 30, loyerReference: 25, loyerBase: 950, complement: 0, passoire: false });
     expect(r).toMatchObject({ majore: 30, minore: 17.5, plafond: 900, depassement: 50, conforme: false });
   });
-  it('seuils d’usure du 3e trimestre 2026', () => {
-    expect(O.seuilUsure('fixe', 8)).toBe(4.07);
-    expect(O.seuilUsure('fixe', 15)).toBe(4.57);
-    expect(O.seuilUsure('fixe', 20)).toBe(5.29);
-    expect(O.seuilUsure('variable', 25)).toBe(5.28);
-    expect(O.seuilUsure('relais', 2)).toBe(6.39);
+  it('seuils d’usure du 4e trimestre 2026', () => {
+    expect(O.seuilUsure('fixe', 8)).toBe(4.09);
+    expect(O.seuilUsure('fixe', 15)).toBe(4.68);
+    expect(O.seuilUsure('fixe', 20)).toBe(5.4);
+    expect(O.seuilUsure('variable', 25)).toBe(5.52);
+    expect(O.seuilUsure('relais', 2)).toBe(6.49);
   });
   it('TVA 10 %, 5,5 % ou 20 %', () => {
     expect(O.tvaTravaux(10_000, 'entretien')).toEqual({ taux: 0.1, tva: 1_000, ttc: 11_000 });

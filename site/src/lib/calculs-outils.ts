@@ -239,17 +239,17 @@ export function encadrementLoyer(p: {
 }
 
 // ---------------------------------------------------------------------------
-// Taux d'usure (module 2.10) : seuils du 3e trimestre 2026
+// Taux d'usure (module 2.10) : seuils du 4e trimestre 2026
 // ---------------------------------------------------------------------------
 
 export type TypePret = 'fixe' | 'variable' | 'relais';
 
 export function seuilUsure(type: TypePret, dureeAnnees: number): number {
-  if (type === 'variable') return 5.28;
-  if (type === 'relais') return 6.39;
-  if (dureeAnnees < 10) return 4.07;
-  if (dureeAnnees < 20) return 4.57;
-  return 5.29;
+  if (type === 'variable') return 5.52;
+  if (type === 'relais') return 6.49;
+  if (dureeAnnees < 10) return 4.09;
+  if (dureeAnnees < 20) return 4.68;
+  return 5.4;
 }
 
 // ---------------------------------------------------------------------------
