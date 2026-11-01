@@ -89,8 +89,8 @@ export const REFERENCEMENT_SIMULATEURS: Record<string, ReferencementSimulateur> 
       'Calculez le taux de rendement interne (TRI) des fonds propres d’un projet locatif, avec et sans crédit, les flux annuels et la sensibilité. Gratuit.',
   },
   donation: {
-    titre: 'Calcul droits de donation immobilière gratuit : pleine ou nue-propriété',
-    h1: 'Calcul des droits de donation d’un bien immobilier',
+    titre: 'Simulateur droits de donation gratuit : nue-propriété, usufruit',
+    h1: 'Simulateur des droits de donation d’un bien immobilier',
     description:
       'Calculez la valeur taxable d’un bien donné en pleine ou en nue-propriété, l’abattement et les droits de donation selon le barème. Simulateur gratuit.',
   },
@@ -113,7 +113,7 @@ export const REFERENCEMENT_SIMULATEURS: Record<string, ReferencementSimulateur> 
       'Comparez les provisions versées aux charges récupérables réelles : complément dû par le locataire ou trop-perçu, et nouvelle provision mensuelle. Gratuit.',
   },
   'meuble-de-tourisme': {
-    titre: 'Rentabilité Airbnb ou location meublée classique : simulateur gratuit',
+    titre: 'Simulateur Airbnb gratuit : rentabilité location courte durée',
     h1: 'Rentabilité location courte durée (Airbnb) ou meublé à l’année',
     description:
       'Nuits louées, recettes, commissions et revenu net d’une location courte durée type Airbnb comparés à un meublé à l’année, micro-BIC compris. Gratuit.',
