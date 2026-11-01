@@ -1,0 +1,1960 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-11-01",
+ "site": "formation-locatif.com",
+ "methode": "Onsite Audit (The Four Systems) sans DataForSEO : Lighthouse 13 local sur dist/ (version 023), controles on-page par script sur toutes les pages",
+ "audited_urls": [
+  {
+   "url": "https://formation-locatif.com/",
+   "mobile": {
+    "scores": {
+     "performance": 100,
+     "accessibility": 100,
+     "best-practices": 100,
+     "seo": 100
+    },
+    "LCP_ms": 906,
+    "CLS": 0,
+    "TBT_ms": 0,
+    "INP_ms": null,
+    "inp_unknown": true,
+    "render_blocking": [
+     [
+      "formation.DFZz8d8R.css",
+      303
+     ],
+     [
+      "Base.BUj1Me_b.css",
+      153
+     ]
+    ]
+   },
+   "bureau": {
+    "scores": {
+     "performance": 100,
+     "accessibility": 100,
+     "best-practices": 100,
+     "seo": 100
+    },
+    "LCP_ms": 243,
+    "CLS": 0,
+    "TBT_ms": 0,
+    "INP_ms": null,
+    "inp_unknown": true,
+    "render_blocking": [
+     [
+      "formation.DFZz8d8R.css",
+      81
+     ],
+     [
+      "Base.BUj1Me_b.css",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "url": "https://formation-locatif.com/formation-investissement-locatif/",
+   "mobile": {
+    "scores": {
+     "performance": 100,
+     "accessibility": 100,
+     "best-practices": 100,
+     "seo": 100
+    },
+    "LCP_ms": 908,
+    "CLS": 0,
+    "TBT_ms": 0,
+    "INP_ms": null,
+    "inp_unknown": true,
+    "render_blocking": [
+     [
+      "Base.BUj1Me_b.css",
+      304
+     ],
+     [
+      "formation-investissement-locatif.cCgVixKe.css",
+      154
+     ]
+    ]
+   },
+   "bureau": {
+    "scores": {
+     "performance": 100,
+     "accessibility": 100,
+     "best-practices": 100,
+     "seo": 100
+    },
+    "LCP_ms": 242,
+    "CLS": 0,
+    "TBT_ms": 0,
+    "INP_ms": null,
+    "inp_unknown": true,
+    "render_blocking": [
+     [
+      "Base.BUj1Me_b.css",
+      81
+     ],
+     [
+      "formation-investissement-locatif.cCgVixKe.css",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "url": "https://formation-locatif.com/simulateurs/dpe-location/",
+   "mobile": {
+    "scores": {
+     "performance": 100,
+     "accessibility": 100,
+     "best-practices": 100,
+     "seo": 100
+    },
+    "LCP_ms": 758,
+    "CLS": 0,
+    "TBT_ms": 0,
+    "INP_ms": null,
+    "inp_unknown": true,
+    "render_blocking": [
+     [
+      "Base.BUj1Me_b.css",
+      154
+     ]
+    ]
+   },
+   "bureau": {
+    "scores": {
+     "performance": 100,
+     "accessibility": 100,
+     "best-practices": 100,
+     "seo": 100
+    },
+    "LCP_ms": 202,
+    "CLS": 0,
+    "TBT_ms": 0,
+    "INP_ms": null,
+    "inp_unknown": true,
+    "render_blocking": [
+     [
+      "Base.BUj1Me_b.css",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "url": "https://formation-locatif.com/module/1-1/",
+   "mobile": {
+    "scores": {
+     "performance": 100,
+     "accessibility": 100,
+     "best-practices": 100,
+     "seo": 100
+    },
+    "LCP_ms": 753,
+    "CLS": 0,
+    "TBT_ms": 0,
+    "INP_ms": null,
+    "inp_unknown": true,
+    "render_blocking": [
+     [
+      "Base.BUj1Me_b.css",
+      151
+     ]
+    ]
+   },
+   "bureau": {
+    "scores": {
+     "performance": 100,
+     "accessibility": 100,
+     "best-practices": 100,
+     "seo": 100
+    },
+    "LCP_ms": 203,
+    "CLS": 0,
+    "TBT_ms": 0,
+    "INP_ms": null,
+    "inp_unknown": true,
+    "render_blocking": [
+     [
+      "Base.BUj1Me_b.css",
+      null
+     ]
+    ]
+   }
+  }
+ ],
+ "onpage": [
+  {
+   "url": "/404.html",
+   "title": "Page introuvable | Formation Locatif",
+   "tl": 36,
+   "robots": "noindex",
+   "canon": null,
+   "h1": 1,
+   "skips": [],
+   "ld": [],
+   "words": 252
+  },
+  {
+   "url": "/",
+   "title": "Formation investissement locatif en ligne : DPE, loyer, bail, impôts",
+   "tl": 68,
+   "robots": "",
+   "canon": "https://formation-locatif.com/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "Course",
+    "CourseInstance",
+    "Offer",
+    "Organization",
+    "WebSite"
+   ],
+   "words": 590
+  },
+  {
+   "url": "/annexes/",
+   "title": "Annexes | Formation Locatif",
+   "tl": 27,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexes/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 402
+  },
+  {
+   "url": "/simulateurs/",
+   "title": "24 simulateurs immobiliers gratuits pour investisseurs et bailleurs",
+   "tl": 67,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 1114
+  },
+  {
+   "url": "/simulateurs/loc-avantages/",
+   "title": "Simulateur Loc’Avantages gratuit : réduction d’impôt Loc1, Loc2, Loc3",
+   "tl": 69,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/loc-avantages/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 780
+  },
+  {
+   "url": "/simulateurs/revision-loyer/",
+   "title": "Calcul révision de loyer IRL gratuit : nouveau loyer et date d’effet",
+   "tl": 68,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/revision-loyer/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 876
+  },
+  {
+   "url": "/simulateurs/taux-usure/",
+   "title": "Taux d’usure 2026 : calcul gratuit pour votre prêt immobilier",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/taux-usure/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 802
+  },
+  {
+   "url": "/simulateurs/jeanbrun/",
+   "title": "Simulateur Jeanbrun gratuit : amortissement du bailleur privé",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/jeanbrun/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 908
+  },
+  {
+   "url": "/simulateurs/loyer-au-m2/",
+   "title": "Calcul loyer au m² et dépôt de garantie maximal : gratuit",
+   "tl": 57,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/loyer-au-m2/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 784
+  },
+  {
+   "url": "/simulateurs/rentabilite/",
+   "title": "Simulateur rentabilité locative gratuit : brute, nette et cash-flow",
+   "tl": 67,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/rentabilite/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 1002
+  },
+  {
+   "url": "/simulateurs/micro-foncier-ou-reel/",
+   "title": "Micro-foncier ou réel : simulateur gratuit de l’impôt sur les loyers",
+   "tl": 68,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/micro-foncier-ou-reel/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 1009
+  },
+  {
+   "url": "/simulateurs/ifi/",
+   "title": "Simulateur IFI gratuit : impôt sur la fortune immobilière",
+   "tl": 57,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/ifi/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 902
+  },
+  {
+   "url": "/simulateurs/dates-de-conge/",
+   "title": "Congé et préavis du bail : calcul gratuit des dates limites",
+   "tl": 59,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/dates-de-conge/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 893
+  },
+  {
+   "url": "/simulateurs/credit/",
+   "title": "Simulateur prêt immobilier gratuit : mensualité et amortissement",
+   "tl": 64,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/credit/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 1105
+  },
+  {
+   "url": "/simulateurs/denormandie/",
+   "title": "Simulateur Denormandie gratuit : réduction d’impôt dans l’ancien",
+   "tl": 64,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/denormandie/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 834
+  },
+  {
+   "url": "/simulateurs/donation/",
+   "title": "Calcul droits de donation immobilière gratuit : pleine ou nue-propriété",
+   "tl": 71,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/donation/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 955
+  },
+  {
+   "url": "/simulateurs/frais-acquisition/",
+   "title": "Calcul frais de notaire gratuit : achat immobilier ancien ou neuf",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/frais-acquisition/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 922
+  },
+  {
+   "url": "/simulateurs/regularisation-charges/",
+   "title": "Calcul régularisation des charges locatives gratuit",
+   "tl": 51,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/regularisation-charges/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 803
+  },
+  {
+   "url": "/simulateurs/capacite-emprunt/",
+   "title": "Calcul capacité d’emprunt immobilier gratuit (règle des 35 %)",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/capacite-emprunt/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 825
+  },
+  {
+   "url": "/simulateurs/encadrement-loyers/",
+   "title": "Encadrement des loyers : calcul gratuit du loyer maximal",
+   "tl": 56,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/encadrement-loyers/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 877
+  },
+  {
+   "url": "/simulateurs/depot-de-garantie/",
+   "title": "Dépôt de garantie non rendu : calcul de la pénalité de retard",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/depot-de-garantie/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 875
+  },
+  {
+   "url": "/simulateurs/loyer-relocation/",
+   "title": "Loyer à la relocation en zone tendue : calcul gratuit du maximum",
+   "tl": 64,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/loyer-relocation/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 887
+  },
+  {
+   "url": "/simulateurs/plus-value/",
+   "title": "Calcul plus-value immobilière gratuit : abattements et impôt",
+   "tl": 60,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/plus-value/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 1158
+  },
+  {
+   "url": "/simulateurs/meuble-de-tourisme/",
+   "title": "Rentabilité Airbnb ou location meublée classique : simulateur gratuit",
+   "tl": 69,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/meuble-de-tourisme/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 926
+  },
+  {
+   "url": "/simulateurs/tva-travaux/",
+   "title": "TVA travaux 5,5 %, 10 % ou 20 % : calcul gratuit | Formation Locatif",
+   "tl": 68,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/tva-travaux/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 764
+  },
+  {
+   "url": "/simulateurs/micro-bic-ou-reel/",
+   "title": "Simulateur LMNP gratuit : micro-BIC ou régime réel | Formation Locatif",
+   "tl": 70,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/micro-bic-ou-reel/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 1105
+  },
+  {
+   "url": "/simulateurs/dpe-location/",
+   "title": "DPE G, F ou E : mon logement est-il encore louable ? Test gratuit",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/dpe-location/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 927
+  },
+  {
+   "url": "/simulateurs/tri/",
+   "title": "Calcul TRI investissement locatif gratuit : flux et sensibilité",
+   "tl": 63,
+   "robots": "",
+   "canon": "https://formation-locatif.com/simulateurs/tri/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "WebApplication"
+   ],
+   "words": 1300
+  },
+  {
+   "url": "/formation-investissement-locatif/",
+   "title": "Formation propriétaire bailleur : programme, prix et module gratuit",
+   "tl": 67,
+   "robots": "",
+   "canon": "https://formation-locatif.com/formation-investissement-locatif/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "Answer",
+    "BreadcrumbList",
+    "Course",
+    "CourseInstance",
+    "FAQPage",
+    "ListItem",
+    "Offer",
+    "Organization",
+    "Question"
+   ],
+   "words": 2773
+  },
+  {
+   "url": "/checklist/mettre-en-location-son-premier-logement/",
+   "title": "Checklist — Mettre en location son premier logement",
+   "tl": 51,
+   "robots": "",
+   "canon": "https://formation-locatif.com/checklist/mettre-en-location-son-premier-logement/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 620
+  },
+  {
+   "url": "/mises-a-jour/",
+   "title": "Mises à jour de la formation | Formation Locatif",
+   "tl": 48,
+   "robots": "",
+   "canon": "https://formation-locatif.com/mises-a-jour/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 540
+  },
+  {
+   "url": "/niveau-2/",
+   "title": "Niveau 2 — Gestion, fiscalité et financement | Formation Locatif",
+   "tl": 64,
+   "robots": "",
+   "canon": "https://formation-locatif.com/niveau-2/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "Course",
+    "ListItem",
+    "Offer",
+    "Organization"
+   ],
+   "words": 943
+  },
+  {
+   "url": "/progression/",
+   "title": "Ma progression | Formation Locatif",
+   "tl": 34,
+   "robots": "noindex",
+   "canon": null,
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 795
+  },
+  {
+   "url": "/examen/niveau-2/",
+   "title": "Examen de fin de niveau 2 — cas pratiques corrigés | Formation Locatif",
+   "tl": 70,
+   "robots": "",
+   "canon": "https://formation-locatif.com/examen/niveau-2/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 1880
+  },
+  {
+   "url": "/examen/test-final/",
+   "title": "Examen final : test de 50 questions sur toute la formation",
+   "tl": 58,
+   "robots": "",
+   "canon": "https://formation-locatif.com/examen/test-final/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 533
+  },
+  {
+   "url": "/examen/final/",
+   "title": "Examen final — cas pratiques de synthèse corrigés | Formation Locatif",
+   "tl": 69,
+   "robots": "",
+   "canon": "https://formation-locatif.com/examen/final/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2743
+  },
+  {
+   "url": "/examen/niveau-1/",
+   "title": "Examen de fin de niveau 1 — cas pratiques corrigés | Formation Locatif",
+   "tl": 70,
+   "robots": "",
+   "canon": "https://formation-locatif.com/examen/niveau-1/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 1964
+  },
+  {
+   "url": "/a-propos/",
+   "title": "À propos | Formation Locatif",
+   "tl": 28,
+   "robots": "",
+   "canon": "https://formation-locatif.com/a-propos/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 678
+  },
+  {
+   "url": "/mode-d-emploi/",
+   "title": "Mode d'emploi de la formation | Formation Locatif",
+   "tl": 49,
+   "robots": "",
+   "canon": "https://formation-locatif.com/mode-d-emploi/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 1622
+  },
+  {
+   "url": "/commencer/",
+   "title": "Commencer ici : votre première heure de formation | Formation Locatif",
+   "tl": 69,
+   "robots": "",
+   "canon": "https://formation-locatif.com/commencer/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 544
+  },
+  {
+   "url": "/lettres/",
+   "title": "Modèles de lettres pour bailleurs : 10 courriers gratuits à compléter",
+   "tl": 69,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 658
+  },
+  {
+   "url": "/lettres/restitution-depot-de-garantie/",
+   "title": "Restitution du dépôt de garantie : modèle de lettre gratuit",
+   "tl": 59,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/restitution-depot-de-garantie/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 759
+  },
+  {
+   "url": "/lettres/regularisation-des-charges/",
+   "title": "Lettre de régularisation des charges locatives : modèle gratuit",
+   "tl": 63,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/regularisation-des-charges/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 960
+  },
+  {
+   "url": "/lettres/conge-pour-vente/",
+   "title": "Congé pour vente (location vide) : modèle de lettre gratuit",
+   "tl": 59,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/conge-pour-vente/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 923
+  },
+  {
+   "url": "/lettres/mise-en-demeure-de-payer/",
+   "title": "Mise en demeure de payer le loyer : modèle de lettre gratuit",
+   "tl": 60,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/mise-en-demeure-de-payer/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 878
+  },
+  {
+   "url": "/lettres/quittance-de-loyer/",
+   "title": "Quittance de loyer : modèle gratuit à compléter et imprimer",
+   "tl": 59,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/quittance-de-loyer/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 847
+  },
+  {
+   "url": "/lettres/conge-pour-reprise/",
+   "title": "Congé pour reprise (location vide) : modèle de lettre gratuit",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/conge-pour-reprise/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 1104
+  },
+  {
+   "url": "/lettres/revision-du-loyer/",
+   "title": "Lettre de révision du loyer (IRL) : modèle gratuit à compléter",
+   "tl": 62,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/revision-du-loyer/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 897
+  },
+  {
+   "url": "/lettres/demande-attestation-assurance/",
+   "title": "Demande d’attestation d’assurance habitation : modèle gratuit",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/demande-attestation-assurance/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 618
+  },
+  {
+   "url": "/lettres/relance-loyer-impaye/",
+   "title": "Lettre de relance pour loyer impayé : modèle gratuit",
+   "tl": 52,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/relance-loyer-impaye/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 712
+  },
+  {
+   "url": "/lettres/notification-de-travaux/",
+   "title": "Notification de travaux au locataire : modèle de lettre gratuit",
+   "tl": 63,
+   "robots": "",
+   "canon": "https://formation-locatif.com/lettres/notification-de-travaux/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "DigitalDocument",
+    "ListItem",
+    "Organization"
+   ],
+   "words": 848
+  },
+  {
+   "url": "/niveau-1/",
+   "title": "Niveau 1 — Fondations : comprendre et louer son premier logement",
+   "tl": 64,
+   "robots": "",
+   "canon": "https://formation-locatif.com/niveau-1/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "Course",
+    "ListItem",
+    "Offer",
+    "Organization"
+   ],
+   "words": 917
+  },
+  {
+   "url": "/outils/",
+   "title": "Outils gratuits pour bailleurs : test DPE, simulateurs, lettres types",
+   "tl": 69,
+   "robots": "",
+   "canon": "https://formation-locatif.com/outils/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 1401
+  },
+  {
+   "url": "/acces/",
+   "title": "Mes accès à la formation | Formation Locatif",
+   "tl": 44,
+   "robots": "noindex",
+   "canon": null,
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 372
+  },
+  {
+   "url": "/mentions-legales/",
+   "title": "Mentions légales | Formation Locatif",
+   "tl": 36,
+   "robots": "",
+   "canon": "https://formation-locatif.com/mentions-legales/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 386
+  },
+  {
+   "url": "/assistant/",
+   "title": "Poser une question | Formation Locatif",
+   "tl": 38,
+   "robots": "noindex",
+   "canon": null,
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 1545
+  },
+  {
+   "url": "/module/1-8/",
+   "title": "Rédiger le bail (module 1.8) | Formation Locatif",
+   "tl": 48,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-8/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 3122
+  },
+  {
+   "url": "/module/2-5/",
+   "title": "Colocation, bail mobilité et locations particulières (module 2.5)",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-5/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2736
+  },
+  {
+   "url": "/module/3-9/",
+   "title": "Rénovation énergétique et stratégie DPE (module 3.9)",
+   "tl": 52,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-9/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2878
+  },
+  {
+   "url": "/module/3-2/",
+   "title": "L'analyse financière avancée (module 3.2) | Formation Locatif",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-2/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2247
+  },
+  {
+   "url": "/module/1-7/",
+   "title": "Trouver et sélectionner son locataire (module 1.7) | Formation Locatif",
+   "tl": 70,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-7/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2960
+  },
+  {
+   "url": "/module/2-8/",
+   "title": "Choisir son régime fiscal : comparatif chiffré (module 2.8)",
+   "tl": 59,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-8/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2079
+  },
+  {
+   "url": "/module/1-4/",
+   "title": "Le logement décent et les normes à respecter (module 1.4)",
+   "tl": 57,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-4/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2746
+  },
+  {
+   "url": "/module/1-11/",
+   "title": "La fin du bail (module 1.11) | Formation Locatif",
+   "tl": 48,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-11/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2614
+  },
+  {
+   "url": "/module/1-12/",
+   "title": "Premiers calculs de rentabilité (module 1.12) | Formation Locatif",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-12/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2147
+  },
+  {
+   "url": "/module/3-4/",
+   "title": "Les dispositifs fiscaux d'investissement en vigueur en 2026 (module 3.4)",
+   "tl": 72,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-4/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 3140
+  },
+  {
+   "url": "/module/2-14/",
+   "title": "Gérer soi-même ou déléguer (module 2.14) | Formation Locatif",
+   "tl": 60,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-14/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 1829
+  },
+  {
+   "url": "/module/2-2/",
+   "title": "Les charges récupérables et leur régularisation (module 2.2)",
+   "tl": 60,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-2/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2183
+  },
+  {
+   "url": "/module/3-1/",
+   "title": "Construire sa stratégie d'investisseur (module 3.1)",
+   "tl": 51,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-1/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2308
+  },
+  {
+   "url": "/module/1-1/",
+   "title": "Le paysage de l'immobilier locatif et les règles du jeu (module 1.1)",
+   "tl": 68,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-1/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 3079
+  },
+  {
+   "url": "/module/3-6/",
+   "title": "L'impôt sur la fortune immobilière (IFI) (module 3.6)",
+   "tl": 53,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-6/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 1894
+  },
+  {
+   "url": "/module/2-13/",
+   "title": "Les impayés : prévenir, réagir, agir en justice (module 2.13)",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-13/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2591
+  },
+  {
+   "url": "/module/2-9/",
+   "title": "Taxes locales et obligations déclaratives | Formation Locatif",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-9/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2565
+  },
+  {
+   "url": "/module/3-5/",
+   "title": "Les plus-values immobilières (module 3.5) | Formation Locatif",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-5/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2266
+  },
+  {
+   "url": "/module/2-6/",
+   "title": "La fiscalité de la location nue : les revenus fonciers (module 2.6)",
+   "tl": 67,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-6/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2800
+  },
+  {
+   "url": "/module/1-5/",
+   "title": "Les diagnostics obligatoires | Formation Locatif",
+   "tl": 48,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-5/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2920
+  },
+  {
+   "url": "/module/2-10/",
+   "title": "Financer son investissement (module 2.10) | Formation Locatif",
+   "tl": 61,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-10/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2680
+  },
+  {
+   "url": "/module/2-12/",
+   "title": "La copropriété vue par le bailleur (module 2.12) | Formation Locatif",
+   "tl": 68,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-12/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2507
+  },
+  {
+   "url": "/module/3-8/",
+   "title": "Meublés de tourisme et location de courte durée (module 3.8)",
+   "tl": 60,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-8/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2762
+  },
+  {
+   "url": "/module/1-3/",
+   "title": "Choisir le bon type de location (module 1.3) | Formation Locatif",
+   "tl": 64,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-3/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2448
+  },
+  {
+   "url": "/module/1-9/",
+   "title": "L'état des lieux et l'inventaire (module 1.9) | Formation Locatif",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-9/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2338
+  },
+  {
+   "url": "/module/2-1/",
+   "title": "Le loyer en profondeur | Formation Locatif",
+   "tl": 42,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-1/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 3263
+  },
+  {
+   "url": "/module/3-12/",
+   "title": "La méthode de l'investisseur autonome (module 3.12)",
+   "tl": 51,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-12/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2002
+  },
+  {
+   "url": "/module/3-11/",
+   "title": "Les autres baux : commercial, professionnel, parking et baux de longue…",
+   "tl": 71,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-11/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2464
+  },
+  {
+   "url": "/module/1-10/",
+   "title": "La vie du bail : droits et obligations au quotidien (module 1.10)",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-10/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2818
+  },
+  {
+   "url": "/module/3-7/",
+   "title": "Transmettre : donation, succession et démembrement (module 3.7)",
+   "tl": 63,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-7/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2931
+  },
+  {
+   "url": "/module/3-3/",
+   "title": "Les structures de détention (module 3.3) | Formation Locatif",
+   "tl": 60,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-3/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2550
+  },
+  {
+   "url": "/module/2-7/",
+   "title": "La fiscalité de la location meublée : LMNP et LMP (module 2.7)",
+   "tl": 62,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-7/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 3042
+  },
+  {
+   "url": "/module/2-4/",
+   "title": "Garanties et assurances (module 2.4) | Formation Locatif",
+   "tl": 56,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-4/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2728
+  },
+  {
+   "url": "/module/1-2/",
+   "title": "Les notions de base à maîtriser (module 1.2) | Formation Locatif",
+   "tl": 64,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-2/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2434
+  },
+  {
+   "url": "/module/2-11/",
+   "title": "Acheter un bien locatif (module 2.11) | Formation Locatif",
+   "tl": 57,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-11/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2861
+  },
+  {
+   "url": "/module/1-6/",
+   "title": "Fixer le loyer : les premières règles (module 1.6) | Formation Locatif",
+   "tl": 70,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/1-6/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2299
+  },
+  {
+   "url": "/module/2-3/",
+   "title": "Entretien, réparations et travaux (module 2.3) | Formation Locatif",
+   "tl": 66,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/2-3/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2451
+  },
+  {
+   "url": "/module/3-10/",
+   "title": "Contentieux et sécurisation juridique (module 3.10)",
+   "tl": 51,
+   "robots": "",
+   "canon": "https://formation-locatif.com/module/3-10/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem",
+    "WebPage",
+    "WebPageElement"
+   ],
+   "words": 2531
+  },
+  {
+   "url": "/glossaire/",
+   "title": "Glossaire de A à Z | Formation Locatif",
+   "tl": 38,
+   "robots": "",
+   "canon": "https://formation-locatif.com/glossaire/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 5610
+  },
+  {
+   "url": "/methode-et-sources/",
+   "title": "Méthode et sources de la formation | Formation Locatif",
+   "tl": 54,
+   "robots": "",
+   "canon": "https://formation-locatif.com/methode-et-sources/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 563
+  },
+  {
+   "url": "/annexe/b/",
+   "title": "Annexe B — Calendrier réglementaire | Formation Locatif",
+   "tl": 55,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexe/b/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 1079
+  },
+  {
+   "url": "/annexe/i/",
+   "title": "Annexe I — Points à surveiller (fin 2026 et 2027) | Formation Locatif",
+   "tl": 69,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexe/i/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 729
+  },
+  {
+   "url": "/annexe/h/",
+   "title": "Annexe H — Veille et sources officielles | Formation Locatif",
+   "tl": 60,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexe/h/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 650
+  },
+  {
+   "url": "/annexe/f/",
+   "title": "Annexe F — Modèles de lettres | Formation Locatif",
+   "tl": 49,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexe/f/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 4240
+  },
+  {
+   "url": "/annexe/c/",
+   "title": "Annexe C — Glossaire de A à Z",
+   "tl": 29,
+   "robots": "noindex",
+   "canon": "https://formation-locatif.com/glossaire/",
+   "h1": 0,
+   "skips": [],
+   "ld": [],
+   "words": 16
+  },
+  {
+   "url": "/annexe/g/",
+   "title": "Annexe G — Checklists | Formation Locatif",
+   "tl": 41,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexe/g/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 934
+  },
+  {
+   "url": "/annexe/e/",
+   "title": "Annexe E — Formules de calcul pour les simulateurs | Formation Locatif",
+   "tl": 70,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexe/e/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 1444
+  },
+  {
+   "url": "/annexe/a/",
+   "title": "Annexe A — Chiffres clés au 1er novembre 2026 | Formation Locatif",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexe/a/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 1245
+  },
+  {
+   "url": "/annexe/d/",
+   "title": "Annexe D — Textes de référence | Formation Locatif",
+   "tl": 50,
+   "robots": "",
+   "canon": "https://formation-locatif.com/annexe/d/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 959
+  },
+  {
+   "url": "/recherche/",
+   "title": "Recherche | Formation Locatif",
+   "tl": 29,
+   "robots": "noindex",
+   "canon": null,
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 248
+  },
+  {
+   "url": "/confidentialite/",
+   "title": "Politique de confidentialité | Formation Locatif",
+   "tl": 48,
+   "robots": "",
+   "canon": "https://formation-locatif.com/confidentialite/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 484
+  },
+  {
+   "url": "/a-surveiller/",
+   "title": "À surveiller | Formation Locatif",
+   "tl": 32,
+   "robots": "",
+   "canon": "https://formation-locatif.com/a-surveiller/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 1519
+  },
+  {
+   "url": "/cgv/",
+   "title": "Conditions générales de vente | Formation Locatif",
+   "tl": 49,
+   "robots": "",
+   "canon": "https://formation-locatif.com/cgv/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "ListItem"
+   ],
+   "words": 882
+  },
+  {
+   "url": "/tarifs/",
+   "title": "Tarifs de la formation à l'immobilier locatif | Formation Locatif",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/tarifs/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "Course",
+    "CourseInstance",
+    "ListItem",
+    "Offer",
+    "Organization"
+   ],
+   "words": 535
+  },
+  {
+   "url": "/niveau-3/",
+   "title": "Niveau 3 — Expert : structurer, optimiser, sécuriser, transmettre",
+   "tl": 65,
+   "robots": "",
+   "canon": "https://formation-locatif.com/niveau-3/",
+   "h1": 1,
+   "skips": [],
+   "ld": [
+    "BreadcrumbList",
+    "Course",
+    "ListItem",
+    "Offer",
+    "Organization"
+   ],
+   "words": 909
+  }
+ ],
+ "site_rollup": {
+  "verdict": "amber",
+  "avg_scores": {
+   "performance": 100,
+   "accessibility": 100,
+   "best_practices": 100,
+   "seo": 100
+  },
+  "ai_crawler_policy": {
+   "GPTBot": "not_mentioned (allowed by User-agent: *)",
+   "OAI-SearchBot": "not_mentioned (allowed by User-agent: *)",
+   "ClaudeBot": "not_mentioned (allowed by User-agent: *)",
+   "Claude-SearchBot": "not_mentioned (allowed by User-agent: *)",
+   "PerplexityBot": "not_mentioned (allowed by User-agent: *)",
+   "Google-Extended": "not_mentioned (allowed by User-agent: *)",
+   "Applebot-Extended": "not_mentioned (allowed by User-agent: *)",
+   "Bytespider": "not_mentioned (allowed by User-agent: *)"
+  },
+  "llms_txt": {
+   "present": false
+  },
+  "llms_full_txt": {
+   "present": false
+  }
+ }
+}
