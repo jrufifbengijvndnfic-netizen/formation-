@@ -59,7 +59,7 @@ Cette formation est un outil pédagogique d'information générale. Elle ne remp
 | 12 | MaPrimeRénov' | Depuis le 1er septembre 2026 (décret n° 2026-822 du 25 août 2026), le parcours par geste est fortement restreint et la rénovation d'ampleur des maisons est refusée si un chauffage au gaz est conservé | 3.9 |
 | 13 | Facturation électronique | Depuis le 1er septembre 2026, les loueurs en meublé (LMNP, LMP) doivent pouvoir recevoir les factures électroniques de leurs fournisseurs via une plateforme agréée | 2.9 |
 | 14 | Thermostat programmable | Obligation dans les logements existants reportée au 1er janvier 2030 (décret n° 2025-1343 du 26 décembre 2025) | 1.4 |
-| 15 | Indice de référence des loyers | IRL du 2e trimestre 2026 : 148,37 (+1,15 % sur un an) ; prochaine publication le 15 octobre 2026 | 2.1 |
+| 15 | Indice de référence des loyers | IRL du 3e trimestre 2026 : 148,06 (+1,57 % sur un an) ; prochaine publication annoncée le 15 janvier 2027 | 2.1 |
 | 16 | Crédit | Taux d'usure du 3e trimestre 2026 : 5,29 % pour les prêts à taux fixe de 20 ans et plus ; règles HCSF inchangées (35 %, 25 ans) | 2.10 |
 | 17 | Dons familiaux exonérés | Jusqu'au 31 décembre 2026, dons de sommes d'argent exonérés jusqu'à 100 000 € par donateur pour acheter un logement neuf ou en VEFA loué comme résidence principale ou pour rénover sa résidence principale | 3.7 |
 | 18 | Taxe sur les logements vacants | Fusion de la TLV et de la THLV en une taxe unique sur la vacance des locaux d'habitation à compter des impositions 2027 | 2.9 |
@@ -1118,9 +1118,10 @@ Le trimestre de référence est celui indiqué au bail ; à défaut, c'est le de
 | 4e trimestre 2025 | 145,78 | +0,79 % | 15 janvier 2026 |
 | 1er trimestre 2026 | 146,60 | +0,78 % | 15 avril 2026 |
 | 2e trimestre 2026 | 148,37 | +1,15 % | 10 juillet 2026 |
-| 3e trimestre 2026 | à paraître | — | 15 octobre 2026 |
+| 3e trimestre 2026 | 148,06 | +1,57 % | 15 octobre 2026 |
+| 4e trimestre 2026 | à paraître | — | 15 janvier 2027 (annoncée) |
 
-Des IRL spécifiques existent pour la Corse (146,22 au 2e trimestre 2026) et pour les départements et régions d'outre-mer (146,94). Pour mémoire, un « bouclier loyer » a plafonné la variation de l'IRL à 3,5 % en métropole du 3e trimestre 2022 au 1er trimestre 2024.
+Des IRL spécifiques existent pour la Corse (143,80 au 3e trimestre 2026) et pour les départements et régions d'outre-mer (145,21), en hausse de 1,57 % sur un an comme en métropole. Pour mémoire, un « bouclier loyer » a plafonné la variation de l'IRL à 3,5 % en métropole du 3e trimestre 2022 au 1er trimestre 2024.
 
 > [!EXEMPLE]
 > Bail signé le 1er septembre 2025, loyer 700 € HC, trimestre de référence : 2e trimestre (IRL 146,68 au 2e trimestre 2025). Au 1er septembre 2026, le nouvel IRL du 2e trimestre 2026 vaut 148,37. Loyer révisé maximal : 700 × 148,37 / 146,68 = 708,07 €. Si le bailleur n'écrit au locataire que le 15 novembre 2026, le loyer révisé s'applique à partir du 15 novembre 2026, sans rappel pour septembre et octobre.
@@ -3329,9 +3330,9 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 
 | Thème | Donnée | Valeur 2026 |
 |---|---|---|
-| Loyers | IRL 2e trimestre 2026 (métropole) | 148,37 (+1,15 % sur un an) |
-| Loyers | IRL 1er trimestre 2026 / 4e trimestre 2025 / 3e trimestre 2025 | 146,60 / 145,78 / 145,77 |
-| Loyers | Prochaine publication de l'IRL | 15 octobre 2026 (3e trimestre) |
+| Loyers | IRL 3e trimestre 2026 (métropole) | 148,06 (+1,57 % sur un an) ; Corse 143,80 ; outre-mer 145,21 |
+| Loyers | IRL 2e trimestre 2026 / 1er trimestre 2026 / 4e trimestre 2025 / 3e trimestre 2025 | 148,37 / 146,60 / 145,78 / 145,77 |
+| Loyers | Prochaine publication de l'IRL | 15 janvier 2027, annoncée (4e trimestre 2026) |
 | Loyers | Relocation en zone tendue | Hausse bloquée pour les baux du 1er août 2026 au 31 juillet 2027, sauf exceptions |
 | Loyers | Encadrement (villes pilotes) | Loyer de référence majoré = référence + 20 % ; fin de l'expérimentation le 24 novembre 2026 sauf prolongation |
 | Bail | Durée location vide / meublée / étudiant / mobilité | 3 ans (6 ans personne morale) / 1 an / 9 mois / 1 à 10 mois |
@@ -3404,12 +3405,13 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | 20 juillet 2026 | Décret reconduisant l'encadrement des loyers à la relocation en zone tendue (baux du 1er août 2026 au 31 juillet 2027) |
 | 1er septembre 2026 | Nouvelles règles MaPrimeRénov' ; réception obligatoire des factures électroniques |
 | 1er octobre 2026 | Nouveau contrat type de bail obligatoire |
-| 15 octobre 2026 | Publication de l'IRL du 3e trimestre 2026 |
+| 15 octobre 2026 | IRL du 3e trimestre 2026 : 148,06 (+1,57 % sur un an) |
 | 21 octobre 2026 | Examen annoncé au Sénat de la proposition de loi sur l'encadrement des loyers |
 | 1er novembre 2026 | Début de la trêve hivernale |
 | 24 novembre 2026 | Terme de l'expérimentation de l'encadrement des loyers, sauf prolongation |
 | 31 décembre 2026 | Fin des dons familiaux exonérés affectés au logement neuf ou à la rénovation énergétique |
 | 1er janvier 2027 | Volet aides au logement du contrat type ; coefficient DPE à 1,7 (arrêté du 19 août 2026) ; taxe unique sur la vacance |
+| 15 janvier 2027 | Publication annoncée de l'IRL du 4e trimestre 2026 |
 | 31 juillet 2027 | Fin du décret annuel de relocation en zone tendue (sauf reconduction) |
 | 1er septembre 2027 | Émission des factures électroniques pour les petites entreprises assujetties à la TVA |
 | 31 décembre 2027 | Fin du déficit foncier majoré, de Denormandie, de Loc'Avantages et de l'éco-PTZ (sauf prorogation) |
@@ -4331,7 +4333,7 @@ Rythme de veille conseillé : chaque semaine, actualités de service-public et d
 | Projet de loi de finances pour 2027 | Fiscalité locative, IFI, prorogation des dispositifs, mise en œuvre de la taxe sur la vacance | Octobre à décembre 2026 |
 | Loi de financement de la Sécurité sociale pour 2027 | Taux des prélèvements sociaux | Octobre à décembre 2026 |
 | DPE | Entrée en vigueur du coefficient électricité à 1,7 (arrêté du 19 août 2026) : générer les attestations de nouvelle étiquette | 1er janvier 2027 |
-| IRL | Publication du 3e trimestre 2026 | 15 octobre 2026 |
+| IRL | Publication du 4e trimestre 2026 | 15 janvier 2027 (annoncée) |
 | Taux d'usure | Seuils du 4e trimestre 2026 | Fin septembre 2026 |
 | Meublés de tourisme | Fin de la période de transition vers Déclaloc dans les communes ; issue du texte « RIPOST » | Second semestre 2026 |
 | Bail mobilité | Décret sur les baux d'une semaine à dix-huit mois en résidences à vocation d'emploi | À paraître |

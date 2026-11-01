@@ -2222,11 +2222,11 @@ const relocation: Simulateur = {
       type: 'nombre',
       id: 'irlAncien',
       libelle: 'IRL de la dernière révision',
-      defaut: 146.68,
+      defaut: 145.77,
       min: 1,
       groupe: 'loyer',
     },
-    { type: 'nombre', id: 'irlNouveau', libelle: 'Dernier IRL publié', defaut: 148.37, min: 1, groupe: 'loyer' },
+    { type: 'nombre', id: 'irlNouveau', libelle: 'Dernier IRL publié', defaut: 148.06, min: 1, groupe: 'loyer' },
     { type: 'choix', id: 'dpe', libelle: 'Classe DPE', options: CLASSES_DPE, defaut: 'D', groupe: 'loyer' },
     {
       type: 'choix',
