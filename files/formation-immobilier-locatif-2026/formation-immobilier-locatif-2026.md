@@ -36,7 +36,7 @@ Les montants sont en euros, les pourcentages s'entendent hors mention contraire 
 Cette formation est un outil pédagogique d'information générale. Elle ne remplace pas un conseil juridique, fiscal ou financier personnalisé (avocat, notaire, expert-comptable, conseiller en gestion de patrimoine). Le droit immobilier évolue plusieurs fois par an : avant toute décision engageante, vérifiez la règle sur les sources officielles listées en annexe H (Légifrance, service-public.gouv.fr, impots.gouv.fr et BOFiP, ANIL et ADIL de votre département).
 
 > [!A_SURVEILLER]
-> Plusieurs textes sont en cours d'évolution à la date de rédaction : la fin (ou la prolongation) de l'expérimentation de l'encadrement des loyers le 24 novembre 2026 (examen au Sénat annoncé pour le 21 octobre 2026), le projet de loi « relance et décentralisation du logement » (adopté par le Sénat le 8 juillet 2026, examiné par l'Assemblée nationale depuis septembre 2026), le projet de loi de finances pour 2027 présenté à l'automne 2026, la fin de la période de transition vers le téléservice national Déclaloc d'enregistrement des meublés de tourisme au second semestre 2026 et le texte dit « RIPOST » sur l'occupation illicite des meublés de tourisme. L'annexe I récapitule ces points.
+> Plusieurs textes sont en cours d'évolution à la date de rédaction : la prolongation de deux ans de l'expérimentation de l'encadrement des loyers, votée par le Sénat le 21 octobre 2026 et qui doit encore être adoptée sans modification par l'Assemblée nationale avant le terme du 24 novembre 2026, le projet de loi « relance et décentralisation du logement » (adopté par le Sénat le 8 juillet 2026, examiné par l'Assemblée nationale depuis septembre 2026), le projet de loi de finances pour 2027 présenté à l'automne 2026, la fin de la période de transition vers le téléservice national Déclaloc d'enregistrement des meublés de tourisme au second semestre 2026 et le texte dit « RIPOST » sur l'occupation illicite des meublés de tourisme. L'annexe I récapitule ces points.
 
 > [!A_SURVEILLER]
 > **Avertissement d'automne.** Le projet de loi de finances pour 2027 et le projet de loi « relance et décentralisation du logement » sont en cours de navette parlementaire : leur contenu peut encore changer. Ne fondez pas une stratégie d'investissement sur ces textes avant leur promulgation, attendue au plus tôt fin décembre 2026 pour la loi de finances, et la publication de leurs décrets d'application.
@@ -53,7 +53,7 @@ Cette formation est un outil pédagogique d'information générale. Elle ne remp
 | 6 | Décence énergétique | Logements classés G non décents depuis le 1er janvier 2025 ; F à partir du 1er janvier 2028 ; E à partir du 1er janvier 2034 | 1.4, 3.9 |
 | 7 | Contrat type de bail modifié (décret n° 2026-596 du 6 juillet 2026) | Pour les baux conclus ou renouvelés à partir du 1er octobre 2026 : clause résolutoire à 6 semaines incluant le non-versement du dépôt de garantie, clauses facultatives nouvelles | 1.8 |
 | 8 | Relocation en zone tendue (décret n° 2026-644 du 20 juillet 2026) | Blocage des hausses de loyer entre deux locataires reconduit jusqu'au 31 juillet 2027 ; liste des communes actualisée par le décret n° 2025-1267 du 22 décembre 2025 | 2.1 |
-| 9 | Encadrement des loyers (villes pilotes) | Expérimentation qui s'achève le 24 novembre 2026 sauf prolongation votée (proposition de loi dont l'examen au Sénat est annoncé pour le 21 octobre 2026) | 2.1 |
+| 9 | Encadrement des loyers (villes pilotes) | Expérimentation qui s'achève le 24 novembre 2026 sauf prolongation : le Sénat a voté le 21 octobre 2026 une prolongation de deux ans, sans nouvelles communes, que l'Assemblée nationale doit adopter sans modification avant cette date | 2.1 |
 | 10 | Garantie Visale | Réforme du 6 janvier 2026 : pour les nouveaux contrats, la couverture des impayés ne joue que sur les trois premières années d'occupation | 2.4 |
 | 11 | Meublés de tourisme (loi Le Meur) | Enregistrement national obligatoire depuis le 20 mai 2026 sur le téléservice Déclaloc (décret n° 2026-196 du 19 mars 2026), DPE exigé pour les changements d'usage, fiscalité alignée | 3.8 |
 | 12 | MaPrimeRénov' | Depuis le 1er septembre 2026 (décret n° 2026-822 du 25 août 2026), le parcours par geste est fortement restreint et la rénovation d'ampleur des maisons est refusée si un chauffage au gaz est conservé | 3.9 |
@@ -1150,7 +1150,7 @@ En cas de loyer supérieur au plafond, le locataire peut obtenir une diminution 
 Territoires concernés en 2026 (environ 70 communes) : Paris ; Lille, Hellemmes et Lomme ; Plaine Commune et Est Ensemble (Seine-Saint-Denis) ; Lyon et Villeurbanne ; Montpellier ; Bordeaux ; communes du Pays basque ; communes de Grenoble-Alpes Métropole. Vérifiez toujours l'arrêté préfectoral en vigueur et le simulateur officiel de la préfecture.
 
 > [!A_SURVEILLER]
-> L'expérimentation créée par la loi ELAN du 23 novembre 2018, prolongée à huit ans par la loi 3DS, arrive à son terme le 24 novembre 2026. Une proposition de loi visant à la pérenniser a été adoptée par l'Assemblée nationale le 11 décembre 2025 ; le gouvernement l'a inscrite à l'ordre du jour du Sénat, où son examen est annoncé pour le 21 octobre 2026, en indiquant vouloir la limiter à une prolongation de deux ans sans nouvelles communes. Tant qu'aucun texte n'est promulgué, retenez la date butoir du 24 novembre 2026. Attention : même si l'encadrement expérimental disparaissait, le blocage des loyers à la relocation en zone tendue (point 2) continuerait de s'appliquer jusqu'au 31 juillet 2027.
+> L'expérimentation créée par la loi ELAN du 23 novembre 2018, prolongée à huit ans par la loi 3DS, arrive à son terme le 24 novembre 2026. Une proposition de loi visant à la pérenniser a été adoptée par l'Assemblée nationale le 11 décembre 2025. Le Sénat l'a adoptée le 21 octobre 2026 (325 voix contre 17) en la modifiant : plus de pérennisation, mais une prolongation de deux ans (dix ans d'expérimentation au total, soit jusqu'en novembre 2028), sans ouverture à de nouvelles communes. Pour que la prolongation s'applique, l'Assemblée nationale doit voter ce texte sans modification et la loi doit être promulguée avant le 24 novembre 2026. Tant qu'aucun texte n'est promulgué, retenez la date butoir du 24 novembre 2026. Attention : même si l'encadrement expérimental disparaissait, le blocage des loyers à la relocation en zone tendue (point 2) continuerait de s'appliquer jusqu'au 31 juillet 2027.
 
 **4. La réévaluation au renouvellement (article 17-2).** Si le loyer est manifestement sous-évalué, le bailleur peut proposer un nouveau loyer au renouvellement du bail vide, au moins six mois avant le terme, en fournissant des références de loyers du voisinage pour des logements comparables (au moins trois, six dans les agglomérations de plus d'un million d'habitants). À défaut d'accord ou de réponse quatre mois avant le terme, l'une des parties saisit la commission de conciliation, puis le juge avant le terme. La hausse s'étale : par tiers sur trois ans si elle est inférieure ou égale à 10 %, par sixièmes annuels sur six ans si elle est supérieure. En zone tendue, la hausse est plafonnée (moitié de l'écart avec les loyers du voisinage, ou 15 % du coût des travaux importants), et dans les zones d'encadrement la réévaluation n'est possible que si le loyer est inférieur au loyer de référence minoré. Réévaluation impossible pour un logement F ou G.
 
@@ -1158,7 +1158,7 @@ En location meublée, le bailleur qui souhaite modifier les conditions du bail (
 
 #### Points clés
 
-Révision : clause au bail, IRL, un an pour la demander, pas de rétroactivité. Zone tendue : loyer bloqué à la relocation jusqu'au 31 juillet 2027 sauf exceptions. Encadrement : loyer de référence majoré plus complément éventuel, jusqu'au 24 novembre 2026 sauf prolongation. F et G : gel total.
+Révision : clause au bail, IRL, un an pour la demander, pas de rétroactivité. Zone tendue : loyer bloqué à la relocation jusqu'au 31 juillet 2027 sauf exceptions. Encadrement : loyer de référence majoré plus complément éventuel, jusqu'au 24 novembre 2026 sauf prolongation (deux ans votés par le Sénat le 21 octobre 2026 ; vote conforme de l'Assemblée nationale attendu). F et G : gel total.
 
 #### Pièges à éviter
 
@@ -3334,7 +3334,7 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | Loyers | IRL 2e trimestre 2026 / 1er trimestre 2026 / 4e trimestre 2025 / 3e trimestre 2025 | 148,37 / 146,60 / 145,78 / 145,77 |
 | Loyers | Prochaine publication de l'IRL | 15 janvier 2027, annoncée (4e trimestre 2026) |
 | Loyers | Relocation en zone tendue | Hausse bloquée pour les baux du 1er août 2026 au 31 juillet 2027, sauf exceptions |
-| Loyers | Encadrement (villes pilotes) | Loyer de référence majoré = référence + 20 % ; fin de l'expérimentation le 24 novembre 2026 sauf prolongation |
+| Loyers | Encadrement (villes pilotes) | Loyer de référence majoré = référence + 20 % ; fin de l'expérimentation le 24 novembre 2026 sauf prolongation (deux ans votés par le Sénat le 21 octobre 2026 ; vote conforme de l'Assemblée nationale nécessaire) |
 | Bail | Durée location vide / meublée / étudiant / mobilité | 3 ans (6 ans personne morale) / 1 an / 9 mois / 1 à 10 mois |
 | Bail | Dépôt de garantie vide / meublé / bail mobilité | 1 mois HC au plus / 2 mois HC au plus / interdit |
 | Bail | Pénalité de retard de restitution du dépôt | 10 % du loyer mensuel HC par mois de retard commencé |
@@ -3406,9 +3406,9 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | 1er septembre 2026 | Nouvelles règles MaPrimeRénov' ; réception obligatoire des factures électroniques |
 | 1er octobre 2026 | Nouveau contrat type de bail obligatoire |
 | 15 octobre 2026 | IRL du 3e trimestre 2026 : 148,06 (+1,57 % sur un an) |
-| 21 octobre 2026 | Examen annoncé au Sénat de la proposition de loi sur l'encadrement des loyers |
+| 21 octobre 2026 | Adoption par le Sénat de la proposition de loi prolongeant de deux ans l'encadrement des loyers, sans nouvelles communes (vote conforme de l'Assemblée nationale nécessaire) |
 | 1er novembre 2026 | Début de la trêve hivernale |
-| 24 novembre 2026 | Terme de l'expérimentation de l'encadrement des loyers, sauf prolongation |
+| 24 novembre 2026 | Terme de l'expérimentation de l'encadrement des loyers, sauf prolongation promulguée d'ici là (jusqu'en novembre 2028 dans le texte du Sénat) |
 | 31 décembre 2026 | Fin des dons familiaux exonérés affectés au logement neuf ou à la rénovation énergétique |
 | 1er janvier 2027 | Volet aides au logement du contrat type ; coefficient DPE à 1,7 (arrêté du 19 août 2026) ; taxe unique sur la vacance |
 | 15 janvier 2027 | Publication annoncée de l'IRL du 4e trimestre 2026 |
@@ -4328,7 +4328,7 @@ Rythme de veille conseillé : chaque semaine, actualités de service-public et d
 
 | Sujet | Ce qui peut changer | Échéance |
 |---|---|---|
-| Encadrement des loyers | Fin de l'expérimentation, ou prolongation (examen au Sénat annoncé pour le 21 octobre 2026 ; le gouvernement privilégie deux ans sans nouvelles communes) | 24 novembre 2026 |
+| Encadrement des loyers | Prolongation de deux ans (jusqu'en novembre 2028), sans nouvelles communes, votée par le Sénat le 21 octobre 2026 ; sans vote conforme de l'Assemblée nationale et promulgation, fin de l'expérimentation | 24 novembre 2026 |
 | Projet de loi relance logement | Jeanbrun ancien assoupli (travaux 20 %, classe D sans chaudière fossile, maisons) ; relocation des logements F et G avec contrat de travaux ; nouveaux outils pour les copropriétés | Examen à l'Assemblée nationale depuis septembre 2026 |
 | Projet de loi de finances pour 2027 | Fiscalité locative, IFI, prorogation des dispositifs, mise en œuvre de la taxe sur la vacance | Octobre à décembre 2026 |
 | Loi de financement de la Sécurité sociale pour 2027 | Taux des prélèvements sociaux | Octobre à décembre 2026 |
