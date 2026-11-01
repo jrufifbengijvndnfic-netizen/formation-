@@ -36,7 +36,7 @@ Les montants sont en euros, les pourcentages s'entendent hors mention contraire 
 Cette formation est un outil pédagogique d'information générale. Elle ne remplace pas un conseil juridique, fiscal ou financier personnalisé (avocat, notaire, expert-comptable, conseiller en gestion de patrimoine). Le droit immobilier évolue plusieurs fois par an : avant toute décision engageante, vérifiez la règle sur les sources officielles listées en annexe H (Légifrance, service-public.gouv.fr, impots.gouv.fr et BOFiP, ANIL et ADIL de votre département).
 
 > [!A_SURVEILLER]
-> Plusieurs textes sont en cours d'évolution à la date de rédaction : la prolongation de deux ans de l'expérimentation de l'encadrement des loyers, votée par le Sénat le 21 octobre 2026 et qui doit encore être adoptée sans modification par l'Assemblée nationale avant le terme du 24 novembre 2026, le projet de loi « relance et décentralisation du logement » (adopté par le Sénat le 8 juillet 2026, examiné par l'Assemblée nationale depuis septembre 2026), le projet de loi de finances pour 2027 présenté à l'automne 2026, la fin de la période de transition vers le téléservice national Déclaloc d'enregistrement des meublés de tourisme au second semestre 2026 et le texte dit « RIPOST » sur l'occupation illicite des meublés de tourisme. L'annexe I récapitule ces points.
+> Plusieurs textes sont en cours d'évolution à la date de rédaction : la prolongation de deux ans de l'expérimentation de l'encadrement des loyers, votée par le Sénat le 21 octobre 2026 et qui doit encore être adoptée sans modification par l'Assemblée nationale avant le terme du 24 novembre 2026, le projet de loi « relance et décentralisation du logement » (adopté par le Sénat le 8 juillet 2026, adopté en commission à l'Assemblée nationale en septembre 2026, examen en séance annoncé pour novembre 2026), le projet de loi de finances pour 2027 déposé le 1er octobre 2026 (qui prévoit notamment de plafonner l'amortissement en location meublée), la fin de la période de transition vers le téléservice national Déclaloc d'enregistrement des meublés de tourisme au second semestre 2026 et le texte dit « RIPOST » sur l'occupation illicite des meublés de tourisme. L'annexe I récapitule ces points.
 
 > [!A_SURVEILLER]
 > **Avertissement d'automne.** Le projet de loi de finances pour 2027 et le projet de loi « relance et décentralisation du logement » sont en cours de navette parlementaire : leur contenu peut encore changer. Ne fondez pas une stratégie d'investissement sur ces textes avant leur promulgation, attendue au plus tôt fin décembre 2026 pour la loi de finances, et la publication de leurs décrets d'application.
@@ -3404,7 +3404,7 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | 10 juillet 2026 | IRL du 2e trimestre 2026 : 148,37 |
 | 20 juillet 2026 | Décret reconduisant l'encadrement des loyers à la relocation en zone tendue (baux du 1er août 2026 au 31 juillet 2027) |
 | 1er septembre 2026 | Nouvelles règles MaPrimeRénov' ; réception obligatoire des factures électroniques |
-| 1er octobre 2026 | Nouveau contrat type de bail obligatoire |
+| 1er octobre 2026 | Nouveau contrat type de bail obligatoire ; dépôt du projet de loi de finances pour 2027 à l'Assemblée nationale |
 | 15 octobre 2026 | IRL du 3e trimestre 2026 : 148,06 (+1,57 % sur un an) |
 | 21 octobre 2026 | Adoption par le Sénat de la proposition de loi prolongeant de deux ans l'encadrement des loyers, sans nouvelles communes (vote conforme de l'Assemblée nationale nécessaire) |
 | 1er novembre 2026 | Début de la trêve hivernale |
@@ -4329,8 +4329,8 @@ Rythme de veille conseillé : chaque semaine, actualités de service-public et d
 | Sujet | Ce qui peut changer | Échéance |
 |---|---|---|
 | Encadrement des loyers | Prolongation de deux ans (jusqu'en novembre 2028), sans nouvelles communes, votée par le Sénat le 21 octobre 2026 ; sans vote conforme de l'Assemblée nationale et promulgation, fin de l'expérimentation | 24 novembre 2026 |
-| Projet de loi relance logement | Jeanbrun ancien assoupli (travaux 20 %, classe D sans chaudière fossile, maisons) ; relocation des logements F et G avec contrat de travaux ; nouveaux outils pour les copropriétés | Examen à l'Assemblée nationale depuis septembre 2026 |
-| Projet de loi de finances pour 2027 | Fiscalité locative, IFI, prorogation des dispositifs, mise en œuvre de la taxe sur la vacance | Octobre à décembre 2026 |
+| Projet de loi relance logement | Jeanbrun ancien assoupli (travaux 20 %, classe D sans chaudière fossile, maisons) ; relocation des logements F et G avec contrat de travaux ; nouveaux outils pour les copropriétés | Adopté en commission à l'Assemblée nationale en septembre 2026 ; séance publique annoncée pour novembre 2026 |
+| Projet de loi de finances pour 2027 | Déposé le 1er octobre 2026. Texte initial : plafonnement de l'amortissement en location meublée (2,5 % de la valeur du bien et 7 000 € par an et par foyer ; 1,5 % et 5 000 € pour les meublés de tourisme), prêt à taux zéro élargi ; aucune mesure sur les revenus fonciers ni sur les plus-values immobilières. Le texte peut encore changer au Parlement | Vote de l'Assemblée nationale attendu mi-novembre 2026, puis Sénat ; promulgation au plus tôt fin décembre 2026 |
 | Loi de financement de la Sécurité sociale pour 2027 | Taux des prélèvements sociaux | Octobre à décembre 2026 |
 | DPE | Entrée en vigueur du coefficient électricité à 1,7 (arrêté du 19 août 2026) : générer les attestations de nouvelle étiquette | 1er janvier 2027 |
 | IRL | Publication du 4e trimestre 2026 | 15 janvier 2027 (annoncée) |
