@@ -1870,7 +1870,7 @@ Calculer sa capacité d'emprunt, comprendre les règles des banques, choisir le 
 > [!EXEMPLE]
 > Revenus nets de 3 000 € par mois, sans autre crédit. Futur loyer de 700 € : la banque retient 490 €. Mensualité maximale : (3 000 + 490) × 35 % = 1 221,50 €, assurance comprise. Sur 25 ans à 3,45 % avec une assurance à 0,30 % du capital par an, cela permet d'emprunter environ 233 600 €.
 
-**Les taux.** À l'été 2026, les taux moyens hors assurance tournent autour de 3,2 % sur 15 ans, 3,35 % sur 20 ans et 3,45 % sur 25 ans, les meilleurs dossiers obtenant environ 0,2 à 0,3 point de moins. Le coût global se mesure par le TAEG (taux annuel effectif global), qui intègre intérêts, assurance obligatoire, frais de dossier et de garantie. Aucun prêt ne peut dépasser le taux d'usure.
+**Les taux.** En octobre 2026, les barèmes moyens des courtiers, hors assurance, se situent autour de 3,4 à 3,5 % sur 15 ans, 3,55 à 3,65 % sur 20 ans et 3,65 à 3,75 % sur 25 ans, en hausse depuis l'été (environ 3,2 %, 3,35 % et 3,45 %) ; les meilleurs dossiers obtiennent environ 0,2 à 0,3 point de moins. Le coût global se mesure par le TAEG (taux annuel effectif global), qui intègre intérêts, assurance obligatoire, frais de dossier et de garantie. Aucun prêt ne peut dépasser le taux d'usure.
 
 | Taux d'usure (prêts immobiliers aux particuliers), 4e trimestre 2026 | Seuil |
 |---|---|
@@ -3363,7 +3363,7 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 | Transmission | Abattements | 100 000 € par parent et par enfant tous les 15 ans ; 31 865 € par petit-enfant ; don familial de 31 865 € ; dons affectés au logement neuf ou à la rénovation énergétique : 100 000 € par donateur, 300 000 € par donataire jusqu'au 31 décembre 2026 |
 | Crédit | Normes HCSF | Taux d'effort de 35 % assurance comprise, 25 ans (27 avec différé) |
 | Crédit | Taux d'usure 4e trimestre 2026 | Moins de 10 ans 4,09 % ; 10 à 20 ans 4,68 % ; 20 ans et plus 5,40 % ; variable 5,52 % ; relais 6,49 % |
-| Crédit | Taux moyens de marché (été 2026) | Environ 3,2 % (15 ans), 3,35 % (20 ans), 3,45 % (25 ans), hors assurance |
+| Crédit | Taux moyens de marché (octobre 2026) | Environ 3,4 à 3,5 % (15 ans), 3,55 à 3,65 % (20 ans), 3,65 à 3,75 % (25 ans), hors assurance, selon les barèmes des courtiers |
 | Crédit | Éco-prêt à taux zéro | Jusqu'à 50 000 €, jusqu'au 31 décembre 2027 |
 | Achat | Droits de mutation dans l'ancien | Taxe départementale 4,50 % ou 5 % selon le département (hors primo-accédants) + taxe communale 1,20 % + frais d'assiette ; frais totaux de 7,5 à 8,5 % |
 | Copropriété | État daté | 380 € TTC au plus |
