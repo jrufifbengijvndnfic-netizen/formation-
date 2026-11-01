@@ -109,7 +109,7 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
   texte reste dans le code source des pages. Voir `site/README.md`, section « Tarifs et vente ».
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **022**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **023**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist`, fichier caché `.htaccess` compris).
 
 ## 3. Décisions prises (et pourquoi)
