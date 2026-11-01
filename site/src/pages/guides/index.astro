@@ -1,0 +1,57 @@
+---
+import Avertissement from '../../components/Avertissement.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Base from '../../layouts/Base.astro';
+import { formaterDateFr } from '../../lib/dates-fr';
+import { GUIDES, cheminGuide } from '../../lib/guides';
+import { lien } from '../../lib/navigation';
+
+// Les plus récemment mis à jour d'abord.
+const liste = [...GUIDES].sort((a, b) => b.misAJour.localeCompare(a.misAJour));
+const filAriane = [{ libelle: 'Accueil', href: lien() }, { libelle: 'Guides pratiques' }];
+---
+
+<Base
+  filAriane={filAriane}
+  titre="Guides pratiques pour bailleurs : loyers et fiscalité"
+  description="Guides gratuits et datés pour propriétaires bailleurs : encadrement des loyers, fiscalité de la location meublée. Le droit en vigueur et les textes en cours."
+  niveau="annexes"
+  actif="guides"
+>
+  <div class="bandeau">
+    <div class="conteneur">
+      <FilAriane etapes={filAriane} />
+      <p class="bandeau__sur">Gratuits, datés et sourcés</p>
+      <h1>Guides pratiques pour bailleurs</h1>
+      <p>
+        Les sujets d'actualité expliqués simplement : ce qui s'applique aujourd'hui, ce qui est seulement en projet, et
+        les outils gratuits pour faire vos calculs.
+      </p>
+    </div>
+  </div>
+  <div class="conteneur">
+    <ol class="registre">
+      {liste.map((g, i) => (
+        <li class="registre__ligne">
+          <span class="registre__numero">
+            <span class="parcelle">{i + 1}</span>
+          </span>
+          <div>
+            <h2 class="registre__titre">
+              <a href={lien(cheminGuide(g))}>{g.h1}</a>
+            </h2>
+            <p class="registre__resume">{g.description}</p>
+            <p class="registre__resume">
+              <small>
+                {g.sur} · mis à jour le <time datetime={g.misAJour}>{formaterDateFr(g.misAJour)}</time>
+              </small>
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <div class="prose">
+      <Avertissement />
+    </div>
+  </div>
+</Base>

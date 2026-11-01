@@ -1,0 +1,101 @@
+---
+/**
+ * Page d'un guide pratique (src/lib/guides.ts) : texte Markdown de files/guides/, outils gratuits du
+ * sujet, encart vers les modules de la formation, avertissement.
+ */
+import Avertissement from '../../components/Avertissement.astro';
+import EncartFormation from '../../components/EncartFormation.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import InscriptionEmail from '../../components/InscriptionEmail.astro';
+import Base from '../../layouts/Base.astro';
+import { formaterDateFr } from '../../lib/dates-fr';
+import { modulesExistants } from '../../lib/donnees';
+import { COURS_PUBLIC } from '../../lib/edition';
+import { GUIDES, cheminGuide, guideJsonLd, texteGuide, type Guide } from '../../lib/guides';
+import { lien } from '../../lib/navigation';
+import { referencementSimulateur } from '../../lib/referencement-simulateurs';
+import { nouveauContexte, rendreMarkdown } from '../../lib/render';
+import { SITE_PAR_DEFAUT } from '../../lib/seo';
+import { simulateurParId } from '../../lib/simulateurs';
+
+export function getStaticPaths() {
+  return GUIDES.map((g) => ({ params: { slug: g.slug }, props: { guide: g } }));
+}
+interface Props {
+  guide: Guide;
+}
+const { guide } = Astro.props;
+// Liens internes du Markdown écrits depuis la racine (« /simulateurs/… ») : préfixés par la base du site.
+const html = rendreMarkdown(
+  texteGuide(guide),
+  nouveauContexte({ modulesExistants, liensAnnexes: COURS_PUBLIC }),
+).replace(/href="\/(?!\/)/g, `href="${lien()}`);
+const outils = guide.simulateurs.flatMap((id) => {
+  const s = simulateurParId(id);
+  return s ? [s] : [];
+});
+const autres = GUIDES.filter((g) => g !== guide);
+const filAriane = [
+  { libelle: 'Accueil', href: lien() },
+  { libelle: 'Guides pratiques', href: lien('guides/') },
+  { libelle: guide.h1 },
+];
+---
+
+<Base
+  filAriane={filAriane}
+  titre={guide.titre}
+  description={guide.description}
+  donneesStructurees={guideJsonLd(guide, Astro.site ?? SITE_PAR_DEFAUT)}
+  niveau="annexes"
+  actif="guides"
+>
+  <div data-pagefind-body>
+    <div class="bandeau">
+      <div class="conteneur">
+        <FilAriane etapes={filAriane} />
+        <p class="bandeau__sur">Guide pratique · {guide.sur}</p>
+        <h1>{guide.h1}</h1>
+        <p class="bandeau__meta">
+          <span>
+            Publié le <time datetime={guide.publie}>{formaterDateFr(guide.publie)}</time>
+            {guide.misAJour !== guide.publie && (
+              <>
+                {' '}
+                · mis à jour le <time datetime={guide.misAJour}>{formaterDateFr(guide.misAJour)}</time>
+              </>
+            )}
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="conteneur prose contenu">
+      <Fragment set:html={html} />
+      <section aria-labelledby="guide-outils" data-pagefind-ignore>
+        <h2 id="guide-outils">Les outils gratuits pour ce sujet</h2>
+        <ul>
+          {outils.map((s) => (
+            <li>
+              <a href={lien(`simulateurs/${s.id}/`)}>{referencementSimulateur(s).h1}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <EncartFormation modules={guide.modules} intro="Le sujet est traité en détail dans" />
+      <InscriptionEmail />
+      {autres.length > 0 && (
+        <section aria-labelledby="guide-autres" data-pagefind-ignore>
+          <h2 id="guide-autres">Autres guides</h2>
+          <ul>
+            {autres.map((g) => (
+              <li>
+                <a href={lien(cheminGuide(g))}>{g.h1}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      <Avertissement />
+    </div>
+  </div>
+</Base>
