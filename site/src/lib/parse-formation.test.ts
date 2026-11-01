@@ -36,9 +36,9 @@ describe('comptages (critère d’acceptation 1)', () => {
 describe('en-tête du document', () => {
   it('lit le titre, l’édition et la date de mise à jour', () => {
     expect(formation.titre).toBe("Formation complète — L'immobilier locatif en France");
-    expect(formation.edition).toBe('septembre 2026');
-    expect(formation.aJourAu).toBe('2026-09-24');
-    expect(formation.aJourAuTexte).toBe('24 septembre 2026');
+    expect(formation.edition).toBe('novembre 2026');
+    expect(formation.aJourAu).toBe('2026-11-01');
+    expect(formation.aJourAuTexte).toBe('1er novembre 2026');
     expect(formation.accroche).toMatch(/^Trois niveaux progressifs/);
   });
   it('isole la phrase de conclusion finale', () => {

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Site statique de la formation « L'immobilier locatif en France » (édition septembre 2026)",
+  "description": "Site statique de la formation « L'immobilier locatif en France » (édition novembre 2026)",
   "engines": {
     "node": ">=22.12.0"
   },

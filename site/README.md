@@ -1,4 +1,4 @@
-# Site « L'immobilier locatif en France » — édition septembre 2026
+# Site « L'immobilier locatif en France » — édition novembre 2026
 
 Site statique (Astro 7 + TypeScript) généré à partir d'un **seul fichier Markdown** :
 `../files/formation-immobilier-locatif-2026/formation-immobilier-locatif-2026.md`.

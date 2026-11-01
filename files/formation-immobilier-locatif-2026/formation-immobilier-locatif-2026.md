@@ -1,6 +1,6 @@
 # Formation complète — L'immobilier locatif en France
 
-**Édition septembre 2026 — contenu à jour au 24 septembre 2026**
+**Édition novembre 2026 — contenu à jour au 1er novembre 2026**
 
 Trois niveaux progressifs pour devenir autonome : comprendre, acheter, louer, gérer, déclarer, optimiser, se défendre et transmettre.
 
@@ -3326,7 +3326,7 @@ Corrigé. Premier logement : squat, entrée par voie de fait. Plainte, preuve de
 
 ---
 
-### Annexe A — Chiffres clés au 24 septembre 2026
+### Annexe A — Chiffres clés au 1er novembre 2026
 
 | Thème | Donnée | Valeur 2026 |
 |---|---|---|
