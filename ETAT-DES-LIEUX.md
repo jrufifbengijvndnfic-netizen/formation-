@@ -107,9 +107,13 @@ rendu dans `audit/MISE-EN-OEUVRE.md`) :
   verrouillés par niveau ; codes `0001`, `0002`, `0003` (niveaux 1, 2, 3), saisis sur la page ou sur
   `/acces/` et gardés dans le navigateur. Verrou d'affichage en attendant le paiement en ligne : le
   texte reste dans le code source des pages. Voir `site/README.md`, section « Tarifs et vente ».
+- guides pratiques (version 024, `site/src/lib/guides.ts`, textes dans `files/guides/`) : articles
+  d'actualité gratuits sur `/guides/`, reliés aux simulateurs et aux modules (LMNP et budget 2027 ;
+  encadrement des loyers après le 24 novembre 2026). Choix des sujets : `audit/ETUDE-RECHERCHES-2026-11.md`
+  et `audit/SEARCH-CONSOLE-2026-11.md`.
 
 **Versions** : `versions/VERSIONS.md`. Chaque nouveauté mise en ligne ajoute 1 au numéro
-(version actuelle : **023**) et produit `versions/formation-location-version-NNN.zip` (contenu de
+(version actuelle : **024**) et produit `versions/formation-location-version-NNN.zip` (contenu de
 `site/dist`, fichier caché `.htaccess` compris).
 
 ## 3. Décisions prises (et pourquoi)
